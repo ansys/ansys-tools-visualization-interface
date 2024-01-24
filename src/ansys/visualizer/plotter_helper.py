@@ -23,12 +23,12 @@
 from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
 import pyvista as pv
+from ansys.visualizer.utils.logger import logger
 
 from ansys.visualizer.colors import Colors
 from ansys.visualizer import Plotter
-from ansys.geometry.core.plotting.plotting_types import EdgePlot, GeomObjectPlot
-
-from ansys.geometry.core.plotting.widgets import (
+from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
+from ansys.visualizer.widgets import (
     CameraPanDirection,
     DisplacementArrow,
     MeasureWidget,
@@ -38,10 +38,9 @@ from ansys.geometry.core.plotting.widgets import (
     ViewButton,
     ViewDirection,
 )
-from ansys.geometry.core.sketch.face import SketchFace
-from ansys.geometry.core.sketch.sketch import Sketch
 
-
+from ansys.visualizer.trame_gui import _HAS_TRAME, TrameVisualizer
+from ansys.visualizer import USE_TRAME
 class PlotterHelper:
     """
     Provides for simplifying the selection of trame in ``plot()`` functions.
@@ -62,9 +61,7 @@ class PlotterHelper:
         """Initialize ``use_trame`` and save current ``pv.OFF_SCREEN`` value."""
         # Check if the use of trame was requested
         if use_trame is None:
-            import ansys.geometry.core as pyansys_geometry
-
-            use_trame = pyansys_geometry.USE_TRAME
+            use_trame = USE_TRAME
 
         self._use_trame = use_trame
         self._allow_picking = allow_picking
@@ -109,16 +106,16 @@ class PlotterHelper:
             self._widgets.append(MeasureWidget(self))
             self._widgets.append(ShowDesignPoints((self)))
 
-    def select_object(self, geom_object: Union[GeomObjectPlot, EdgePlot], pt: np.ndarray) -> None:
+    def select_object(self, geom_object: Union[MeshObjectPlot, EdgePlot], pt: np.ndarray) -> None:
         """
         Select an object in the plotter.
 
-        Highlights the object edges and adds a label with the object name and adds
-        it to the PyAnsys Geometry object selection.
+        Highlights the object edges if any and adds a label with the object name and adds
+        it to the PyAnsys object selection.
 
         Parameters
         ----------
-        geom_object : Union[GeomObjectPlot, EdgePlot]
+        geom_object : Union[MeshObjectPlot, EdgePlot]
             Geometry object to select.
         pt : ~numpy.ndarray
             Set of points to determine the label position.
@@ -126,14 +123,14 @@ class PlotterHelper:
         added_actors = []
 
         # Add edges if selecting an object
-        if isinstance(geom_object, GeomObjectPlot):
-            geom_object.actor.prop.color = PICKED_COLOR
+        if isinstance(geom_object, MeshObjectPlot):
+            geom_object.actor.prop.color = Colors.PICKED_COLOR
             children_list = geom_object.edges
             for edge in children_list:
                 edge.actor.SetVisibility(True)
-                edge.actor.prop.color = EDGE_COLOR
+                edge.actor.prop.color = Colors.EDGE_COLOR
         elif isinstance(geom_object, EdgePlot):
-            geom_object.actor.prop.color = PICKED_EDGE_COLOR
+            geom_object.actor.prop.color = Colors.PICKED_EDGE_COLOR
 
         text = geom_object.name
 
@@ -150,7 +147,7 @@ class PlotterHelper:
         added_actors.append(label_actor)
         self._picker_added_actors_map[geom_object.actor.name] = added_actors
 
-    def unselect_object(self, geom_object: Union[GeomObjectPlot, EdgePlot]) -> None:
+    def unselect_object(self, geom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
         """
         Unselect an object in the plotter.
 
@@ -159,7 +156,7 @@ class PlotterHelper:
 
         Parameters
         ----------
-        geom_object : Union[GeomObjectPlot, EdgePlot]
+        geom_object : Union[MeshObjectPlot, EdgePlot]
             Object to unselect.
         """
         # remove actor from picked list and from scene
@@ -167,16 +164,16 @@ class PlotterHelper:
         if object_name in self._picked_list:
             self._picked_list.remove(object_name)
 
-        if isinstance(geom_object, GeomObjectPlot):
-            geom_object.actor.prop.color = DEFAULT_COLOR
+        if isinstance(geom_object, MeshObjectPlot):
+            geom_object.actor.prop.color = Colors.DEFAULT_COLOR
         elif isinstance(geom_object, EdgePlot):
-            geom_object.actor.prop.color = EDGE_COLOR
+            geom_object.actor.prop.color = Colors.EDGE_COLOR
 
         if geom_object.actor.name in self._picker_added_actors_map:
             self._pl.scene.remove_actor(self._picker_added_actors_map[geom_object.actor.name])
 
             # remove actor and its children(edges) from the scene
-            if isinstance(geom_object, GeomObjectPlot):
+            if isinstance(geom_object, MeshObjectPlot):
                 for edge in geom_object.edges:
                     # hide edges in the scene
                     edge.actor.SetVisibility(False)
@@ -210,7 +207,7 @@ class PlotterHelper:
                 self.select_object(edge, pt)
             else:
                 self.unselect_object(edge)
-                actor.prop.color = EDGE_COLOR
+                actor.prop.color = Colors.EDGE_COLOR
 
     def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
         """
@@ -223,14 +220,8 @@ class PlotterHelper:
         """
         for object in self._geom_object_actors_map.values():
             # get edges only from bodies
-            geom_obj = object.object
-            if (
-                isinstance(geom_obj, Body)
-                or isinstance(geom_obj, MasterBody)
-                or isinstance(geom_obj, Face)
-                or isinstance(geom_obj, SketchFace)
-                or isinstance(geom_obj, Sketch)
-            ):
+            custom_obj = object.object
+            if hasattr(custom_obj, "edges"):
                 for edge in object.edges:
                     self._edge_actors_map[edge.actor] = edge
 

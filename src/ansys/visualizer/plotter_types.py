@@ -22,7 +22,8 @@
 """Data types for plotting."""
 from beartype.typing import Any, List
 import pyvista as pv
-
+from abc import ABC, abstractmethod
+from beartype import Union
 from ansys.geometry.core.designer.edge import Edge
 from ansys.geometry.core.logger import LOG
 
@@ -41,7 +42,7 @@ class EdgePlot:
         Parent PyAnsys Geometry object of this edge, by default ``None``.
     """
 
-    def __init__(self, actor: pv.Actor, edge_object: Edge, parent: "GeomObjectPlot" = None) -> None:
+    def __init__(self, actor: pv.Actor, edge_object: Any, parent: Any = None) -> None:
         """Initialize EdgePlot variables."""
         self._actor = actor
         self._object = edge_object
@@ -62,24 +63,24 @@ class EdgePlot:
     @property
     def edge_object(self) -> Edge:
         """
-        Return the PyAnsys Geometry edge.
+        Return the PyAnsys edge.
 
         Returns
         -------
         Edge
-            PyAnsys Geometry edge.
+            PyAnsys edge.
         """
         return self._object
 
     @property
     def parent(self) -> Any:
         """
-        Parent PyAnsys Geometry object of this edge.
+        Parent PyAnsys object of this edge.
 
         Returns
         -------
         Any
-            PyAnsys Geometry object.
+            PyAnsys object.
         """
         return self._parent
 
@@ -99,7 +100,7 @@ class EdgePlot:
             return self.edge_object.id
 
     @parent.setter
-    def parent(self, parent: "GeomObjectPlot"):
+    def parent(self, parent: "MeshObjectPlot"):
         """
         Set the parent object of the edge.
 
@@ -110,109 +111,34 @@ class EdgePlot:
         """
         self._parent = parent
 
-
-class GeomObjectPlot:
-    """
-    Mapper class to relate PyAnsys Geometry objects with its PyVista actor.
-
-    Parameters
-    ----------
-    actor : pv.Actor
-        PyVista actor that represents the pyansys-geometry object.
-    object : Any
-        PyAnsys Geometry object that is represented.
-    edges : List[EdgePlot], optional
-        List of edges of the PyAnsys Geometry object, by default ``None``.
-    add_body_edges: bool, optional
-        Flag to specify if you want to be able to add edges.
-    """
-
-    def __init__(
-        self,
-        actor: pv.Actor,
-        object: Any,
-        edges: List[EdgePlot] = None,
-        add_body_edges: bool = True,
-    ) -> None:
-        """Initialize GeomObjectPlot variables."""
+class MeshObjectPlot():
+    """Relates a custom object with a mesh, provided by consumer library."""
+    def __init__(self, custom_object: Any, mesh: Union[pv.PolyData, pv.MultiBlock], actor: pv.Actor = None, edges: List[EdgePlot] = None) -> None:
+        self._custom_object = custom_object
+        self._mesh = mesh
         self._actor = actor
-        self._object = object
         self._edges = edges
-        self._add_body_edges = add_body_edges
-
+    
+    @property
+    def mesh(self) -> Union[pv.PolyData, pv.MultiBlock]:
+        return self._mesh
+    
+    @mesh.setter
+    def mesh(self, mesh: Union[pv.PolyData, pv.MultiBlock]):
+        self._mesh = mesh
+    
+    @property
+    def custom_object(self) -> Any:
+        return self._custom_object
+    
+    @custom_object.setter
+    def custom_object(self, custom_object: Any):
+        self._custom_object = custom_object
+    
     @property
     def actor(self) -> pv.Actor:
-        """
-        Return the PyVista actor of the PyAnsys Geometry object.
-
-        Returns
-        -------
-        ~pyvista.Actor
-            Actor of the PyAnsys Geometry object.
-        """
         return self._actor
 
-    @property
-    def object(self) -> Any:
-        """
-        Return the PyAnsys Geometry object.
-
-        Returns
-        -------
-        Any
-            PyAnsys Geometry object.
-        """
-        return self._object
-
-    @property
-    def edges(self) -> List[EdgePlot]:
-        """
-        Return the list of edges associated to this PyAnsys Geometry object.
-
-        Returns
-        -------
-        List[EdgePlot]
-            List of the edges of this object.
-        """
-        return self._edges
-
-    @edges.setter
-    def edges(self, edges: List[EdgePlot]):
-        """
-        Set the edges of this object.
-
-        Parameters
-        ----------
-        edges : List[EdgePlot]
-            List of the edges of this object.
-        """
-        if self._add_body_edges:
-            self._edges = edges
-        else:
-            LOG.warning(
-                "To add edges to this body, it should be initialized with add_body_edges flag."
-            )
-
-    @property
-    def name(self) -> str:
-        """
-        Return the name of this object.
-
-        Returns
-        -------
-        str
-            Name of the object.
-        """
-        return self._object.name
-
-    @property
-    def add_body_edges(self) -> bool:
-        """
-        Return whether you want to be able to add edges.
-
-        Returns
-        -------
-        bool
-            Flag to add edges.
-        """
-        return self._add_body_edges
+    @actor.setter
+    def actor(self, actor: pv.Actor):
+        self._actor = actor

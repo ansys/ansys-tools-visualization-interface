@@ -24,11 +24,11 @@ import re
 
 from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
-import pyvista as pv
+import pyvista as pv 
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 from pyvista.plotting.tools import create_axes_marker
-from ansys.visualizer.colors import Colors
-from ansys.visualizer.plotter_types import EdgePlot, GeomObjectPlot
+from ansys.visualizer.colors import Colors 
+from ansys.visualizer.plotter_types import EdgePlot, GeomObjectPlot, MeshObjectPlot
 from abc import ABC, abstractmethod
 
 
@@ -36,7 +36,7 @@ class Plotter:
     """
     Provides for plotting sketches and bodies.
 
-    Parameters
+    Parameters 
     ----------
     scene : ~pyvista.Plotter, default: None
         ``Scene`` instance for rendering the objects.
@@ -77,7 +77,7 @@ class Plotter:
         self._num_points = num_points
 
         # geometry objects to actors mapping
-        self._geom_object_actors_map = {}
+        self._object_to_actors_map = {}
         self._enable_widgets = enable_widgets
 
     @property
@@ -140,8 +140,18 @@ class Plotter:
         return mesh.clip(normal=normal, origin=origin)
 
     @abstractmethod
-    def add_custom(self, object: Any, **plotting_options) -> pv.Polydata or pv.Multiblock:
-        return
+    def add_custom(self, object: MeshObjectPlot,  **plotting_options) -> pv.Polydata or pv.Multiblock:
+        dataset = object.mesh
+        if "clipping_plane" in plotting_options:
+            dataset = self.clip(dataset, plotting_options["clipping_plane"])
+            plotting_options.pop("clipping_plane", None)
+        if isinstance(object.mesh, pv.PolyData):
+            actor, _ = self.scene.add_mesh(object.mesh, **plotting_options)
+        else:
+            actor, _ = self.scene.add_mesh(object.mesh, **plotting_options)
+        object.actor = actor
+        self._object_to_actors_map[actor] = object
+        return actor.name
 
     def add(
         self,
@@ -175,7 +185,7 @@ class Plotter:
         """
         if filter:
             if hasattr(object, "name") and not re.search(filter, object.name):
-                return self._geom_object_actors_map
+                return self._object_to_actors_map
 
         # Check what kind of object we are dealing with
         if isinstance(object, List) and isinstance(object[0], pv.PolyData):
@@ -191,7 +201,7 @@ class Plotter:
                 plotting_options.pop("clipping_plane", None)
             self.scene.add_composite(object, **plotting_options)
         else:
-            self.add_custom(object, **plotting_options)
+            _ = self.add_custom(object, **plotting_options)
 
     def add_list(
         self,
@@ -290,6 +300,6 @@ class Plotter:
         plotting_options.setdefault("color", Colors.DEFAULT_COLOR)
 
     @property
-    def geom_object_actors_map(self) -> Dict[pv.Actor, GeomObjectPlot]:
+    def object_to_actors_map(self) -> Dict[pv.Actor, GeomObjectPlot]:
         """Mapping between the ~pyvista.Actor and the PyAnsys Geometry objects."""
-        return self._geom_object_actors_map
+        return self._object_to_actors_map
