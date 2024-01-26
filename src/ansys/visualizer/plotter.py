@@ -142,8 +142,8 @@ class Plotter:
         """
         return mesh.clip(normal=normal, origin=origin)
 
-    @abstractmethod
-    def add_custom(self, object: MeshObjectPlot,  **plotting_options) -> pv.PolyData or pv.Multiblock:
+    def add_meshobject(self, object: MeshObjectPlot,  **plotting_options) -> pv.PolyData or pv.Multiblock:
+        """Adds a generic MeshObjectPlot to the scene."""
         dataset = object.mesh
         if "clipping_plane" in plotting_options:
             dataset = self.clip(dataset, plotting_options["clipping_plane"])
@@ -191,7 +191,7 @@ class Plotter:
 
     def add(
         self,
-        object: Any,
+        object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, Any],
         filter: str = None,
         **plotting_options,
     ) -> None:
@@ -224,9 +224,7 @@ class Plotter:
                 return self._object_to_actors_map
 
         # Check what kind of object we are dealing with
-        if isinstance(object, List) and isinstance(object[0], pv.PolyData):
-            self.add_sketch_polydata(object, **plotting_options)
-        elif isinstance(object, pv.PolyData):
+        if isinstance(object, pv.PolyData):
             if "clipping_plane" in plotting_options:
                 object = self.clip(object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
@@ -236,14 +234,14 @@ class Plotter:
                 object = self.clip(object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
             self.scene.add_composite(object, **plotting_options)
+        elif isinstance(object, MeshObjectPlot):
+            _ = self.add_meshobject(object, **plotting_options)
         else:
-            _ = self.add_custom(object, **plotting_options)
+            self.add_custom(object, **plotting_options)
 
     def add_list(
         self,
         plotting_list: List[Any],
-        merge_bodies: bool = False,
-        merge_components: bool = False,
         filter: str = None,
         **plotting_options,
     ) -> None:
@@ -272,7 +270,7 @@ class Plotter:
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
         """
         for object in plotting_list:
-            _ = self.add(object, merge_bodies, merge_components, filter, **plotting_options)
+            _ = self.add(object, filter, **plotting_options)
 
     def show(
         self,
@@ -328,12 +326,12 @@ class Plotter:
 
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
 
-    def __set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
+    def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
         # If the following keys do not exist, set the default values
         #
         # This method should only be applied in 3D objects: bodies, components
         plotting_options.setdefault("smooth_shading", True)
-        plotting_options.setdefault("color", Colors.DEFAULT_COLOR)
+        plotting_options.setdefault("color", Colors.DEFAULT_COLOR.value)
 
     @property
     def object_to_actors_map(self) -> Dict[pv.Actor, MeshObjectPlot]:

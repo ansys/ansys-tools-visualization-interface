@@ -59,7 +59,7 @@ class PlotterHelper:
         self._use_trame = use_trame
         self._allow_picking = allow_picking
         self._pv_off_screen_original = bool(pv.OFF_SCREEN)
-        self.__object_to_actors_map = {}
+        self._object_to_actors_map = {}
         self._pl = None
         self._picked_list = set()
         self._picker_added_actors_map = {}
@@ -97,6 +97,19 @@ class PlotterHelper:
                 for dir in ViewDirection
             ]
             self._widgets.append(MeasureWidget(self))
+
+    def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
+        """Add a widget to the plotter.
+        
+        Parameters
+        ----------
+        widget : Union[PlotterWidget, List[PlotterWidget]]
+            Widget or list of widgets to add to the plotter.
+        """
+        if isinstance(widget, list):
+            self._widgets.extend(widget)
+        else:
+            self._widgets.append(widget)
 
     def select_object(self, geom_object: Union[MeshObjectPlot, EdgePlot], pt: np.ndarray) -> None:
         """
@@ -185,8 +198,8 @@ class PlotterHelper:
         pt = self._pl.scene.picked_point
 
         # if object is a body/component
-        if actor in self.__object_to_actors_map:
-            body_plot = self.__object_to_actors_map[actor]
+        if actor in self._object_to_actors_map:
+            body_plot = self._object_to_actors_map[actor]
             if body_plot.object.name not in self._picked_list:
                 self.select_object(body_plot, pt)
             else:
@@ -210,7 +223,7 @@ class PlotterHelper:
         Dict[~pyvista.Actor, EdgePlot]
             Mapping between plotter actors and EdgePlot objects.
         """
-        for mesh_object in self.__object_to_actors_map.values():
+        for mesh_object in self._object_to_actors_map.values():
             # get edges only from bodies
             if mesh_object.edges is not None:
                 for edge in mesh_object.edges:
@@ -241,9 +254,6 @@ class PlotterHelper:
         self,
         object: Any = None,
         screenshot: Optional[str] = None,
-        merge_bodies: bool = False,
-        merge_component: bool = False,
-        view_2d: Dict = None,
         filter: str = None,
         **plotting_options,
     ) -> List[Any]:
@@ -282,22 +292,16 @@ class PlotterHelper:
         """
         if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
             logger.debug("Plotting objects in list...")
-            self._pl.add_list(object, merge_bodies, merge_component, filter, **plotting_options)
+            self._pl.add_list(object, filter, **plotting_options)
         else:
             self._pl.add(object, filter, **plotting_options)
         if self._pl._object_to_actors_map:
-            self.__object_to_actors_map = self._pl._object_to_actors_map
+            self._object_to_actors_map = self._pl._object_to_actors_map
         else:
             logger.warning("No actors added to the plotter.")
-
-        map = self.compute_edge_object_map()
+        
         # Compute mapping between the objects and its edges.
-
-        if view_2d is not None:
-            self._pl.scene.view_vector(
-                vector=view_2d["vector"],
-                viewup=view_2d["viewup"],
-            )
+        _ = self.compute_edge_object_map()
 
         # Enable widgets and picking capabilities
         self.enable_widgets()
