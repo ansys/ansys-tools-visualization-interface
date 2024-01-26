@@ -25,7 +25,7 @@ import os
 
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
-from ansys.geometry.core.plotting.widgets.widget import PlotterWidget
+from ansys.visualizer.widgets.widget import PlotterWidget
 
 
 class MeasureWidget(PlotterWidget):

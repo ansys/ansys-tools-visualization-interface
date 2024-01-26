@@ -3,7 +3,7 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "ansys-visualizer"
+name = "pyansys-visualizer"
 version = "0.1.dev0"
 description = "A python visualizer for PyAnsys libraries"
 readme = "README.rst"
@@ -25,4 +25,8 @@ classifiers = [
 
 dependencies = [
     "pyvista >= 0.42.0",
+    "beartype >= 0.17.0",
 ]
+
+[tool.flit.module]
+name = "ansys.visualizer"

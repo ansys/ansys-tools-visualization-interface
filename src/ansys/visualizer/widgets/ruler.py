@@ -23,11 +23,9 @@
 
 import os
 
+from ansys.visualizer.widgets.widget import PlotterWidget
 from pyvista import Plotter
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
-
-from ansys.geometry.core.misc.measurements import DEFAULT_UNITS
-from ansys.geometry.core.plotting.widgets.widget import PlotterWidget
 
 
 class Ruler(PlotterWidget):
@@ -78,9 +76,9 @@ class Ruler(PlotterWidget):
                 show_yaxis=True,
                 show_zaxis=True,
                 color="black",
-                xlabel=f"X Axis [{DEFAULT_UNITS.LENGTH:~H}]",
-                ylabel=f"Y Axis [{DEFAULT_UNITS.LENGTH:~H}]",
-                zlabel=f"Z Axis [{DEFAULT_UNITS.LENGTH:~H}]",
+                xlabel="X Axis [m]",
+                ylabel="Y Axis [m]",
+                zlabel="Z Axis [m]",
             )
 
     def update(self) -> None:

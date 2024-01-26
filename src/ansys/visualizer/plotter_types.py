@@ -20,12 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Data types for plotting."""
-from beartype.typing import Any, List
-import pyvista as pv
 from abc import ABC, abstractmethod
-from beartype import Union
-from ansys.geometry.core.designer.edge import Edge
-from ansys.geometry.core.logger import LOG
+from typing import Union
+
+import pyvista as pv
+from beartype.typing import Any, List
 
 
 class EdgePlot:
@@ -61,13 +60,13 @@ class EdgePlot:
         return self._actor
 
     @property
-    def edge_object(self) -> Edge:
+    def edge_object(self) -> Any:
         """
         Return the PyAnsys edge.
 
         Returns
         -------
-        Edge
+        Any
             PyAnsys edge.
         """
         return self._object
@@ -118,7 +117,7 @@ class MeshObjectPlot():
         self._mesh = mesh
         self._actor = actor
         self._edges = edges
-    
+            
     @property
     def mesh(self) -> Union[pv.PolyData, pv.MultiBlock]:
         return self._mesh
@@ -142,3 +141,11 @@ class MeshObjectPlot():
     @actor.setter
     def actor(self, actor: pv.Actor):
         self._actor = actor
+    
+    @property
+    def edges(self) -> List[EdgePlot]:
+        return self._edges
+    
+    @edges.setter
+    def edges(self, edges: List[EdgePlot]):
+        self._edges = edges

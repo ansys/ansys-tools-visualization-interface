@@ -21,13 +21,13 @@
 # SOFTWARE.
 """Provides for implementing buttons in PyAnsys Geometry."""
 
-from abc import abstractmethod
 import os
+from abc import abstractmethod
 
 from pyvista import Plotter
 from vtk import vtkButtonWidget, vtkPNGReader
 
-from ansys.geometry.core.plotting.widgets.widget import PlotterWidget
+from ansys.visualizer.widgets.widget import PlotterWidget
 
 
 class Button(PlotterWidget):

@@ -20,27 +20,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
-from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
 import pyvista as pv
-from ansys.visualizer.utils.logger import logger
-
-from ansys.visualizer.colors import Colors
-from ansys.visualizer import Plotter
-from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
-from ansys.visualizer.widgets import (
-    CameraPanDirection,
-    DisplacementArrow,
-    MeasureWidget,
-    PlotterWidget,
-    Ruler,
-    ShowDesignPoints,
-    ViewButton,
-    ViewDirection,
-)
-
-from ansys.visualizer.trame_gui import _HAS_TRAME, TrameVisualizer
 from ansys.visualizer import USE_TRAME
+from ansys.visualizer.colors import Colors
+from ansys.visualizer.plotter import Plotter
+from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
+from ansys.visualizer.trame_gui import _HAS_TRAME, TrameVisualizer
+from ansys.visualizer.utils.logger import logger
+from ansys.visualizer.widgets import (CameraPanDirection, DisplacementArrow,
+                                      MeasureWidget, PlotterWidget, Ruler,
+                                      ViewButton, ViewDirection)
+from beartype.typing import Any, Dict, List, Optional, Union
+
+
 class PlotterHelper:
     """
     Provides for simplifying the selection of trame in ``plot()`` functions.
@@ -66,7 +59,7 @@ class PlotterHelper:
         self._use_trame = use_trame
         self._allow_picking = allow_picking
         self._pv_off_screen_original = bool(pv.OFF_SCREEN)
-        self._geom_object_actors_map = {}
+        self.__object_to_actors_map = {}
         self._pl = None
         self._picked_list = set()
         self._picker_added_actors_map = {}
@@ -104,7 +97,6 @@ class PlotterHelper:
                 for dir in ViewDirection
             ]
             self._widgets.append(MeasureWidget(self))
-            self._widgets.append(ShowDesignPoints((self)))
 
     def select_object(self, geom_object: Union[MeshObjectPlot, EdgePlot], pt: np.ndarray) -> None:
         """
@@ -193,8 +185,8 @@ class PlotterHelper:
         pt = self._pl.scene.picked_point
 
         # if object is a body/component
-        if actor in self._geom_object_actors_map:
-            body_plot = self._geom_object_actors_map[actor]
+        if actor in self.__object_to_actors_map:
+            body_plot = self.__object_to_actors_map[actor]
             if body_plot.object.name not in self._picked_list:
                 self.select_object(body_plot, pt)
             else:
@@ -218,11 +210,10 @@ class PlotterHelper:
         Dict[~pyvista.Actor, EdgePlot]
             Mapping between plotter actors and EdgePlot objects.
         """
-        for object in self._geom_object_actors_map.values():
+        for mesh_object in self.__object_to_actors_map.values():
             # get edges only from bodies
-            custom_obj = object.object
-            if hasattr(custom_obj, "edges"):
-                for edge in object.edges:
+            if mesh_object.edges is not None:
+                for edge in mesh_object.edges:
                     self._edge_actors_map[edge.actor] = edge
 
     def enable_picking(self):
@@ -293,13 +284,13 @@ class PlotterHelper:
             logger.debug("Plotting objects in list...")
             self._pl.add_list(object, merge_bodies, merge_component, filter, **plotting_options)
         else:
-            self._pl.add(object, merge_bodies, merge_component, filter, **plotting_options)
-        if self._pl.geom_object_actors_map:
-            self._geom_object_actors_map = self._pl.geom_object_actors_map
+            self._pl.add(object, filter, **plotting_options)
+        if self._pl._object_to_actors_map:
+            self.__object_to_actors_map = self._pl._object_to_actors_map
         else:
             logger.warning("No actors added to the plotter.")
 
-        self.compute_edge_object_map()
+        map = self.compute_edge_object_map()
         # Compute mapping between the objects and its edges.
 
         if view_2d is not None:

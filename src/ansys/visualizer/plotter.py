@@ -21,15 +21,18 @@
 # SOFTWARE.
 """Provides plotting for various PyAnsys Geometry objects."""
 import re
+from abc import ABC, abstractmethod
+from typing import Union
 
-from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
-import pyvista as pv 
+import pyvista as pv
+from ansys.visualizer import DOCUMENTATION_BUILD
+from ansys.visualizer.colors import Colors
+from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
+from ansys.visualizer.utils.logger import logger
+from beartype.typing import Any, Dict, List, Optional
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 from pyvista.plotting.tools import create_axes_marker
-from ansys.visualizer.colors import Colors 
-from ansys.visualizer.plotter_types import EdgePlot, GeomObjectPlot, MeshObjectPlot
-from abc import ABC, abstractmethod
 
 
 class Plotter:
@@ -140,18 +143,51 @@ class Plotter:
         return mesh.clip(normal=normal, origin=origin)
 
     @abstractmethod
-    def add_custom(self, object: MeshObjectPlot,  **plotting_options) -> pv.Polydata or pv.Multiblock:
+    def add_custom(self, object: MeshObjectPlot,  **plotting_options) -> pv.PolyData or pv.Multiblock:
         dataset = object.mesh
         if "clipping_plane" in plotting_options:
             dataset = self.clip(dataset, plotting_options["clipping_plane"])
             plotting_options.pop("clipping_plane", None)
         if isinstance(object.mesh, pv.PolyData):
-            actor, _ = self.scene.add_mesh(object.mesh, **plotting_options)
+            actor = self.scene.add_mesh(object.mesh, **plotting_options)
         else:
-            actor, _ = self.scene.add_mesh(object.mesh, **plotting_options)
+            actor = self.scene.add_mesh(object.mesh, **plotting_options)
         object.actor = actor
         self._object_to_actors_map[actor] = object
         return actor.name
+
+    def add_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
+        """
+        Add the outer edges of a body to the plot.
+
+        This method has the side effect of adding the edges to the GeomObject that
+        you pass through the parameters.
+
+        Parameters
+        ----------
+        body : GeomObjectPlot
+            Body of which to add the edges.
+        **plotting_options : dict, default: None
+            Keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+        """
+        edge_plot_list = []
+        if hasattr(custom_object, "edges"):
+            for edge in custom_object.object.edges:
+                if hasattr(edge, "start_point") and hasattr(edge, "end_point"):
+                    line = pv.Line(edge.start_point, edge.end_point)
+                    edge_actor = self.scene.add_mesh(
+                        line, line_width=10, color=Colors.EDGE_COLOR, **plotting_options
+                    )
+                    edge_actor.SetVisibility(False)
+                    edge_plot = EdgePlot(edge_actor, edge, custom_object)
+                    edge_plot_list.append(edge_plot)
+                else:
+                    logger.warning("The edge does not have start and end points.")
+                    break
+            custom_object.edges = edge_plot_list
+        else:
+            logger.warning("The object does not have edges.")
 
     def add(
         self,
@@ -300,6 +336,6 @@ class Plotter:
         plotting_options.setdefault("color", Colors.DEFAULT_COLOR)
 
     @property
-    def object_to_actors_map(self) -> Dict[pv.Actor, GeomObjectPlot]:
+    def object_to_actors_map(self) -> Dict[pv.Actor, MeshObjectPlot]:
         """Mapping between the ~pyvista.Actor and the PyAnsys Geometry objects."""
         return self._object_to_actors_map
