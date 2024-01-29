@@ -20,8 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
+from abc import ABC, abstractmethod
+
 import numpy as np
 import pyvista as pv
+from beartype.typing import Any, Dict, List, Optional, Union
+
 from ansys.visualizer import USE_TRAME
 from ansys.visualizer.colors import Colors
 from ansys.visualizer.plotter import Plotter
@@ -31,23 +35,9 @@ from ansys.visualizer.utils.logger import logger
 from ansys.visualizer.widgets import (CameraPanDirection, DisplacementArrow,
                                       MeasureWidget, PlotterWidget, Ruler,
                                       ViewButton, ViewDirection)
-from beartype.typing import Any, Dict, List, Optional, Union
 
 
-class PlotterHelper:
-    """
-    Provides for simplifying the selection of trame in ``plot()`` functions.
-
-    Parameters
-    ----------
-    use_trame : bool, default: None
-        Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
-        The default is ``None``, in which case the ``USE_TRAME`` global setting
-        is used.
-    allow_picking: bool, default: False
-        Enables/disables the picking capabilities in the PyVista plotter.
-    """
-
+class PlotterInterface(ABC):
     def __init__(
         self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False
     ) -> None:
@@ -239,21 +229,6 @@ class PlotterHelper:
         """Disable picking capabilities in the plotter."""
         self._pl.scene.disable_picking()
 
-    def add(self, object: Any, filter, **plotting_options):
-        """
-        Add a ``pyansys-geometry`` or ``PyVista`` object to the plotter.
-
-        Parameters
-        ----------
-        object : Any
-            Object you want to show.
-        """
-        if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
-            logger.debug("Plotting objects in list...")
-            self._pl.add_list(object, filter, **plotting_options)
-        else:
-            self._pl.add(object, filter, **plotting_options)
-
     def plot(
         self,
         object: Any = None,
@@ -344,3 +319,70 @@ class PlotterHelper:
             self._pl.show(screenshot=screenshot)
 
         pv.OFF_SCREEN = self._pv_off_screen_original
+
+    def add_list(
+        self,
+        plotting_list: List[Any],
+        filter: str = None,
+        **plotting_options,
+    ) -> None:
+        """
+        Add a list of any type of object to the scene.
+
+        These types of objects are supported: ``Body``, ``Component``, ``List[pv.PolyData]``,
+        ``pv.MultiBlock``, and ``Sketch``.
+
+        Parameters
+        ----------
+        plotting_list : List[Any]
+            List of objects you want to plot.
+        merge_component : bool, default: False
+            Whether to merge the component into a single dataset. When
+            ``True``, all the individual bodies are effectively combined
+            into a single dataset without any hierarchy.
+        merge_bodies : bool, default: False
+            Whether to merge each body into a single dataset. When ``True``,
+            all the faces of each individual body are effectively combined
+            into a single dataset without separating faces.
+        filter : str, default: None
+            Regular expression with the desired name or names you want to include in the plotter.
+        **plotting_options : dict, default: None
+            Keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+        """
+        for object in plotting_list:
+            _ = self.add(object, filter, **plotting_options)
+
+
+    @abstractmethod
+    def add(self, object: Any, filter, **plotting_options):
+        pass
+
+class PlotterHelper(PlotterInterface):
+    """
+    Provides for simplifying the selection of trame in ``plot()`` functions.
+
+    Parameters
+    ----------
+    use_trame : bool, default: None
+        Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
+        The default is ``None``, in which case the ``USE_TRAME`` global setting
+        is used.
+    allow_picking: bool, default: False
+        Enables/disables the picking capabilities in the PyVista plotter.
+    """
+
+    def add(self, object: Any, filter, **plotting_options):
+        """
+        Add a ``pyansys-geometry`` or ``PyVista`` object to the plotter.
+
+        Parameters
+        ----------
+        object : Any
+            Object you want to show.
+        """
+        if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
+            logger.debug("Plotting objects in list...")
+            self._pl.add_list(object, filter, **plotting_options)
+        else:
+            self._pl.add(object, filter, **plotting_options)
