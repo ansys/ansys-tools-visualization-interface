@@ -129,13 +129,13 @@ class PlotterHelper:
 
         # Add edges if selecting an object
         if isinstance(geom_object, MeshObjectPlot):
-            geom_object.actor.prop.color = Colors.PICKED_COLOR
+            geom_object.actor.prop.color = Colors.PICKED_COLOR.value
             children_list = geom_object.edges
             for edge in children_list:
                 edge.actor.SetVisibility(True)
-                edge.actor.prop.color = Colors.EDGE_COLOR
+                edge.actor.prop.color = Colors.EDGE_COLOR.value
         elif isinstance(geom_object, EdgePlot):
-            geom_object.actor.prop.color = Colors.PICKED_EDGE_COLOR
+            geom_object.actor.prop.color = Colors.PICKED_EDGE_COLOR.value
 
         text = geom_object.name
 
@@ -170,9 +170,9 @@ class PlotterHelper:
             self._picked_list.remove(object_name)
 
         if isinstance(geom_object, MeshObjectPlot):
-            geom_object.actor.prop.color = Colors.DEFAULT_COLOR
+            geom_object.actor.prop.color = Colors.DEFAULT_COLOR.value
         elif isinstance(geom_object, EdgePlot):
-            geom_object.actor.prop.color = Colors.EDGE_COLOR
+            geom_object.actor.prop.color = Colors.EDGE_COLOR.value
 
         if geom_object.actor.name in self._picker_added_actors_map:
             self._pl.scene.remove_actor(self._picker_added_actors_map[geom_object.actor.name])
@@ -200,7 +200,7 @@ class PlotterHelper:
         # if object is a body/component
         if actor in self._object_to_actors_map:
             body_plot = self._object_to_actors_map[actor]
-            if body_plot.object.name not in self._picked_list:
+            if body_plot.custom_object.name not in self._picked_list:
                 self.select_object(body_plot, pt)
             else:
                 self.unselect_object(body_plot)
@@ -212,7 +212,7 @@ class PlotterHelper:
                 self.select_object(edge, pt)
             else:
                 self.unselect_object(edge)
-                actor.prop.color = Colors.EDGE_COLOR
+                actor.prop.color = Colors.EDGE_COLOR.value
 
     def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
         """
@@ -239,7 +239,7 @@ class PlotterHelper:
         """Disable picking capabilities in the plotter."""
         self._pl.scene.disable_picking()
 
-    def add(self, object: Any, **plotting_options):
+    def add(self, object: Any, filter, **plotting_options):
         """
         Add a ``pyansys-geometry`` or ``PyVista`` object to the plotter.
 
@@ -248,7 +248,11 @@ class PlotterHelper:
         object : Any
             Object you want to show.
         """
-        self._pl.add(object=object, **plotting_options)
+        if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
+            logger.debug("Plotting objects in list...")
+            self._pl.add_list(object, filter, **plotting_options)
+        else:
+            self._pl.add(object, filter, **plotting_options)
 
     def plot(
         self,
@@ -290,11 +294,7 @@ class PlotterHelper:
         List[Any]
             List with the picked bodies in the picked order.
         """
-        if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
-            logger.debug("Plotting objects in list...")
-            self._pl.add_list(object, filter, **plotting_options)
-        else:
-            self._pl.add(object, filter, **plotting_options)
+        self.add(object, filter, **plotting_options)
         if self._pl._object_to_actors_map:
             self._object_to_actors_map = self._pl._object_to_actors_map
         else:

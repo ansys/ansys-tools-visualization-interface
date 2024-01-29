@@ -149,3 +149,12 @@ class MeshObjectPlot():
     @edges.setter
     def edges(self, edges: List[EdgePlot]):
         self._edges = edges
+        
+    @property
+    def name(self) -> str:
+        if hasattr(self._custom_object, "name"):
+            return self._custom_object.name
+        elif hasattr(self._custom_object, "id"):    
+            return self._custom_object.id
+        else:
+            return "Unknown"
