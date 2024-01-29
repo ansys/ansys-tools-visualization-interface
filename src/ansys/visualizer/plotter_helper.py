@@ -320,6 +320,42 @@ class PlotterInterface(ABC):
 
         pv.OFF_SCREEN = self._pv_off_screen_original
 
+    @abstractmethod
+    def add_list(self, object: Any, filter, **plotting_options):
+        pass
+
+    @abstractmethod
+    def add(self, object: Any, filter, **plotting_options):
+        pass
+
+class PlotterHelper(PlotterInterface):
+    """
+    Provides for simplifying the selection of trame in ``plot()`` functions.
+
+    Parameters
+    ----------
+    use_trame : bool, default: None
+        Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
+        The default is ``None``, in which case the ``USE_TRAME`` global setting
+        is used.
+    allow_picking: bool, default: False
+        Enables/disables the picking capabilities in the PyVista plotter.
+    """
+
+    def __init__(
+        self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False
+    ) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        use_trame : Optional[bool], optional
+            _description_, by default None
+        allow_picking : Optional[bool], optional
+            _description_, by default False
+        """
+        super().__init__(use_trame, allow_picking)
+        
     def add_list(
         self,
         plotting_list: List[Any],
@@ -353,24 +389,6 @@ class PlotterInterface(ABC):
         for object in plotting_list:
             _ = self.add(object, filter, **plotting_options)
 
-
-    @abstractmethod
-    def add(self, object: Any, filter, **plotting_options):
-        pass
-
-class PlotterHelper(PlotterInterface):
-    """
-    Provides for simplifying the selection of trame in ``plot()`` functions.
-
-    Parameters
-    ----------
-    use_trame : bool, default: None
-        Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
-        The default is ``None``, in which case the ``USE_TRAME`` global setting
-        is used.
-    allow_picking: bool, default: False
-        Enables/disables the picking capabilities in the PyVista plotter.
-    """
 
     def add(self, object: Any, filter, **plotting_options):
         """
