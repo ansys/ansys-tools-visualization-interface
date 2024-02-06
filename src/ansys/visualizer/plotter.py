@@ -237,7 +237,7 @@ class Plotter:
         elif isinstance(object, MeshObjectPlot):
             _ = self.add_meshobject(object, **plotting_options)
         else:
-            self.add_custom(object, **plotting_options)
+            logger.warning("The object type is not supported. ")
 
     def add_list(
         self,

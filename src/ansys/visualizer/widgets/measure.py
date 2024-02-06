@@ -26,11 +26,11 @@ import os
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
 from ansys.visualizer.widgets.widget import PlotterWidget
-
+from ansys.visualizer.plotter_helper import PlotterHelper
 
 class MeasureWidget(PlotterWidget):
     """
-    Provides the measure widget for the PyAnsys Geometry ``Plotter`` class.
+    Provides the measure widget for the PyAnsys Visualizer ``Plotter`` class.
 
     Parameters
     ----------

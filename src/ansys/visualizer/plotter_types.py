@@ -29,7 +29,7 @@ from beartype.typing import Any, List
 
 class EdgePlot:
     """
-    Mapper class to relate PyAnsys Geometry edges with its PyVista actor.
+    Mapper class to relate PyAnsys object edges with its PyVista actor.
 
     Parameters
     ----------
@@ -113,6 +113,22 @@ class EdgePlot:
 class MeshObjectPlot():
     """Relates a custom object with a mesh, provided by consumer library."""
     def __init__(self, custom_object: Any, mesh: Union[pv.PolyData, pv.MultiBlock], actor: pv.Actor = None, edges: List[EdgePlot] = None) -> None:
+        """Relates a custom object with a mesh, provided by consumer library.
+        
+        This class is meant to be used as a mapper between a custom object and its mesh representation. It is used 
+        to store the custom object and its mesh, and to relate the custom object with its PyVista actor and its edges.
+
+        Parameters
+        ----------
+        custom_object : Any
+            Any object that the consumer library wants to relate with a mesh.
+        mesh : Union[pv.PolyData, pv.MultiBlock]
+            PyVista mesh that represents the custom object.
+        actor : pv.Actor, optional
+            Actor of the mesh in the plotter, by default None
+        edges : List[EdgePlot], optional
+            Edges of the object if they have any, by default None
+        """
         self._custom_object = custom_object
         self._mesh = mesh
         self._actor = actor

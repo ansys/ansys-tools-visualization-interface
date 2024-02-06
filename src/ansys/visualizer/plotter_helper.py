@@ -24,8 +24,6 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 import pyvista as pv
-from beartype.typing import Any, Dict, List, Optional, Union
-
 from ansys.visualizer import USE_TRAME
 from ansys.visualizer.colors import Colors
 from ansys.visualizer.plotter import Plotter
@@ -35,13 +33,32 @@ from ansys.visualizer.utils.logger import logger
 from ansys.visualizer.widgets import (CameraPanDirection, DisplacementArrow,
                                       MeasureWidget, PlotterWidget, Ruler,
                                       ViewButton, ViewDirection)
+from beartype.typing import Any, Dict, List, Optional, Union
+        """Initialize ``use_trame`` and save current ``pv.OFF_SCREEN`` value."""
 
 
 class PlotterInterface(ABC):
+
     def __init__(
         self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False
     ) -> None:
-        """Initialize ``use_trame`` and save current ``pv.OFF_SCREEN`` value."""
+        """Interface for the PyAnsys Visualizer plotter. This class is intended to be used as a base class for the
+        custom plotters in the different PyAnsys libraries. It provides the basic plotter functionalities, such as
+        adding objects, enabling widgets, and enabling picking capabilities. It also provides the ability to show the
+        plotter using the trame service. 
+        
+        The methods that you can override are ``add_list()``,  ``add()`` and ``picked_operation()``. The ``add_list()`` 
+        method is intended to add a list of objects to the plotter, while the ``add()`` method is intended to add a
+        single object to the plotter. The ``plot()`` method is intended to plot the objects and show the plotter. The 
+        ``picked_operation()`` method is intended to perform an operation on the picked objects.
+
+        Parameters
+        ----------
+        use_trame : Optional[bool], optional
+            Activate the usage of Trame UI instead of the Python window, by default None.
+        allow_picking : Optional[bool], optional
+            Whether to allow picking in the window or not, by default False.
+        """
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = USE_TRAME
@@ -49,13 +66,29 @@ class PlotterInterface(ABC):
         self._use_trame = use_trame
         self._allow_picking = allow_picking
         self._pv_off_screen_original = bool(pv.OFF_SCREEN)
+        
+        # Map that relates PyVista actors with PyAnsys objects
         self._object_to_actors_map = {}
+        
+        # PyVista plotter
         self._pl = None
+        
+        # List of picked objects in MeshObject format.
         self._picked_list = set()
+        
+        # Map that relates PyVista actors with the added actors by the picker
         self._picker_added_actors_map = {}
+        
+        # Map that relates PyVista actors with EdgePlot objects
         self._edge_actors_map = {}
+        
+        # List of widgets added to the plotter.
         self._widgets = []
-
+        
+        # Map that saves original colors of the plotted objects.
+        self._origin_colors = {}
+        
+        # Enable the use of trame if requested and available
         if self._use_trame and _HAS_TRAME:
             # avoids GUI window popping up
             pv.OFF_SCREEN = True
@@ -89,7 +122,7 @@ class PlotterInterface(ABC):
             self._widgets.append(MeasureWidget(self))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
-        """Add a widget to the plotter.
+        """Add a custom widget to the plotter.
         
         Parameters
         ----------
@@ -98,15 +131,17 @@ class PlotterInterface(ABC):
         """
         if isinstance(widget, list):
             self._widgets.extend(widget)
+            widget.update()
         else:
             self._widgets.append(widget)
+            widget.update()
 
     def select_object(self, geom_object: Union[MeshObjectPlot, EdgePlot], pt: np.ndarray) -> None:
         """
         Select an object in the plotter.
 
-        Highlights the object edges if any and adds a label with the object name and adds
-        it to the PyAnsys object selection.
+        This method highlights the edges of a body and adds a label to the plotter. It also adds the object to the
+        ``_picked_list`` and the actor to the ``_picker_added_actors_map``.
 
         Parameters
         ----------
@@ -119,17 +154,19 @@ class PlotterInterface(ABC):
 
         # Add edges if selecting an object
         if isinstance(geom_object, MeshObjectPlot):
+            self._origin_colors[geom_object] = geom_object.actor.prop.color
             geom_object.actor.prop.color = Colors.PICKED_COLOR.value
             children_list = geom_object.edges
-            for edge in children_list:
-                edge.actor.SetVisibility(True)
-                edge.actor.prop.color = Colors.EDGE_COLOR.value
+            if children_list is not None:
+                for edge in children_list:
+                    edge.actor.SetVisibility(True)
+                    edge.actor.prop.color = Colors.EDGE_COLOR.value
         elif isinstance(geom_object, EdgePlot):
             geom_object.actor.prop.color = Colors.PICKED_EDGE_COLOR.value
 
         text = geom_object.name
 
-        label_actor = self._pl.scene.add_point_labels(
+        """label_actor = self._pl.scene.add_point_labels(
             [pt],
             [text],
             always_visible=True,
@@ -137,9 +174,11 @@ class PlotterInterface(ABC):
             render_points_as_spheres=False,
             show_points=False,
         )
-        if geom_object.name not in self._picked_list:
-            self._picked_list.add(geom_object.name)
         added_actors.append(label_actor)
+        """
+        if geom_object not in self._picked_list:
+            self._picked_list.add(geom_object)
+
         self._picker_added_actors_map[geom_object.actor.name] = added_actors
 
     def unselect_object(self, geom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
@@ -155,12 +194,11 @@ class PlotterInterface(ABC):
             Object to unselect.
         """
         # remove actor from picked list and from scene
-        object_name = geom_object.name
-        if object_name in self._picked_list:
-            self._picked_list.remove(object_name)
+        if geom_object in self._picked_list:
+            self._picked_list.remove(geom_object)
 
-        if isinstance(geom_object, MeshObjectPlot):
-            geom_object.actor.prop.color = Colors.DEFAULT_COLOR.value
+        if isinstance(geom_object, MeshObjectPlot) and geom_object in self._origin_colors:
+            geom_object.actor.prop.color = self._origin_colors[geom_object]
         elif isinstance(geom_object, EdgePlot):
             geom_object.actor.prop.color = Colors.EDGE_COLOR.value
 
@@ -169,11 +207,12 @@ class PlotterInterface(ABC):
 
             # remove actor and its children(edges) from the scene
             if isinstance(geom_object, MeshObjectPlot):
-                for edge in geom_object.edges:
-                    # hide edges in the scene
-                    edge.actor.SetVisibility(False)
-                    # recursion
-                    self.unselect_object(edge)
+                if geom_object.edges is not None:
+                    for edge in geom_object.edges:
+                        # hide edges in the scene
+                        edge.actor.SetVisibility(False)
+                        # recursion
+                        self.unselect_object(edge)
             self._picker_added_actors_map.pop(geom_object.actor.name)
 
     def picker_callback(self, actor: "pv.Actor") -> None:
@@ -190,7 +229,7 @@ class PlotterInterface(ABC):
         # if object is a body/component
         if actor in self._object_to_actors_map:
             body_plot = self._object_to_actors_map[actor]
-            if body_plot.custom_object.name not in self._picked_list:
+            if body_plot not in self._picked_list:
                 self.select_object(body_plot, pt)
             else:
                 self.unselect_object(body_plot)
@@ -198,7 +237,7 @@ class PlotterInterface(ABC):
         # if object is an edge
         elif actor in self._edge_actors_map and actor.GetVisibility():
             edge = self._edge_actors_map[actor]
-            if edge.name not in self._picked_list:
+            if edge not in self._picked_list:
                 self.select_object(edge, pt)
             else:
                 self.unselect_object(edge)
@@ -222,7 +261,7 @@ class PlotterInterface(ABC):
     def enable_picking(self):
         """Enable picking capabilities in the plotter."""
         self._pl.scene.enable_mesh_picking(
-            callback=self.picker_callback, use_actor=True, show=False, show_message=False
+            callback=self.picker_callback, use_actor=True, show=False, show_message=False, picker="cell"
         )
 
     def disable_picking(self):
@@ -237,10 +276,10 @@ class PlotterInterface(ABC):
         **plotting_options,
     ) -> List[Any]:
         """
-        Plot and show any PyAnsys Geometry object.
+        Plot and show any PyAnsys object.
 
-        These types of objects are supported: ``Body``, ``Component``, ``List[pv.PolyData]``,
-        ``pv.MultiBlock``, and ``Sketch``.
+        The default types of objects are supported: ``pv.PolyData``,
+        ``pv.MultiBlock``, and ``MeshObjectPlot``.
 
         Parameters
         ----------
@@ -291,11 +330,11 @@ class PlotterInterface(ABC):
         picked_objects_list = []
         if isinstance(object, list):
             # Keep them ordered based on picking
-            for name in self._picked_list:
+            for meshobject in self._picked_list:
                 for elem in object:
-                    if hasattr(elem, "name") and elem.name == name:
+                    if hasattr(elem, "name") and elem.name == meshobject.name:
                         picked_objects_list.append(elem)
-        elif hasattr(object, "name") and object.name in self._picked_list:
+        elif hasattr(object, "name") and object in self._picked_list:
             picked_objects_list = [object]
 
         return picked_objects_list
@@ -321,16 +360,40 @@ class PlotterInterface(ABC):
         pv.OFF_SCREEN = self._pv_off_screen_original
 
     @abstractmethod
-    def add_list(self, object: Any, filter, **plotting_options):
+    def add_list(self, object: Any, filter: str = None, **plotting_options):
+        """Add a list of compatible objects to the plotter.
+
+        Parameters
+        ----------
+        object : Any
+            Object or objects to add.
+        filter : str, default: None.
+            Regular expression with the desired name or names you want to include in the plotter.
+        """
         pass
 
     @abstractmethod
-    def add(self, object: Any, filter, **plotting_options):
+    def add(self, object: Any, filter: str = None, **plotting_options):
+        """Add a single object to the plotter.
+
+        Parameters
+        ----------
+        object : Any
+            Object you want to show.
+        filter : str
+            Regular expression with the desired name or names you want to include in the plotter.
+        """
+        pass
+
+    def picked_operation(self) -> None:
+        """Perform an operation on the picked objects."""
         pass
 
 class PlotterHelper(PlotterInterface):
     """
-    Provides for simplifying the selection of trame in ``plot()`` functions.
+    Generic plotter implementation for PyAnsys libraries.
+    
+    Accepts ``pv.PolyData``, ``pv.MultiBlock``, and ``MeshObjectPlot`` objects.
 
     Parameters
     ----------
@@ -345,14 +408,7 @@ class PlotterHelper(PlotterInterface):
     def __init__(
         self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False
     ) -> None:
-        """_summary_
-
-        Parameters
-        ----------
-        use_trame : Optional[bool], optional
-            _description_, by default None
-        allow_picking : Optional[bool], optional
-            _description_, by default False
+        """Inits the 
         """
         super().__init__(use_trame, allow_picking)
         

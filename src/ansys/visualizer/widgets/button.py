@@ -49,7 +49,7 @@ class Button(PlotterWidget):
     def __init__(self, plotter: Plotter, button_config: tuple):
         """Initialize the ``Button`` class."""
         super().__init__(plotter)
-        self._arrow_button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
+        self._button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
             self.callback, position=button_config.value[2], size=30, border_size=3
         )
         self.button_config = button_config
@@ -68,13 +68,13 @@ class Button(PlotterWidget):
 
     def update(self) -> None:
         """Assign the image that represents the button."""
-        arrow_button_repr = self._arrow_button.GetRepresentation()
-        arrow_button_icon_path = os.path.join(
+        button_repr = self._button.GetRepresentation()
+        button_icon_path = os.path.join(
             os.path.dirname(__file__), "_images", self.button_config.value[1]
         )
-        arrow_button_icon = vtkPNGReader()
-        arrow_button_icon.SetFileName(arrow_button_icon_path)
-        arrow_button_icon.Update()
-        image = arrow_button_icon.GetOutput()
-        arrow_button_repr.SetButtonTexture(0, image)
-        arrow_button_repr.SetButtonTexture(1, image)
+        button_icon = vtkPNGReader()
+        button_icon.SetFileName(button_icon_path)
+        button_icon.Update()
+        image = button_icon.GetOutput()
+        button_repr.SetButtonTexture(0, image)
+        button_repr.SetButtonTexture(1, image)

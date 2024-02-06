@@ -1,6 +1,8 @@
+"""Module to define the colors to use for the plotter actors."""
 from enum import Enum
 
 class Colors(Enum):
+    """Defines the colors to use for the plotter actors."""
     DEFAULT_COLOR = "#D6F7D1"
     """Default color we use for the plotter actors."""
 
