@@ -23,10 +23,9 @@
 
 import os
 
+from ansys.visualizer.widgets.widget import PlotterWidget
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
-from ansys.visualizer.widgets.widget import PlotterWidget
-from ansys.visualizer.plotter_helper import PlotterHelper
 
 class MeasureWidget(PlotterWidget):
     """
@@ -38,7 +37,7 @@ class MeasureWidget(PlotterWidget):
         Provides the plotter to add the measure widget to.
     """
 
-    def __init__(self, plotter_helper: "PlotterHelper") -> None:
+    def __init__(self, plotter_helper: "Plotter") -> None:
         """Initialize the ``Ruler`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter_helper._pl.scene)
