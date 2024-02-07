@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Submodule providing widgets for the PyAnsys Geometry plotter."""
+"""Submodule providing widgets for the PyAnsys plotter."""
 from ansys.visualizer.widgets.displace_arrows import (CameraPanDirection,
                                                       DisplacementArrow)
 from ansys.visualizer.widgets.measure import MeasureWidget

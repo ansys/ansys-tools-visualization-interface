@@ -19,25 +19,30 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides plotting for various PyAnsys Geometry objects."""
+"""Provides plotting for various PyAnsys objects."""
 import re
 from abc import ABC, abstractmethod
 from typing import Union
 
 import numpy as np
 import pyvista as pv
-from ansys.visualizer import DOCUMENTATION_BUILD
-from ansys.visualizer.colors import Colors
-from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
-from ansys.visualizer.utils.logger import logger
 from beartype.typing import Any, Dict, List, Optional
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 from pyvista.plotting.tools import create_axes_marker
 
+from ansys.visualizer import DOCUMENTATION_BUILD
+from ansys.visualizer.colors import Colors
+from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
+from ansys.visualizer.utils.logger import logger
 
-class Plotter:
+
+class PyVistaInterface:
     """
-    Provides for plotting sketches and bodies.
+    Middle class between PyVista plotting operations and PyAnsys objects. 
+    
+    This class is responsible for creating the PyVista scene and adding 
+    the PyAnsys objects to it.
+    
 
     Parameters 
     ----------
@@ -142,8 +147,17 @@ class Plotter:
         """
         return mesh.clip(normal=normal, origin=origin)
 
-    def add_meshobject(self, object: MeshObjectPlot,  **plotting_options) -> pv.PolyData or pv.Multiblock:
-        """Adds a generic MeshObjectPlot to the scene."""
+    def add_meshobject(self, object: MeshObjectPlot,  **plotting_options):
+        """Adds a generic MeshObjectPlot to the scene. 
+        
+        Parameters
+        ----------
+        object : MeshObjectPlot
+            Object to add to the scene.
+        **plotting_options : dict, default: None
+            Keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+        """
         dataset = object.mesh
         if "clipping_plane" in plotting_options:
             dataset = self.clip(dataset, plotting_options["clipping_plane"])
@@ -158,20 +172,22 @@ class Plotter:
 
     def add_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
         """
-        Add the outer edges of a body to the plot.
+        Add the outer edges of an object to the plot.
 
-        This method has the side effect of adding the edges to the GeomObject that
+        This method has the side effect of adding the edges to the MeshObjectPlot that
         you pass through the parameters.
 
         Parameters
         ----------
-        body : GeomObjectPlot
-            Body of which to add the edges.
+        custom_object : MeshObjectPlot
+            custom_object of which to add the edges.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
         """
         edge_plot_list = []
+
+        # Check if object has edges attb and if these edges have start and end points.
         if hasattr(custom_object, "edges"):
             for edge in custom_object.object.edges:
                 if hasattr(edge, "start_point") and hasattr(edge, "end_point"):
@@ -191,15 +207,15 @@ class Plotter:
 
     def add(
         self,
-        object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, Any],
+        object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot],
         filter: str = None,
         **plotting_options,
     ) -> None:
         """
         Add any type of object to the scene.
 
-        These types of objects are supported: ``Body``, ``Component``, ``List[pv.PolyData]``,
-        ``pv.MultiBlock``, and ``Sketch``.
+        These types of objects are supported: ``MeshObjectPlot``, ``List[pv.PolyData]``,
+        ``pv.MultiBlock``.
 
         Parameters
         ----------
@@ -226,16 +242,16 @@ class Plotter:
         # Check what kind of object we are dealing with
         if isinstance(object, pv.PolyData):
             if "clipping_plane" in plotting_options:
-                object = self.clip(object, plotting_options["clipping_plane"])
+                mesh = self.clip(object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
-            self.scene.add_mesh(object, **plotting_options)
+            self.scene.add_mesh(mesh, **plotting_options)
         elif isinstance(object, pv.MultiBlock):
             if "clipping_plane" in plotting_options:
-                object = self.clip(object, plotting_options["clipping_plane"])
+                mesh = self.clip(object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
-            self.scene.add_composite(object, **plotting_options)
+            self.scene.add_composite(mesh, **plotting_options)
         elif isinstance(object, MeshObjectPlot):
-            _ = self.add_meshobject(object, **plotting_options)
+            self.add_meshobject(object, **plotting_options)
         else:
             logger.warning("The object type is not supported. ")
 
@@ -274,8 +290,7 @@ class Plotter:
 
     def show(
         self,
-        show_axes_at_origin: bool = True,
-        show_plane: bool = True,
+        show_plane: bool = False,
         jupyter_backend: Optional[str] = None,
         **kwargs: Optional[Dict],
     ) -> None:
@@ -284,6 +299,8 @@ class Plotter:
 
         Parameters
         ----------
+        show_plane : bool, default: True
+            Whether to show the XY plane.
         jupyter_backend : str, default: None
             PyVista Jupyter backend.
         **kwargs : dict, default: None
@@ -300,11 +317,6 @@ class Plotter:
         bounds = self.scene.renderer.bounds
         x_length, y_length = bounds[1] - bounds[0], bounds[3] - bounds[2]
         sfac = max(x_length, y_length)
-
-        # # Show origin axes without labels
-        # if show_axes_at_origin:
-        #     axes = create_axes_marker(labels_off=True)
-        #     self.scene.add_actor(axes)
 
         # Create the fundamental XY plane
         if show_plane:
@@ -335,5 +347,5 @@ class Plotter:
 
     @property
     def object_to_actors_map(self) -> Dict[pv.Actor, MeshObjectPlot]:
-        """Mapping between the ~pyvista.Actor and the PyAnsys Geometry objects."""
+        """Mapping between the ~pyvista.Actor and the PyAnsys objects."""
         return self._object_to_actors_map
