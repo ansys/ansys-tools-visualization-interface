@@ -26,14 +26,13 @@ from typing import Union
 
 import numpy as np
 import pyvista as pv
-from beartype.typing import Any, Dict, List, Optional
-from pyvista.plotting.plotter import Plotter as PyVistaPlotter
-from pyvista.plotting.tools import create_axes_marker
-
 from ansys.visualizer import DOCUMENTATION_BUILD
 from ansys.visualizer.colors import Colors
 from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
 from ansys.visualizer.utils.logger import logger
+from beartype.typing import Any, Dict, List, Optional
+from pyvista.plotting.plotter import Plotter as PyVistaPlotter
+from pyvista.plotting.tools import create_axes_marker
 
 
 class PyVistaInterface:
@@ -57,6 +56,8 @@ class PyVistaInterface:
         Widget buttons must be disabled when using
         `trame <https://kitware.github.io/trame/index.html>`_
         for visualization.
+    show_plane: bool, defualt: False
+        Whether to show the XY plane in the plotter window. By default, false.
     """
 
     def __init__(
@@ -65,6 +66,7 @@ class PyVistaInterface:
         color_opts: Optional[Dict] = None,
         num_points: int = 100,
         enable_widgets: bool = True,
+        show_plane: bool = False,
     ) -> None:
         """Initialize the plotter."""
         # Generate custom scene if ``None`` is provided
@@ -79,10 +81,12 @@ class PyVistaInterface:
         self._scene = scene
         # Scene: assign the background
         self._scene.set_background(**color_opts)
-        view_box = self._scene.add_axes(line_width=5, color="black")
 
         # Save the desired number of points
         self._num_points = num_points
+        
+        # Show the XY plane
+        self._show_plane = show_plane
 
         # geometry objects to actors mapping
         self._object_to_actors_map = {}
@@ -319,7 +323,7 @@ class PyVistaInterface:
         sfac = max(x_length, y_length)
 
         # Create the fundamental XY plane
-        if show_plane:
+        if show_plane or self._show_plane:
             # self.scene.bounds
             plane = pv.Plane(i_size=sfac * 1.3, j_size=sfac * 1.3)
             self.scene.add_mesh(plane, color="white", show_edges=True, opacity=0.1)

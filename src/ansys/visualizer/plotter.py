@@ -59,7 +59,7 @@ class PlotterInterface(ABC):
         Whether to allow picking in the window or not, by default False.
     """
     def __init__(
-        self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False, plot_picked_names: Optional[bool] = False
+        self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False, plot_picked_names: Optional[bool] = False, show_plane: Optional[bool] = False
     ) -> None:
         """Initialize ``use_trame`` and save current ``pv.OFF_SCREEN`` value."""
 
@@ -96,16 +96,16 @@ class PlotterInterface(ABC):
         if self._use_trame and _HAS_TRAME:
             # avoids GUI window popping up
             pv.OFF_SCREEN = True
-            self._pl = PyVistaInterface(enable_widgets=False)
+            self._pl = PyVistaInterface(enable_widgets=False, show_plane=show_plane)
         elif self._use_trame and not _HAS_TRAME:
             warn_msg = (
                 "'use_trame' is active but trame dependencies are not installed."
                 "Consider installing 'pyvista[trame]' to use this functionality."
             )
             logger.warning(warn_msg)
-            self._pl = PyVistaInterface()
+            self._pl = PyVistaInterface(show_plane=show_plane)
         else:
-            self._pl = PyVistaInterface()
+            self._pl = PyVistaInterface(show_plane=show_plane)
 
         self._enable_widgets = self._pl._enable_widgets
 
@@ -365,7 +365,7 @@ class PlotterInterface(ABC):
             visualizer.set_scene(self._pl)
             visualizer.show()
         else:
-            self._pl.show(screenshot=screenshot)
+            self.pv_interface.show(screenshot=screenshot)
 
         pv.OFF_SCREEN = self._pv_off_screen_original
 
@@ -467,6 +467,6 @@ class Plotter(PlotterInterface):
         """
         if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
             logger.debug("Plotting objects in list...")
-            self._pl.add_list(object, filter, **plotting_options)
+            self.pv_interface.add_list(object, filter, **plotting_options)
         else:
-            self._pl.add(object, filter, **plotting_options)
+            self.pv_interface.add(object, filter, **plotting_options)
