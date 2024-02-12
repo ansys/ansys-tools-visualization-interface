@@ -438,14 +438,6 @@ class Plotter(PlotterInterface):
         ----------
         plotting_list : List[Any]
             List of objects you want to plot.
-        merge_component : bool, default: False
-            Whether to merge the component into a single dataset. When
-            ``True``, all the individual bodies are effectively combined
-            into a single dataset without any hierarchy.
-        merge_bodies : bool, default: False
-            Whether to merge each body into a single dataset. When ``True``,
-            all the faces of each individual body are effectively combined
-            into a single dataset without separating faces.
         filter : str, default: None
             Regular expression with the desired name or names you want to include in the plotter.
         **plotting_options : dict, default: None
@@ -456,7 +448,7 @@ class Plotter(PlotterInterface):
             _ = self.add(object, filter, **plotting_options)
 
 
-    def add(self, object: Any, filter, **plotting_options):
+    def add(self, object: Any, filter: str = None, **plotting_options):
         """
         Add a ``pyansys`` or ``PyVista`` object to the plotter.
 
@@ -464,6 +456,11 @@ class Plotter(PlotterInterface):
         ----------
         object : Any
             Object you want to show.
+        filter : str
+            Regular expression with the desired name or names you want to include in the plotter.
+        **plotting_options : dict, default: None
+            Keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
         """
         if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
             logger.debug("Plotting objects in list...")

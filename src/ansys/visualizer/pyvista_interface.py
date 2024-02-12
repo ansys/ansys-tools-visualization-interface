@@ -26,13 +26,15 @@ from typing import Union
 
 import numpy as np
 import pyvista as pv
-from ansys.visualizer import DOCUMENTATION_BUILD
-from ansys.visualizer.colors import Colors
-from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
-from ansys.visualizer.utils.logger import logger
 from beartype.typing import Any, Dict, List, Optional
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 from pyvista.plotting.tools import create_axes_marker
+
+from ansys.visualizer import DOCUMENTATION_BUILD
+from ansys.visualizer.colors import Colors
+from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
+from ansys.visualizer.utils.clip_plane import ClipPlane
+from ansys.visualizer.utils.logger import logger
 
 
 class PyVistaInterface:
@@ -129,7 +131,7 @@ class PyVistaInterface:
         self.scene.view_zy()
 
     def clip(
-        self, mesh: Union[pv.PolyData, pv.MultiBlock], normal: Union[tuple[float], str], origin: tuple[float] = None
+        self, mesh: Union[pv.PolyData, pv.MultiBlock], plane: ClipPlane
     ) -> Union[pv.PolyData, pv.MultiBlock]:
         """
         Clip the passed mesh with a plane.
@@ -149,7 +151,7 @@ class PyVistaInterface:
         Union[pv.PolyData,pv.MultiBlock]
             The clipped mesh.
         """
-        return mesh.clip(normal=normal, origin=origin)
+        return mesh.clip(normal=plane.normal, origin=plane.origin)
 
     def add_meshobject(self, object: MeshObjectPlot,  **plotting_options):
         """Adds a generic MeshObjectPlot to the scene. 
@@ -248,12 +250,16 @@ class PyVistaInterface:
             if "clipping_plane" in plotting_options:
                 mesh = self.clip(object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
-            self.scene.add_mesh(mesh, **plotting_options)
+                self.scene.add_mesh(mesh, **plotting_options)
+            else:
+                self.scene.add_mesh(object, **plotting_options)
         elif isinstance(object, pv.MultiBlock):
             if "clipping_plane" in plotting_options:
                 mesh = self.clip(object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
-            self.scene.add_composite(mesh, **plotting_options)
+                self.scene.add_composite(mesh, **plotting_options)
+            else:
+                self.scene.add_composite(object, **plotting_options)
         elif isinstance(object, MeshObjectPlot):
             self.add_meshobject(object, **plotting_options)
         else:

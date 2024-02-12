@@ -28,5 +28,16 @@ dependencies = [
     "beartype >= 0.17.0",
 ]
 
+[project.optional-dependencies]
+
+tests = [
+    "pytest==7.4.4",
+    "pytest-pyvista==0.1.9",
+    "pytest-cov==4.1.0",
+]
+
 [tool.flit.module]
 name = "ansys.visualizer"
+
+[tool.pytest.ini_options]
+addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report xml:.cov/xml --cov-report term -vv --image_cache_dir tests/_image_cache --add_missing_images"

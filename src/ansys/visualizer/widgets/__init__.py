@@ -20,9 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Submodule providing widgets for the PyAnsys plotter."""
-from ansys.visualizer.widgets.displace_arrows import (CameraPanDirection,
-                                                      DisplacementArrow)
-from ansys.visualizer.widgets.measure import MeasureWidget
-from ansys.visualizer.widgets.ruler import Ruler
-from ansys.visualizer.widgets.view_button import ViewButton, ViewDirection
 from ansys.visualizer.widgets.widget import PlotterWidget
