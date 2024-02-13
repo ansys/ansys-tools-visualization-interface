@@ -21,32 +21,28 @@
 # SOFTWARE.
 """Provides plotting for various PyAnsys objects."""
 import re
-from abc import ABC, abstractmethod
 from typing import Union
 
-import numpy as np
-import pyvista as pv
 from beartype.typing import Any, Dict, List, Optional
+import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
-from pyvista.plotting.tools import create_axes_marker
 
 from ansys.visualizer import DOCUMENTATION_BUILD
-from ansys.visualizer.utils.colors import Colors
 from ansys.visualizer.types.edgeplot import EdgePlot
 from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 from ansys.visualizer.utils.clip_plane import ClipPlane
+from ansys.visualizer.utils.colors import Colors
 from ansys.visualizer.utils.logger import logger
 
 
 class PyVistaInterface:
-    """
-    Middle class between PyVista plotting operations and PyAnsys objects. 
-    
-    This class is responsible for creating the PyVista scene and adding 
-    the PyAnsys objects to it.
-    
+    """Middle class between PyVista plotting operations and PyAnsys objects.
 
-    Parameters 
+    This class is responsible for creating the PyVista scene and adding
+    the PyAnsys objects to it.
+
+
+    Parameters
     ----------
     scene : ~pyvista.Plotter, default: None
         ``Scene`` instance for rendering the objects.
@@ -59,7 +55,7 @@ class PyVistaInterface:
         Widget buttons must be disabled when using
         `trame <https://kitware.github.io/trame/index.html>`_
         for visualization.
-    show_plane: bool, defualt: False
+    show_plane: bool, default: False
         Whether to show the XY plane in the plotter window. By default, false.
     """
 
@@ -87,7 +83,7 @@ class PyVistaInterface:
 
         # Save the desired number of points
         self._num_points = num_points
-        
+
         # Show the XY plane
         self._show_plane = show_plane
 
@@ -97,8 +93,7 @@ class PyVistaInterface:
 
     @property
     def scene(self) -> PyVistaPlotter:
-        """
-        Rendered scene object.
+        """Rendered scene object.
 
         Returns
         -------
@@ -134,8 +129,7 @@ class PyVistaInterface:
     def clip(
         self, mesh: Union[pv.PolyData, pv.MultiBlock], plane: ClipPlane
     ) -> Union[pv.PolyData, pv.MultiBlock]:
-        """
-        Clip the passed mesh with a plane.
+        """Clip the passed mesh with a plane.
 
         Parameters
         ----------
@@ -154,9 +148,9 @@ class PyVistaInterface:
         """
         return mesh.clip(normal=plane.normal, origin=plane.origin)
 
-    def add_meshobject(self, object: MeshObjectPlot,  **plotting_options):
-        """Adds a generic MeshObjectPlot to the scene. 
-        
+    def add_meshobject(self, object: MeshObjectPlot, **plotting_options):
+        """Add a generic MeshObjectPlot to the scene.
+
         Parameters
         ----------
         object : MeshObjectPlot
@@ -178,8 +172,7 @@ class PyVistaInterface:
         return actor.name
 
     def add_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
-        """
-        Add the outer edges of an object to the plot.
+        """Add the outer edges of an object to the plot.
 
         This method has the side effect of adding the edges to the MeshObjectPlot that
         you pass through the parameters.
@@ -218,8 +211,7 @@ class PyVistaInterface:
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """
-        Add any type of object to the scene.
+        """Add any type of object to the scene.
 
         These types of objects are supported: ``MeshObjectPlot``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``.
@@ -272,8 +264,7 @@ class PyVistaInterface:
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """
-        Add a list of any type of object to the scene.
+        """Add a list of any type of object to the scene.
 
         These types of objects are supported: ``Body``, ``Component``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``, and ``Sketch``.
@@ -297,8 +288,7 @@ class PyVistaInterface:
         jupyter_backend: Optional[str] = None,
         **kwargs: Optional[Dict],
     ) -> None:
-        """
-        Show the rendered scene on the screen.
+        """Show the rendered scene on the screen.
 
         Parameters
         ----------
@@ -342,6 +332,14 @@ class PyVistaInterface:
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
+        """Set the default values for the plotting options.
+
+        Parameters
+        ----------
+        plotting_options : Optional[Dict]
+            Keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+        """
         # If the following keys do not exist, set the default values
         #
         # This method should only be applied in 3D objects: bodies, components

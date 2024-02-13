@@ -23,13 +23,13 @@
 
 import os
 
-from ansys.visualizer.widgets.widget import PlotterWidget
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
+
+from ansys.visualizer.widgets.widget import PlotterWidget
 
 
 class MeasureWidget(PlotterWidget):
-    """
-    Provides the measure widget for the PyAnsys Visualizer ``Plotter`` class.
+    """Provides the measure widget for the PyAnsys Visualizer ``Plotter`` class.
 
     Parameters
     ----------
@@ -50,8 +50,7 @@ class MeasureWidget(PlotterWidget):
         )
 
     def callback(self, state: bool) -> None:
-        """
-        Remove or add the measurement widget actor upon click.
+        """Remove or add the measurement widget actor upon click.
 
         Parameters
         ----------

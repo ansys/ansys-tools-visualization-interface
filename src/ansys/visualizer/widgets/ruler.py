@@ -23,14 +23,14 @@
 
 import os
 
-from ansys.visualizer.widgets.widget import PlotterWidget
 from pyvista import Plotter
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
+from ansys.visualizer.widgets.widget import PlotterWidget
+
 
 class Ruler(PlotterWidget):
-    """
-    Provides the ruler widget for the PyAnsys Visualizer ``Plotter`` class.
+    """Provides the ruler widget for the PyAnsys Visualizer ``Plotter`` class.
 
     Parameters
     ----------
@@ -50,8 +50,7 @@ class Ruler(PlotterWidget):
         )
 
     def callback(self, state: bool) -> None:
-        """
-        Remove or add the ruler widget actor upon click.
+        """Remove or add the ruler widget actor upon click.
 
         Notes
         -----

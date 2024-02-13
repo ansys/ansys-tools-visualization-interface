@@ -1,13 +1,36 @@
-import pytest
+# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import pyvista as pv
 
 from ansys.visualizer import ClipPlane, MeshObjectPlot, Plotter
 
 
-class CustomTestClass():
+class CustomTestClass:
     """Mock custom class for testing MeshObjectPlot."""
+
     def __init__(self, name) -> None:
         self.name = name
+
 
 def test_plotter_add_pd():
     """Adds polydata to the plotter."""
@@ -15,6 +38,7 @@ def test_plotter_add_pd():
     sphere = pv.Sphere()
     pl.add(sphere)
     pl.plot()
+
 
 def test_plotter_add_mb():
     """Adds multiblock to the plotter."""
@@ -25,6 +49,7 @@ def test_plotter_add_mb():
     pl.add(mb)
     pl.plot()
 
+
 def test_plotter_add_custom():
     """Adds a MeshObjectPlot object to the plotter."""
     sphere = pv.Sphere()
@@ -32,6 +57,7 @@ def test_plotter_add_custom():
     pl = Plotter()
     pl.add(custom)
     pl.plot()
+
 
 def test_plotter_filter():
     """Test regex filter usage."""
@@ -44,6 +70,7 @@ def test_plotter_filter():
     pl.add([custom_sphere, custom_cube], filter="cube")
     pl.plot()
 
+
 def test_clipping_plane():
     """Test clipping plane usage."""
     sphere = pv.Sphere()
@@ -51,6 +78,7 @@ def test_clipping_plane():
     clipping_plane = ClipPlane()
     pl.add(sphere, clipping_plane=clipping_plane)
     pl.plot()
+
 
 def test_plotter_add_list():
     """Adds a list to the plotter."""
@@ -60,6 +88,3 @@ def test_plotter_add_list():
     polydata_list = [sphere, cube]
     pl.add(polydata_list)
     pl.plot()
-    
-
-

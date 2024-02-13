@@ -45,8 +45,7 @@ class TrameVisualizer:
         self.state, self.ctrl = self.server.state, self.server.controller
 
     def set_scene(self, plotter):
-        """
-        Set the trame layout view and the mesh to show through the PyVista plotter.
+        """Set the trame layout view and the mesh to show through the PyVista plotter.
 
         Parameters
         ----------

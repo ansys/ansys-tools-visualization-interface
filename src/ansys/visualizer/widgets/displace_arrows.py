@@ -39,8 +39,7 @@ class CameraPanDirection(Enum):
 
 
 class DisplacementArrow(Button):
-    """
-    Defines the arrow to draw and what it is to do.
+    """Defines the arrow to draw and what it is to do.
 
     Parameters
     ----------
@@ -56,8 +55,7 @@ class DisplacementArrow(Button):
         self.direction = direction
 
     def callback(self, state: bool) -> None:
-        """
-        Move the camera in the direction defined by the button.
+        """Move the camera in the direction defined by the button.
 
         Parameters
         ----------

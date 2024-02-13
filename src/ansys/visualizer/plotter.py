@@ -22,9 +22,9 @@
 """Provides a wrapper to aid in plotting."""
 from abc import ABC, abstractmethod
 
+from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
 import pyvista as pv
-from beartype.typing import Any, Dict, List, Optional, Union
 
 from ansys.visualizer import USE_TRAME
 from ansys.visualizer.interfaces.pyvista_interface import PyVistaInterface
@@ -33,8 +33,7 @@ from ansys.visualizer.types.edgeplot import EdgePlot
 from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 from ansys.visualizer.utils.colors import Colors
 from ansys.visualizer.utils.logger import logger
-from ansys.visualizer.widgets.displace_arrows import (CameraPanDirection,
-                                                      DisplacementArrow)
+from ansys.visualizer.widgets.displace_arrows import CameraPanDirection, DisplacementArrow
 from ansys.visualizer.widgets.measure import MeasureWidget
 from ansys.visualizer.widgets.ruler import Ruler
 from ansys.visualizer.widgets.view_button import ViewButton, ViewDirection
@@ -42,15 +41,18 @@ from ansys.visualizer.widgets.widget import PlotterWidget
 
 
 class PlotterInterface(ABC):
-    """Interface for the PyAnsys Visualizer plotter. This class is intended to be used as a base class for the
-    custom plotters in the different PyAnsys libraries. It provides the basic plotter functionalities, such as
-    adding objects, enabling widgets, and enabling picking capabilities. It also provides the ability to show the
-    plotter using the trame service. 
-    
-    The methods that you can override are ``add_list()``,  ``add()`` and ``picked_operation()``. The ``add_list()`` 
-    method is intended to add a list of objects to the plotter, while the ``add()`` method is intended to add a
-    single object to the plotter. The ``plot()`` method is intended to plot the objects and show the plotter. The 
-    ``picked_operation()`` method is intended to perform an operation on the picked objects.
+    """Interface for the PyAnsys Visualizer plotter.
+
+    This class is intended to be used as a base class for the custom plotters
+    in the different PyAnsys libraries. It provides the basic plotter functionalities,
+    such as adding objects, enabling widgets, and enabling picking capabilities. It also
+    provides the ability to show the plotter using the trame service.
+
+    The methods that you can override are ``add_list()``,  ``add()`` and ``picked_operation()``.
+    The ``add_list()`` method is intended to add a list of objects to the plotter, while the
+    ``add()`` method is intended to add a single object to the plotter. The ``plot()`` method is
+    intended to plot the objects and show the plotter. The ``picked_operation()`` method is
+    intended to perform an operation on the picked objects.
 
     Parameters
     ----------
@@ -59,11 +61,15 @@ class PlotterInterface(ABC):
     allow_picking : Optional[bool], optional
         Whether to allow picking in the window or not, by default False.
     """
+
     def __init__(
-        self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False, plot_picked_names: Optional[bool] = False, show_plane: Optional[bool] = False
+        self,
+        use_trame: Optional[bool] = None,
+        allow_picking: Optional[bool] = False,
+        plot_picked_names: Optional[bool] = False,
+        show_plane: Optional[bool] = False,
     ) -> None:
         """Initialize ``use_trame`` and save current ``pv.OFF_SCREEN`` value."""
-
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = USE_TRAME
@@ -74,25 +80,25 @@ class PlotterInterface(ABC):
         self._plot_picked_names = plot_picked_names
         # Map that relates PyVista actors with PyAnsys objects
         self._object_to_actors_map = {}
-        
+
         # PyVista plotter
         self._pl = None
-        
+
         # List of picked objects in MeshObject format.
         self._picked_list = set()
-        
+
         # Map that relates PyVista actors with the added actors by the picker
         self._picker_added_actors_map = {}
-        
+
         # Map that relates PyVista actors with EdgePlot objects
         self._edge_actors_map = {}
-        
+
         # List of widgets added to the plotter.
         self._widgets = []
-        
+
         # Map that saves original colors of the plotted objects.
         self._origin_colors = {}
-        
+
         # Enable the use of trame if requested and available
         if self._use_trame and _HAS_TRAME:
             # avoids GUI window popping up
@@ -133,7 +139,7 @@ class PlotterInterface(ABC):
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add a custom widget to the plotter.
-        
+
         Parameters
         ----------
         widget : Union[PlotterWidget, List[PlotterWidget]]
@@ -147,11 +153,10 @@ class PlotterInterface(ABC):
             widget.update()
 
     def select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: np.ndarray) -> None:
-        """
-        Select an object in the plotter.
+        """Select an object in the plotter.
 
-        This method highlights the edges of a body and adds a label to the plotter. It also adds the object to the
-        ``_picked_list`` and the actor to the ``_picker_added_actors_map``.
+        This method highlights the edges of a body and adds a label to the plotter. It also adds
+        the object to the ``_picked_list`` and the actor to the ``_picker_added_actors_map``.
 
         Parameters
         ----------
@@ -193,8 +198,7 @@ class PlotterInterface(ABC):
         self._picker_added_actors_map[custom_object.actor.name] = added_actors
 
     def unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
-        """
-        Unselect an object in the plotter.
+        """Unselect an object in the plotter.
 
         Removes edge highlighting and label from a plotter actor and removes it
         from the PyAnsys Visualizer object selection.
@@ -227,8 +231,7 @@ class PlotterInterface(ABC):
             self._picker_added_actors_map.pop(custom_object.actor.name)
 
     def picker_callback(self, actor: "pv.Actor") -> None:
-        """
-        Define callback for the element picker.
+        """Define callback for the element picker.
 
         Parameters
         ----------
@@ -255,8 +258,7 @@ class PlotterInterface(ABC):
                 actor.prop.color = Colors.EDGE_COLOR.value
 
     def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
-        """
-        Compute the mapping between plotter actors and ``EdgePlot`` objects.
+        """Compute the mapping between plotter actors and ``EdgePlot`` objects.
 
         Returns
         -------
@@ -272,7 +274,11 @@ class PlotterInterface(ABC):
     def enable_picking(self):
         """Enable picking capabilities in the plotter."""
         self._pl.scene.enable_mesh_picking(
-            callback=self.picker_callback, use_actor=True, show=False, show_message=False, picker="cell"
+            callback=self.picker_callback,
+            use_actor=True,
+            show=False,
+            show_message=False,
+            picker="cell",
         )
 
     def disable_picking(self):
@@ -286,8 +292,7 @@ class PlotterInterface(ABC):
         filter: str = None,
         **plotting_options,
     ) -> List[Any]:
-        """
-        Plot and show any PyAnsys object.
+        """Plot and show any PyAnsys object.
 
         The default types of objects are supported: ``pv.PolyData``,
         ``pv.MultiBlock``, and ``MeshObjectPlot``.
@@ -324,7 +329,7 @@ class PlotterInterface(ABC):
             self._object_to_actors_map = self._pl._object_to_actors_map
         else:
             logger.warning("No actors added to the plotter.")
-        
+
         # Compute mapping between the objects and its edges.
         _ = self.compute_edge_object_map()
 
@@ -352,7 +357,7 @@ class PlotterInterface(ABC):
 
     def show_plotter(self, screenshot: Optional[str] = None) -> None:
         """
-        Show the plotter or start the `trame <https://kitware.github.io/trame/index.html>`_ service.
+        Show the plotter or start `trame <https://kitware.github.io/trame/index.html>`_ service.
 
         Parameters
         ----------
@@ -400,10 +405,10 @@ class PlotterInterface(ABC):
         """Perform an operation on the picked objects."""
         pass
 
+
 class Plotter(PlotterInterface):
-    """
-    Generic plotter implementation for PyAnsys libraries.
-    
+    """Generic plotter implementation for PyAnsys libraries.
+
     Accepts ``pv.PolyData``, ``pv.MultiBlock``, and ``MeshObjectPlot`` objects.
 
     Parameters
@@ -419,18 +424,16 @@ class Plotter(PlotterInterface):
     def __init__(
         self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False
     ) -> None:
-        """Inits
-        """
+        """Initialize the generic plotter."""
         super().__init__(use_trame, allow_picking)
-        
+
     def add_iter(
         self,
         plotting_list: List[Any],
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """
-        Add a list of any type of object to the scene.
+        """Add a list of any type of object to the scene.
 
         These types of objects are supported: ``Body``, ``Component``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``, and ``Sketch``.
@@ -448,10 +451,8 @@ class Plotter(PlotterInterface):
         for object in plotting_list:
             _ = self.add(object, filter, **plotting_options)
 
-
     def add(self, object: Any, filter: str = None, **plotting_options):
-        """
-        Add a ``pyansys`` or ``PyVista`` object to the plotter.
+        """Add a ``pyansys`` or ``PyVista`` object to the plotter.
 
         Parameters
         ----------

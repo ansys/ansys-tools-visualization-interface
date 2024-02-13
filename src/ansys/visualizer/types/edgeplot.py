@@ -20,15 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Edge type for plotting."""
-from abc import ABC, abstractmethod
-from typing import Union
+
+
+from beartype.typing import Any
 import pyvista as pv
-from beartype.typing import Any, List
 
 
 class EdgePlot:
-    """
-    Mapper class to relate PyAnsys object edges with its PyVista actor.
+    """Mapper class to relate PyAnsys object edges with its PyVista actor.
 
     Parameters
     ----------
@@ -48,8 +47,7 @@ class EdgePlot:
 
     @property
     def actor(self) -> pv.Actor:
-        """
-        Return PyVista actor of the object.
+        """Return PyVista actor of the object.
 
         Returns
         -------
@@ -60,8 +58,7 @@ class EdgePlot:
 
     @property
     def edge_object(self) -> Any:
-        """
-        Return the PyAnsys edge.
+        """Return the PyAnsys edge.
 
         Returns
         -------
@@ -72,8 +69,7 @@ class EdgePlot:
 
     @property
     def parent(self) -> Any:
-        """
-        Parent PyAnsys object of this edge.
+        """Parent PyAnsys object of this edge.
 
         Returns
         -------
@@ -84,8 +80,7 @@ class EdgePlot:
 
     @property
     def name(self) -> str:
-        """
-        Return the name of the edge.
+        """Return the name of the edge.
 
         Returns
         -------
@@ -99,8 +94,7 @@ class EdgePlot:
 
     @parent.setter
     def parent(self, parent: "MeshObjectPlot"):
-        """
-        Set the parent object of the edge.
+        """Set the parent object of the edge.
 
         Parameters
         ----------
@@ -108,4 +102,3 @@ class EdgePlot:
             Parent of the edge.
         """
         self._parent = parent
-

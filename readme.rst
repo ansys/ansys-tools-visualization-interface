@@ -1,6 +1,6 @@
 PyAnsys Visualizer
 ==================
-|pyansys| |MIT| 
+|pyansys| |MIT|
 
 .. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5mD8vE7q/3bpVyskbW0sMRUwofHD7Dh5OBkZGBgW7/3W2tZpa2tLQEOyOzeEsfumlK2tbVpaGj4N6jIs1lpsDAwMJ278sveMY2BgCA0NFRISwqkhyQ1q/Nyd3zg4OBgYGNjZ2ePi4rB5loGBhZnhxTLJ/9ulv26Q4uVk1NXV/f///////69du4Zdg78lx//t0v+3S88rFISInD59GqIH2esIJ8G9O2/XVwhjzpw5EAam1xkkBJn/bJX+v1365hxxuCAfH9+3b9/+////48cPuNehNsS7cDEzMTAwMMzb+Q2u4dOnT2vWrMHu9ZtzxP9vl/69RVpCkBlZ3N7enoDXBwEAAA+YYitOilMVAAAAAElFTkSuQmCC
    :target: https://docs.pyansys.com/
@@ -16,14 +16,14 @@ Overview
 --------
 
 PyAnsys Visualizer is a Python package that provides a common interface to visualize PyAnsys libraries operation results.  This package
-is built on top of `pyvista` to provide a simple interface to visualize Ansys results. 
+is built on top of ``pyvista`` to provide a simple interface to visualize Ansys results.
 
 Installation
 ^^^^^^^^^^^^
 
-To install the developer version of PyAnsys Visualizer, use pip:
+To install the developer version of PyAnsys Visualizer, use pip.
 
-.. code-block:: python
+.. code:: bash
 
     git clone https://github.com/ansys-internal/pyansys-visualizer
     cd pyansys-visualizer
@@ -36,7 +36,7 @@ The following examples demonstrates how to visualize a result file using PyAnsys
 
 Using PyVista meshes only:
 
-.. code-block:: python
+.. code:: python
 
     from ansys.visualizer import Plotter
 
@@ -52,7 +52,7 @@ Using PyVista meshes only:
 
 Using objects from your library:
 
-.. code-block:: python
+.. code:: python
 
     from ansys.visualizer import Plotter, MeshObjectPlot
 

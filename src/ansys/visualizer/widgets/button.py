@@ -21,8 +21,8 @@
 # SOFTWARE.
 """Provides for implementing buttons in PyAnsys."""
 
-import os
 from abc import abstractmethod
+import os
 
 from pyvista import Plotter
 from vtk import vtkButtonWidget, vtkPNGReader
@@ -31,8 +31,7 @@ from ansys.visualizer.widgets.widget import PlotterWidget
 
 
 class Button(PlotterWidget):
-    """
-    Provides the abstract class for implementing buttons in PyAnsys.
+    """Provides the abstract class for implementing buttons in PyAnsys.
 
     Notes
     -----
@@ -56,8 +55,7 @@ class Button(PlotterWidget):
 
     @abstractmethod
     def callback(self, state: bool) -> None:
-        """
-        Get the functionality of the button, which is implemented by subclasses.
+        """Get the functionality of the button, which is implemented by subclasses.
 
         Parameters
         ----------

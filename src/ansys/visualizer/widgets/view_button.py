@@ -41,8 +41,7 @@ class ViewDirection(Enum):
 
 
 class ViewButton(Button):
-    """
-    Provides for changing the view.
+    """Provides for changing the view.
 
     Parameters
     ----------
@@ -58,8 +57,7 @@ class ViewButton(Button):
         self.direction = direction
 
     def callback(self, state: bool) -> None:
-        """
-        Change the view depending on button interaction.
+        """Change the view depending on button interaction.
 
         Parameters
         ----------
