@@ -31,8 +31,9 @@ from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 from pyvista.plotting.tools import create_axes_marker
 
 from ansys.visualizer import DOCUMENTATION_BUILD
-from ansys.visualizer.colors import Colors
-from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
+from ansys.visualizer.utils.colors import Colors
+from ansys.visualizer.types.edgeplot import EdgePlot
+from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 from ansys.visualizer.utils.clip_plane import ClipPlane
 from ansys.visualizer.utils.logger import logger
 
@@ -265,7 +266,7 @@ class PyVistaInterface:
         else:
             logger.warning("The object type is not supported. ")
 
-    def add_list(
+    def add_iter(
         self,
         plotting_list: List[Any],
         filter: str = None,
@@ -281,14 +282,6 @@ class PyVistaInterface:
         ----------
         plotting_list : List[Any]
             List of objects you want to plot.
-        merge_component : bool, default: False
-            Whether to merge the component into a single dataset. When
-            ``True``, all the individual bodies are effectively combined
-            into a single dataset without any hierarchy.
-        merge_bodies : bool, default: False
-            Whether to merge each body into a single dataset. When ``True``,
-            all the faces of each individual body are effectively combined
-            into a single dataset without separating faces.
         filter : str, default: None
             Regular expression with the desired name or names you want to include in the plotter.
         **plotting_options : dict, default: None
@@ -323,7 +316,7 @@ class PyVistaInterface:
         `Jupyter Notebook Plotting <https://docs.pyvista.org/user-guide/jupyter/index.html>`_
         in the PyVista documentation.
         """
-        # computue the scaling
+        # compute the scaling
         bounds = self.scene.renderer.bounds
         x_length, y_length = bounds[1] - bounds[0], bounds[3] - bounds[2]
         sfac = max(x_length, y_length)

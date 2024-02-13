@@ -27,10 +27,11 @@ import pyvista as pv
 from beartype.typing import Any, Dict, List, Optional, Union
 
 from ansys.visualizer import USE_TRAME
-from ansys.visualizer.colors import Colors
-from ansys.visualizer.plotter_types import EdgePlot, MeshObjectPlot
-from ansys.visualizer.pyvista_interface import PyVistaInterface
-from ansys.visualizer.trame_gui import _HAS_TRAME, TrameVisualizer
+from ansys.visualizer.interfaces.pyvista_interface import PyVistaInterface
+from ansys.visualizer.interfaces.trame_gui import _HAS_TRAME, TrameVisualizer
+from ansys.visualizer.types.edgeplot import EdgePlot
+from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
+from ansys.visualizer.utils.colors import Colors
 from ansys.visualizer.utils.logger import logger
 from ansys.visualizer.widgets.displace_arrows import (CameraPanDirection,
                                                       DisplacementArrow)
@@ -370,7 +371,7 @@ class PlotterInterface(ABC):
         pv.OFF_SCREEN = self._pv_off_screen_original
 
     @abstractmethod
-    def add_list(self, object: Any, filter: str = None, **plotting_options):
+    def add_iter(self, object: Any, filter: str = None, **plotting_options):
         """Add a list of compatible objects to the plotter.
 
         Parameters
@@ -422,7 +423,7 @@ class Plotter(PlotterInterface):
         """
         super().__init__(use_trame, allow_picking)
         
-    def add_list(
+    def add_iter(
         self,
         plotting_list: List[Any],
         filter: str = None,
@@ -462,8 +463,8 @@ class Plotter(PlotterInterface):
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
         """
-        if isinstance(object, List) and not isinstance(object[0], pv.PolyData):
+        if hasattr(object, "__iter__") and not isinstance(object[0], pv.PolyData):
             logger.debug("Plotting objects in list...")
-            self.pv_interface.add_list(object, filter, **plotting_options)
+            self.pv_interface.add_iter(object, filter, **plotting_options)
         else:
             self.pv_interface.add(object, filter, **plotting_options)
