@@ -344,8 +344,10 @@ class PyVistaInterface:
         # If the following keys do not exist, set the default values
         #
         # This method should only be applied in 3D objects: bodies, components
-        plotting_options.setdefault("smooth_shading", True)
-        plotting_options.setdefault("color", Colors.DEFAULT_COLOR.value)
+        if "smooth_shading" not in plotting_options:
+            plotting_options.setdefault("smooth_shading", True)
+        if "color" not in plotting_options:
+            plotting_options.setdefault("color", Colors.DEFAULT_COLOR.value)
 
     @property
     def object_to_actors_map(self) -> Dict[pv.Actor, MeshObjectPlot]:
