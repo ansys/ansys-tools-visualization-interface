@@ -289,6 +289,7 @@ class PlotterInterface(ABC):
         self,
         object: Any = None,
         screenshot: Optional[str] = None,
+        view_2d: Dict = None,
         filter: str = None,
         **plotting_options,
     ) -> List[Any]:
@@ -303,14 +304,6 @@ class PlotterInterface(ABC):
             Any object or list of objects that you want to plot.
         screenshot : str, default: None
             Path for saving a screenshot of the image that is being represented.
-        merge_bodies : bool, default: False
-            Whether to merge each body into a single dataset. When ``True``,
-            all the faces of each individual body are effectively combined
-            into a single dataset without separating faces.
-        merge_component : bool, default: False
-            Whether to merge this component into a single dataset. When ``True``,
-            all the individual bodies are effectively combined into a single
-            dataset without any hierarchy.
         view_2d : Dict, default: None
             Dictionary with the plane and the viewup vectors of the 2D plane.
         filter : str, default: None
@@ -333,6 +326,11 @@ class PlotterInterface(ABC):
         # Compute mapping between the objects and its edges.
         _ = self.compute_edge_object_map()
 
+        if view_2d is not None:
+            self._pl.scene.view_vector(
+                vector=view_2d["vector"],
+                viewup=view_2d["viewup"],
+            )
         # Enable widgets and picking capabilities
         self.enable_widgets()
         if self._allow_picking:

@@ -87,6 +87,7 @@ class PyVistaInterface:
         # Show the XY plane
         self._show_plane = show_plane
 
+        self.scene.show_axes_all()
         # objects to actors mapping
         self._object_to_actors_map = {}
         self._enable_widgets = enable_widgets
