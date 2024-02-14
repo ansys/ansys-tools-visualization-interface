@@ -35,7 +35,7 @@ class EdgePlot:
         PyVista actor that represents the edge.
     edge_object : Edge
         PyAnsys object edge that is represented by the PyVista actor.
-    parent : GeomObjectPlot, optional
+    parent : MeshObjectPlot, optional
         Parent PyAnsys object of this edge, by default ``None``.
     """
 
@@ -98,7 +98,7 @@ class EdgePlot:
 
         Parameters
         ----------
-        parent : GeomObjectPlot
+        parent : MeshObjectPlot
             Parent of the edge.
         """
         self._parent = parent

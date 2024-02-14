@@ -160,7 +160,7 @@ class PlotterInterface(ABC):
 
         Parameters
         ----------
-        geom_object : Union[MeshObjectPlot, EdgePlot]
+        custom_object : Union[MeshObjectPlot, EdgePlot]
             Custom object to select.
         pt : ~numpy.ndarray
             Set of points to determine the label position.
@@ -205,7 +205,7 @@ class PlotterInterface(ABC):
 
         Parameters
         ----------
-        geom_object : Union[MeshObjectPlot, EdgePlot]
+        custom_object : Union[MeshObjectPlot, EdgePlot]
             Object to unselect.
         """
         # remove actor from picked list and from scene
