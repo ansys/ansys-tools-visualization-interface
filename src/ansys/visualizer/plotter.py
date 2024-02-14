@@ -464,7 +464,7 @@ class Plotter(PlotterInterface):
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
         """
-        if hasattr(object, "__iter__") and not isinstance(object[0], pv.PolyData):
+        if hasattr(object, "__iter__"):
             logger.debug("Plotting objects in list...")
             self.pv_interface.add_iter(object, filter, **plotting_options)
         else:
