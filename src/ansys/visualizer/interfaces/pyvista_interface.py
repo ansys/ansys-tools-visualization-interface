@@ -66,11 +66,12 @@ class PyVistaInterface:
         num_points: int = 100,
         enable_widgets: bool = True,
         show_plane: bool = False,
+        **plotter_kwargs,
     ) -> None:
         """Initialize the plotter."""
         # Generate custom scene if ``None`` is provided
         if scene is None:
-            scene = pv.Plotter()
+            scene = pv.Plotter(plotter_kwargs)
 
         # If required, use a white background with no gradient
         if not color_opts:
@@ -87,7 +88,7 @@ class PyVistaInterface:
         # Show the XY plane
         self._show_plane = show_plane
 
-        self.scene.show_axes_all()
+        self.scene.add_axes(interactive=False)
         # objects to actors mapping
         self._object_to_actors_map = {}
         self._enable_widgets = enable_widgets

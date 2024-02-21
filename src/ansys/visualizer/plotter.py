@@ -68,6 +68,7 @@ class PlotterInterface(ABC):
         allow_picking: Optional[bool] = False,
         plot_picked_names: Optional[bool] = False,
         show_plane: Optional[bool] = False,
+        **plotter_kwargs,
     ) -> None:
         """Initialize ``use_trame`` and save current ``pv.OFF_SCREEN`` value."""
         # Check if the use of trame was requested
@@ -103,7 +104,9 @@ class PlotterInterface(ABC):
         if self._use_trame and _HAS_TRAME:
             # avoids GUI window popping up
             pv.OFF_SCREEN = True
-            self._pl = PyVistaInterface(enable_widgets=False, show_plane=show_plane)
+            self._pl = PyVistaInterface(
+                enable_widgets=False, show_plane=show_plane, **plotter_kwargs
+            )
         elif self._use_trame and not _HAS_TRAME:
             warn_msg = (
                 "'use_trame' is active but trame dependencies are not installed."
