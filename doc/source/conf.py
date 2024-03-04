@@ -20,7 +20,7 @@ from sphinx.builders.latex import LaTeXBuilder
 
 from ansys.visualizer.core import __version__
 
-os.environ["PYANSYS_GEOMETRY_DOC_BUILD"] = "true"
+os.environ["PYANSYS_VISUALIZER_DOC_BUILD"] = "true"
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
@@ -34,7 +34,7 @@ def get_wheelhouse_assets_dictionary():
         # Just point to the latest version
         assets_context_version = json.loads(
             requests.get(
-                "https://api.github.com/repos/ansys/pyansys-geometry/releases/latest"
+                "https://api.github.com/repos/ansys/pyansys-visualizer/releases/latest"
             ).content
         )["name"]
     else:
@@ -49,7 +49,7 @@ def get_wheelhouse_assets_dictionary():
                 "runner": assets_runner,
                 "python_versions": assets_py_ver,
                 "latest_released_version": assets_context_version,
-                "prefix_url": f"https://github.com/ansys/pyansys-geometry/releases/download/{assets_context_version}",  # noqa: E501
+                "prefix_url": f"https://github.com/ansys/pyansys-visualizer/releases/download/{assets_context_version}",  # noqa: E501
             }
             download_links.append(temp_dict)
 
@@ -68,7 +68,7 @@ switcher_version = get_version_match(__version__)
 # Select desired logo, theme, and declare the html title
 html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
-html_short_title = html_title = "PyAnsys Geometry"
+html_short_title = html_title = "PyAnsys Visualizer"
 html_baseurl = f"https://{cname}/version/stable"
 
 # specify the location of your github repo
@@ -107,7 +107,7 @@ html_theme_options = {
     "use_meilisearch": {
         "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
         "index_uids": {
-            f"pyansys-visualizer-v{get_version_match(__version__).replace('.', '-')}": "PyAnsys-Geometry",  # noqa: E501
+            f"pyansys-visualizer-v{get_version_match(__version__).replace('.', '-')}": "PyAnsys-Visualizer",  # noqa: E501
         },
     },
 }

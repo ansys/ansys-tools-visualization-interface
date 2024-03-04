@@ -28,7 +28,7 @@ PyAnsys Visualizer is a Python package that provides a simple interface to visua
             :link: api/index
             :link-type: doc
 
-            Understand PyAnsys Geometry API endpoints, their capabilities,
+            Understand PyAnsys Visualizer API endpoints, their capabilities,
             and how to interact with them programmatically.
         {% endif %}
 
@@ -38,7 +38,7 @@ PyAnsys Visualizer is a Python package that provides a simple interface to visua
             :link: examples
             :link-type: doc
 
-            Explore examples that show how to use PyAnsys Geometry to
+            Explore examples that show how to use PyAnsys Visualizer to
             perform many different types of operations.
         {% endif %}
 
