@@ -1,37 +1,14 @@
 repos:
-
-- repo: https://github.com/psf/black
-  rev: 23.12.1  # IF VERSION CHANGES --> MODIFY "blacken-docs" MANUALLY AS WELL!!
-  hooks:
-  - id: black
-
 - repo: https://github.com/adamchainz/blacken-docs
   rev: 1.16.0
   hooks:
   - id: blacken-docs
     additional_dependencies: [black==23.12.1]
 
-- repo: https://github.com/pycqa/isort
-  rev: 5.13.2
-  hooks:
-  - id: isort
-
-- repo: https://github.com/PyCQA/flake8
-  rev: 7.0.0
-  hooks:
-  - id: flake8
-
 - repo: https://github.com/codespell-project/codespell
   rev: v2.2.6
   hooks:
   - id: codespell
-
-- repo: https://github.com/pycqa/pydocstyle
-  rev: 6.3.0
-  hooks:
-  - id: pydocstyle
-    additional_dependencies: [tomli]
-    exclude: "tests/|examples/"
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.5.0
@@ -47,10 +24,16 @@ repos:
     - id: add-license-headers
       files: '(src|examples|tests|docker)/.*\.(py)|\.(proto)'
       args:
-      - --start_year=2023
+      - --start_year=2024
 
 # this validates our github workflow files
 - repo: https://github.com/python-jsonschema/check-jsonschema
   rev: 0.27.3
   hooks:
     - id: check-github-workflows
+
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: v0.1.6
+  hooks:
+    - id: ruff
+      args: [--fix]
