@@ -30,13 +30,13 @@ dependencies = [
 
 [project.optional-dependencies]
 
-test = [
+tests = [
     "pytest==7.4.4",
     "pytest-pyvista==0.1.9",
     "pytest-cov==4.1.0",
 ]
 
-docs = [
+doc = [
     "ansys-sphinx-theme==0.14.0",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.16.1",
