@@ -106,11 +106,12 @@ provides a set of methods that can be overridden so you can adapt the plotter to
 To this end, the first thing you need to do is to create a new class that inherits from the ``PlotterInterface`` class. After that, you have two
 main options to customize the plotter:
 
-* The most common need that you will have is to customize the way the objects you represent are shown in the plotter. To this end, you can override the
-``add`` and ``add_iter`` methods. These methods are called every time a new object is added to the plotter. The default implementation of this method is to add a PyVista mesh or a
-``MeshObjectPlot`` instance to the plotter. You can override this method to add your own meshes or objects to the plotter in a manner that fits the way you want to represent the meshes.
+* | The most common need that you will have is to customize the way the objects you represent are shown in the plotter. To this end, you can override the
+  | ``add`` and ``add_iter`` methods. These methods are called every time a new object is added to the plotter. The default implementation of this method is to add a PyVista mesh or a
+  | ``MeshObjectPlot`` instance to the plotter. You can override this method to add your own meshes or objects to the plotter in a manner that fits the way you want to represent the meshes.
 
-* Another use case is the need of having custom button functionalities for your library, to, for example, hide or show certain objects. You can make use of the ``PlotterWidget`` class to
-add custom buttons to the plotter. This class provides an implementable interface where you can add your own buttons to the plotter.
+* | Another use case is the need of having custom button functionalities for your library, to, for example, hide or show certain objects. You can make use of the ``PlotterWidget`` class to
+  | add custom buttons to the plotter. This class provides an implementable interface where you can add your own buttons to the plotter.
+
 
 Some practical examples of how to use the ``PlotterInterface`` class are included in some PyAnsys libraries, such as `PyAnsys Geometry <https://github.com/ansys/pyansys-geometry/pull/959>_`.

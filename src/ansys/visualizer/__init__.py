@@ -20,7 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """PyAnsys visualizer is a python package to help visualize the results of ansys simulations."""
+import pkg_resources
+
 from ansys.visualizer.interfaces.trame_gui import _HAS_TRAME, TrameVisualizer
+
+__version__ = pkg_resources.get_distribution("pyansys-visualizer").version
 
 USE_TRAME: bool = False
 DOCUMENTATION_BUILD: bool = False

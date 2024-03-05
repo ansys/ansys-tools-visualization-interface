@@ -1,7 +1,6 @@
 """Sphinx documentation configuration file."""
 
 from datetime import datetime
-import json
 import os
 from pathlib import Path
 
@@ -15,46 +14,18 @@ from ansys_sphinx_theme import (
     pyansys_logo_black,
     watermark,
 )
-import requests
+import pyvista
 from sphinx.builders.latex import LaTeXBuilder
 
-from ansys.visualizer.core import __version__
+from ansys.visualizer import __version__
 
 os.environ["PYANSYS_VISUALIZER_DOC_BUILD"] = "true"
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
 
-def get_wheelhouse_assets_dictionary():
-    """Auxiliary method to build the wheelhouse assets dictionary."""
-    assets_context_os = ["Linux", "Windows", "MacOS"]
-    assets_context_runners = ["ubuntu-latest", "windows-latest", "macos-latest"]
-    assets_context_python_versions = ["3.9", "3.10", "3.11", "3.12"]
-    if get_version_match(__version__) == "dev":
-        # Just point to the latest version
-        assets_context_version = json.loads(
-            requests.get(
-                "https://api.github.com/repos/ansys/pyansys-visualizer/releases/latest"
-            ).content
-        )["name"]
-    else:
-        assets_context_version = f"v{__version__}"
-
-    assets = {}
-    for assets_os, assets_runner in zip(assets_context_os, assets_context_runners):
-        download_links = []
-        for assets_py_ver in assets_context_python_versions:
-            temp_dict = {
-                "os": assets_os,
-                "runner": assets_runner,
-                "python_versions": assets_py_ver,
-                "latest_released_version": assets_context_version,
-                "prefix_url": f"https://github.com/ansys/pyansys-visualizer/releases/download/{assets_context_version}",  # noqa: E501
-            }
-            download_links.append(temp_dict)
-
-        assets[assets_os] = download_links
-    return assets
+pyvista.BUILDING_GALLERY = True
+pyvista.OFF_SCREEN = True
 
 
 # Project information
@@ -117,13 +88,36 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "nbsphinx",
-    "myst_parser",
     "jupyter_sphinx",
     "sphinx_design",
     "sphinx_jinja",
     "autoapi.extension",
     "numpydoc",
+    "sphinx_gallery.gen_gallery",
 ]
+
+
+sphinx_gallery_conf = {
+    # path to your examples scripts
+    "examples_dirs": ["../../examples"],
+    # path where to save gallery generated examples
+    "gallery_dirs": ["./examples"],
+    # Pattern to search for example files
+    "filename_pattern": r"\." + "py",
+    # Remove the "Download all examples" button from the top level gallery
+    "download_all_examples": False,
+    # Sort gallery example by file name instead of number of lines (default)
+    # directory where function granular galleries are stored
+    "backreferences_dir": None,
+    # Modules for which function level galleries are created.  In
+    "doc_module": "ansys-visualizer",
+    "image_scrapers": ("pyvista"),
+    "ignore_pattern": "flycheck*",
+    "thumbnail_size": (350, 350),
+    "remove_config_comments": True,
+    "show_signature": False,
+}
+
 
 # Intersphinx mapping
 intersphinx_mapping = {
@@ -136,10 +130,6 @@ intersphinx_mapping = {
     "beartype": ("https://beartype.readthedocs.io/en/stable/", None),
     "docker": ("https://docker-py.readthedocs.io/en/stable/", None),
     "pypim": ("https://pypim.docs.pyansys.com/version/stable", None),
-    "ansys.visualizer.core": (
-        f"https://visualizer.docs.pyansys.com/version/{switcher_version}",
-        None,
-    ),
 }
 
 # numpydoc configuration
@@ -163,13 +153,6 @@ numpydoc_validation_checks = {
     "RT02",  # The first line of the Returns section should contain only the
     # type, unless multiple values are being returned"
 }
-
-# static path
-html_static_path = ["_static"]
-
-html_css_files = [
-    "custom.css",
-]
 
 html_favicon = ansys_favicon
 
@@ -202,12 +185,9 @@ suppress_warnings = ["autoapi.python_import_resolution", "design.grid"]
 autoapi_python_use_implicit_namespaces = True
 autoapi_keep_files = True
 autoapi_own_page_level = "class"
-
+autoapi_add_toctree_entry = False
 # Examples gallery customization
 nbsphinx_execute = "always"
-nbsphinx_custom_formats = {
-    ".mystnb": ["jupytext.reads", {"fmt": "mystnb"}],
-}
 
 nbsphinx_epilog = """
 ----
@@ -251,12 +231,18 @@ sd_fontawesome_latex = True
 linkcheck_exclude_documents = ["index", "getting_started/local/index", "assets"]
 
 # -- Declare the Jinja context -----------------------------------------------
-exclude_patterns = []
-BUILD_API = True if os.environ.get("BUILD_API", "true") == "true" else False
+exclude_patterns = [
+    "examples/**/*.ipynb",
+    "examples/**/*.py",
+    "examples/**/*.md5",
+    "api/ansys/visualizer/index.rst",
+]
+
+BUILD_API = True
 if not BUILD_API:
     exclude_patterns.append("autoapi")
 
-BUILD_EXAMPLES = True if os.environ.get("BUILD_EXAMPLES", "true") == "true" else False
+BUILD_EXAMPLES = True
 if not BUILD_EXAMPLES:
     exclude_patterns.append("examples/**")
     exclude_patterns.append("examples.rst")
@@ -265,14 +251,7 @@ jinja_contexts = {
     "main_toctree": {
         "build_api": BUILD_API,
         "build_examples": BUILD_EXAMPLES,
-    },
-    "linux_containers": {
-        "add_windows_warnings": False,
-    },
-    "windows_containers": {
-        "add_windows_warnings": True,
-    },
-    "wheelhouse-assets": {"assets": get_wheelhouse_assets_dictionary()},
+    }
 }
 
 

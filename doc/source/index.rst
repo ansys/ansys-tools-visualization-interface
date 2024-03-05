@@ -35,7 +35,7 @@ PyAnsys Visualizer is a Python package that provides a simple interface to visua
         {% if build_examples %}
         .. grid-item-card:: Examples :fa:`scroll`
             :padding: 2 2 2 2
-            :link: examples
+            :link: examples/index
             :link-type: doc
 
             Explore examples that show how to use PyAnsys Visualizer to
@@ -54,7 +54,6 @@ PyAnsys Visualizer is a Python package that provides a simple interface to visua
        api/index
        {% endif %}
        {% if build_examples %}
-       examples
+       examples/index
        {% endif %}
        contributing
-       assets

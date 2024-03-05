@@ -90,10 +90,10 @@ Build the documentation
 
 .. note::
 
-To build the documentation locally, you must run this command to install the
-documentation dependencies::
+  To build the documentation locally, you must run this command to install the
+  documentation dependencies::
 
-  pip install -e .[doc]
+    pip install -e .[doc]
 
 Then, navigate to the ``docs`` directory and run this command::
 
