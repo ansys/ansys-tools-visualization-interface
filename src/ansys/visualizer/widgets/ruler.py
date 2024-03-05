@@ -83,7 +83,7 @@ class Ruler(PlotterWidget):
     def update(self) -> None:
         """Define the configuration and representation of the ruler widget button."""
         show_ruler_vr = self._button.GetRepresentation()
-        show_ruler_icon_file = Path(Path.parent(__file__) / "_images" / "ruler.png")
+        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / "ruler.png")
         show_ruler_r = vtkPNGReader()
         show_ruler_r.SetFileName(show_ruler_icon_file)
         show_ruler_r.Update()

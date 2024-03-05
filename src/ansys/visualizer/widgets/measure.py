@@ -79,7 +79,7 @@ class MeasureWidget(PlotterWidget):
         """Define the measurement widget button params."""
         show_measure_vr = self._button.GetRepresentation()
         show_measure_icon_file = Path(
-            Path.parent(__file__) / "_images"/ "measurement.png"
+            Path(__file__).parent / "_images"/ "measurement.png"
         )
         show_measure_r = vtkPNGReader()
         show_measure_r.SetFileName(show_measure_icon_file)
