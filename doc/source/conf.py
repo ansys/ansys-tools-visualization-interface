@@ -256,8 +256,7 @@ jinja_contexts = {
 
 
 def prepare_jinja_env(jinja_env) -> None:
-    """
-    Customize the jinja env.
+    """Customize the jinja env.
 
     Notes
     -----

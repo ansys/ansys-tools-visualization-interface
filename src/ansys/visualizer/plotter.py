@@ -357,8 +357,7 @@ class PlotterInterface(ABC):
         return picked_objects_list
 
     def show_plotter(self, screenshot: Optional[str] = None) -> None:
-        """
-        Show the plotter or start `trame <https://kitware.github.io/trame/index.html>`_ service.
+        """Show the plotter or start `trame <https://kitware.github.io/trame/index.html>`_ service.
 
         Parameters
         ----------
@@ -386,6 +385,9 @@ class PlotterInterface(ABC):
             Object or objects to add.
         filter : str, default: None.
             Regular expression with the desired name or names you want to include in the plotter.
+        **plotting_options : dict, default: None
+            Keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
         """
         pass
 
@@ -399,6 +401,9 @@ class PlotterInterface(ABC):
             Object you want to show.
         filter : str
             Regular expression with the desired name or names you want to include in the plotter.
+        **plotting_options : dict, default: None
+            Keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
         """
         pass
 

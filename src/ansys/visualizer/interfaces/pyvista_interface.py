@@ -142,6 +142,8 @@ class PyVistaInterface:
             Available options: ["x", "-x", "y", "-y", "z", "-z"]
         origin : tuple, optional
             Origin point of the plane, by default None
+        plane : ClipPlane, optional
+            Clipping plane to cut the mesh with, by default None
 
         Returns
         -------
@@ -222,14 +224,8 @@ class PyVistaInterface:
         ----------
         plotting_list : List[Any]
             List of objects that you want to plot.
-        merge_bodies : bool, default: False
-            Whether to merge each body into a single dataset. When ``True``,
-            all the faces of each individual body are effectively combined
-            into a single dataset without separating faces.
-        merge_component : bool, default: False
-            Whether to merge the component into a single dataset. When
-            ``True``, all the individual bodies are effectively combined
-            into a single dataset without any hierarchy.
+        object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot]
+            Object you want to plot.
         filter : str, default: None
             Regular expression with the desired name or names you want to include in the plotter.
         **plotting_options : dict, default: None

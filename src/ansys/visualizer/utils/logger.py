@@ -25,7 +25,7 @@
 # logger from https://gist.github.com/huklee/cea20761dd05da7c39120084f52fcc7c
 import datetime
 import logging
-import os
+from pathlib import Path
 
 
 class SingletonType(type):
@@ -103,8 +103,8 @@ class VizLogger(object, metaclass=SingletonType):
             Directory of the logs. The default is ``"./.log"``.
         """
         now = datetime.datetime.now()
-        if not os.path.isdir(logs_dir):
-            os.mkdir(logs_dir)
+        if not Path.isdir(logs_dir):
+            Path.mkdir(logs_dir)
         file_handler = logging.FileHandler(logs_dir + "/log_" + now.strftime("%Y-%m-%d") + ".log")
         file_handler.setFormatter(self._formatter)
         self._logger.addHandler(file_handler)

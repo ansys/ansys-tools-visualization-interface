@@ -22,7 +22,7 @@
 """Provides for implementing buttons in PyAnsys."""
 
 from abc import abstractmethod
-import os
+from pathlib import Path
 
 from pyvista import Plotter
 from vtk import vtkButtonWidget, vtkPNGReader
@@ -67,8 +67,8 @@ class Button(PlotterWidget):
     def update(self) -> None:
         """Assign the image that represents the button."""
         button_repr = self._button.GetRepresentation()
-        button_icon_path = os.path.join(
-            os.path.dirname(__file__), "_images", self.button_config.value[1]
+        button_icon_path = Path(
+            Path.parent(__file__) / "_images", self.button_config.value[1]
         )
         button_icon = vtkPNGReader()
         button_icon.SetFileName(button_icon_path)

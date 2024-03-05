@@ -20,4 +20,3 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Submodule providing widgets for the PyAnsys plotter."""
-from ansys.visualizer.widgets.widget import PlotterWidget

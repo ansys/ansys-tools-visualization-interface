@@ -22,9 +22,11 @@
 """Edge type for plotting."""
 
 
-from beartype.typing import Any
+from beartype.typing import TYPE_CHECKING, Any
 import pyvista as pv
 
+if TYPE_CHECKING:
+    from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 
 class EdgePlot:
     """Mapper class to relate PyAnsys object edges with its PyVista actor.
