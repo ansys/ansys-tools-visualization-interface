@@ -78,6 +78,7 @@ select = [
 extend-exclude = [
     "tests/**/*.py",
     "examples/**/*.py",
+    "**/__init__.py",
 ]
 
 [tool.ruff.format]
