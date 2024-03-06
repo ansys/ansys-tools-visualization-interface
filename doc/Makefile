@@ -33,12 +33,3 @@ pdf:
 # Build HTML files and generate examples as .py files
 html:
 	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	# TODO: migrate this logic as a sphinx-hook declared in the conf.py file
-	cd $(BUILDDIR)/html/examples
-	for d in */ ; do
-		cd $d
-		for f in ./*.ipynb; do
-			jupytext --to py $f
-		done
-		cd -
-	done
