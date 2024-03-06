@@ -57,6 +57,7 @@ jobs:
     - name: "Run Ansys documentation building action"
       uses: ansys/actions/doc-build@v5
       with:
+        TODO: remove once public
         check-links: false
 
   smoke-tests:
