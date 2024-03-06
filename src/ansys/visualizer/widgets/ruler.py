@@ -36,6 +36,7 @@ class Ruler(PlotterWidget):
     ----------
     plotter : ~pyvista.Plotter
         Provides the plotter to add the ruler widget to.
+
     """
 
     def __init__(self, plotter: Plotter) -> None:
@@ -62,6 +63,7 @@ class Ruler(PlotterWidget):
         state : bool
             State of the button, which is inherited from PyVista. The value is ``True``
             if the button is active.
+
         """
         if not state and self._actor:
             self.plotter.remove_actor(self._actor)

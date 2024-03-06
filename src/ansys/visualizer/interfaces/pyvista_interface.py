@@ -57,6 +57,7 @@ class PyVistaInterface:
         for visualization.
     show_plane: bool, default: False
         Whether to show the XY plane in the plotter window. By default, false.
+
     """
 
     def __init__(
@@ -101,6 +102,7 @@ class PyVistaInterface:
         -------
         ~pyvista.Plotter
             Rendered scene object.
+
         """
         return self._scene
 
@@ -149,6 +151,7 @@ class PyVistaInterface:
         -------
         Union[pv.PolyData,pv.MultiBlock]
             The clipped mesh.
+
         """
         return mesh.clip(normal=plane.normal, origin=plane.origin)
 
@@ -162,6 +165,7 @@ class PyVistaInterface:
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         dataset = object.mesh
         if "clipping_plane" in plotting_options:
@@ -188,6 +192,7 @@ class PyVistaInterface:
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         edge_plot_list = []
 
@@ -231,6 +236,7 @@ class PyVistaInterface:
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         if filter:
             if hasattr(object, "name") and not re.search(filter, object.name):
@@ -276,6 +282,7 @@ class PyVistaInterface:
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         for object in plotting_list:
             _ = self.add(object, filter, **plotting_options)
@@ -303,6 +310,7 @@ class PyVistaInterface:
         For more information on supported Jupyter backends, see
         `Jupyter Notebook Plotting <https://docs.pyvista.org/user-guide/jupyter/index.html>`_
         in the PyVista documentation.
+
         """
         # compute the scaling
         bounds = self.scene.renderer.bounds
@@ -338,6 +346,7 @@ class PyVistaInterface:
         plotting_options : Optional[Dict]
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         # If the following keys do not exist, set the default values
         #

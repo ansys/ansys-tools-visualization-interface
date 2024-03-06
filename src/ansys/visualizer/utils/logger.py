@@ -47,6 +47,7 @@ class VizLogger(object, metaclass=SingletonType):
     ----------
     to_file : bool, optional
         Whether to include the logs in a file. The default is ``False``.
+
     """
 
     _logger = None
@@ -66,6 +67,7 @@ class VizLogger(object, metaclass=SingletonType):
         -------
         Logger
             Logger.
+
         """
         return self._logger
 
@@ -76,6 +78,7 @@ class VizLogger(object, metaclass=SingletonType):
         ----------
         level : int
             Level of the logger.
+
         """
         self._logger.setLevel(level=level)
 
@@ -88,6 +91,7 @@ class VizLogger(object, metaclass=SingletonType):
         ----------
         stream: TextIO, optional
             Stream to output the log output to stream
+
         """
         # stdout
         stream_handler = logging.StreamHandler(stream)
@@ -101,6 +105,7 @@ class VizLogger(object, metaclass=SingletonType):
         ----------
         logs_dir : str, optional
             Directory of the logs. The default is ``"./.log"``.
+
         """
         now = datetime.datetime.now()
         if not Path.isdir(logs_dir):

@@ -43,6 +43,7 @@ class Button(PlotterWidget):
         Plotter to draw the buttons on.
     button_config : tuple
         Tuple containing the position and the path to the icon of the button.
+
     """
 
     def __init__(self, plotter: Plotter, button_config: tuple):
@@ -61,6 +62,7 @@ class Button(PlotterWidget):
         ----------
         state : bool
             Whether the button is active.
+
         """
         pass
 

@@ -60,6 +60,7 @@ class PlotterInterface(ABC):
         Activate the usage of Trame UI instead of the Python window, by default None.
     allow_picking : Optional[bool], optional
         Whether to allow picking in the window or not, by default False.
+
     """
 
     def __init__(
@@ -147,6 +148,7 @@ class PlotterInterface(ABC):
         ----------
         widget : Union[PlotterWidget, List[PlotterWidget]]
             Widget or list of widgets to add to the plotter.
+
         """
         if isinstance(widget, list):
             self._widgets.extend(widget)
@@ -167,6 +169,7 @@ class PlotterInterface(ABC):
             Custom object to select.
         pt : ~numpy.ndarray
             Set of points to determine the label position.
+
         """
         added_actors = []
 
@@ -210,6 +213,7 @@ class PlotterInterface(ABC):
         ----------
         custom_object : Union[MeshObjectPlot, EdgePlot]
             Object to unselect.
+
         """
         # remove actor from picked list and from scene
         if custom_object in self._picked_list:
@@ -240,6 +244,7 @@ class PlotterInterface(ABC):
         ----------
         actor : ~pyvista.Actor
             Actor that we are picking.
+
         """
         pt = self._pl.scene.picked_point
 
@@ -267,6 +272,7 @@ class PlotterInterface(ABC):
         -------
         Dict[~pyvista.Actor, EdgePlot]
             Mapping between plotter actors and EdgePlot objects.
+
         """
         for mesh_object in self._object_to_actors_map.values():
             # get edges only from bodies
@@ -319,6 +325,7 @@ class PlotterInterface(ABC):
         -------
         List[Any]
             List with the picked bodies in the picked order.
+
         """
         self.add(object, filter, **plotting_options)
         if self._pl._object_to_actors_map:
@@ -365,6 +372,7 @@ class PlotterInterface(ABC):
             PyAnsys Visualizer plotter with the meshes added.
         screenshot : str, default: None
             Path for saving a screenshot of the image that is being represented.
+
         """
         if self._use_trame and _HAS_TRAME:
             visualizer = TrameVisualizer()
@@ -388,6 +396,7 @@ class PlotterInterface(ABC):
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         pass
 
@@ -404,6 +413,7 @@ class PlotterInterface(ABC):
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         pass
 
@@ -425,6 +435,7 @@ class Plotter(PlotterInterface):
         is used.
     allow_picking: bool, default: False
         Enables/disables the picking capabilities in the PyVista plotter.
+
     """
 
     def __init__(
@@ -453,6 +464,7 @@ class Plotter(PlotterInterface):
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         for object in plotting_list:
             _ = self.add(object, filter, **plotting_options)
@@ -469,6 +481,7 @@ class Plotter(PlotterInterface):
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         if hasattr(object, "__iter__"):
             logger.debug("Plotting objects in list...")

@@ -68,7 +68,7 @@ addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report x
 
 [tool.ruff]
 line-length = 120
-select = [
+lint.select = [
     "E",    # pycodestyle, see https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
     "D",    # pydocstyle, see https://beta.ruff.rs/docs/rules/#pydocstyle-d
     "F",    # pyflakes, see https://beta.ruff.rs/docs/rules/#pyflakes-f
@@ -86,7 +86,8 @@ extend-exclude = [
 quote-style = "double"
 indent-style = "tab"
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 combine-as-imports = true
 force-sort-within-sections = true
 known-first-party = ["ansys"]
+

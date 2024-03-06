@@ -39,6 +39,7 @@ class MeasureWidget(PlotterWidget):
     ----------
     plotter_helper : PlotterHelper
         Provides the plotter to add the measure widget to.
+
     """
 
     def __init__(self, plotter_helper: "Plotter") -> None:
@@ -61,6 +62,7 @@ class MeasureWidget(PlotterWidget):
         state : bool
             State of the button, which is inherited from PyVista. The value is ``True``
             if the button is active.
+
         """
         # This implementation uses direct calls to VTK due to limitations
         # in PyVista. If there are improvements in the compatibility between

@@ -49,6 +49,7 @@ class ViewButton(Button):
         Plotter to draw the buttons on.
     direction : ViewDirection
         Direction of the view.
+
     """
 
     def __init__(self, plotter: Plotter, direction: tuple):
@@ -69,6 +70,7 @@ class ViewButton(Button):
         ------
         NotImplementedError
             Raised if the specified direction is not implemented.
+
         """
         if self.direction == ViewDirection.XYPLUS:
             self.plotter.view_xy()

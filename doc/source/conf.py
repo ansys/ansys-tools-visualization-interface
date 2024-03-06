@@ -260,6 +260,7 @@ def prepare_jinja_env(jinja_env) -> None:
     Notes
     -----
     See https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment
+
     """
     jinja_env.globals["project_name"] = project
 
