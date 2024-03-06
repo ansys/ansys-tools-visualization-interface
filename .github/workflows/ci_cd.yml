@@ -37,6 +37,27 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
+  docs-style:
+    name: Documentation Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: PyAnsys documentation style checks
+        uses: ansys/actions/doc-style@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  docs-build:
+    name: Documentation Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup headless display
+      uses: pyvista/setup-headless-display-action@v2
+
+    - name: "Run Ansys documentation building action"
+      uses: ansys/actions/doc-build@v5
+      with:
+        check-links: false
+
   smoke-tests:
     name: Build and Smoke tests
     runs-on: ${{ matrix.os }}
