@@ -76,7 +76,7 @@ jobs:
         uses: ansys/actions/tests-pytest@v5
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          requires_xvfb: true
+          requires-xvfb: true
 
       - name: Upload PyVista generated images (cache and results)
         if: always()
