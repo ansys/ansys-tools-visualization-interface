@@ -57,7 +57,7 @@ Usage with PyAnsys custom objects
 
 Another use case of the default plotter is to visualize PyAnsys custom objects. The only requirement is that the
 custom object must have a method that returns a PyVista mesh, as well as a method that exposes a `name` or `id` attribute
-of your object. To expose custom object, a `MeshObjectPlot` instance will be used. This class relates PyVista meshes with
+of your object. To expose custom object, a `MeshObjectPlot` instance is used. This class relates PyVista meshes with
 any object.
 
 The following example shows how to use the default plotter to visualize a PyAnsys custom object.
@@ -106,7 +106,7 @@ provides a set of methods that can be overridden so you can adapt the plotter to
 To this end, the first thing you need to do is to create a new class that inherits from the ``PlotterInterface`` class. After that, you have two
 main options to customize the plotter:
 
-* | The most common need that you will have is to customize the way the objects you represent are shown in the plotter. To this end, you can override the
+* | The most common need that you may have is to customize the way the objects you represent are shown in the plotter. To this end, you can override the
   | ``add`` and ``add_iter`` methods. These methods are called every time a new object is added to the plotter. The default implementation of this method is to add a PyVista mesh or a
   | ``MeshObjectPlot`` instance to the plotter. You can override this method to add your own meshes or objects to the plotter in a manner that fits the way you want to represent the meshes.
 

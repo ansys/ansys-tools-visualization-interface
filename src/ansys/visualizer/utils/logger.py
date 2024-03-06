@@ -25,7 +25,7 @@
 # logger from https://gist.github.com/huklee/cea20761dd05da7c39120084f52fcc7c
 import datetime
 import logging
-import os
+from pathlib import Path
 
 
 class SingletonType(type):
@@ -47,6 +47,7 @@ class VizLogger(object, metaclass=SingletonType):
     ----------
     to_file : bool, optional
         Whether to include the logs in a file. The default is ``False``.
+
     """
 
     _logger = None
@@ -66,6 +67,7 @@ class VizLogger(object, metaclass=SingletonType):
         -------
         Logger
             Logger.
+
         """
         return self._logger
 
@@ -76,6 +78,7 @@ class VizLogger(object, metaclass=SingletonType):
         ----------
         level : int
             Level of the logger.
+
         """
         self._logger.setLevel(level=level)
 
@@ -88,6 +91,7 @@ class VizLogger(object, metaclass=SingletonType):
         ----------
         stream: TextIO, optional
             Stream to output the log output to stream
+
         """
         # stdout
         stream_handler = logging.StreamHandler(stream)
@@ -101,10 +105,11 @@ class VizLogger(object, metaclass=SingletonType):
         ----------
         logs_dir : str, optional
             Directory of the logs. The default is ``"./.log"``.
+
         """
         now = datetime.datetime.now()
-        if not os.path.isdir(logs_dir):
-            os.mkdir(logs_dir)
+        if not Path.isdir(logs_dir):
+            Path.mkdir(logs_dir)
         file_handler = logging.FileHandler(logs_dir + "/log_" + now.strftime("%Y-%m-%d") + ".log")
         file_handler.setFormatter(self._formatter)
         self._logger.addHandler(file_handler)

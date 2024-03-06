@@ -6,14 +6,14 @@ PyAnsys Visualizer is a Python package that provides a simple interface to visua
 .. grid:: 1 2 2 2
 
 
-    .. grid-item-card:: Getting started :fa:`person-running`
+    .. grid-item-card:: Getting started :material-regular:`directions_run`
         :padding: 2 2 2 2
         :link: getting_started/index
         :link-type: doc
 
         Learn how to install and the basic usage of PyAnsys Visualizer.
 
-    .. grid-item-card:: User guide :fa:`book-open-reader`
+    .. grid-item-card:: User guide :material-regular:`menu_book`
         :padding: 2 2 2 2
         :link: user_guide/index
         :link-type: doc
@@ -23,7 +23,7 @@ PyAnsys Visualizer is a Python package that provides a simple interface to visua
     .. jinja:: main_toctree
 
         {% if build_api %}
-        .. grid-item-card:: API reference :fa:`book-bookmark`
+        .. grid-item-card:: API reference :material-regular:`bookmark`
             :padding: 2 2 2 2
             :link: api/index
             :link-type: doc
@@ -33,7 +33,7 @@ PyAnsys Visualizer is a Python package that provides a simple interface to visua
         {% endif %}
 
         {% if build_examples %}
-        .. grid-item-card:: Examples :fa:`scroll`
+        .. grid-item-card:: Examples :material-regular:`play_arrow`
             :padding: 2 2 2 2
             :link: examples/index
             :link-type: doc

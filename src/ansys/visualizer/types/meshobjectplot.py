@@ -52,6 +52,7 @@ class MeshObjectPlot:
             Actor of the mesh in the plotter, by default None
         edges : List[EdgePlot], optional
             Edges of the object if they have any, by default None
+
         """
         self._custom_object = custom_object
         self._mesh = mesh
@@ -66,6 +67,7 @@ class MeshObjectPlot:
         -------
         Union[pv.PolyData, pv.MultiBlock]
             Mesh of the object.
+
         """
         return self._mesh
 
@@ -77,6 +79,7 @@ class MeshObjectPlot:
         ----------
         mesh : Union[pv.PolyData, pv.MultiBlock]
             Mesh of the object.
+
         """
         self._mesh = mesh
 
@@ -88,6 +91,7 @@ class MeshObjectPlot:
         -------
         Any
             Custom object.
+
         """
         return self._custom_object
 
@@ -99,6 +103,7 @@ class MeshObjectPlot:
         ----------
         custom_object : Any
             Custom object.
+
         """
         self._custom_object = custom_object
 
@@ -110,6 +115,7 @@ class MeshObjectPlot:
         -------
         pv.Actor
             Actor of the object.
+
         """
         return self._actor
 
@@ -121,6 +127,7 @@ class MeshObjectPlot:
         ----------
         actor : pv.Actor
             Actor of the object.
+
         """
         self._actor = actor
 
@@ -132,6 +139,7 @@ class MeshObjectPlot:
         -------
         List[EdgePlot]
             Edges of the object.
+
         """
         return self._edges
 
@@ -143,6 +151,7 @@ class MeshObjectPlot:
         ----------
         edges : List[EdgePlot]
             Edges of the object.
+
         """
         self._edges = edges
 
@@ -154,6 +163,7 @@ class MeshObjectPlot:
         -------
         str
             Name of the object.
+
         """
         if hasattr(self._custom_object, "name"):
             return self._custom_object.name

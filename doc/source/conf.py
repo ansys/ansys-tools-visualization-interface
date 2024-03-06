@@ -185,7 +185,7 @@ suppress_warnings = ["autoapi.python_import_resolution", "design.grid"]
 autoapi_python_use_implicit_namespaces = True
 autoapi_keep_files = True
 autoapi_own_page_level = "class"
-autoapi_add_toctree_entry = False
+
 # Examples gallery customization
 nbsphinx_execute = "always"
 
@@ -226,7 +226,6 @@ latex_additional_files = [watermark, ansys_logo_white, ansys_logo_white_cropped]
 # change the preamble of latex with customized title page
 # variables are the title of pdf, watermark
 latex_elements = {"preamble": latex.generate_preamble(html_title)}
-sd_fontawesome_latex = True
 
 linkcheck_exclude_documents = ["index", "getting_started/local/index", "assets"]
 
@@ -256,12 +255,12 @@ jinja_contexts = {
 
 
 def prepare_jinja_env(jinja_env) -> None:
-    """
-    Customize the jinja env.
+    """Customize the jinja env.
 
     Notes
     -----
     See https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment
+
     """
     jinja_env.globals["project_name"] = project
 

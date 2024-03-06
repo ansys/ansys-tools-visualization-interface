@@ -28,18 +28,7 @@ clean:
 pdf:
 	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	cd $(BUILDDIR)/latex && latexmk -r latexmkrc -pdf *.tex -interaction=nonstopmode || true
-	(test -f $(BUILDDIR)/latex/*.pdf && echo pdf exists) || exit 1
 
 # Build HTML files and generate examples as .py files
 html:
-	@$(SPHINXBUILD) -M linkcheck "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	# TODO: migrate this logic as a sphinx-hook declared in the conf.py file
-	cd $(BUILDDIR)/html/examples
-	for d in */ ; do
-		cd $d
-		for f in ./*.ipynb; do
-			jupytext --to py $f
-		done
-		cd -
-	done

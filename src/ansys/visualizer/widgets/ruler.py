@@ -21,7 +21,7 @@
 # SOFTWARE.
 """Provides the ruler widget for the PyAnsys Visualizer plotter."""
 
-import os
+from pathlib import Path
 
 from pyvista import Plotter
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
@@ -36,6 +36,7 @@ class Ruler(PlotterWidget):
     ----------
     plotter : ~pyvista.Plotter
         Provides the plotter to add the ruler widget to.
+
     """
 
     def __init__(self, plotter: Plotter) -> None:
@@ -62,6 +63,7 @@ class Ruler(PlotterWidget):
         state : bool
             State of the button, which is inherited from PyVista. The value is ``True``
             if the button is active.
+
         """
         if not state and self._actor:
             self.plotter.remove_actor(self._actor)
@@ -83,7 +85,7 @@ class Ruler(PlotterWidget):
     def update(self) -> None:
         """Define the configuration and representation of the ruler widget button."""
         show_ruler_vr = self._button.GetRepresentation()
-        show_ruler_icon_file = os.path.join(os.path.dirname(__file__), "_images", "ruler.png")
+        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / "ruler.png")
         show_ruler_r = vtkPNGReader()
         show_ruler_r.SetFileName(show_ruler_icon_file)
         show_ruler_r.Update()

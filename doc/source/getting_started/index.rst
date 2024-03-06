@@ -3,7 +3,7 @@
 Getting started
 ###############
 
-This section will guide you through the process of installing this project and its basic usage.
+This section describes the process of installing this project and its basic usage.
 
 Installation
 ============

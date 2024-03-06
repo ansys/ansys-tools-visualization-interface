@@ -27,7 +27,7 @@ from beartype.typing import Any, Dict, List, Optional
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
-from ansys.visualizer import DOCUMENTATION_BUILD
+from ansys.visualizer import DOCUMENTATION_BUILD, TESTING_MODE
 from ansys.visualizer.types.edgeplot import EdgePlot
 from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 from ansys.visualizer.utils.clip_plane import ClipPlane
@@ -57,6 +57,7 @@ class PyVistaInterface:
         for visualization.
     show_plane: bool, default: False
         Whether to show the XY plane in the plotter window. By default, false.
+
     """
 
     def __init__(
@@ -101,6 +102,7 @@ class PyVistaInterface:
         -------
         ~pyvista.Plotter
             Rendered scene object.
+
         """
         return self._scene
 
@@ -142,11 +144,14 @@ class PyVistaInterface:
             Available options: ["x", "-x", "y", "-y", "z", "-z"]
         origin : tuple, optional
             Origin point of the plane, by default None
+        plane : ClipPlane, optional
+            Clipping plane to cut the mesh with, by default None
 
         Returns
         -------
         Union[pv.PolyData,pv.MultiBlock]
             The clipped mesh.
+
         """
         return mesh.clip(normal=plane.normal, origin=plane.origin)
 
@@ -160,6 +165,7 @@ class PyVistaInterface:
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         dataset = object.mesh
         if "clipping_plane" in plotting_options:
@@ -186,6 +192,7 @@ class PyVistaInterface:
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         edge_plot_list = []
 
@@ -222,19 +229,14 @@ class PyVistaInterface:
         ----------
         plotting_list : List[Any]
             List of objects that you want to plot.
-        merge_bodies : bool, default: False
-            Whether to merge each body into a single dataset. When ``True``,
-            all the faces of each individual body are effectively combined
-            into a single dataset without separating faces.
-        merge_component : bool, default: False
-            Whether to merge the component into a single dataset. When
-            ``True``, all the individual bodies are effectively combined
-            into a single dataset without any hierarchy.
+        object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot]
+            Object you want to plot.
         filter : str, default: None
             Regular expression with the desired name or names you want to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         if filter:
             if hasattr(object, "name") and not re.search(filter, object.name):
@@ -280,6 +282,7 @@ class PyVistaInterface:
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         for object in plotting_list:
             _ = self.add(object, filter, **plotting_options)
@@ -307,6 +310,7 @@ class PyVistaInterface:
         For more information on supported Jupyter backends, see
         `Jupyter Notebook Plotting <https://docs.pyvista.org/user-guide/jupyter/index.html>`_
         in the PyVista documentation.
+
         """
         # compute the scaling
         bounds = self.scene.renderer.bounds
@@ -330,7 +334,8 @@ class PyVistaInterface:
 
         # Enabling anti-aliasing by default on scene
         self.scene.enable_anti_aliasing("ssaa")
-
+        if TESTING_MODE:
+            self.scene.off_screen = True
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
@@ -341,6 +346,7 @@ class PyVistaInterface:
         plotting_options : Optional[Dict]
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
         """
         # If the following keys do not exist, set the default values
         #

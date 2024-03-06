@@ -30,13 +30,13 @@ dependencies = [
 
 [project.optional-dependencies]
 
-test = [
+tests = [
     "pytest==7.4.4",
     "pytest-pyvista==0.1.9",
     "pytest-cov==4.1.0",
 ]
 
-docs = [
+doc = [
     "ansys-sphinx-theme==0.14.0",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.16.1",
@@ -46,6 +46,7 @@ docs = [
     "sphinx-autoapi==3.1.a2",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.5.0",
+    "sphinx-gallery==0.15.0",
     "sphinx-jinja==2.0.2",
 ]
 
@@ -64,3 +65,29 @@ src_paths = ["doc", "src", "tests"]
 
 [tool.pytest.ini_options]
 addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report xml:.cov/xml --cov-report term -vv --image_cache_dir tests/_image_cache --add_missing_images"
+
+[tool.ruff]
+line-length = 120
+lint.select = [
+    "E",    # pycodestyle, see https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
+    "D",    # pydocstyle, see https://beta.ruff.rs/docs/rules/#pydocstyle-d
+    "F",    # pyflakes, see https://beta.ruff.rs/docs/rules/#pyflakes-f
+    "I",    # isort, see https://beta.ruff.rs/docs/rules/#isort-i
+    "N",    # pep8-naming, see https://beta.ruff.rs/docs/rules/#pep8-naming-n
+    "PTH",  # flake8-use-pathlib, https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
+]
+extend-exclude = [
+    "tests/**/*.py",
+    "examples/**/*.py",
+    "**/__init__.py",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+known-first-party = ["ansys"]
+

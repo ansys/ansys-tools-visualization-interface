@@ -20,8 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides the ruler widget for the PyAnsys plotter."""
+from beartype.typing import TYPE_CHECKING
 
-import os
+if TYPE_CHECKING:
+    from ansys.visualizer.plotter import Plotter
+
+from pathlib import Path
 
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
@@ -35,6 +39,7 @@ class MeasureWidget(PlotterWidget):
     ----------
     plotter_helper : PlotterHelper
         Provides the plotter to add the measure widget to.
+
     """
 
     def __init__(self, plotter_helper: "Plotter") -> None:
@@ -57,6 +62,7 @@ class MeasureWidget(PlotterWidget):
         state : bool
             State of the button, which is inherited from PyVista. The value is ``True``
             if the button is active.
+
         """
         # This implementation uses direct calls to VTK due to limitations
         # in PyVista. If there are improvements in the compatibility between
@@ -74,8 +80,8 @@ class MeasureWidget(PlotterWidget):
     def update(self) -> None:
         """Define the measurement widget button params."""
         show_measure_vr = self._button.GetRepresentation()
-        show_measure_icon_file = os.path.join(
-            os.path.dirname(__file__), "_images", "measurement.png"
+        show_measure_icon_file = Path(
+            Path(__file__).parent / "_images"/ "measurement.png"
         )
         show_measure_r = vtkPNGReader()
         show_measure_r.SetFileName(show_measure_icon_file)

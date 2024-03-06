@@ -35,6 +35,7 @@ class ClipPlane:
         Normal of the plane, by default (1, 0, 0).
     origin : Tuple[float, float, float], optional
         Origin point of the plane, by default (0, 0, 0).
+
     """
 
     def __init__(
@@ -54,6 +55,7 @@ class ClipPlane:
         -------
         Tuple[float, float, float]
             Normal of the plane.
+
         """
         return self._normal
 
@@ -65,6 +67,7 @@ class ClipPlane:
         ----------
         value : Tuple[float, float, float]
             Normal of the plane.
+
         """
         self._normal = value
 
@@ -76,6 +79,7 @@ class ClipPlane:
         -------
         Tuple[float, float, float]
             Origin of the plane.
+
         """
         return self._origin
 
@@ -87,5 +91,6 @@ class ClipPlane:
         ----------
         value : Tuple[float, float, float]
             Origin of the plane.
+
         """
         self._origin = value

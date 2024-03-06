@@ -22,9 +22,11 @@
 """Edge type for plotting."""
 
 
-from beartype.typing import Any
+from beartype.typing import TYPE_CHECKING, Any
 import pyvista as pv
 
+if TYPE_CHECKING:
+    from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 
 class EdgePlot:
     """Mapper class to relate PyAnsys object edges with its PyVista actor.
@@ -37,6 +39,7 @@ class EdgePlot:
         PyAnsys object edge that is represented by the PyVista actor.
     parent : MeshObjectPlot, optional
         Parent PyAnsys object of this edge, by default ``None``.
+
     """
 
     def __init__(self, actor: pv.Actor, edge_object: Any, parent: Any = None) -> None:
@@ -53,6 +56,7 @@ class EdgePlot:
         -------
         ~pyvista.Actor
             PyVista actor.
+
         """
         return self._actor
 
@@ -64,6 +68,7 @@ class EdgePlot:
         -------
         Any
             PyAnsys edge.
+
         """
         return self._object
 
@@ -75,6 +80,7 @@ class EdgePlot:
         -------
         Any
             PyAnsys object.
+
         """
         return self._parent
 
@@ -86,6 +92,7 @@ class EdgePlot:
         -------
         str
             Name of the edge.
+
         """
         if self.parent:
             return f"{self.parent.name}-{self.edge_object.id}"
@@ -100,5 +107,6 @@ class EdgePlot:
         ----------
         parent : MeshObjectPlot
             Parent of the edge.
+
         """
         self._parent = parent

@@ -125,19 +125,6 @@ Prior to running the tests, you must run this command to install the test depend
 
   pip install -e .[tests]
 
-Make sure to define the port and host of the service using the following environment variables::
-
-  # On Linux or macOS
-  export ANSRV_GEO_PORT=5000
-  export ANSRV_GEO_HOST=localhost
-
-  # On Windows CMD
-  set ANSRV_GEO_PORT=5000
-  set ANSRV_GEO_HOST=localhost
-
-  # On Windows PowerShell
-  $env:ANSRV_GEO_PORT=5000
-  $env:ANSRV_GEO_HOST="localhost"
 
 Running the tests
 ^^^^^^^^^^^^^^^^^
