@@ -185,7 +185,7 @@ suppress_warnings = ["autoapi.python_import_resolution", "design.grid"]
 autoapi_python_use_implicit_namespaces = True
 autoapi_keep_files = True
 autoapi_own_page_level = "class"
-autoapi_add_toctree_entry = False
+
 # Examples gallery customization
 nbsphinx_execute = "always"
 
