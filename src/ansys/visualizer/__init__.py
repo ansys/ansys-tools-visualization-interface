@@ -20,12 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """PyAnsys visualizer is a python package to help visualize the results of ansys simulations."""
+import os
+
 import pkg_resources
 
 __version__ = pkg_resources.get_distribution("pyansys-visualizer").version
 
 USE_TRAME: bool = False
 DOCUMENTATION_BUILD: bool = False
+TESTING_MODE: bool = os.environ.get("PYANSYS_VISUALIZER_TESTMODE", "false").lower() == "true"
 from ansys.visualizer.plotter import Plotter, PlotterInterface
 from ansys.visualizer.types.edgeplot import EdgePlot
 from ansys.visualizer.types.meshobjectplot import MeshObjectPlot

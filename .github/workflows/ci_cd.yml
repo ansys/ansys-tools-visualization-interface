@@ -13,6 +13,7 @@ env:
   MAIN_PYTHON_VERSION: '3.11'
   RESET_IMAGE_CACHE: 0
   PACKAGE_NAME: pyansys-visualizer
+  PYANSYS_VISUALIZER_TESTMODE: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

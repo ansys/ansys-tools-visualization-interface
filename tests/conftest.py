@@ -22,9 +22,11 @@
 
 import pytest
 import pyvista as pv
-
+import os
 pv.OFF_SCREEN = True
+import ansys.visualizer
 
+os.environ.setdefault("PYANSYS_VISUALIZER_TESTMODE", "true")
 
 @pytest.fixture(autouse=True)
 def wrapped_verify_image_cache(verify_image_cache):

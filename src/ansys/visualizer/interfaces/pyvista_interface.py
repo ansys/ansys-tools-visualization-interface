@@ -27,7 +27,7 @@ from beartype.typing import Any, Dict, List, Optional
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
-from ansys.visualizer import DOCUMENTATION_BUILD
+from ansys.visualizer import DOCUMENTATION_BUILD, TESTING_MODE
 from ansys.visualizer.types.edgeplot import EdgePlot
 from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 from ansys.visualizer.utils.clip_plane import ClipPlane
@@ -326,7 +326,8 @@ class PyVistaInterface:
 
         # Enabling anti-aliasing by default on scene
         self.scene.enable_anti_aliasing("ssaa")
-
+        if TESTING_MODE:
+            self.scene.off_screen = True
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
