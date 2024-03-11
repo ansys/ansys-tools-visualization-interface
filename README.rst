@@ -15,56 +15,56 @@ PyAnsys Visualizer
 Overview
 --------
 
-PyAnsys Visualizer is a Python package that provides a common interface to visualize PyAnsys libraries operation results.  This package
-is built on top of ``pyvista`` to provide a simple interface to visualize Ansys results.
+PyAnsys Visualizer is a Python client library that provides a simple user interface
+for visualizing Ansys data. This library is built on top of
+`PyVista <https://docs.pyvista.org/version/stable/>`_.
 
-Installation
-^^^^^^^^^^^^
+PyAnsys Visualizer offers these main features:
 
-To install the developer version of PyAnsys Visualizer, use pip.
+* Serves as an interface between PyAnsys and other plotting libraries (although only
+  PyVista is supported currently).
+* Provides out-of-the box picking, viewing, and measuring functionalities.
+* Supplies an extensible class for adding custom functionalities.
 
-.. code:: bash
+Documentation and issues
+------------------------
 
-    git clone https://github.com/ansys-internal/pyansys-visualizer
-    cd pyansys-visualizer
-    pip install -e .
+Documentation for the latest stable release of PyAnsys Visualizer is hosted
+at `PyAnsys Visualizer documentation <https://visualizer.docs.pyansys.com/version/dev/`_.
 
-Quick Start
-^^^^^^^^^^^
+The documentation has these sections:
 
-The following examples demonstrates how to visualize a result file using PyAnsys Visualizer.
+- `Getting started <https://visualizer.docs.pyansys.com/version/dev/getting_started/index.html>`_: Learn
+  how to install PyAnsys Visualizer in user mode and quickly begin using it.
+- `User guide <https://visualizer.docs.pyansys.com/version/dev/user_guide/index.html>`_: Understand key
+  concepts for implementing PyAnsys Visualizer in your workflow.
+- `API reference <https://visualizer.docs.pyansys.com/version/dev/api/index.html>`_: Understand how to
+  use Python to interact programmatically with PyAnsys Visualizer.
+- `Examples <visualizer.docs.pyansys.com/version/dev/examples/index.html>`_: Explore examples that
+  show how to use PyAnsys Visualizer to perform many different types of operations.
+- `Contribute <https://visualizer.docs.pyansys.com/version/dev/contributing/index.html>`_: Learn how to
+  contribute to the PyAnsys Visualizer codebase or documentation.
 
-Using PyVista meshes only:
+In the upper right corner of the documentation's title bar, there is an option
+for switching from viewing the documentation for the latest stable release
+to viewing the documentation for the development version or previously
+released versions.
 
-.. code:: python
+On the `PyAnsys Visualizer Issues <https://github.com/ansys-internal/pyansys-visualizer/issues>`_
+page, you can create issues to report bugs and request new features. On the
+`Discussions <https://discuss.ansys.com/>`_ page on the Ansys Developer portal,
+you can post questions, share ideas, and get community feedback.
 
-    from ansys.visualizer import Plotter
+If you have general questions about the PyAnsys ecosystem, email
+`pyansys.core@ansys.com <pyansys.core@ansys.com>`_. If your
+question is specific to PyAnsys Visualizer, ask your
+question in an issue as described in the previous paragraph.
 
-    my_mesh = my_custom_object.get_mesh()
+License
+-------
 
-    # Create a PyAnsys Visualizer object
-    pl = Plotter()
-    pl.add(my_mesh)
+PyAnsys Visualizer is licensed under the `MIT License <https://github.com/ansys-internal/pyansys-visualizer/blob/main/LICENSE>`_.
 
-    # Plot the result
-    pl.plot()
-
-
-Using objects from your library:
-
-.. code:: python
-
-    from ansys.visualizer import Plotter, MeshObjectPlot
-
-    my_custom_object = MyObject()
-    my_mesh = my_custom_object.get_mesh()
-
-    meshobject = MeshObjectPlot(my_custom_object, my_mesh)
-
-    # Create a PyAnsys Visualizer object
-    pl = Plotter()
-    pl.add(meshobject)
-
-    # Plot the result
-    pl.plot()
-
+PyAnsys Visualizer makes no commercial claim over Ansys whatsoever. This library adds a
+Python interface for visualizing Ansys results without changing the core behavior or
+license of the original Ansys software.

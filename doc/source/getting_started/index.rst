@@ -3,18 +3,23 @@
 Getting started
 ###############
 
-This section describes the process of installing this project and its basic usage.
+This section describes how to install PyAnsys Visualizer in user mode and
+quickly begin using it. If you are interested in contributing to PyAnsys Visualizer,
+see :ref:`contribute` for information on installing in developer mode.
 
 Installation
 ============
 
-You can use `pip <https://pypi.org/project/pip/>`_ to install PyAnsys Visualizer.
+To use `pip <https://pypi.org/project/pip/>`_ to install PyAnsys Visualizer,
+run this command:
 
 .. code:: bash
 
         pip install pyansys-visualizer
 
-Also, you can install it from source code:
+Alternatively, to install the latest version from this library's
+`GitHub repository <https://github.com/ansys-internal/pyansys-visualizer/>`_,
+run these commands:
 
 .. code:: bash
 
@@ -22,20 +27,18 @@ Also, you can install it from source code:
     cd pyansys-visualizer
     pip install .
 
-
 Quick start
-===========
-The following example shows how to use PyAnsys Visualizer to visualize a mesh file.
+^^^^^^^^^^^
 
-Using PyVista only:
+The following examples show how to use PyAnsys Visualizer to visualize a mesh file.
 
+This code uses only a PyVista mesh:
 
 .. code:: python
 
     from ansys.visualizer import Plotter
-    import pyvista as pv
 
-    my_mesh = pv.Sphere()
+    my_mesh = my_custom_object.get_mesh()
 
     # Create a PyAnsys Visualizer object
     pl = Plotter()
@@ -44,7 +47,7 @@ Using PyVista only:
     # Plot the result
     pl.plot()
 
-Using custom objects from your library:
+This code uses objects from a PyAnsys library:
 
 .. code:: python
 

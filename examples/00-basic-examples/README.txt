@@ -1,4 +1,4 @@
-Basic usage examples for PyAnsys Visualizer
-===========================================
+Basic usage examples
+====================
 
-Examples on how to use the general plotter included in the library.
+These examples show how to use the general plotter included in PyAnsys Visualizer.
