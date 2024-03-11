@@ -14,7 +14,7 @@ env:
   RESET_IMAGE_CACHE: 0
   PACKAGE_NAME: pyansys-visualizer
   PYANSYS_VISUALIZER_TESTMODE: true
-  DOCUMENTATION_CNAME: effective-potato-vy8kzl5.pages.github.io
+  DOCUMENTATION_CNAME: visualizer.docs.pyansys.com
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
