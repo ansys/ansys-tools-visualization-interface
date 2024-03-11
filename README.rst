@@ -15,8 +15,7 @@ PyAnsys Visualizer
 Overview
 --------
 
-PyAnsys Visualizer is a Python package that provides a common interface to visualize PyAnsys libraries operation results.  This package
-is built on top of ``pyvista`` to provide a simple interface to visualize Ansys results.
+PyAnsys Visualizer is a Python API that provides an interface between PyAnsys libraries and plotting backends.
 
 Installation
 ^^^^^^^^^^^^
