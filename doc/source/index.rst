@@ -54,11 +54,11 @@ PyAnsys Visualizer offers these main features:
         {% endif %}
 
         .. grid-item-card:: Contribute :material-regular:`people-group`
-        :padding: 2 2 2 2
-        :link: contributing
-        :link-type: doc
+            :padding: 2 2 2 2
+            :link: contributing
+            :link-type: doc
 
-        Learn how to contribute to the PyAnsys Visualizer codebase or documentation.
+            Learn how to contribute to the PyAnsys Visualizer codebase or documentation.
 
 
 .. jinja:: main_toctree
