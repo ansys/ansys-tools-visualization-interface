@@ -1,2 +1,2 @@
-Ansys
+(?i)Ansys
 pytest
