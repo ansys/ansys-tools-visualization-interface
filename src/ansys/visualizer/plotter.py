@@ -41,14 +41,15 @@ from ansys.visualizer.widgets.widget import PlotterWidget
 
 
 class PlotterInterface(ABC):
-    """Interface for the PyAnsys Visualizer plotter.
+    """Provides the interface for the PyAnsys Visualizer plotter.
 
     This class is intended to be used as a base class for the custom plotters
     in the different PyAnsys libraries. It provides the basic plotter functionalities,
     such as adding objects, enabling widgets, and enabling picking capabilities. It also
-    provides the ability to show the plotter using the trame service.
+    provides the ability to show the plotter using the `trame <https://kitware.github.io/trame/index.html>`_
+    service.
 
-    The methods that you can override are ``add_list()``,  ``add()`` and ``picked_operation()``.
+    The methods that you can override are ``add_list()``, ``add()``, and ``picked_operation()``.
     The ``add_list()`` method is intended to add a list of objects to the plotter, while the
     ``add()`` method is intended to add a single object to the plotter. The ``plot()`` method is
     intended to plot the objects and show the plotter. The ``picked_operation()`` method is
@@ -56,10 +57,10 @@ class PlotterInterface(ABC):
 
     Parameters
     ----------
-    use_trame : Optional[bool], optional
-        Activate the usage of Trame UI instead of the Python window, by default None.
-    allow_picking : Optional[bool], optional
-        Whether to allow picking in the window or not, by default False.
+    use_trame : Optional[bool], default: None
+        Whether to activate the usage of the trame UI instead of the Python window.
+    allow_picking : Optional[bool], default: False
+        Whether to allow picking in the window.
 
     """
 
@@ -71,7 +72,7 @@ class PlotterInterface(ABC):
         show_plane: Optional[bool] = False,
         **plotter_kwargs,
     ) -> None:
-        """Initialize ``use_trame`` and save current ``pv.OFF_SCREEN`` value."""
+        """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = USE_TRAME
@@ -122,7 +123,7 @@ class PlotterInterface(ABC):
 
     @property
     def pv_interface(self) -> PyVistaInterface:
-        """Return the PyVista interface."""
+        """PyVista interface."""
         return self._pl
 
     def enable_widgets(self):
@@ -142,12 +143,12 @@ class PlotterInterface(ABC):
             self._widgets.append(MeasureWidget(self))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
-        """Add a custom widget to the plotter.
+        """Add one or more custom widgets to the plotter.
 
         Parameters
         ----------
         widget : Union[PlotterWidget, List[PlotterWidget]]
-            Widget or list of widgets to add to the plotter.
+            One or more custom widgets to add to the plotter.
 
         """
         if isinstance(widget, list):
@@ -206,8 +207,8 @@ class PlotterInterface(ABC):
     def unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
         """Unselect an object in the plotter.
 
-        Removes edge highlighting and label from a plotter actor and removes it
-        from the PyAnsys Visualizer object selection.
+        This method removes edge highlighting and the label from a plotter actor and removes
+        the object from the PyAnsys Visualizer object selection.
 
         Parameters
         ----------
@@ -238,12 +239,12 @@ class PlotterInterface(ABC):
             self._picker_added_actors_map.pop(custom_object.actor.name)
 
     def picker_callback(self, actor: "pv.Actor") -> None:
-        """Define callback for the element picker.
+        """Define the callback for the element picker.
 
         Parameters
         ----------
         actor : ~pyvista.Actor
-            Actor that we are picking.
+            Actor to select for the picker.
 
         """
         pt = self._pl.scene.picked_point
@@ -271,7 +272,7 @@ class PlotterInterface(ABC):
         Returns
         -------
         Dict[~pyvista.Actor, EdgePlot]
-            Mapping between plotter actors and EdgePlot objects.
+            Dictionary defining the mapping between plotter actors and ``EdgePlot`` objects.
 
         """
         for mesh_object in self._object_to_actors_map.values():
@@ -304,19 +305,19 @@ class PlotterInterface(ABC):
     ) -> List[Any]:
         """Plot and show any PyAnsys object.
 
-        The default types of objects are supported: ``pv.PolyData``,
-        ``pv.MultiBlock``, and ``MeshObjectPlot``.
+        The types of objects supported are ``MeshObjectPlot``,
+        ``pv.MultiBlock``, and ``pv.PolyData``.
 
         Parameters
         ----------
         object : Any, default: None
-            Any object or list of objects that you want to plot.
+           Object or list of objects tto plot.
         screenshot : str, default: None
             Path for saving a screenshot of the image that is being represented.
         view_2d : Dict, default: None
             Dictionary with the plane and the viewup vectors of the 2D plane.
         filter : str, default: None
-            Regular expression with the desired name or names you want to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -331,7 +332,7 @@ class PlotterInterface(ABC):
         if self._pl._object_to_actors_map:
             self._object_to_actors_map = self._pl._object_to_actors_map
         else:
-            logger.warning("No actors added to the plotter.")
+            logger.warning("No actors were added to the plotter.")
 
         # Compute mapping between the objects and its edges.
         _ = self.compute_edge_object_map()
@@ -364,7 +365,7 @@ class PlotterInterface(ABC):
         return picked_objects_list
 
     def show_plotter(self, screenshot: Optional[str] = None) -> None:
-        """Show the plotter or start `trame <https://kitware.github.io/trame/index.html>`_ service.
+        """Show the plotter or start the `trame <https://kitware.github.io/trame/index.html>`_ service.
 
         Parameters
         ----------
@@ -385,14 +386,14 @@ class PlotterInterface(ABC):
 
     @abstractmethod
     def add_iter(self, object: Any, filter: str = None, **plotting_options):
-        """Add a list of compatible objects to the plotter.
+        """Add one or more compatible objects to the plotter.
 
         Parameters
         ----------
         object : Any
-            Object or objects to add.
+            One or more objects to add.
         filter : str, default: None.
-            Regular expression with the desired name or names you want to include in the plotter.
+            Regular expression with the desired name or names  to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -407,9 +408,9 @@ class PlotterInterface(ABC):
         Parameters
         ----------
         object : Any
-            Object you want to show.
+            Object.
         filter : str
-            Regular expression with the desired name or names you want to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -423,9 +424,9 @@ class PlotterInterface(ABC):
 
 
 class Plotter(PlotterInterface):
-    """Generic plotter implementation for PyAnsys libraries.
+    """Provides the generic plotter implementation for PyAnsys libraries.
 
-    Accepts ``pv.PolyData``, ``pv.MultiBlock``, and ``MeshObjectPlot`` objects.
+    This class accepts ``MeshObjectPlot``,``pv.PolyData``, and ``pv.MultiBlock`` objects.
 
     Parameters
     ----------
@@ -434,7 +435,7 @@ class Plotter(PlotterInterface):
         The default is ``None``, in which case the ``USE_TRAME`` global setting
         is used.
     allow_picking: bool, default: False
-        Enables/disables the picking capabilities in the PyVista plotter.
+        Whether to enable the picking capabilities in the PyVista plotter.
 
     """
 
@@ -452,15 +453,15 @@ class Plotter(PlotterInterface):
     ) -> None:
         """Add a list of any type of object to the scene.
 
-        These types of objects are supported: ``Body``, ``Component``, ``List[pv.PolyData]``,
+        The types of objects supported are ``Body``, ``Component``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``, and ``Sketch``.
 
         Parameters
         ----------
         plotting_list : List[Any]
-            List of objects you want to plot.
+            List of objects to plot.
         filter : str, default: None
-            Regular expression with the desired name or names you want to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -475,9 +476,9 @@ class Plotter(PlotterInterface):
         Parameters
         ----------
         object : Any
-            Object you want to show.
+            Object.
         filter : str
-            Regular expression with the desired name or names you want to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.

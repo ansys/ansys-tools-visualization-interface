@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Module for logger singleton."""
+"""Provides the singleton helper class for the logger."""
 
 # logger from https://gist.github.com/huklee/cea20761dd05da7c39120084f52fcc7c
 import datetime
@@ -45,15 +45,15 @@ class VizLogger(object, metaclass=SingletonType):
 
     Parameters
     ----------
-    to_file : bool, optional
-        Whether to include the logs in a file. The default is ``False``.
+    to_file : bool, default: False
+        Whether to include the logs in a file.
 
     """
 
     _logger = None
 
     def __init__(self, level: int = logging.ERROR, logger_name: str = "VizLogger"):
-        """Logger initializer."""
+        """Initialize the logger."""
         self._logger = logging.getLogger(logger_name)
         self._logger.setLevel(level)
         self._formatter = logging.Formatter(
@@ -72,24 +72,24 @@ class VizLogger(object, metaclass=SingletonType):
         return self._logger
 
     def set_level(self, level: int):
-        """Set logger output level.
+        """Set the logger output level.
 
         Parameters
         ----------
         level : int
-            Level of the logger.
+            Output Level of the logger.
 
         """
         self._logger.setLevel(level=level)
 
     def enable_output(self, stream=None):
-        """Enable logger output to given stream.
+        """Enable logger output to a given stream.
 
-        If stream is not specified, sys.stderr is used.
+        If a stream is not specified, ``sys.stderr`` is used.
 
         Parameters
         ----------
-        stream: TextIO, optional
+        stream: TextIO, default: ``sys.stderr``
             Stream to output the log output to stream
 
         """
@@ -99,12 +99,12 @@ class VizLogger(object, metaclass=SingletonType):
         self._logger.addHandler(stream_handler)
 
     def add_file_handler(self, logs_dir: str = "./.log"):
-        """Save logs to a file in addition to printing them to stdout.
+        """Save logs to a file in addition to printing them to the standard output.
 
         Parameters
         ----------
-        logs_dir : str, optional
-            Directory of the logs. The default is ``"./.log"``.
+        logs_dir : str, default: ``"./.log"``
+            Directory of the logs.
 
         """
         now = datetime.datetime.now()

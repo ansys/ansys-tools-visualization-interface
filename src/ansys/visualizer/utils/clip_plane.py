@@ -20,21 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Module for the ClipPlane class."""
+"""Provides the ``ClipPlane`` class."""
 from beartype.typing import Tuple
 
 
 class ClipPlane:
     """Clipping plane for clipping meshes in the plotter.
 
-    The clipping plane is defined by a normal and an origin vectors.
+    The clipping plane is defined by the normal and origin vectors.
 
     Parameters
     ----------
-    normal : Tuple[float, float, float], optional
-        Normal of the plane, by default (1, 0, 0).
-    origin : Tuple[float, float, float], optional
-        Origin point of the plane, by default (0, 0, 0).
+    normal : Tuple[float, float, float], default: (1, 0, 0)
+        Normal of the plane.
+    origin : Tuple[float, float, float], default: (1, 0, 0)
+        Origin point of the plane,.
 
     """
 
@@ -43,13 +43,13 @@ class ClipPlane:
         normal: Tuple[float, float, float] = (1, 0, 0),
         origin: Tuple[float, float, float] = (0, 0, 0),
     ):
-        """Initialize the ClipPlane class."""
+        """Initialize the ``ClipPlane`` class."""
         self.normal = normal
         self.origin = origin
 
     @property
     def normal(self) -> Tuple[float, float, float]:
-        """Return the normal of the plane.
+        """Normal of the plane.
 
         Returns
         -------
@@ -73,7 +73,7 @@ class ClipPlane:
 
     @property
     def origin(self) -> Tuple[float, float, float]:
-        """Return the origin of the plane.
+        """Origin of the plane.
 
         Returns
         -------

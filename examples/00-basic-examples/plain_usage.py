@@ -23,17 +23,17 @@
 """
 .. _ref_plain_usage:
 
-==========================
-Plain usage of the plotter
-==========================
+===============
+Use the plotter
+===============
 
-This example demonstrates how to use the plotter.
+This example shows how to use the plotter.add one or more meshes to the plotter.
 """
 
 ###########################
 # Add a mesh to the plotter
 # =========================
-
+# This code shows how to add a single mesh to the plotter.
 
 import pyvista as pv
 
@@ -51,9 +51,10 @@ pl.add(mesh)
 pl.plot()
 
 
-##############################################
-# Alternatively, you can add a list of meshes.
-# ============================================
+######################
+# Add a list of meshes
+# ====================
+# This code shows how to add a list of meshes to the plotter.
 
 import pyvista as pv
 
@@ -65,7 +66,7 @@ mesh_list = [mesh1, mesh2]
 # Create a plotter
 pl = Plotter()
 
-# Add the mesh to the plotter
+# Add a list of meshes to the plotter
 pl.add(mesh_list)
 
 # Show the plotter

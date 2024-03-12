@@ -61,9 +61,8 @@ class DisplacementArrow(Button):
         Parameters
         ----------
         state : bool
-            State of the button, which is inherited from PyVista. The value is ``True``
-            if the button is active. However, this parameter is unused by this ``callback``
-            method.
+            Whether the state of the button, which is inherited from PyVista, is active.
+            However, this parameter is unused by this ``callback`` method.
 
         """
         self.current_camera_pos = list(map(list, self.plotter.camera_position.to_list()))

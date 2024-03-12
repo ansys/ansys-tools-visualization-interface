@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Edge type for plotting."""
+"""Provides the edge type for plotting."""
 
 
 from beartype.typing import TYPE_CHECKING, Any
@@ -37,20 +37,20 @@ class EdgePlot:
         PyVista actor that represents the edge.
     edge_object : Edge
         PyAnsys object edge that is represented by the PyVista actor.
-    parent : MeshObjectPlot, optional
-        Parent PyAnsys object of this edge, by default ``None``.
+    parent : MeshObjectPlot, default: None
+        Parent PyAnsys object of the edge.
 
     """
 
     def __init__(self, actor: pv.Actor, edge_object: Any, parent: Any = None) -> None:
-        """Initialize EdgePlot variables."""
+        """Initialize ``EdgePlot`` variables."""
         self._actor = actor
         self._object = edge_object
         self._parent = parent
 
     @property
     def actor(self) -> pv.Actor:
-        """Return PyVista actor of the object.
+        """PyVista actor of the object.
 
         Returns
         -------
@@ -62,7 +62,7 @@ class EdgePlot:
 
     @property
     def edge_object(self) -> Any:
-        """Return the PyAnsys edge.
+        """PyAnsys edge.
 
         Returns
         -------
@@ -74,19 +74,19 @@ class EdgePlot:
 
     @property
     def parent(self) -> Any:
-        """Parent PyAnsys object of this edge.
+        """Parent PyAnsys object of the edge.
 
         Returns
         -------
         Any
-            PyAnsys object.
+            Parent PyAnsys object.
 
         """
         return self._parent
 
     @property
     def name(self) -> str:
-        """Return the name of the edge.
+        """Name of the edge.
 
         Returns
         -------

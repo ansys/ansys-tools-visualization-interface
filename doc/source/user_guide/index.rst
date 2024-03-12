@@ -100,7 +100,7 @@ class. After that, you have two main options for customizing the plotter:
   To this end, you can override the ``add`` and ``add_iter`` methods. These methods are called every time
   a new object is added to the plotter. The default implementation of this method is to add a PyVista mesh
   or a  ``MeshObjectPlot`` instance to the plotter. You can override this method to add your own meshes or
-  objects to the plotter in a manner that fits the way you want to represent the meshes.
+  objects to the plotter in a manner that fits the way that you want to represent the meshes.
 
 * Another use case is the need to have custom button functionalities for your library. For example, you many
   want buttons for hiding or showing certain objects. To add custom buttons to the plotter, you use the
