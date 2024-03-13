@@ -20,12 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Defines the colors to use for the plotter actors."""
+"""Provides an enum with the colors to use for the plotter actors."""
 from enum import Enum
 
 
 class Colors(Enum):
-    """Defines the colors to use for the plotter actors."""
+    """Provides an enum with the colors to use for the plotter actors."""
 
     DEFAULT_COLOR = "#D6F7D1"
     """Default color for the plotter actors."""

@@ -45,17 +45,17 @@ class PyVistaInterface:
     Parameters
     ----------
     scene : ~pyvista.Plotter, default: None
-        Scene instance for rendering the objects.
+        Scene for rendering the objects.
     color_opts : dict, default: None
         Dictionary containing the background and top colors.
     num_points : int, default: 100
         Number of points to use to render the shapes.
-    enable_widgets: bool, default: True
+    enable_widgets : bool, default: True
         Whether to enable widget buttons in the plotter window.
         Widget buttons must be disabled when using
         `trame <https://kitware.github.io/trame/index.html>`_
         for visualization.
-    show_plane: bool, default: False
+    show_plane : bool, default: False
         Whether to show the XY plane in the plotter window.
 
     """
@@ -140,7 +140,7 @@ class PyVistaInterface:
         mesh : Union[pv.PolyData, pv.MultiBlock]
             Mesh.
         normal : str, default: "x"
-            Plane to use for clipping. Options are `"x"``, ``"-x"``,
+            Plane to use for clipping. Options are ``"x"``, ``"-x"``,
             ``"y"``, ``"-y"``, ``"z"``, and ``"-z"``.
         origin : tuple, default: None
             Origin point of the plane.
@@ -188,7 +188,7 @@ class PyVistaInterface:
         Parameters
         ----------
         custom_object : MeshObjectPlot
-            Custom object of which to add the edges.
+            Custom object with the edges to add.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -227,8 +227,6 @@ class PyVistaInterface:
 
         Parameters
         ----------
-        plotting_list : List[Any]
-            List of objects to plot.
         object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot]
             Object to plot.
         filter : str, default: None
@@ -268,7 +266,7 @@ class PyVistaInterface:
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """Add a list of any type of object to the scene.
+        """Add a list of any type of objects to the scene.
 
         Supported object types are ``Body``, ``Component``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``, and ``Sketch``.

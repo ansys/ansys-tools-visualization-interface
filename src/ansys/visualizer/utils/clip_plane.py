@@ -25,7 +25,7 @@ from beartype.typing import Tuple
 
 
 class ClipPlane:
-    """Clipping plane for clipping meshes in the plotter.
+    """Provides the clipping plane for clipping meshes in the plotter.
 
     The clipping plane is defined by the normal and origin vectors.
 
@@ -34,7 +34,7 @@ class ClipPlane:
     normal : Tuple[float, float, float], default: (1, 0, 0)
         Normal of the plane.
     origin : Tuple[float, float, float], default: (1, 0, 0)
-        Origin point of the plane,.
+        Origin point of the plane.
 
     """
 

@@ -29,7 +29,7 @@ if TYPE_CHECKING:
     from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
 
 class EdgePlot:
-    """Mapper class to relate PyAnsys object edges with its PyVista actor.
+    """Provides the mapper class for relating PyAnsys object edges with its PyVista actor.
 
     Parameters
     ----------

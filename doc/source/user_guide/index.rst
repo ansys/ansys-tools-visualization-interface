@@ -44,8 +44,8 @@ Use with PyAnsys custom objects
 -------------------------------
 
 You can also use the default plotter to visualize PyAnsys custom objects. The only requirement is that the
-custom object must have a method that returns a PyVista mesh, as well as a method that exposes a ``name`` or
-``id`` attribute of your object. To expose custom object, you use a ``MeshObjectPlot`` instance. This class
+custom object must have a method that returns a PyVista mesh a method that exposes a ``name`` or
+``id`` attribute of your object. To expose a custom object, you use a ``MeshObjectPlot`` instance. This class
 relates PyVista meshes with any object.
 
 The following code shows how to use the default plotter to visualize a PyAnsys custom object:
@@ -91,10 +91,10 @@ Customize your own plotter
 
 The PyAnsys Visualizer provides a base class, ``PlotterInterface``, for customizing certain functions
 of the plotter. This class provides a set of methods that can be overridden so that you can adapt the
-plotter to the specific need of your library.
+plotter to the specific need of your PyAnsys library.
 
-The first thing you must do is to create a new class that inherits from the ``PlotterInterface``
-class. After that, you have two main options for customizing the plotter:
+The first thing you must do is to create a class that inherits from the ``PlotterInterface``
+class. After that, see these main use cases for customizing the plotter:
 
 * The most common use case is to customize the way that the objects you represent are shown in the plotter.
   To this end, you can override the ``add`` and ``add_iter`` methods. These methods are called every time
@@ -102,9 +102,9 @@ class. After that, you have two main options for customizing the plotter:
   or a  ``MeshObjectPlot`` instance to the plotter. You can override this method to add your own meshes or
   objects to the plotter in a manner that fits the way that you want to represent the meshes.
 
-* Another use case is the need to have custom button functionalities for your library. For example, you many
+* Another use case is the need to have custom button functionalities for your library. For example, you may
   want buttons for hiding or showing certain objects. To add custom buttons to the plotter, you use the
   implementable interface provided by the ``PlotterWidget`` class.
 
 Some practical examples of how to use the ``PlotterInterface`` class are included in some PyAnsys libraries,
-such as `PyAnsys Geometry <https://github.com/ansys/pyansys-geometry/pull/959>_`.
+such as `PyAnsys Geometry <https://github.com/ansys/pyansys-geometry/pull/959>`_.

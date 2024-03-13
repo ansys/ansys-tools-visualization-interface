@@ -36,7 +36,7 @@ class MeshObjectPlot:
         actor: pv.Actor = None,
         edges: List[EdgePlot] = None,
     ) -> None:
-        """Relates a custom object with a mesh, provided by the consumer library.
+        """Relates a custom object with a mesh provided by the consumer library.
 
         This class is meant to be used as a mapper between a custom object and its mesh
         representation. It is used to store the custom object and its mesh, and to relate
@@ -49,7 +49,7 @@ class MeshObjectPlot:
         mesh : Union[pv.PolyData, pv.MultiBlock]
             PyVista mesh that represents the custom object.
         actor : pv.Actor, default: None
-            Actor of the mesh in the plotter,.
+            Actor of the mesh in the plotter.
         edges : List[EdgePlot], default: None
             Edges of the object if it has any.
 

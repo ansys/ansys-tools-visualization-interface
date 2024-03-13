@@ -45,11 +45,11 @@ class PlotterInterface(ABC):
 
     This class is intended to be used as a base class for the custom plotters
     in the different PyAnsys libraries. It provides the basic plotter functionalities,
-    such as adding objects, enabling widgets, and enabling picking capabilities. It also
+    such as adding objects and enabling widgets and picking capabilities. It also
     provides the ability to show the plotter using the `trame <https://kitware.github.io/trame/index.html>`_
     service.
 
-    The methods that you can override are ``add_list()``, ``add()``, and ``picked_operation()``.
+    You can override the ``add_list()``, ``add()``, and ``picked_operation()`` methods.
     The ``add_list()`` method is intended to add a list of objects to the plotter, while the
     ``add()`` method is intended to add a single object to the plotter. The ``plot()`` method is
     intended to plot the objects and show the plotter. The ``picked_operation()`` method is
@@ -60,7 +60,7 @@ class PlotterInterface(ABC):
     use_trame : Optional[bool], default: None
         Whether to activate the usage of the trame UI instead of the Python window.
     allow_picking : Optional[bool], default: False
-        Whether to allow picking in the window.
+        Whether to allow picking capabilities in the window.
 
     """
 
@@ -148,7 +148,7 @@ class PlotterInterface(ABC):
         Parameters
         ----------
         widget : Union[PlotterWidget, List[PlotterWidget]]
-            One or more custom widgets to add to the plotter.
+            One or more custom widgets.
 
         """
         if isinstance(widget, list):
@@ -159,9 +159,9 @@ class PlotterInterface(ABC):
             widget.update()
 
     def select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: np.ndarray) -> None:
-        """Select an object in the plotter.
+        """Select a custom object in the plotter.
 
-        This method highlights the edges of a body and adds a label to the plotter. It also adds
+        This method highlights the edges of a body and adds a label. It also adds
         the object to the ``_picked_list`` and the actor to the ``_picker_added_actors_map``.
 
         Parameters
@@ -205,7 +205,7 @@ class PlotterInterface(ABC):
         self._picker_added_actors_map[custom_object.actor.name] = added_actors
 
     def unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
-        """Unselect an object in the plotter.
+        """Unselect a custom object in the plotter.
 
         This method removes edge highlighting and the label from a plotter actor and removes
         the object from the PyAnsys Visualizer object selection.
@@ -213,7 +213,7 @@ class PlotterInterface(ABC):
         Parameters
         ----------
         custom_object : Union[MeshObjectPlot, EdgePlot]
-            Object to unselect.
+            Custom object to unselect.
 
         """
         # remove actor from picked list and from scene
@@ -311,7 +311,7 @@ class PlotterInterface(ABC):
         Parameters
         ----------
         object : Any, default: None
-           Object or list of objects tto plot.
+           Object or list of objects to plot.
         screenshot : str, default: None
             Path for saving a screenshot of the image that is being represented.
         view_2d : Dict, default: None
@@ -408,7 +408,7 @@ class PlotterInterface(ABC):
         Parameters
         ----------
         object : Any
-            Object.
+            Object to add.
         filter : str
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
@@ -426,7 +426,7 @@ class PlotterInterface(ABC):
 class Plotter(PlotterInterface):
     """Provides the generic plotter implementation for PyAnsys libraries.
 
-    This class accepts ``MeshObjectPlot``,``pv.PolyData``, and ``pv.MultiBlock`` objects.
+    This class accepts ``MeshObjectPlot``, ``pv.MultiBlock`` and ``pv.PolyData`` objects.
 
     Parameters
     ----------
@@ -476,7 +476,7 @@ class Plotter(PlotterInterface):
         Parameters
         ----------
         object : Any
-            Object.
+            Object to add.
         filter : str
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
