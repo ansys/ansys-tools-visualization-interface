@@ -53,7 +53,7 @@ PyAnsys Visualizer offers these main features:
             perform many different types of operations.
         {% endif %}
 
-        .. grid-item-card:: Contribute :material-regular:`people-group`
+        .. grid-item-card:: Contribute :material-regular:`group`
             :padding: 2 2 2 2
             :link: contributing
             :link-type: doc
