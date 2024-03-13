@@ -29,7 +29,7 @@ Documentation and issues
 ------------------------
 
 Documentation for the latest stable release of PyAnsys Visualizer is hosted
-at `PyAnsys Visualizer documentation <https://visualizer.docs.pyansys.com/version/dev/`_.
+at `PyAnsys Visualizer documentation <https://visualizer.docs.pyansys.com/version/dev/>`_.
 
 The documentation has these sections:
 
