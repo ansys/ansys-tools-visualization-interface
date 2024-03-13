@@ -15,9 +15,7 @@ PyAnsys Visualizer
 Overview
 --------
 
-PyAnsys Visualizer is a Python client library that provides a simple user interface
-for visualizing Ansys data. This library is built on top of
-`PyVista <https://docs.pyvista.org/version/stable/>`_.
+PyAnsys Visualizer is a Python API that provides an interface between PyAnsys libraries and different plotting backends.
 
 PyAnsys Visualizer offers these main features:
 
