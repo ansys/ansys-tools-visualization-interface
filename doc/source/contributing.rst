@@ -1,15 +1,20 @@
+.. _contribute:
+
 Contribute
 ##########
 
 Overall guidance on contributing to a PyAnsys library appears in the
 `Contributing <https://dev.docs.pyansys.com/how-to/contributing.html>`_ topic
-in the *PyAnsys Developer's Guide*. Ensure that you are thoroughly familiar
+in the *PyAnsys developer's guide*. Ensure that you are thoroughly familiar
 with this guide before attempting to contribute to PyAnsys Visualizer.
 
 The following contribution information is specific to PyAnsys Visualizer.
 
-Clone the repository
---------------------
+Install in developer mode
+-------------------------
+
+Installing PyAnsys Visualizer in developer mode allows you to modify and enhance
+the source.
 
 To clone and install the latest PyAnsys Visualizer release in development mode, run
 these commands:
@@ -21,41 +26,27 @@ these commands:
     python -m pip install --upgrade pip
     pip install -e .
 
+Run tests
+---------
 
-Post issues
------------
+PyAnsys Visualizer uses `pytest <https://docs.pytest.org/en/stable/>`_ for testing.
 
-Use the `PyAnsys Visualizer Issues <https://github.com/ansys/pyansys-visualizer/issues>`_
-page to submit questions, report bugs, and request new features. When possible, you
-should use these issue templates:
+#. Prior to running tests, you must run this command to install
+   test dependencies::
 
-* Bug, problem, error: For filing a bug report
-* Documentation error: For requesting modifications to the documentation
-* Adding an example: For proposing a new example
-* New feature: For requesting enhancements to the code
+    pip install -e .[tests]
 
-If your issue does not fit into one of these template categories, you can click
-the link for opening a blank issue.
+#. To then run the tests, navigate to the root directory of the repository and run this
+   command::
 
-To reach the project support team, email `pyansys.core@ansys.com <pyansys.core@ansys.com>`_.
-
-View documentation
-------------------
-
-Documentation for the latest stable release of PyAnsys Visualizer is hosted at
-`PyAnsys Visualizer Documentation <https://visualizer.docs.pyansys.com>`_.
-
-In the upper right corner of the documentation's title bar, there is an option
-for switching from viewing the documentation for the latest stable release
-to viewing the documentation for the development version or previously
-released versions.
+    pytest
 
 Adhere to code style
 --------------------
 
 PyAnsys Visualizer follows the PEP8 standard as outlined in
 `PEP 8 <https://dev.docs.pyansys.com/coding-style/pep8.html>`_ in
-the *PyAnsys Developer's Guide* and implements style checking using
+the *PyAnsys developer's guide* and implements style checking using
 `pre-commit <https://pre-commit.com/>`_.
 
 To ensure your code meets minimum code styling standards, run these commands::
@@ -88,20 +79,21 @@ This way, it's not possible for you to push code that fails the style checks::
 Build the documentation
 -----------------------
 
-.. note::
+You can build PyAnsys Visualizer documentation locally.
 
-  To build the documentation locally, you must run this command to install the
-  documentation dependencies::
+#. Prior to building the documentation, you must run this command to install
+   documentation dependencies::
 
     pip install -e .[doc]
 
-Then, navigate to the ``docs`` directory and run this command::
+#. To then build the documentation, navigate to the ``docs`` directory and run
+   this command::
 
-  # On Linux or macOS
-  make html
+    # On Linux or macOS
+    make html
 
-  # On Windows
-  ./make.bat html
+    # On Windows
+    ./make.bat html
 
 The documentation is built in the ``docs/_build/html`` directory.
 
@@ -113,22 +105,14 @@ You can clean the documentation build by running this command::
   # On Windows
   ./make.bat clean
 
-Run tests
----------
+Post issues
+-----------
 
-PyAnsys Visualizer uses `pytest <https://docs.pytest.org/en/stable/>`_ for testing.
+Use the `PyAnsys Visualizer Issues <https://github.com/ansys/pyansys-visualizer/issues>`_
+page to report bugs and request new features. When possible, use the issue templates provided.
+If your issue does not fit into one of these templates, click the link for opening a blank issue.
 
-Prerequisites
-^^^^^^^^^^^^^
-
-Prior to running the tests, you must run this command to install the test dependencies::
-
-  pip install -e .[tests]
-
-
-Running the tests
-^^^^^^^^^^^^^^^^^
-
-To run the tests, navigate to the root directory of the repository and run this command::
-
-  pytest
+If you have general questions about the PyAnsys ecosystem, email
+`pyansys.core@ansys.com <pyansys.core@ansys.com>`_. If your
+question is specific to PyAnsys Visualizer, ask your
+question in an issue as described in the previous paragraph.

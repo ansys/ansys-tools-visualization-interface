@@ -23,11 +23,11 @@
 """
 .. _ref_clipping_plane:
 
-=================================================
-How to use a clipping plane in PyAnsys Visualizer
-=================================================
+====================
+Use a clipping plane
+====================
 
-In this example, we will show how to use a clipping plane in PyAnsys Visualizer to cut a mesh.
+This example shows how to use a clipping plane in PyAnsys Visualizer to cut a mesh.
 """
 
 import pyvista as pv

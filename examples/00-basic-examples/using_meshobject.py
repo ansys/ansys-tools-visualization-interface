@@ -23,22 +23,26 @@
 """
 .. _ref_using_meshobject:
 
-=============================
-Usage of MeshObjectPlot class
-=============================
+================================
+Use the ``MeshObjectPlot`` class
+================================
 
-The MeshObject class is a helper class provided by PyAnsys Visualizer that relates a custom object
-with its mesh. With this object we can seize the full potential of the Visualizer.
-This example teaches how to use the MeshObjectPlot class to plot your custom objects.
+PyAnsys Visualizer provides the ``MeshObject`` helper class to relate a custom object
+with its mesh. With a custom object, you can take advantage of the full potential of
+PyAnsys Visualizer.
+
+This example shows how to use the ``MeshObjectPlot`` class to plot your custom objects.
 """
 
-##############################################
-# Custom class to relate with a PyVista mesh
-# ==========================================
+###################################################
+# Relate ``CustomObject`` class with a PyVista mesh
+# =================================================
+
 import pyvista as pv
 
+# Note that the ``CustomObject`` class must have a way to get the mesh
+# and a name or ID.
 
-# Note that this class must have a way to get the mesh and a name or ID
 class CustomObject:
     def __init__(self):
         self.name = "CustomObject"
@@ -50,22 +54,23 @@ class CustomObject:
     def name(self):
         return self.name
 
-
 # Create a custom object
 custom_object = CustomObject()
 
 
-##############################################
-# Create a MeshObjectPlot instance
-# ==========================================
+######################################
+# Create a ``MeshObjectPlot`` instance
+# ====================================
+
 from ansys.visualizer import MeshObjectPlot
 
-# Create a MeshObjectPlot instance
+# Create an instance
+
 mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
 
-##################################
-# Plot the MeshObjectPlot instance
-# ================================
+######################################
+# Plot the ``MeshObjectPlot`` instance
+# ====================================
 
 from ansys.visualizer import Plotter
 

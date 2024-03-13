@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Module for using `trame <https://kitware.github.io/trame/index.html>`_ for visualization."""
+"""Provides for using `trame <https://kitware.github.io/trame/index.html>`_ for visualization."""
 try:
     from pyvista.trame.ui import plotter_ui
     from trame.app import get_server
@@ -60,11 +60,11 @@ class TrameVisualizer:
             layout.title.set_text("PyAnsys")
 
             with layout.content:
-                # Use PyVista UI template for Plotters
+                # Use PyVista UI template for plotters
                 view = plotter_ui(plotter.scene)
                 self.ctrl.view_update = view.update
 
-            # hide footer with trame watermark
+            # Hide footer with trame watermark
             layout.footer.hide()
 
     def show(self):

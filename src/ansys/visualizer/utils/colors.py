@@ -20,21 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Module to define the colors to use for the plotter actors."""
+"""Provides an enum with the colors to use for the plotter actors."""
 from enum import Enum
 
 
 class Colors(Enum):
-    """Defines the colors to use for the plotter actors."""
+    """Provides an enum with the colors to use for the plotter actors."""
 
     DEFAULT_COLOR = "#D6F7D1"
-    """Default color we use for the plotter actors."""
+    """Default color for the plotter actors."""
 
     PICKED_COLOR = "#BB6EEE"
-    """Color to use for the actors that are currently picked."""
+    """Color for the actors that are currently picked."""
 
     EDGE_COLOR = "#000000"
-    """Default color to use for the edges."""
+    """Default color for the edges."""
 
     PICKED_EDGE_COLOR = "#9C9C9C"
-    """Color to use for the edges that are currently picked."""
+    """Color for the edges that are currently picked."""

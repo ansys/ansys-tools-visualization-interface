@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Module for the MeshObjectPlot class."""
+"""Provides the ``MeshObjectPlot`` class."""
 from beartype.typing import Any, List, Union
 import pyvista as pv
 
@@ -27,7 +27,7 @@ from ansys.visualizer.types.edgeplot import EdgePlot
 
 
 class MeshObjectPlot:
-    """Relates a custom object with a mesh, provided by consumer library."""
+    """Relates a custom object with a mesh, provided by the consumer library."""
 
     def __init__(
         self,
@@ -36,7 +36,7 @@ class MeshObjectPlot:
         actor: pv.Actor = None,
         edges: List[EdgePlot] = None,
     ) -> None:
-        """Relates a custom object with a mesh, provided by consumer library.
+        """Relates a custom object with a mesh provided by the consumer library.
 
         This class is meant to be used as a mapper between a custom object and its mesh
         representation. It is used to store the custom object and its mesh, and to relate
@@ -48,10 +48,10 @@ class MeshObjectPlot:
             Any object that the consumer library wants to relate with a mesh.
         mesh : Union[pv.PolyData, pv.MultiBlock]
             PyVista mesh that represents the custom object.
-        actor : pv.Actor, optional
-            Actor of the mesh in the plotter, by default None
-        edges : List[EdgePlot], optional
-            Edges of the object if they have any, by default None
+        actor : pv.Actor, default: None
+            Actor of the mesh in the plotter.
+        edges : List[EdgePlot], default: None
+            Edges of the object if it has any.
 
         """
         self._custom_object = custom_object
@@ -61,7 +61,7 @@ class MeshObjectPlot:
 
     @property
     def mesh(self) -> Union[pv.PolyData, pv.MultiBlock]:
-        """Return the mesh of the object in PyVista format.
+        """Mesh of the object in PyVista format.
 
         Returns
         -------
@@ -85,7 +85,7 @@ class MeshObjectPlot:
 
     @property
     def custom_object(self) -> Any:
-        """Return the custom object.
+        """Custom object.
 
         Returns
         -------
@@ -109,31 +109,31 @@ class MeshObjectPlot:
 
     @property
     def actor(self) -> pv.Actor:
-        """Return the actor of the object in the plotter.
+        """PyVista actor of the object in the plotter.
 
         Returns
         -------
         pv.Actor
-            Actor of the object.
+            PyVista actor of the object.
 
         """
         return self._actor
 
     @actor.setter
     def actor(self, actor: pv.Actor):
-        """Set the actor of the object in the plotter.
+        """Set the PyVista actor of the object in the plotter.
 
         Parameters
         ----------
         actor : pv.Actor
-            Actor of the object.
+            PyVista actor of the object.
 
         """
         self._actor = actor
 
     @property
     def edges(self) -> List[EdgePlot]:
-        """Return the edges of the object.
+        """Edges of the object.
 
         Returns
         -------
@@ -157,7 +157,7 @@ class MeshObjectPlot:
 
     @property
     def name(self) -> str:
-        """Return the name of the object.
+        """Name of the object.
 
         Returns
         -------

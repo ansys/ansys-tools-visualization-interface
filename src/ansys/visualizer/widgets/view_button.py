@@ -63,8 +63,7 @@ class ViewButton(Button):
         Parameters
         ----------
         state : bool
-            State of the button, which is inherited from PyVista. The value is ``True``
-            if the button is active.
+            Whether the state of the button, which is inherited from PyVista, is ``True``.
 
         Raises
         ------

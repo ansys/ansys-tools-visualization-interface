@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides the ruler widget for the PyAnsys plotter."""
+"""Provides the measure widget for the PyAnsys plotter."""
 from beartype.typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -38,7 +38,7 @@ class MeasureWidget(PlotterWidget):
     Parameters
     ----------
     plotter_helper : PlotterHelper
-        Provides the plotter to add the measure widget to.
+        Plotter to add the measure widget to.
 
     """
 
@@ -60,8 +60,7 @@ class MeasureWidget(PlotterWidget):
         Parameters
         ----------
         state : bool
-            State of the button, which is inherited from PyVista. The value is ``True``
-            if the button is active.
+            Whether the state of the button, which is inherited from PyVista, is active.
 
         """
         # This implementation uses direct calls to VTK due to limitations
@@ -78,7 +77,7 @@ class MeasureWidget(PlotterWidget):
             self._widget = self.plotter_helper._pl.scene.add_measurement_widget()
 
     def update(self) -> None:
-        """Define the measurement widget button params."""
+        """Define the measurement widget button parameters."""
         show_measure_vr = self._button.GetRepresentation()
         show_measure_icon_file = Path(
             Path(__file__).parent / "_images"/ "measurement.png"

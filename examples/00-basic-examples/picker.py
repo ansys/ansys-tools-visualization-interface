@@ -23,22 +23,24 @@
 """
 .. _ref_picker:
 
-=================================================
+===================
 Activate the picker
-=================================================
+===================
 
-In this example, we will show how to activate the picker. The picker is a tool that allows you
-to select an object in the plotter and get its name.
+This example shows how to activate the picker, which is the tool that you
+use to select an object in the plotter and get its name.
 """
 
 
-##############################################
-# Custom class to relate with a PyVista mesh
-# ==========================================
+###################################################
+# Relate ``CustomObject`` class with a PyVista mesh
+# =================================================
+
 import pyvista as pv
 
+# Note that the ``CustomObject`` class must have a way to get the mesh
+# and a name or ID.
 
-# Note that this class must have a way to get the mesh and a name or ID
 class CustomObject:
     def __init__(self):
         self.name = "CustomObject"
@@ -50,21 +52,22 @@ class CustomObject:
     def name(self):
         return self.name
 
-
 # Create a custom object
 custom_object = CustomObject()
 
-##############################################
-# Create a MeshObjectPlot instance
-# ==========================================
+######################################
+# Create a ``MeshObjectPlot`` instance
+# ====================================
+
 from ansys.visualizer import MeshObjectPlot
 
-# Create a MeshObjectPlot instance
+# Create an instance
+
 mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
 
-############################################################
-# Plot the MeshObjectPlot instance with the picker activated
-# ==========================================================
+######################################
+# Plot the ``MeshObjectPlot`` instance
+# ====================================
 
 from ansys.visualizer import Plotter
 

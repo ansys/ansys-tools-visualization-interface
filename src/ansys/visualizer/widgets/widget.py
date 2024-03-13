@@ -38,7 +38,8 @@ class PlotterWidget(ABC):
     -----
     These widgets are intended to be used with PyVista plotter objects.
     More specifically, the way in which this abstraction has been built
-    ensures that these widgets are easily integrable with PyAnsys Visualizer's.
+    ensures that these widgets can be easily integrated with PyAnsys Visualizer's
+    widgets.
 
     """
 
@@ -48,7 +49,7 @@ class PlotterWidget(ABC):
 
     @property
     def plotter(self) -> Plotter:
-        """Plotter object the widget is assigned to."""
+        """Plotter object that the widget is assigned to."""
         return self._plotter
 
     @abstractmethod

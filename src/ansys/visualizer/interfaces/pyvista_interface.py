@@ -36,7 +36,7 @@ from ansys.visualizer.utils.logger import logger
 
 
 class PyVistaInterface:
-    """Middle class between PyVista plotting operations and PyAnsys objects.
+    """Provides the middle class between PyVista plotting operations and PyAnsys objects.
 
     This class is responsible for creating the PyVista scene and adding
     the PyAnsys objects to it.
@@ -45,18 +45,18 @@ class PyVistaInterface:
     Parameters
     ----------
     scene : ~pyvista.Plotter, default: None
-        ``Scene`` instance for rendering the objects.
+        Scene for rendering the objects.
     color_opts : dict, default: None
         Dictionary containing the background and top colors.
     num_points : int, default: 100
         Number of points to use to render the shapes.
-    enable_widgets: bool, default: True
+    enable_widgets : bool, default: True
         Whether to enable widget buttons in the plotter window.
         Widget buttons must be disabled when using
         `trame <https://kitware.github.io/trame/index.html>`_
         for visualization.
-    show_plane: bool, default: False
-        Whether to show the XY plane in the plotter window. By default, false.
+    show_plane : bool, default: False
+        Whether to show the XY plane in the plotter window.
 
     """
 
@@ -133,30 +133,30 @@ class PyVistaInterface:
     def clip(
         self, mesh: Union[pv.PolyData, pv.MultiBlock], plane: ClipPlane
     ) -> Union[pv.PolyData, pv.MultiBlock]:
-        """Clip the passed mesh with a plane.
+        """Clip a given mesh with a plane.
 
         Parameters
         ----------
         mesh : Union[pv.PolyData, pv.MultiBlock]
-            Mesh you want to clip.
-        normal : str, optional
-            Plane you want to use for clipping, by default "x".
-            Available options: ["x", "-x", "y", "-y", "z", "-z"]
-        origin : tuple, optional
-            Origin point of the plane, by default None
-        plane : ClipPlane, optional
-            Clipping plane to cut the mesh with, by default None
+            Mesh.
+        normal : str, default: "x"
+            Plane to use for clipping. Options are ``"x"``, ``"-x"``,
+            ``"y"``, ``"-y"``, ``"z"``, and ``"-z"``.
+        origin : tuple, default: None
+            Origin point of the plane.
+        plane : ClipPlane, default: None
+            Clipping plane to cut the mesh with.
 
         Returns
         -------
         Union[pv.PolyData,pv.MultiBlock]
-            The clipped mesh.
+            Clipped mesh.
 
         """
         return mesh.clip(normal=plane.normal, origin=plane.origin)
 
     def add_meshobject(self, object: MeshObjectPlot, **plotting_options):
-        """Add a generic MeshObjectPlot to the scene.
+        """Add a generic ``MeshObjectPlot`` object to the scene.
 
         Parameters
         ----------
@@ -182,13 +182,13 @@ class PyVistaInterface:
     def add_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
         """Add the outer edges of an object to the plot.
 
-        This method has the side effect of adding the edges to the MeshObjectPlot that
-        you pass through the parameters.
+        This method has the side effect of adding the edges to the ``MeshObjectPlot``
+        object that you pass through the parameters.
 
         Parameters
         ----------
         custom_object : MeshObjectPlot
-            custom_object of which to add the edges.
+            Custom object with the edges to add.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -222,17 +222,15 @@ class PyVistaInterface:
     ) -> None:
         """Add any type of object to the scene.
 
-        These types of objects are supported: ``MeshObjectPlot``, ``List[pv.PolyData]``,
-        ``pv.MultiBlock``.
+        Supported object types are ``List[pv.PolyData]``, ``MeshObjectPlot``,
+        and ``pv.MultiBlock``.
 
         Parameters
         ----------
-        plotting_list : List[Any]
-            List of objects that you want to plot.
         object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot]
-            Object you want to plot.
+            Object to plot.
         filter : str, default: None
-            Regular expression with the desired name or names you want to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -268,17 +266,17 @@ class PyVistaInterface:
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """Add a list of any type of object to the scene.
+        """Add a list of any type of objects to the scene.
 
-        These types of objects are supported: ``Body``, ``Component``, ``List[pv.PolyData]``,
+        Supported object types are ``Body``, ``Component``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``, and ``Sketch``.
 
         Parameters
         ----------
         plotting_list : List[Any]
-            List of objects you want to plot.
+            List of objects to plot.
         filter : str, default: None
-            Regular expression with the desired name or names you want to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -312,7 +310,7 @@ class PyVistaInterface:
         in the PyVista documentation.
 
         """
-        # compute the scaling
+        # Compute the scaling
         bounds = self.scene.renderer.bounds
         x_length, y_length = bounds[1] - bounds[0], bounds[3] - bounds[2]
         sfac = max(x_length, y_length)
@@ -323,12 +321,12 @@ class PyVistaInterface:
             plane = pv.Plane(i_size=sfac * 1.3, j_size=sfac * 1.3)
             self.scene.add_mesh(plane, color="white", show_edges=True, opacity=0.1)
 
-        # Conditionally set the Jupyter backend as not all users will be within
-        # a notebook environment to avoid a pyvista warning
+        # To avoid a PyVista warning, conditionally set the Jupyter backend as not
+        # all users will be within a notebnook environment
         if self.scene.notebook and jupyter_backend is None:
             jupyter_backend = "trame"
 
-        # Override jupyter backend in case we are building docs
+        # Override Jupyter backend if building docs
         if DOCUMENTATION_BUILD:
             jupyter_backend = "static"
 
@@ -350,7 +348,7 @@ class PyVistaInterface:
         """
         # If the following keys do not exist, set the default values
         #
-        # This method should only be applied in 3D objects: bodies, components
+        # This method should only be applied in 3D objects (bodies and components)
         if "smooth_shading" not in plotting_options:
             plotting_options.setdefault("smooth_shading", True)
         if "color" not in plotting_options:
@@ -358,5 +356,5 @@ class PyVistaInterface:
 
     @property
     def object_to_actors_map(self) -> Dict[pv.Actor, MeshObjectPlot]:
-        """Mapping between the ``pyvista.Actor`` and the PyAnsys objects."""
+        """Mapping between the PyVista actor and the PyAnsys objects."""
         return self._object_to_actors_map
