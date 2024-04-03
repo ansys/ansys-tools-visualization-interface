@@ -162,7 +162,6 @@ templates_path = ["_templates"]
 # The suffix(es) of source filenames.
 source_suffix = {
     ".rst": "restructuredtext",
-    ".mystnb": "jupyter_notebook",
     ".md": "markdown",
 }
 
