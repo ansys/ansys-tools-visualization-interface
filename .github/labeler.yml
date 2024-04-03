@@ -4,7 +4,7 @@ documentation:
 
 maintenance:
 - changed-files:
-  - any-glob-to-any-file: ['.github/**/*', '.flake8', 'pyproject.toml', 'tox.ini', '.pre-commit-config.yaml']
+  - any-glob-to-any-file: ['.github/**/*', 'pyproject.toml', 'tox.ini', '.pre-commit-config.yaml']
 
 testing:
 - changed-files:
