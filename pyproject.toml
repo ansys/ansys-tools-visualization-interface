@@ -98,3 +98,6 @@ combine-as-imports = true
 force-sort-within-sections = true
 known-first-party = ["ansys"]
 
+[tool.ruff.lint.pydocstyle]
+# Settings: https://docs.astral.sh/ruff/settings/#lintpydocstyle
+convention = "google"
