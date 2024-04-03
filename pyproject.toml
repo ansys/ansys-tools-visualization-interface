@@ -55,6 +55,7 @@ name = "ansys.visualizer"
 
 [tool.black]
 line-length = 100
+indent-width = 4
 
 [tool.isort]
 profile = "black"
@@ -68,7 +69,15 @@ addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report x
 
 [tool.ruff]
 line-length = 120
-lint.select = [
+# TODO: do we really need to ignore tests and "__init__.py" files?
+extend-exclude = [
+    "tests/**/*.py",
+    "examples/**/*.py",
+    "**/__init__.py",
+]
+
+[tool.ruff.lint]
+select = [
     "E",    # pycodestyle, see https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
     "D",    # pydocstyle, see https://beta.ruff.rs/docs/rules/#pydocstyle-d
     "F",    # pyflakes, see https://beta.ruff.rs/docs/rules/#pyflakes-f
@@ -76,15 +85,11 @@ lint.select = [
     "N",    # pep8-naming, see https://beta.ruff.rs/docs/rules/#pep8-naming-n
     "PTH",  # flake8-use-pathlib, https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
 ]
-extend-exclude = [
-    "tests/**/*.py",
-    "examples/**/*.py",
-    "**/__init__.py",
-]
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "tab"
+line-ending = "auto"
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
