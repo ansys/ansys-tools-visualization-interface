@@ -45,5 +45,5 @@ pl = Plotter()
 clipping_plane = ClipPlane(normal=(1, 0, 0), origin=(0, 0, 0))
 
 # Add the mesh to the plotter with the clipping plane
-pl.add(mesh, clipping_plane=clipping_plane)
-pl.plot()
+pl.plot(mesh, clipping_plane=clipping_plane)
+pl.show()

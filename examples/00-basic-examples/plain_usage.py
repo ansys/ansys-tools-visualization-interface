@@ -45,10 +45,10 @@ mesh = pv.Cube()
 pl = Plotter()
 
 # Add the mesh to the plotter
-pl.add(mesh)
+pl.plot(mesh)
 
 # Show the plotter
-pl.plot()
+pl.show()
 
 
 ######################
@@ -67,7 +67,7 @@ mesh_list = [mesh1, mesh2]
 pl = Plotter()
 
 # Add a list of meshes to the plotter
-pl.add(mesh_list)
+pl.plot(mesh_list)
 
 # Show the plotter
-pl.plot()
+pl.show()
