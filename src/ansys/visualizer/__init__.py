@@ -30,8 +30,8 @@ USE_TRAME: bool = False
 DOCUMENTATION_BUILD: bool = False
 TESTING_MODE: bool = os.environ.get("PYANSYS_VISUALIZER_TESTMODE", "false").lower() == "true"
 from ansys.visualizer.plotter import Plotter, PlotterInterface
-from ansys.visualizer.types.edgeplot import EdgePlot
-from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
+from ansys.visualizer.types.edge_plot import EdgePlot
+from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
 from ansys.visualizer.utils.clip_plane import ClipPlane
 from ansys.visualizer.utils.color import Color
 from ansys.visualizer.widgets.widget import PlotterWidget

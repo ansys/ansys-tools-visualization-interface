@@ -29,8 +29,8 @@ import pyvista as pv
 from ansys.visualizer import USE_TRAME
 from ansys.visualizer.interfaces.pyvista_interface import PyVistaInterface
 from ansys.visualizer.interfaces.trame_gui import _HAS_TRAME, TrameVisualizer
-from ansys.visualizer.types.edgeplot import EdgePlot
-from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
+from ansys.visualizer.types.edge_plot import EdgePlot
+from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
 from ansys.visualizer.utils.color import Color
 from ansys.visualizer.utils.logger import logger
 from ansys.visualizer.widgets.displace_arrows import CameraPanDirection, DisplacementArrow

@@ -41,7 +41,7 @@ class SingletonType(type):
 
 
 class VizLogger(object, metaclass=SingletonType):
-    """Provides the singleton logger for PyPrimeMesh.
+    """Provides the singleton logger for the visualizer.
 
     Parameters
     ----------
