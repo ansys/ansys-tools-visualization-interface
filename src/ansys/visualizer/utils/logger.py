@@ -90,7 +90,7 @@ class VizLogger(object, metaclass=SingletonType):
         Parameters
         ----------
         stream: TextIO, default: ``sys.stderr``
-            Stream to output the log output to stream
+            Stream to output the log output to.
 
         """
         # stdout
