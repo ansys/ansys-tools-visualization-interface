@@ -54,7 +54,7 @@ class Plotter():
         plotting_options : dict
             Additional plotting options.
         """
-        self._backend.plot(object=object)
+        self._backend.plot(object=object, **plotting_options)
 
     def show(self):
         """Show the plotted objects."""
