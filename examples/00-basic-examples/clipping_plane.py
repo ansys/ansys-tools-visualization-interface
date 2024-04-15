@@ -41,7 +41,6 @@ mesh = pv.Cylinder()
 pl = Plotter()
 
 # Create a clipping plane
-
 clipping_plane = ClipPlane(normal=(1, 0, 0), origin=(0, 0, 0))
 
 # Add the mesh to the plotter with the clipping plane
