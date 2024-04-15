@@ -19,21 +19,21 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
 """Provides the ``ClipPlane`` class."""
+
 from beartype.typing import Tuple
 
 
 class ClipPlane:
     """Provides the clipping plane for clipping meshes in the plotter.
 
-    The clipping plane is defined by the normal and origin vectors.
+    The clipping plane is defined by both normal and origin vectors.
 
     Parameters
     ----------
     normal : Tuple[float, float, float], default: (1, 0, 0)
         Normal of the plane.
-    origin : Tuple[float, float, float], default: (1, 0, 0)
+    origin : Tuple[float, float, float], default: (0, 0, 0)
         Origin point of the plane.
 
     """
@@ -44,8 +44,8 @@ class ClipPlane:
         origin: Tuple[float, float, float] = (0, 0, 0),
     ):
         """Initialize the ``ClipPlane`` class."""
-        self.normal = normal
-        self.origin = origin
+        self._normal = normal
+        self._origin = origin
 
     @property
     def normal(self) -> Tuple[float, float, float]:
