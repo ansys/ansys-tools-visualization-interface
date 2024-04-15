@@ -257,7 +257,7 @@ def prepare_jinja_env(jinja_env) -> None:
     """Customize the jinja env.
 
     Notes:
-    -----
+    ------
     See https://jinja.palletsprojects.com/en/3.0.x/api/#jinja2.Environment
 
     """

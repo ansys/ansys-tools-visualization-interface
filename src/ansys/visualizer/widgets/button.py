@@ -34,7 +34,7 @@ class Button(PlotterWidget):
     """Provides the abstract class for implementing buttons in PyAnsys.
 
     Notes:
-    -----
+    ------
     This class wraps the PyVista ``add_checkbox_button_widget()`` method.
 
     Parameters

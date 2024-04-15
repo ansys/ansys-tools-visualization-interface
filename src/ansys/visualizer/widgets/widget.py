@@ -35,7 +35,7 @@ class PlotterWidget(ABC):
         Plotter instance to add the widget to.
 
     Notes:
-    -----
+    ------
     These widgets are intended to be used with PyVista plotter objects.
     More specifically, the way in which this abstraction has been built
     ensures that these widgets can be easily integrated with PyAnsys Visualizer's

@@ -301,7 +301,7 @@ class PyVistaInterface:
             :meth:`Plotter.show <pyvista.Plotter.show>` method.
 
         Notes:
-        -----
+        ------
         For more information on supported Jupyter backends, see
         `Jupyter Notebook Plotting <https://docs.pyvista.org/user-guide/jupyter/index.html>`_
         in the PyVista documentation.

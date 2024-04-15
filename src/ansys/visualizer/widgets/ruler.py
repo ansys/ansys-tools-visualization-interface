@@ -54,7 +54,7 @@ class Ruler(PlotterWidget):
         """Remove or add the ruler widget actor upon click.
 
         Notes:
-        -----
+        ------
         This method provides a callback function for the ruler widet.
         It is called every time the ruler widget is clicked.
 
