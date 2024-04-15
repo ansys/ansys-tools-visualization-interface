@@ -36,8 +36,8 @@ def test_plotter_add_pd():
     """Adds polydata to the plotter."""
     pl = Plotter()
     sphere = pv.Sphere()
-    pl.add(sphere)
-    pl.plot()
+    pl.plot(sphere)
+    pl.show()
 
 
 def test_plotter_add_mb():
@@ -46,8 +46,8 @@ def test_plotter_add_mb():
     sphere = pv.Sphere()
     mb = pv.MultiBlock()
     mb.append(sphere)
-    pl.add(mb)
-    pl.plot()
+    pl.plot(mb)
+    pl.show()
 
 
 def test_plotter_add_custom():
@@ -55,8 +55,8 @@ def test_plotter_add_custom():
     sphere = pv.Sphere()
     custom = MeshObjectPlot(CustomTestClass("myname"), sphere)
     pl = Plotter()
-    pl.add(custom)
-    pl.plot()
+    pl.plot(custom)
+    pl.show()
 
 
 def test_plotter_filter():
@@ -67,8 +67,8 @@ def test_plotter_filter():
     custom_cube = MeshObjectPlot(CustomTestClass("cube"), cube)
 
     pl = Plotter()
-    pl.add([custom_sphere, custom_cube], filter="cube")
-    pl.plot()
+    pl.plot([custom_sphere, custom_cube], filter="cube")
+    pl.show()
 
 
 def test_clipping_plane():
@@ -76,8 +76,8 @@ def test_clipping_plane():
     sphere = pv.Sphere()
     pl = Plotter()
     clipping_plane = ClipPlane()
-    pl.add(sphere, clipping_plane=clipping_plane)
-    pl.plot()
+    pl.plot(sphere, clipping_plane=clipping_plane)
+    pl.show()
 
 
 def test_plotter_add_list():
@@ -86,5 +86,5 @@ def test_plotter_add_list():
     sphere = pv.Sphere(center=(1, 4, 0))
     cube = pv.Cube(center=(-1, 0, 3))
     polydata_list = [sphere, cube]
-    pl.add(polydata_list)
-    pl.plot()
+    pl.plot(polydata_list)
+    pl.show()

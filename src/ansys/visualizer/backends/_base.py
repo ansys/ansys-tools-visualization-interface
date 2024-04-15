@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -19,19 +19,26 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""PyAnsys Visualizer is a Python client library for visualizing the results of Ansys simulations."""
-import os
 
-import pkg_resources
+"""Module for the backend base class."""
+from abc import ABC, abstractmethod
 
-__version__ = pkg_resources.get_distribution("pyansys-visualizer").version
+from beartype.typing import Any, Iterable
 
-USE_TRAME: bool = False
-DOCUMENTATION_BUILD: bool = False
-TESTING_MODE: bool = os.environ.get("PYANSYS_VISUALIZER_TESTMODE", "false").lower() == "true"
-from ansys.visualizer.plotter import Plotter
-from ansys.visualizer.types.edgeplot import EdgePlot
-from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
-from ansys.visualizer.utils.clip_plane import ClipPlane
-from ansys.visualizer.utils.colors import Colors
-from ansys.visualizer.widgets.widget import PlotterWidget
+
+class BaseBackend(ABC):
+    """Base class for plotting backends."""
+    @abstractmethod
+    def plot(self, object: Any, **plotting_options):
+        """Plot the specified object."""
+        raise NotImplementedError("plot method must be implemented")
+
+    @abstractmethod
+    def plot_iter(self, object: Iterable):
+        """Plot the elements of an iterable."""
+        raise NotImplementedError("plot_iter method must be implemented")
+
+    @abstractmethod
+    def show(self):
+        """Show the plotted objects."""
+        raise NotImplementedError("show method must be implemented")
