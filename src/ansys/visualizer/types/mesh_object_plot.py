@@ -25,7 +25,7 @@
 from beartype.typing import Any, List, Union
 import pyvista as pv
 
-from ansys.visualizer.types.edgeplot import EdgePlot
+from ansys.visualizer.types.edge_plot import EdgePlot
 
 
 class MeshObjectPlot:
