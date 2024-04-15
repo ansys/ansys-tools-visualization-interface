@@ -52,8 +52,8 @@ class EdgePlot:
     def actor(self) -> pv.Actor:
         """PyVista actor of the object.
 
-        Returns:
-        --------
+        Returns
+        -------
         ~pyvista.Actor
             PyVista actor.
 
@@ -64,8 +64,8 @@ class EdgePlot:
     def edge_object(self) -> Any:
         """PyAnsys edge.
 
-        Returns:
-        --------
+        Returns
+        -------
         Any
             PyAnsys edge.
 
@@ -76,8 +76,8 @@ class EdgePlot:
     def parent(self) -> Any:
         """Parent PyAnsys object of the edge.
 
-        Returns:
-        --------
+        Returns
+        -------
         Any
             Parent PyAnsys object.
 
@@ -88,8 +88,8 @@ class EdgePlot:
     def name(self) -> str:
         """Name of the edge.
 
-        Returns:
-        --------
+        Returns
+        -------
         str
             Name of the edge.
 

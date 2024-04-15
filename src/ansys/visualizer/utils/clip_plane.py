@@ -51,8 +51,8 @@ class ClipPlane:
     def normal(self) -> Tuple[float, float, float]:
         """Normal of the plane.
 
-        Returns:
-        --------
+        Returns
+        -------
         Tuple[float, float, float]
             Normal of the plane.
 
@@ -75,8 +75,8 @@ class ClipPlane:
     def origin(self) -> Tuple[float, float, float]:
         """Origin of the plane.
 
-        Returns:
-        --------
+        Returns
+        -------
         Tuple[float, float, float]
             Origin of the plane.
 

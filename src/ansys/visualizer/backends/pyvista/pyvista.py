@@ -98,8 +98,8 @@ class PyVistaInterface:
     def scene(self) -> PyVistaPlotter:
         """Rendered scene object.
 
-        Returns:
-        --------
+        Returns
+        -------
         ~pyvista.Plotter
             Rendered scene object.
 
@@ -147,8 +147,8 @@ class PyVistaInterface:
         plane : ClipPlane, default: None
             Clipping plane to cut the mesh with.
 
-        Returns:
-        --------
+        Returns
+        -------
         Union[pv.PolyData,pv.MultiBlock]
             Clipped mesh.
 
@@ -300,8 +300,8 @@ class PyVistaInterface:
             Plotting keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.show <pyvista.Plotter.show>` method.
 
-        Notes:
-        ------
+        Notes
+        -----
         For more information on supported Jupyter backends, see
         `Jupyter Notebook Plotting <https://docs.pyvista.org/user-guide/jupyter/index.html>`_
         in the PyVista documentation.

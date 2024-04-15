@@ -63,8 +63,8 @@ class MeshObjectPlot:
     def mesh(self) -> Union[pv.PolyData, pv.MultiBlock]:
         """Mesh of the object in PyVista format.
 
-        Returns:
-        --------
+        Returns
+        -------
         Union[pv.PolyData, pv.MultiBlock]
             Mesh of the object.
 
@@ -87,8 +87,8 @@ class MeshObjectPlot:
     def custom_object(self) -> Any:
         """Custom object.
 
-        Returns:
-        --------
+        Returns
+        -------
         Any
             Custom object.
 
@@ -111,8 +111,8 @@ class MeshObjectPlot:
     def actor(self) -> pv.Actor:
         """PyVista actor of the object in the plotter.
 
-        Returns:
-        --------
+        Returns
+        -------
         pv.Actor
             PyVista actor of the object.
 
@@ -135,8 +135,8 @@ class MeshObjectPlot:
     def edges(self) -> List[EdgePlot]:
         """Edges of the object.
 
-        Returns:
-        --------
+        Returns
+        -------
         List[EdgePlot]
             Edges of the object.
 
@@ -159,8 +159,8 @@ class MeshObjectPlot:
     def name(self) -> str:
         """Name of the object.
 
-        Returns:
-        --------
+        Returns
+        -------
         str
             Name of the object.
 

@@ -63,8 +63,8 @@ class VizLogger(object, metaclass=SingletonType):
     def get_logger(self):
         """Get the logger.
 
-        Returns:
-        --------
+        Returns
+        -------
         Logger
             Logger.
 
