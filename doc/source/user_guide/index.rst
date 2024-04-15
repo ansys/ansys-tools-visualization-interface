@@ -11,7 +11,7 @@ your own code.
 Default plotter usage
 =====================
 
-PyAnsys Visualizer provides a default plotter that can be used out of the box. This default
+PyAnsys Visualizer provides a default plotter that can be used out of the box, using the PyVista backend. This default
 plotter provides common functionalities so that you do not need to create a custom plotter.
 
 Use with PyVista meshes
