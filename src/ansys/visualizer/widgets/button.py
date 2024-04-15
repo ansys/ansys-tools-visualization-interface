@@ -33,7 +33,7 @@ from ansys.visualizer.widgets.widget import PlotterWidget
 class Button(PlotterWidget):
     """Provides the abstract class for implementing buttons in PyAnsys.
 
-    Notes
+    Notes:
     -----
     This class wraps the PyVista ``add_checkbox_button_widget()`` method.
 

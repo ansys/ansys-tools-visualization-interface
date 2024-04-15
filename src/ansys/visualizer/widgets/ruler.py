@@ -53,7 +53,7 @@ class Ruler(PlotterWidget):
     def callback(self, state: bool) -> None:
         """Remove or add the ruler widget actor upon click.
 
-        Notes
+        Notes:
         -----
         This method provides a callback function for the ruler widet.
         It is called every time the ruler widget is clicked.

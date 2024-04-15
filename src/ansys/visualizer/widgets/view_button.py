@@ -65,7 +65,7 @@ class ViewButton(Button):
         state : bool
             Whether the state of the button, which is inherited from PyVista, is ``True``.
 
-        Raises
+        Raises:
         ------
         NotImplementedError
             Raised if the specified direction is not implemented.
