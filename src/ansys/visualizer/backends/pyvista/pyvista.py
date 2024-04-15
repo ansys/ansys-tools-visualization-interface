@@ -99,7 +99,7 @@ class PyVistaInterface:
         """Rendered scene object.
 
         Returns:
-        -------
+        --------
         ~pyvista.Plotter
             Rendered scene object.
 
@@ -148,7 +148,7 @@ class PyVistaInterface:
             Clipping plane to cut the mesh with.
 
         Returns:
-        -------
+        --------
         Union[pv.PolyData,pv.MultiBlock]
             Clipped mesh.
 

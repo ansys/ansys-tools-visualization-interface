@@ -52,7 +52,7 @@ class ClipPlane:
         """Normal of the plane.
 
         Returns:
-        -------
+        --------
         Tuple[float, float, float]
             Normal of the plane.
 
@@ -76,7 +76,7 @@ class ClipPlane:
         """Origin of the plane.
 
         Returns:
-        -------
+        --------
         Tuple[float, float, float]
             Origin of the plane.
 

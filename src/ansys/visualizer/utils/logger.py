@@ -64,7 +64,7 @@ class VizLogger(object, metaclass=SingletonType):
         """Get the logger.
 
         Returns:
-        -------
+        --------
         Logger
             Logger.
 

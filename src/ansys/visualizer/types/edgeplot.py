@@ -53,7 +53,7 @@ class EdgePlot:
         """PyVista actor of the object.
 
         Returns:
-        -------
+        --------
         ~pyvista.Actor
             PyVista actor.
 
@@ -65,7 +65,7 @@ class EdgePlot:
         """PyAnsys edge.
 
         Returns:
-        -------
+        --------
         Any
             PyAnsys edge.
 
@@ -77,7 +77,7 @@ class EdgePlot:
         """Parent PyAnsys object of the edge.
 
         Returns:
-        -------
+        --------
         Any
             Parent PyAnsys object.
 
@@ -89,7 +89,7 @@ class EdgePlot:
         """Name of the edge.
 
         Returns:
-        -------
+        --------
         str
             Name of the edge.
 

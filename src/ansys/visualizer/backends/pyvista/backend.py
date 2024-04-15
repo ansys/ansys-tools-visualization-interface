@@ -271,7 +271,7 @@ class PyVistaBackendInterface(BaseBackend):
         """Compute the mapping between plotter actors and ``EdgePlot`` objects.
 
         Returns:
-        -------
+        ---------
         Dict[~pyvista.Actor, EdgePlot]
             Dictionary defining the mapping between plotter actors and ``EdgePlot`` objects.
 
@@ -324,7 +324,7 @@ class PyVistaBackendInterface(BaseBackend):
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         Returns:
-        -------
+        --------
         List[Any]
             List with the picked bodies in the picked order.
 
