@@ -202,7 +202,7 @@ class PyVistaInterface:
                 if hasattr(edge, "start_point") and hasattr(edge, "end_point"):
                     line = pv.Line(edge.start_point, edge.end_point)
                     edge_actor = self.scene.add_mesh(
-                        line, line_width=10, color=Color.EDGE_COLOR, **plotting_options
+                        line, line_width=10, color=Color.EDGE, **plotting_options
                     )
                     edge_actor.SetVisibility(False)
                     edge_plot = EdgePlot(edge_actor, edge, custom_object)
@@ -352,7 +352,7 @@ class PyVistaInterface:
         if "smooth_shading" not in plotting_options:
             plotting_options.setdefault("smooth_shading", True)
         if "color" not in plotting_options:
-            plotting_options.setdefault("color", Color.DEFAULT_COLOR.value)
+            plotting_options.setdefault("color", Color.DEFAULT.value)
 
     @property
     def object_to_actors_map(self) -> Dict[pv.Actor, MeshObjectPlot]:

@@ -177,14 +177,14 @@ class PlotterInterface(ABC):
         # Add edges if selecting an object
         if isinstance(custom_object, MeshObjectPlot):
             self._origin_colors[custom_object] = custom_object.actor.prop.color
-            custom_object.actor.prop.color = Color.PICKED_COLOR.value
+            custom_object.actor.prop.color = Color.PICKED.value
             children_list = custom_object.edges
             if children_list is not None:
                 for edge in children_list:
                     edge.actor.SetVisibility(True)
-                    edge.actor.prop.color = Color.EDGE_COLOR.value
+                    edge.actor.prop.color = Color.EDGE.value
         elif isinstance(custom_object, EdgePlot):
-            custom_object.actor.prop.color = Color.PICKED_EDGE_COLOR.value
+            custom_object.actor.prop.color = Color.PICKED_EDGE.value
 
         text = custom_object.name
 
@@ -223,7 +223,7 @@ class PlotterInterface(ABC):
         if isinstance(custom_object, MeshObjectPlot) and custom_object in self._origin_colors:
             custom_object.actor.prop.color = self._origin_colors[custom_object]
         elif isinstance(custom_object, EdgePlot):
-            custom_object.actor.prop.color = Color.EDGE_COLOR.value
+            custom_object.actor.prop.color = Color.EDGE.value
 
         if custom_object.actor.name in self._picker_added_actors_map:
             self._pl.scene.remove_actor(self._picker_added_actors_map[custom_object.actor.name])
@@ -264,7 +264,7 @@ class PlotterInterface(ABC):
                 self.select_object(edge, pt)
             else:
                 self.unselect_object(edge)
-                actor.prop.color = Color.EDGE_COLOR.value
+                actor.prop.color = Color.EDGE.value
 
     def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
         """Compute the mapping between plotter actors and ``EdgePlot`` objects.
