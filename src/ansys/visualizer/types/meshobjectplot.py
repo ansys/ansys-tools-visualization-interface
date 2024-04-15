@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides the ``MeshObjectPlot`` class."""
+
+
 from beartype.typing import Any, List, Union
 import pyvista as pv
 

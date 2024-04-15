@@ -27,7 +27,7 @@
 Use the plotter
 ===============
 
-This example shows how to addd one or more meshes to the plotter.
+This example shows how to add one or more meshes to the plotter.
 """
 
 ###########################
