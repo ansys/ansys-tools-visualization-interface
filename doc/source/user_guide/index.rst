@@ -83,7 +83,7 @@ The following code shows how to use the default plotter to visualize a PyAnsys c
     pl.plot(mesh_object)
 
     # Show the plotter
-    pl.add()
+    pl.show()
 
 
 Customize your own plotter
