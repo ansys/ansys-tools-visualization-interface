@@ -28,6 +28,7 @@ from beartype.typing import Any, Iterable
 
 class BaseBackend(ABC):
     """Base class for plotting backends."""
+    
     @abstractmethod
     def plot(self, object: Any, **plotting_options):
         """Plot the specified object."""
