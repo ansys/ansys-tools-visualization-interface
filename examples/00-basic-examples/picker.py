@@ -62,7 +62,6 @@ custom_object = CustomObject()
 from ansys.visualizer import MeshObjectPlot
 
 # Create an instance
-
 mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
 
 ######################################
