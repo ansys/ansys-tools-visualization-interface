@@ -19,22 +19,22 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+"""Provides an enum with the color to use for the plotter actors."""
 
-"""Provides an enum with the colors to use for the plotter actors."""
 from enum import Enum
 
 
-class Colors(Enum):
-    """Provides an enum with the colors to use for the plotter actors."""
+class Color(Enum):
+    """Provides an enum with the color to use for the plotter actors."""
 
-    DEFAULT_COLOR = "#D6F7D1"
+    DEFAULT = "#D6F7D1"
     """Default color for the plotter actors."""
 
-    PICKED_COLOR = "#BB6EEE"
+    PICKED = "#BB6EEE"
     """Color for the actors that are currently picked."""
 
-    EDGE_COLOR = "#000000"
+    EDGE = "#000000"
     """Default color for the edges."""
 
-    PICKED_EDGE_COLOR = "#9C9C9C"
+    PICKED_EDGE = "#9C9C9C"
     """Color for the edges that are currently picked."""
