@@ -24,7 +24,7 @@
 from beartype.typing import Any
 
 from ansys.visualizer.backends._base import BaseBackend
-from ansys.visualizer.backends.pyvista.backend import PyVistaBackend
+from ansys.visualizer.backends.pyvista.pyvista import PyVistaBackend
 
 
 class Plotter():

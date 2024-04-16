@@ -23,7 +23,7 @@
 from beartype.typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ansys.visualizer.backends.pyvista.backend import Plotter
+    from ansys.visualizer.backends.pyvista.pyvista import Plotter
 
 from pathlib import Path
 

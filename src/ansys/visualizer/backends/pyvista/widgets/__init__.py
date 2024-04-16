@@ -20,3 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides widgets for the PyAnsys Visualizer plotter."""
+from ansys.visualizer.backends.pyvista.widgets.widget import PlotterWidget
