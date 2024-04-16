@@ -469,7 +469,7 @@ class PyVistaBackend(PyVistaBackendInterface):
 
         """
         for object in plotting_list:
-            _ = self.plot(object, filter, **plotting_options)
+            self.plot(object, filter, **plotting_options)
 
     def plot(self, object: Any, filter: str = None, **plotting_options):
         """Plot a ``pyansys`` or ``PyVista`` object to the plotter.
