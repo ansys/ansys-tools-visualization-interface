@@ -30,15 +30,15 @@ from ansys.visualizer import USE_TRAME
 from ansys.visualizer.backends._base import BaseBackend
 from ansys.visualizer.backends.pyvista.pyvista import PyVistaInterface
 from ansys.visualizer.backends.pyvista.trame_gui import _HAS_TRAME, TrameVisualizer
+from ansys.visualizer.backends.pyvista.widgets.displace_arrows import CameraPanDirection, DisplacementArrow
+from ansys.visualizer.backends.pyvista.widgets.measure import MeasureWidget
+from ansys.visualizer.backends.pyvista.widgets.ruler import Ruler
+from ansys.visualizer.backends.pyvista.widgets.view_button import ViewButton, ViewDirection
+from ansys.visualizer.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.visualizer.types.edge_plot import EdgePlot
 from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
 from ansys.visualizer.utils.color import Color
 from ansys.visualizer.utils.logger import logger
-from ansys.visualizer.widgets.displace_arrows import CameraPanDirection, DisplacementArrow
-from ansys.visualizer.widgets.measure import MeasureWidget
-from ansys.visualizer.widgets.ruler import Ruler
-from ansys.visualizer.widgets.view_button import ViewButton, ViewDirection
-from ansys.visualizer.widgets.widget import PlotterWidget
 
 
 class PyVistaBackendInterface(BaseBackend):

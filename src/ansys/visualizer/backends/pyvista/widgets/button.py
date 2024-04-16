@@ -27,7 +27,7 @@ from pathlib import Path
 from pyvista import Plotter
 from vtk import vtkButtonWidget, vtkPNGReader
 
-from ansys.visualizer.widgets.widget import PlotterWidget
+from ansys.visualizer.backends.pyvista.widgets.widget import PlotterWidget
 
 
 class Button(PlotterWidget):
