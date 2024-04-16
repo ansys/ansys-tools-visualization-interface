@@ -41,7 +41,7 @@ class SingletonType(type):
 
 
 class VizLogger(object, metaclass=SingletonType):
-    """Provides the singleton logger for PyPrimeMesh.
+    """Provides the singleton logger for the visualizer.
 
     Parameters
     ----------
@@ -90,7 +90,7 @@ class VizLogger(object, metaclass=SingletonType):
         Parameters
         ----------
         stream: TextIO, default: ``sys.stderr``
-            Stream to output the log output to stream
+            Stream to output the log output to.
 
         """
         # stdout

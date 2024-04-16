@@ -56,11 +56,11 @@ This code uses objects from a PyAnsys library:
     my_custom_object = MyObject()
     my_mesh = my_custom_object.get_mesh()
 
-    meshobject = MeshObjectPlot(my_custom_object, my_mesh)
+    mesh_object = MeshObjectPlot(my_custom_object, my_mesh)
 
     # Create a PyAnsys Visualizer object
     pl = Plotter()
-    pl.plot(meshobject)
+    pl.plot(mesh_object)
 
     # Plot the result
     pl.show()
