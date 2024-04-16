@@ -30,9 +30,9 @@ from ansys.visualizer import USE_TRAME
 from ansys.visualizer.backends._base import BaseBackend
 from ansys.visualizer.backends.pyvista.pyvista import PyVistaInterface
 from ansys.visualizer.backends.pyvista.trame_gui import _HAS_TRAME, TrameVisualizer
-from ansys.visualizer.types.edgeplot import EdgePlot
-from ansys.visualizer.types.meshobjectplot import MeshObjectPlot
-from ansys.visualizer.utils.colors import Colors
+from ansys.visualizer.types.edge_plot import EdgePlot
+from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
+from ansys.visualizer.utils.color import Color
 from ansys.visualizer.utils.logger import logger
 from ansys.visualizer.widgets.displace_arrows import CameraPanDirection, DisplacementArrow
 from ansys.visualizer.widgets.measure import MeasureWidget
@@ -178,14 +178,14 @@ class PyVistaBackendInterface(BaseBackend):
         # Add edges if selecting an object
         if isinstance(custom_object, MeshObjectPlot):
             self._origin_colors[custom_object] = custom_object.actor.prop.color
-            custom_object.actor.prop.color = Colors.PICKED_COLOR.value
+            custom_object.actor.prop.color = Color.PICKED.value
             children_list = custom_object.edges
             if children_list is not None:
                 for edge in children_list:
                     edge.actor.SetVisibility(True)
-                    edge.actor.prop.color = Colors.EDGE_COLOR.value
+                    edge.actor.prop.color = Color.EDGE.value
         elif isinstance(custom_object, EdgePlot):
-            custom_object.actor.prop.color = Colors.PICKED_EDGE_COLOR.value
+            custom_object.actor.prop.color = Color.PICKED_EDGE.value
 
         text = custom_object.name
 
@@ -224,7 +224,7 @@ class PyVistaBackendInterface(BaseBackend):
         if isinstance(custom_object, MeshObjectPlot) and custom_object in self._origin_colors:
             custom_object.actor.prop.color = self._origin_colors[custom_object]
         elif isinstance(custom_object, EdgePlot):
-            custom_object.actor.prop.color = Colors.EDGE_COLOR.value
+            custom_object.actor.prop.color = Color.EDGE.value
 
         if custom_object.actor.name in self._picker_added_actors_map:
             self._pl.scene.remove_actor(self._picker_added_actors_map[custom_object.actor.name])
@@ -265,7 +265,7 @@ class PyVistaBackendInterface(BaseBackend):
                 self.select_object(edge, pt)
             else:
                 self.unselect_object(edge)
-                actor.prop.color = Colors.EDGE_COLOR.value
+                actor.prop.color = Color.EDGE.value
 
     def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
         """Compute the mapping between plotter actors and ``EdgePlot`` objects.
