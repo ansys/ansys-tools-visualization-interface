@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 [project]
 # FIXME: this is named 'pyansys-visualizer' but in ./doc/source/conf.py, under
 # the 'project' variable, it's named 'ansys-visualizer-core'.
-name = "ansys-tools-visualization-interface"
+name = "pyansys-visualizer"
 version = "0.1.dev0"
 description = "A Python visualizer for PyAnsys libraries"
 readme = "README.rst"

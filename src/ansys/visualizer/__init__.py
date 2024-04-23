@@ -30,7 +30,7 @@ from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot  # noqa: F401
 from ansys.visualizer.utils.clip_plane import ClipPlane  # noqa: F401
 from ansys.visualizer.utils.color import Color  # noqa: F401
 
-__version__ = pkg_resources.get_distribution("ansys-tools-visualization-interface").version
+__version__ = pkg_resources.get_distribution("pyansys-visualizer").version
 
 USE_TRAME: bool = False
 DOCUMENTATION_BUILD: bool = False
