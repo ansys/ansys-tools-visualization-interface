@@ -20,5 +20,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides interfaces."""
-from ansys.visualizer.backends.pyvista.pyvista import PyVistaBackend, PyVistaBackendInterface
+from ansys.visualizer.backends.pyvista.pyvista import PyVistaBackend, PyVistaBackendInterface  # noqa: F401
 

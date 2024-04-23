@@ -29,7 +29,7 @@ pyvista.OFF_SCREEN = True
 
 
 # Project information
-project = "ansys-visualizer-core"
+project = "ansys-tools-visualization-interface"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
@@ -45,7 +45,7 @@ html_baseurl = f"https://{cname}/version/stable"
 # specify the location of your github repo
 html_context = {
     "github_user": "ansys",
-    "github_repo": "pyansys-visualizer",
+    "github_repo": "ansys-tools-visualization-interface",
     "github_version": "main",
     "doc_path": "doc/source",
 }
@@ -71,7 +71,7 @@ html_theme_options = {
         },
         {
             "name": "Download documentation in PDF",
-            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-visualizer-core.pdf",  # noqa: E501
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-tools-visualization-interface.pdf",  # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],

@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
+"""Test module for the generic plotter."""
 import pyvista as pv
 
 from ansys.visualizer import ClipPlane, MeshObjectPlot, Plotter
@@ -29,6 +29,7 @@ class CustomTestClass:
     """Mock custom class for testing MeshObjectPlot."""
 
     def __init__(self, name) -> None:
+        """Mock init."""
         self.name = name
 
 

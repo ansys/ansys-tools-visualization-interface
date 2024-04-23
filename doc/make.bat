@@ -52,7 +52,7 @@ goto end
 cd "%BUILDDIR%\latex"
 for %%f in (*.tex) do (
 pdflatex "%%f" --interaction=nonstopmode)
-if NOT EXIST ansys-visualizer-core.pdf (
+if NOT EXIST ansys-tools-visualization-interface.pdf (
 	Echo "no pdf generated!"
 	exit /b 1)
 Echo "pdf generated!"

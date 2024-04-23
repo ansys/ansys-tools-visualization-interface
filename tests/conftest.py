@@ -19,15 +19,28 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+"""Conftest file for unit tests."""
+import os
 
 import pytest
 import pyvista as pv
-import os
+
 pv.OFF_SCREEN = True
-import ansys.visualizer
 
 os.environ.setdefault("PYANSYS_VISUALIZER_TESTMODE", "true")
 
 @pytest.fixture(autouse=True)
 def wrapped_verify_image_cache(verify_image_cache):
+    """Wraps the verify_image_cache fixture to ensure that the image cache is verified.
+
+    Parameters
+    ----------
+    verify_image_cache : fixture
+        Fixture to wrap.
+
+    Returns
+    -------
+    fixture
+        Wrapped fixture.
+    """
     return verify_image_cache

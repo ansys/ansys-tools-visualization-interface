@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 [project]
 # FIXME: this is named 'pyansys-visualizer' but in ./doc/source/conf.py, under
 # the 'project' variable, it's named 'ansys-visualizer-core'.
-name = "pyansys-visualizer"
+name = "ansys-tools-visualization-interface"
 version = "0.1.dev0"
 description = "A Python visualizer for PyAnsys libraries"
 readme = "README.rst"
@@ -73,9 +73,7 @@ addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report x
 line-length = 120
 # TODO: do we really need to ignore tests and "__init__.py" files?
 extend-exclude = [
-    "tests/**/*.py",
     "examples/**/*.py",
-    "**/__init__.py",
 ]
 
 [tool.ruff.lint]
