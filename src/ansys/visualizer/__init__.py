@@ -24,15 +24,14 @@ import os
 
 import pkg_resources
 
-from ansys.visualizer.plotter import Plotter  # noqa: F401
-from ansys.visualizer.types.edge_plot import EdgePlot  # noqa: F401
-from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot  # noqa: F401
-from ansys.visualizer.utils.clip_plane import ClipPlane  # noqa: F401
-from ansys.visualizer.utils.color import Color  # noqa: F401
-
 __version__ = pkg_resources.get_distribution("pyansys-visualizer").version
 
 USE_TRAME: bool = False
 DOCUMENTATION_BUILD: bool = False
 TESTING_MODE: bool = os.environ.get("PYANSYS_VISUALIZER_TESTMODE", "false").lower() == "true"
 
+from ansys.visualizer.plotter import Plotter  # noqa: F401, E402
+from ansys.visualizer.types.edge_plot import EdgePlot  # noqa: F401, E402
+from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot  # noqa: F401, E402
+from ansys.visualizer.utils.clip_plane import ClipPlane  # noqa: F401, E402
+from ansys.visualizer.utils.color import Color  # noqa: F401, E402
