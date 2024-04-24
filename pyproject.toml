@@ -71,7 +71,6 @@ addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report x
 
 [tool.ruff]
 line-length = 120
-# TODO: do we really need to ignore tests and "__init__.py" files?
 extend-exclude = [
     "examples/**/*.py",
 ]
