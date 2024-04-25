@@ -75,5 +75,5 @@ mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
 from ansys.visualizer import Plotter
 
 pl = Plotter()
-pl.add(mesh_object)
-pl.plot()
+pl.plot(mesh_object)
+pl.show()

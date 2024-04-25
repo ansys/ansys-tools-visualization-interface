@@ -3,6 +3,8 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
+# FIXME: this is named 'pyansys-visualizer' but in ./doc/source/conf.py, under
+# the 'project' variable, it's named 'ansys-visualizer-core'.
 name = "pyansys-visualizer"
 version = "0.1.dev0"
 description = "A Python visualizer for PyAnsys libraries"
@@ -55,6 +57,7 @@ name = "ansys.visualizer"
 
 [tool.black]
 line-length = 100
+indent-width = 4
 
 [tool.isort]
 profile = "black"
@@ -68,7 +71,12 @@ addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report x
 
 [tool.ruff]
 line-length = 120
-lint.select = [
+extend-exclude = [
+    "examples/**/*.py",
+]
+
+[tool.ruff.lint]
+select = [
     "E",    # pycodestyle, see https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
     "D",    # pydocstyle, see https://beta.ruff.rs/docs/rules/#pydocstyle-d
     "F",    # pyflakes, see https://beta.ruff.rs/docs/rules/#pyflakes-f
@@ -76,18 +84,23 @@ lint.select = [
     "N",    # pep8-naming, see https://beta.ruff.rs/docs/rules/#pep8-naming-n
     "PTH",  # flake8-use-pathlib, https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
 ]
-extend-exclude = [
-    "tests/**/*.py",
-    "examples/**/*.py",
-    "**/__init__.py",
+ignore = [
+    "D416",
 ]
+
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "tab"
+line-ending = "auto"
+
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
 force-sort-within-sections = true
 known-first-party = ["ansys"]
+
+[tool.ruff.lint.pydocstyle]
+# Settings: https://docs.astral.sh/ruff/settings/#lintpydocstyle
+convention = "google"
 

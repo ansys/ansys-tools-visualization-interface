@@ -28,12 +28,12 @@ repos:
 
 # this validates our github workflow files
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.28.0
+  rev: 0.28.1
   hooks:
     - id: check-github-workflows
 
 - repo: https://github.com/charliermarsh/ruff-pre-commit
-  rev: v0.3.0
+  rev: v0.3.5
   hooks:
     - id: ruff
       args: [--fix]

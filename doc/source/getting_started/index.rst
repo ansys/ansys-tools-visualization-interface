@@ -42,10 +42,10 @@ This code uses only a PyVista mesh:
 
     # Create a PyAnsys Visualizer object
     pl = Plotter()
-    pl.add(my_mesh)
+    pl.plot(my_mesh)
 
     # Plot the result
-    pl.plot()
+    pl.show()
 
 This code uses objects from a PyAnsys library:
 
@@ -60,7 +60,7 @@ This code uses objects from a PyAnsys library:
 
     # Create a PyAnsys Visualizer object
     pl = Plotter()
-    pl.add(mesh_object)
+    pl.plot(mesh_object)
 
     # Plot the result
-    pl.plot()
+    pl.show()

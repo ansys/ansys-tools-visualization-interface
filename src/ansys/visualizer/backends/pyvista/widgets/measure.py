@@ -23,13 +23,13 @@
 from beartype.typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ansys.visualizer.plotter import Plotter
+    from ansys.visualizer.backends.pyvista.pyvista import Plotter
 
 from pathlib import Path
 
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
-from ansys.visualizer.widgets.widget import PlotterWidget
+from ansys.visualizer.backends.pyvista.widgets.widget import PlotterWidget
 
 
 class MeasureWidget(PlotterWidget):

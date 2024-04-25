@@ -11,7 +11,7 @@ your own code.
 Default plotter usage
 =====================
 
-PyAnsys Visualizer provides a default plotter that can be used out of the box. This default
+PyAnsys Visualizer provides a default plotter that can be used out of the box, using the PyVista backend. This default
 plotter provides common functionalities so that you do not need to create a custom plotter.
 
 Use with PyVista meshes
@@ -34,10 +34,10 @@ use it to visualize a simple PyVista mesh:
     pl = Plotter()
 
     # Add the mesh to the plotter
-    pl.add(mesh)
+    pl.plot(mesh)
 
     # Show the plotter
-    pl.plot()
+    pl.add()
 
 
 Use with PyAnsys custom objects
@@ -80,10 +80,10 @@ The following code shows how to use the default plotter to visualize a PyAnsys c
     pl = Plotter()
 
     # Add the MeshObjectPlot instance to the plotter
-    pl.add(mesh_object)
+    pl.plot(mesh_object)
 
     # Show the plotter
-    pl.plot()
+    pl.show()
 
 
 Customize your own plotter
@@ -97,7 +97,7 @@ The first thing you must do is to create a class that inherits from the ``Plotte
 class. After that, see these main use cases for customizing the plotter:
 
 * The most common use case is to customize the way that the objects you represent are shown in the plotter.
-  To this end, you can override the ``add`` and ``add_iter`` methods. These methods are called every time
+  To this end, you can override the ``plot`` and ``plot_iter`` methods. These methods are called every time
   a new object is added to the plotter. The default implementation of this method is to add a PyVista mesh
   or a  ``MeshObjectPlot`` instance to the plotter. You can override this method to add your own meshes or
   objects to the plotter in a manner that fits the way that you want to represent the meshes.
