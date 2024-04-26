@@ -26,19 +26,28 @@ from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
 import pyvista as pv
 
-from ansys.visualizer import USE_TRAME
-from ansys.visualizer.backends._base import BaseBackend
-from ansys.visualizer.backends.pyvista.pyvista_interface import PyVistaInterface
-from ansys.visualizer.backends.pyvista.trame_gui import _HAS_TRAME, TrameVisualizer
-from ansys.visualizer.backends.pyvista.widgets.displace_arrows import CameraPanDirection, DisplacementArrow
-from ansys.visualizer.backends.pyvista.widgets.measure import MeasureWidget
-from ansys.visualizer.backends.pyvista.widgets.ruler import Ruler
-from ansys.visualizer.backends.pyvista.widgets.view_button import ViewButton, ViewDirection
-from ansys.visualizer.backends.pyvista.widgets.widget import PlotterWidget
-from ansys.visualizer.types.edge_plot import EdgePlot
-from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
-from ansys.visualizer.utils.color import Color
-from ansys.visualizer.utils.logger import logger
+from ansys.tools.visualization_interface import USE_TRAME
+from ansys.tools.visualization_interface.backends._base import BaseBackend
+from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
+from ansys.tools.visualization_interface.backends.pyvista.trame_gui import (
+    _HAS_TRAME,
+    TrameVisualizer,
+)
+from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import (
+    CameraPanDirection,
+    DisplacementArrow,
+)
+from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
+from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
+from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
+    ViewButton,
+    ViewDirection,
+)
+from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
+from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
+from ansys.tools.visualization_interface.utils.color import Color
+from ansys.tools.visualization_interface.utils.logger import logger
 
 
 class PyVistaBackendInterface(BaseBackend):

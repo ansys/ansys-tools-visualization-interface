@@ -17,10 +17,12 @@ from ansys_sphinx_theme import (
 import pyvista
 from sphinx.builders.latex import LaTeXBuilder
 
-from ansys.visualizer import __version__
+import ansys.tools.visualization_interface
+from ansys.tools.visualization_interface import __version__
 
 os.environ["PYANSYS_VISUALIZER_DOC_BUILD"] = "true"
 
+ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
 
@@ -29,7 +31,7 @@ pyvista.OFF_SCREEN = True
 
 
 # Project information
-project = "pyansys-visualizer"
+project = "ansys-tools-visualization-interface"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
@@ -45,7 +47,7 @@ html_baseurl = f"https://{cname}/version/stable"
 # specify the location of your github repo
 html_context = {
     "github_user": "ansys",
-    "github_repo": "pyansys-visualizer",
+    "github_repo": "ansys-tools-visualization-interface",
     "github_version": "main",
     "doc_path": "doc/source",
 }
@@ -55,7 +57,7 @@ html_theme_options = {
         "version_match": switcher_version,
     },
     "check_switcher": False,
-    "github_url": "https://github.com/ansys/pyansys-visualizer",
+    "github_url": "https://github.com/ansys/ansys-tools-visualization-interface",
     "show_prev_next": False,
     "show_breadcrumbs": True,
     "collapse_navigation": True,
@@ -66,19 +68,19 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "Support",
-            "url": "https://github.com/ansys/pyansys-visualizer/discussions",
+            "url": "https://github.com/ansys/ansys-tools-visualization-interface/discussions",
             "icon": "fa fa-comment fa-fw",
         },
         {
             "name": "Download documentation in PDF",
-            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/pyansys-visualizer.pdf",  # noqa: E501
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-tools-visualization-interface.pdf",  # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],
     "use_meilisearch": {
         "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
         "index_uids": {
-            f"pyansys-visualizer-v{get_version_match(__version__).replace('.', '-')}": "PyAnsys-Visualizer",  # noqa: E501
+            f"ansys-tools-visualization-interface-v{get_version_match(__version__).replace('.', '-')}": "PyAnsys-Visualizer",  # noqa: E501
         },
     },
 }

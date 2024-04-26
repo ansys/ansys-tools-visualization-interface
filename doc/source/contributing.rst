@@ -21,8 +21,8 @@ these commands:
 
 .. code::
 
-    git clone https://github.com/ansys/pyansys-visualizer
-    cd pyansys-visualizer
+    git clone https://github.com/ansys/ansys-tools-visualization-interface
+    cd ansys-tools-visualization-interface
     python -m pip install --upgrade pip
     pip install -e .
 
@@ -108,7 +108,7 @@ You can clean the documentation build by running this command::
 Post issues
 -----------
 
-Use the `PyAnsys Visualizer Issues <https://github.com/ansys/pyansys-visualizer/issues>`_
+Use the `PyAnsys Visualizer Issues <https://github.com/ansys/ansys-tools-visualization-interface/issues>`_
 page to report bugs and request new features. When possible, use the issue templates provided.
 If your issue does not fit into one of these templates, click the link for opening a blank issue.
 

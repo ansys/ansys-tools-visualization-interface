@@ -27,12 +27,12 @@ from beartype.typing import Any, Dict, List, Optional
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
-from ansys.visualizer import DOCUMENTATION_BUILD, TESTING_MODE
-from ansys.visualizer.types.edge_plot import EdgePlot
-from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
-from ansys.visualizer.utils.clip_plane import ClipPlane
-from ansys.visualizer.utils.color import Color
-from ansys.visualizer.utils.logger import logger
+from ansys.tools.visualization_interface import DOCUMENTATION_BUILD, TESTING_MODE
+from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
+from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
+from ansys.tools.visualization_interface.utils.color import Color
+from ansys.tools.visualization_interface.utils.logger import logger
 
 
 class PyVistaInterface:

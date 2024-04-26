@@ -23,8 +23,8 @@
 """Module for the Plotter class."""
 from beartype.typing import Any
 
-from ansys.visualizer.backends._base import BaseBackend
-from ansys.visualizer.backends.pyvista.pyvista import PyVistaBackend
+from ansys.tools.visualization_interface.backends._base import BaseBackend
+from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
 
 
 class Plotter():

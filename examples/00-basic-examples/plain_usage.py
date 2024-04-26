@@ -37,7 +37,7 @@ This example shows how to add one or more meshes to the plotter.
 
 import pyvista as pv
 
-from ansys.visualizer import Plotter
+from ansys.tools.visualization_interface import Plotter
 
 mesh = pv.Cube()
 
@@ -58,7 +58,7 @@ pl.show()
 
 import pyvista as pv
 
-from ansys.visualizer import Plotter
+from ansys.tools.visualization_interface import Plotter
 
 mesh1 = pv.Cube()
 mesh2 = pv.Sphere(center=(2, 0, 0))

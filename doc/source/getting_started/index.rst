@@ -15,16 +15,16 @@ run this command:
 
 .. code:: bash
 
-        pip install pyansys-visualizer
+        pip install ansys-tools-visualization-interface
 
 Alternatively, to install the latest version from this library's
-`GitHub repository <https://github.com/ansys-internal/pyansys-visualizer/>`_,
+`GitHub repository <https://github.com/ansys-internal/ansys-tools-visualization-interface/>`_,
 run these commands:
 
 .. code:: bash
 
-    git clone https://github.com/ansys/pyansys-visualizer
-    cd pyansys-visualizer
+    git clone https://github.com/ansys/ansys-tools-visualization-interface
+    cd ansys-tools-visualization-interface
     pip install .
 
 Quick start
@@ -36,7 +36,7 @@ This code uses only a PyVista mesh:
 
 .. code:: python
 
-    from ansys.visualizer import Plotter
+    from ansys.tools.visualization_interface import Plotter
 
     my_mesh = my_custom_object.get_mesh()
 
@@ -51,7 +51,7 @@ This code uses objects from a PyAnsys library:
 
 .. code:: python
 
-    from ansys.visualizer import Plotter, MeshObjectPlot
+    from ansys.tools.visualization_interface import Plotter, MeshObjectPlot
 
     my_custom_object = MyObject()
     my_mesh = my_custom_object.get_mesh()

@@ -24,7 +24,7 @@ from enum import Enum
 
 from pyvista import Plotter
 
-from ansys.visualizer.backends.pyvista.widgets.button import Button
+from ansys.tools.visualization_interface.backends.pyvista.widgets.button import Button
 
 
 class CameraPanDirection(Enum):

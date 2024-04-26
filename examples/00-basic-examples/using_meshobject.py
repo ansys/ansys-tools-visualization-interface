@@ -62,7 +62,7 @@ custom_object = CustomObject()
 # Create a ``MeshObjectPlot`` instance
 # ====================================
 
-from ansys.visualizer import MeshObjectPlot
+from ansys.tools.visualization_interface import MeshObjectPlot
 
 # Create an instance
 
@@ -72,7 +72,7 @@ mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
 # Plot the ``MeshObjectPlot`` instance
 # ====================================
 
-from ansys.visualizer import Plotter
+from ansys.tools.visualization_interface import Plotter
 
 pl = Plotter()
 pl.plot(mesh_object)

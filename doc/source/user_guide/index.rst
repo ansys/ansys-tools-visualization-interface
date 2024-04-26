@@ -25,7 +25,7 @@ use it to visualize a simple PyVista mesh:
     ## Usage example with pyvista meshes ##
 
     import pyvista as pv
-    from ansys.visualizer import Plotter
+    from ansys.tools.visualization_interface import Plotter
 
     # Create a pyvista mesh
     mesh = pv.Cube()
@@ -54,8 +54,8 @@ The following code shows how to use the default plotter to visualize a PyAnsys c
 
     ## Usage example with PyAnsys custom objects ##
 
-    from ansys.visualizer import Plotter
-    from ansys.visualizer import MeshObjectPlot
+    from ansys.tools.visualization_interface import Plotter
+    from ansys.tools.visualization_interface import MeshObjectPlot
 
 
     # Create a custom object for this example

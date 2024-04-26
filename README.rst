@@ -49,7 +49,7 @@ for switching from viewing the documentation for the latest stable release
 to viewing the documentation for the development version or previously
 released versions.
 
-On the `PyAnsys Visualizer Issues <https://github.com/ansys-internal/pyansys-visualizer/issues>`_
+On the `PyAnsys Visualizer Issues <https://github.com/ansys-internal/ansys-tools-visualization-interface/issues>`_
 page, you can create issues to report bugs and request new features. On the
 `Discussions <https://discuss.ansys.com/>`_ page on the Ansys Developer portal,
 you can post questions, share ideas, and get community feedback.
@@ -62,7 +62,7 @@ question in an issue as described in the previous paragraph.
 License
 -------
 
-PyAnsys Visualizer is licensed under the `MIT License <https://github.com/ansys-internal/pyansys-visualizer/blob/main/LICENSE>`_.
+PyAnsys Visualizer is licensed under the `MIT License <https://github.com/ansys-internal/ansys-tools-visualization-interface/blob/main/LICENSE>`_.
 
 PyAnsys Visualizer makes no commercial claim over Ansys whatsoever. This library adds a
 Python interface for visualizing Ansys results without changing the core behavior or
