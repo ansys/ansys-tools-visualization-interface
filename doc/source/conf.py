@@ -35,7 +35,7 @@ project = "ansys-tools-visualization-interface"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
-cname = os.getenv("DOCUMENTATION_CNAME", default="visualizer.docs.pyansys.com")
+cname = os.getenv("DOCUMENTATION_CNAME", default="visualization-interface.tools.docs.pyansys.com")
 switcher_version = get_version_match(__version__)
 
 # Select desired logo, theme, and declare the html title

@@ -14,7 +14,7 @@ env:
   RESET_IMAGE_CACHE: 0
   PACKAGE_NAME: ansys-tools-visualization-interface
   PYANSYS_VISUALIZER_TESTMODE: true
-  DOCUMENTATION_CNAME: visualizer.docs.pyansys.com
+  DOCUMENTATION_CNAME: visualization-interface.tools.docs.pyansys.com
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
