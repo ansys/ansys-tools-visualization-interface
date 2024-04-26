@@ -23,6 +23,7 @@ from ansys.tools.visualization_interface import __version__
 os.environ["PYANSYS_VISUALIZER_DOC_BUILD"] = "true"
 
 ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
+
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
 
@@ -182,7 +183,7 @@ autoapi_options = [
     "special-members",
 ]
 autoapi_template_dir = get_autoapi_templates_dir_relative_path(Path(__file__))
-suppress_warnings = ["autoapi.python_import_resolution", "design.grid"]
+suppress_warnings = ["autoapi.python_import_resolution", "design.grid", "config.cache"]
 autoapi_python_use_implicit_namespaces = True
 autoapi_keep_files = True
 autoapi_own_page_level = "class"
