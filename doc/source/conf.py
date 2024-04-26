@@ -17,10 +17,12 @@ from ansys_sphinx_theme import (
 import pyvista
 from sphinx.builders.latex import LaTeXBuilder
 
+import ansys.visualizer
 from ansys.visualizer import __version__
 
 os.environ["PYANSYS_VISUALIZER_DOC_BUILD"] = "true"
 
+ansys.visualizer.DOCUMENTATION_BUILD = True
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
 
@@ -180,7 +182,7 @@ autoapi_options = [
     "special-members",
 ]
 autoapi_template_dir = get_autoapi_templates_dir_relative_path(Path(__file__))
-suppress_warnings = ["autoapi.python_import_resolution", "design.grid"]
+suppress_warnings = ["autoapi.python_import_resolution", "design.grid", "config.cache"]
 autoapi_python_use_implicit_namespaces = True
 autoapi_keep_files = True
 autoapi_own_page_level = "class"
