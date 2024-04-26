@@ -113,7 +113,7 @@ sphinx_gallery_conf = {
     # directory where function granular galleries are stored
     "backreferences_dir": None,
     # Modules for which function level galleries are created.  In
-    "doc_module": "ansys-visualizer",
+    "doc_module": "ansys-tools-visualization-interface",
     "image_scrapers": ("pyvista"),
     "ignore_pattern": "flycheck*",
     "thumbnail_size": (350, 350),

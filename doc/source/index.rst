@@ -1,5 +1,5 @@
 Visualization Interface tool documentation |version|
-==========================================
+====================================================
 
 Visualization Interface tool is a Python API that provides an interface between PyAnsys libraries and
 different plotting backends.

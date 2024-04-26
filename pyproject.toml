@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "ansys-tools-visualization-interface"
 version = "0.1.dev0"
-description = "A Python visualizer for PyAnsys libraries"
+description = "A Python visualization interface for PyAnsys libraries"
 readme = "README.rst"
 requires-python = ">=3.9,<4"
 license = { file = "LICENSE" }
