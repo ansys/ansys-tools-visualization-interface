@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -19,4 +19,27 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides widgets for the PyAnsys Visualizer plotter."""
+
+"""Module for the backend base class."""
+from abc import ABC, abstractmethod
+
+from beartype.typing import Any, Iterable
+
+
+class BaseBackend(ABC):
+    """Base class for plotting backends."""
+
+    @abstractmethod
+    def plot(self, object: Any, **plotting_options):
+        """Plot the specified object."""
+        raise NotImplementedError("plot method must be implemented")
+
+    @abstractmethod
+    def plot_iter(self, object: Iterable):
+        """Plot the elements of an iterable."""
+        raise NotImplementedError("plot_iter method must be implemented")
+
+    @abstractmethod
+    def show(self):
+        """Show the plotted objects."""
+        raise NotImplementedError("show method must be implemented")

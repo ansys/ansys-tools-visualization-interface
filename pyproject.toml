@@ -3,9 +3,9 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "pyansys-visualizer"
+name = "ansys-tools-visualization-interface"
 version = "0.1.dev0"
-description = "A Python visualizer for PyAnsys libraries"
+description = "A Python visualization interface for PyAnsys libraries"
 readme = "README.rst"
 requires-python = ">=3.9,<4"
 license = { file = "LICENSE" }
@@ -42,7 +42,7 @@ doc = [
     "jupytext==1.16.1",
     "nbsphinx==0.9.3",
     "numpydoc==1.7.0",
-    "sphinx==7.2.6",
+    "sphinx==7.3.7",
     "sphinx-autoapi==3.1.0b0",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.5.0",
@@ -51,10 +51,11 @@ doc = [
 ]
 
 [tool.flit.module]
-name = "ansys.visualizer"
+name = "ansys.tools.visualization_interface"
 
 [tool.black]
 line-length = 100
+indent-width = 4
 
 [tool.isort]
 profile = "black"
@@ -64,11 +65,16 @@ default_section = "THIRDPARTY"
 src_paths = ["doc", "src", "tests"]
 
 [tool.pytest.ini_options]
-addopts = "-ra --cov=ansys.visualizer --cov-report html:.cov/html --cov-report xml:.cov/xml --cov-report term -vv --image_cache_dir tests/_image_cache --add_missing_images"
+addopts = "-ra --cov=ansys.tools.visualization_interface --cov-report html:.cov/html --cov-report xml:.cov/xml --cov-report term -vv --image_cache_dir tests/_image_cache --add_missing_images"
 
 [tool.ruff]
 line-length = 120
-lint.select = [
+extend-exclude = [
+    "examples/**/*.py",
+]
+
+[tool.ruff.lint]
+select = [
     "E",    # pycodestyle, see https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
     "D",    # pydocstyle, see https://beta.ruff.rs/docs/rules/#pydocstyle-d
     "F",    # pyflakes, see https://beta.ruff.rs/docs/rules/#pyflakes-f
@@ -76,18 +82,23 @@ lint.select = [
     "N",    # pep8-naming, see https://beta.ruff.rs/docs/rules/#pep8-naming-n
     "PTH",  # flake8-use-pathlib, https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
 ]
-extend-exclude = [
-    "tests/**/*.py",
-    "examples/**/*.py",
-    "**/__init__.py",
+ignore = [
+    "D416",
 ]
+
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "tab"
+line-ending = "auto"
+
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
 force-sort-within-sections = true
 known-first-party = ["ansys"]
+
+[tool.ruff.lint.pydocstyle]
+# Settings: https://docs.astral.sh/ruff/settings/#lintpydocstyle
+convention = "google"
 

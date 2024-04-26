@@ -27,18 +27,19 @@ from beartype.typing import Any, Dict, List, Optional
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
-from ansys.visualizer import DOCUMENTATION_BUILD, TESTING_MODE
-from ansys.visualizer.types.edge_plot import EdgePlot
-from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
-from ansys.visualizer.utils.clip_plane import ClipPlane
-from ansys.visualizer.utils.color import Color
-from ansys.visualizer.utils.logger import logger
+from ansys.tools.visualization_interface import DOCUMENTATION_BUILD, TESTING_MODE
+from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
+from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
+from ansys.tools.visualization_interface.utils.color import Color
+from ansys.tools.visualization_interface.utils.logger import logger
 
 
 class PyVistaInterface:
     """Provides the middle class between PyVista plotting operations and PyAnsys objects.
 
-    This class is responsible for creating the PyVista scene and adding
+    The main purpose of this class is to simplify interaction between PyVista and the PyVista backend
+    provided. This class is responsible for creating the PyVista scene and adding
     the PyAnsys objects to it.
 
 
@@ -155,8 +156,8 @@ class PyVistaInterface:
         """
         return mesh.clip(normal=plane.normal, origin=plane.origin)
 
-    def add_meshobject(self, object: MeshObjectPlot, **plotting_options):
-        """Add a generic ``MeshObjectPlot`` object to the scene.
+    def plot_meshobject(self, object: MeshObjectPlot, **plotting_options):
+        """Plot a generic ``MeshObjectPlot`` object to the scene.
 
         Parameters
         ----------
@@ -171,16 +172,13 @@ class PyVistaInterface:
         if "clipping_plane" in plotting_options:
             dataset = self.clip(dataset, plotting_options["clipping_plane"])
             plotting_options.pop("clipping_plane", None)
-        if isinstance(object.mesh, pv.PolyData):
-            actor = self.scene.add_mesh(object.mesh, **plotting_options)
-        else:
-            actor = self.scene.add_mesh(object.mesh, **plotting_options)
+        actor = self.scene.add_mesh(object.mesh, **plotting_options)
         object.actor = actor
         self._object_to_actors_map[actor] = object
         return actor.name
 
-    def add_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
-        """Add the outer edges of an object to the plot.
+    def plot_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
+        """Plot the outer edges of an object to the plot.
 
         This method has the side effect of adding the edges to the ``MeshObjectPlot``
         object that you pass through the parameters.
@@ -214,13 +212,13 @@ class PyVistaInterface:
         else:
             logger.warning("The object does not have edges.")
 
-    def add(
+    def plot(
         self,
         object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot],
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """Add any type of object to the scene.
+        """Plot any type of object to the scene.
 
         Supported object types are ``List[pv.PolyData]``, ``MeshObjectPlot``,
         and ``pv.MultiBlock``.
@@ -256,17 +254,17 @@ class PyVistaInterface:
             else:
                 self.scene.add_composite(object, **plotting_options)
         elif isinstance(object, MeshObjectPlot):
-            self.add_meshobject(object, **plotting_options)
+            self.plot_meshobject(object, **plotting_options)
         else:
             logger.warning("The object type is not supported. ")
 
-    def add_iter(
+    def plot_iter(
         self,
         plotting_list: List[Any],
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """Add a list of any type of objects to the scene.
+        """Plot elements of an iterable of any type of objects to the scene.
 
         Supported object types are ``Body``, ``Component``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``, and ``Sketch``.
@@ -283,7 +281,7 @@ class PyVistaInterface:
 
         """
         for object in plotting_list:
-            _ = self.add(object, filter, **plotting_options)
+            _ = self.plot(object, filter, **plotting_options)
 
     def show(
         self,

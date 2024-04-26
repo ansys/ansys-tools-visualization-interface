@@ -20,28 +20,38 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
 import pyvista as pv
 
-from ansys.visualizer import USE_TRAME
-from ansys.visualizer.interfaces.pyvista_interface import PyVistaInterface
-from ansys.visualizer.interfaces.trame_gui import _HAS_TRAME, TrameVisualizer
-from ansys.visualizer.types.edge_plot import EdgePlot
-from ansys.visualizer.types.mesh_object_plot import MeshObjectPlot
-from ansys.visualizer.utils.color import Color
-from ansys.visualizer.utils.logger import logger
-from ansys.visualizer.widgets.displace_arrows import CameraPanDirection, DisplacementArrow
-from ansys.visualizer.widgets.measure import MeasureWidget
-from ansys.visualizer.widgets.ruler import Ruler
-from ansys.visualizer.widgets.view_button import ViewButton, ViewDirection
-from ansys.visualizer.widgets.widget import PlotterWidget
+from ansys.tools.visualization_interface import USE_TRAME
+from ansys.tools.visualization_interface.backends._base import BaseBackend
+from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
+from ansys.tools.visualization_interface.backends.pyvista.trame_gui import (
+    _HAS_TRAME,
+    TrameVisualizer,
+)
+from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import (
+    CameraPanDirection,
+    DisplacementArrow,
+)
+from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
+from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
+from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
+    ViewButton,
+    ViewDirection,
+)
+from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
+from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
+from ansys.tools.visualization_interface.utils.color import Color
+from ansys.tools.visualization_interface.utils.logger import logger
 
 
-class PlotterInterface(ABC):
-    """Provides the interface for the PyAnsys Visualizer plotter.
+class PyVistaBackendInterface(BaseBackend):
+    """Provides the interface for the Visualization Interface tool plotter.
 
     This class is intended to be used as a base class for the custom plotters
     in the different PyAnsys libraries. It provides the basic plotter functionalities,
@@ -49,10 +59,10 @@ class PlotterInterface(ABC):
     provides the ability to show the plotter using the `trame <https://kitware.github.io/trame/index.html>`_
     service.
 
-    You can override the ``add_list()``, ``add()``, and ``picked_operation()`` methods.
-    The ``add_list()`` method is intended to add a list of objects to the plotter, while the
-    ``add()`` method is intended to add a single object to the plotter. The ``plot()`` method is
-    intended to plot the objects and show the plotter. The ``picked_operation()`` method is
+    You can override the ``plot_iter()``, ``plot()``, and ``picked_operation()`` methods.
+    The ``plot_iter()`` method is intended to plot a list of objects to the plotter, while the
+    ``plot()`` method is intended to plot a single object to the plotter. The ``show()`` method is
+    intended to show the plotter. The ``picked_operation()`` method is
     intended to perform an operation on the picked objects.
 
     Parameters
@@ -208,7 +218,7 @@ class PlotterInterface(ABC):
         """Unselect a custom object in the plotter.
 
         This method removes edge highlighting and the label from a plotter actor and removes
-        the object from the PyAnsys Visualizer object selection.
+        the object from the Visualization Interface tool object selection.
 
         Parameters
         ----------
@@ -270,7 +280,7 @@ class PlotterInterface(ABC):
         """Compute the mapping between plotter actors and ``EdgePlot`` objects.
 
         Returns
-        -------
+        --------
         Dict[~pyvista.Actor, EdgePlot]
             Dictionary defining the mapping between plotter actors and ``EdgePlot`` objects.
 
@@ -295,7 +305,7 @@ class PlotterInterface(ABC):
         """Disable picking capabilities in the plotter."""
         self._pl.scene.disable_picking()
 
-    def plot(
+    def show(
         self,
         object: Any = None,
         screenshot: Optional[str] = None,
@@ -328,7 +338,7 @@ class PlotterInterface(ABC):
             List with the picked bodies in the picked order.
 
         """
-        self.add(object, filter, **plotting_options)
+        self.plot(object, filter, **plotting_options)
         if self._pl._object_to_actors_map:
             self._object_to_actors_map = self._pl._object_to_actors_map
         else:
@@ -370,7 +380,7 @@ class PlotterInterface(ABC):
         Parameters
         ----------
         plotter : Plotter
-            PyAnsys Visualizer plotter with the meshes added.
+            Visualization Interface tool plotter with the meshes added.
         screenshot : str, default: None
             Path for saving a screenshot of the image that is being represented.
 
@@ -385,8 +395,8 @@ class PlotterInterface(ABC):
         pv.OFF_SCREEN = self._pv_off_screen_original
 
     @abstractmethod
-    def add_iter(self, object: Any, filter: str = None, **plotting_options):
-        """Add one or more compatible objects to the plotter.
+    def plot_iter(self, object: Any, filter: str = None, **plotting_options):
+        """Plot one or more compatible objects to the plotter.
 
         Parameters
         ----------
@@ -402,8 +412,8 @@ class PlotterInterface(ABC):
         pass
 
     @abstractmethod
-    def add(self, object: Any, filter: str = None, **plotting_options):
-        """Add a single object to the plotter.
+    def plot(self, object: Any, filter: str = None, **plotting_options):
+        """Plot a single object to the plotter.
 
         Parameters
         ----------
@@ -423,7 +433,7 @@ class PlotterInterface(ABC):
         pass
 
 
-class Plotter(PlotterInterface):
+class PyVistaBackend(PyVistaBackendInterface):
     """Provides the generic plotter implementation for PyAnsys libraries.
 
     This class accepts ``MeshObjectPlot``, ``pv.MultiBlock`` and ``pv.PolyData`` objects.
@@ -445,13 +455,13 @@ class Plotter(PlotterInterface):
         """Initialize the generic plotter."""
         super().__init__(use_trame, allow_picking)
 
-    def add_iter(
+    def plot_iter(
         self,
         plotting_list: List[Any],
         filter: str = None,
         **plotting_options,
     ) -> None:
-        """Add a list of any type of object to the scene.
+        """Plot the elements of an iterable of any type of object to the scene.
 
         The types of objects supported are ``Body``, ``Component``, ``List[pv.PolyData]``,
         ``pv.MultiBlock``, and ``Sketch``.
@@ -468,10 +478,10 @@ class Plotter(PlotterInterface):
 
         """
         for object in plotting_list:
-            _ = self.add(object, filter, **plotting_options)
+            self.plot(object, filter, **plotting_options)
 
-    def add(self, object: Any, filter: str = None, **plotting_options):
-        """Add a ``pyansys`` or ``PyVista`` object to the plotter.
+    def plot(self, object: Any, filter: str = None, **plotting_options):
+        """Plot a ``pyansys`` or ``PyVista`` object to the plotter.
 
         Parameters
         ----------
@@ -486,6 +496,10 @@ class Plotter(PlotterInterface):
         """
         if hasattr(object, "__iter__"):
             logger.debug("Plotting objects in list...")
-            self.pv_interface.add_iter(object, filter, **plotting_options)
+            self.pv_interface.plot_iter(object, filter, **plotting_options)
         else:
-            self.pv_interface.add(object, filter, **plotting_options)
+            self.pv_interface.plot(object, filter, **plotting_options)
+
+    def show(self):
+        """Show the rendered scene."""
+        self.pv_interface.show()

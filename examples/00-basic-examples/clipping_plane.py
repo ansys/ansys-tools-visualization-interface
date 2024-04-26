@@ -27,12 +27,12 @@
 Use a clipping plane
 ====================
 
-This example shows how to use a clipping plane in PyAnsys Visualizer to cut a mesh.
+This example shows how to use a clipping plane in Visualization Interface tool to cut a mesh.
 """
 
 import pyvista as pv
 
-from ansys.visualizer import ClipPlane, Plotter
+from ansys.tools.visualization_interface import ClipPlane, Plotter
 
 # Create a mesh
 mesh = pv.Cylinder()
@@ -44,5 +44,5 @@ pl = Plotter()
 clipping_plane = ClipPlane(normal=(1, 0, 0), origin=(0, 0, 0))
 
 # Add the mesh to the plotter with the clipping plane
-pl.add(mesh, clipping_plane=clipping_plane)
-pl.plot()
+pl.plot(mesh, clipping_plane=clipping_plane)
+pl.show()

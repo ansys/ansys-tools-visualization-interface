@@ -1,10 +1,10 @@
-PyAnsys Visualizer documentation |version|
-==========================================
+Visualization Interface tool documentation |version|
+====================================================
 
-PyAnsys Visualizer is a Python API that provides an interface between PyAnsys libraries and
+Visualization Interface tool is a Python API that provides an interface between PyAnsys libraries and
 different plotting backends.
 
-PyAnsys Visualizer offers these main features:
+Visualization Interface tool offers these main features:
 
 * Serves as an interface between PyAnsys and other plotting libraries (although only
   `PyVista <https://docs.pyvista.org/version/stable/>`_ is supported currently).
@@ -19,7 +19,7 @@ PyAnsys Visualizer offers these main features:
         :link: getting_started/index
         :link-type: doc
 
-        Learn how to install PyAnsys Visualizer in user mode and quickly
+        Learn how to install Visualization Interface tool in user mode and quickly
         begin using it.
 
     .. grid-item-card:: User guide :material-regular:`menu_book`
@@ -27,7 +27,7 @@ PyAnsys Visualizer offers these main features:
         :link: user_guide/index
         :link-type: doc
 
-        Understand key concepts for implementing PyAnsys Visualizer in
+        Understand key concepts for implementing Visualization Interface tool in
         your workflow.
 
     .. jinja:: main_toctree
@@ -39,7 +39,7 @@ PyAnsys Visualizer offers these main features:
             :link-type: doc
 
             Understand how to use Python to interact programmatically with
-            PyAnsys Visualizer.
+            Visualization Interface tool.
         {% endif %}
 
         {% if build_examples %}
@@ -48,7 +48,7 @@ PyAnsys Visualizer offers these main features:
             :link: examples/index
             :link-type: doc
 
-            Explore examples that show how to use PyAnsys Visualizer to
+            Explore examples that show how to use Visualization Interface tool to
             perform many different types of operations.
         {% endif %}
 
@@ -57,7 +57,7 @@ PyAnsys Visualizer offers these main features:
             :link: contributing
             :link-type: doc
 
-            Learn how to contribute to the PyAnsys Visualizer codebase or documentation.
+            Learn how to contribute to the Visualization Interface tool codebase or documentation.
 
 
 .. jinja:: main_toctree

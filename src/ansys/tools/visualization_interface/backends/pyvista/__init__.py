@@ -19,55 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-"""
-.. _ref_plain_usage:
-
-===============
-Use the plotter
-===============
-
-This example shows how to add one or more meshes to the plotter.
-"""
-
-###########################
-# Add a mesh to the plotter
-# =========================
-# This code shows how to add a single mesh to the plotter.
-
-import pyvista as pv
-
-from ansys.tools.visualization_interface import Plotter
-
-mesh = pv.Cube()
-
-# Create a plotter
-pl = Plotter()
-
-# Add the mesh to the plotter
-pl.plot(mesh)
-
-# Show the plotter
-pl.show()
-
-
-######################
-# Add a list of meshes
-# ====================
-# This code shows how to add a list of meshes to the plotter.
-
-import pyvista as pv
-
-from ansys.tools.visualization_interface import Plotter
-
-mesh1 = pv.Cube()
-mesh2 = pv.Sphere(center=(2, 0, 0))
-mesh_list = [mesh1, mesh2]
-# Create a plotter
-pl = Plotter()
-
-# Add a list of meshes to the plotter
-pl.plot(mesh_list)
-
-# Show the plotter
-pl.show()
+"""Provides interfaces."""
+from ansys.tools.visualization_interface.backends.pyvista.pyvista import (  # noqa: F401
+    PyVistaBackend,
+    PyVistaBackendInterface,
+)

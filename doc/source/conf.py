@@ -17,9 +17,12 @@ from ansys_sphinx_theme import (
 import pyvista
 from sphinx.builders.latex import LaTeXBuilder
 
-from ansys.visualizer import __version__
+import ansys.tools.visualization_interface
+from ansys.tools.visualization_interface import __version__
 
 os.environ["PYANSYS_VISUALIZER_DOC_BUILD"] = "true"
+
+ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
@@ -29,23 +32,23 @@ pyvista.OFF_SCREEN = True
 
 
 # Project information
-project = "ansys-visualizer-core"
+project = "ansys-tools-visualization-interface"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
-cname = os.getenv("DOCUMENTATION_CNAME", default="visualizer.docs.pyansys.com")
+cname = os.getenv("DOCUMENTATION_CNAME", default="visualization-interface.tools.docs.pyansys.com")
 switcher_version = get_version_match(__version__)
 
 # Select desired logo, theme, and declare the html title
 html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
-html_short_title = html_title = "PyAnsys Visualizer"
+html_short_title = html_title = "Visualization Interface tool"
 html_baseurl = f"https://{cname}/version/stable"
 
 # specify the location of your github repo
 html_context = {
     "github_user": "ansys",
-    "github_repo": "pyansys-visualizer",
+    "github_repo": "ansys-tools-visualization-interface",
     "github_version": "main",
     "doc_path": "doc/source",
 }
@@ -55,7 +58,7 @@ html_theme_options = {
         "version_match": switcher_version,
     },
     "check_switcher": False,
-    "github_url": "https://github.com/ansys/pyansys-visualizer",
+    "github_url": "https://github.com/ansys/ansys-tools-visualization-interface",
     "show_prev_next": False,
     "show_breadcrumbs": True,
     "collapse_navigation": True,
@@ -66,19 +69,19 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "Support",
-            "url": "https://github.com/ansys/pyansys-visualizer/discussions",
+            "url": "https://github.com/ansys/ansys-tools-visualization-interface/discussions",
             "icon": "fa fa-comment fa-fw",
         },
         {
             "name": "Download documentation in PDF",
-            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-visualizer-core.pdf",  # noqa: E501
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-tools-visualization-interface.pdf",  # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],
     "use_meilisearch": {
         "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
         "index_uids": {
-            f"pyansys-visualizer-v{get_version_match(__version__).replace('.', '-')}": "PyAnsys-Visualizer",  # noqa: E501
+            f"ansys-tools-visualization-interface-v{get_version_match(__version__).replace('.', '-')}": "Visualization-interface",  # noqa: E501
         },
     },
 }
@@ -110,7 +113,7 @@ sphinx_gallery_conf = {
     # directory where function granular galleries are stored
     "backreferences_dir": None,
     # Modules for which function level galleries are created.  In
-    "doc_module": "ansys-visualizer",
+    "doc_module": "ansys-tools-visualization-interface",
     "image_scrapers": ("pyvista"),
     "ignore_pattern": "flycheck*",
     "thumbnail_size": (350, 350),
@@ -162,7 +165,6 @@ templates_path = ["_templates"]
 # The suffix(es) of source filenames.
 source_suffix = {
     ".rst": "restructuredtext",
-    ".mystnb": "jupyter_notebook",
     ".md": "markdown",
 }
 
@@ -181,7 +183,7 @@ autoapi_options = [
     "special-members",
 ]
 autoapi_template_dir = get_autoapi_templates_dir_relative_path(Path(__file__))
-suppress_warnings = ["autoapi.python_import_resolution", "design.grid"]
+suppress_warnings = ["autoapi.python_import_resolution", "design.grid", "config.cache"]
 autoapi_python_use_implicit_namespaces = True
 autoapi_keep_files = True
 autoapi_own_page_level = "class"

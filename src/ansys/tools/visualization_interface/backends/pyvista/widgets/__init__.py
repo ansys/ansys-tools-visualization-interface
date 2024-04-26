@@ -19,45 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides the abstract implementation of plotter widgets."""
-
-from abc import ABC, abstractmethod
-
-from pyvista import Plotter
-
-
-class PlotterWidget(ABC):
-    """Provides an abstract class for plotter widgets.
-
-    Parameters
-    ----------
-    plotter : ~pyvista.Plotter
-        Plotter instance to add the widget to.
-
-    Notes
-    -----
-    These widgets are intended to be used with PyVista plotter objects.
-    More specifically, the way in which this abstraction has been built
-    ensures that these widgets can be easily integrated with PyAnsys Visualizer's
-    widgets.
-
-    """
-
-    def __init__(self, plotter: Plotter):
-        """Initialize the ``PlotterWidget`` class."""
-        self._plotter: Plotter = plotter
-
-    @property
-    def plotter(self) -> Plotter:
-        """Plotter object that the widget is assigned to."""
-        return self._plotter
-
-    @abstractmethod
-    def callback(self, state) -> None:
-        """General callback function for ``PlotterWidget`` objects."""
-        pass
-
-    @abstractmethod
-    def update(self) -> None:
-        """General update function for ``PlotterWidget`` objects."""
-        pass
+"""Provides widgets for the Visualization Interface tool plotter."""
+from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import (  # noqa: F401
+    PlotterWidget,
+)
