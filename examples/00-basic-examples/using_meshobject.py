@@ -27,9 +27,9 @@
 Use the ``MeshObjectPlot`` class
 ================================
 
-PyAnsys Visualizer provides the ``MeshObject`` helper class to relate a custom object
+Visualization Interface tool provides the ``MeshObject`` helper class to relate a custom object
 with its mesh. With a custom object, you can take advantage of the full potential of
-PyAnsys Visualizer.
+Visualization Interface tool.
 
 This example shows how to use the ``MeshObjectPlot`` class to plot your custom objects.
 """

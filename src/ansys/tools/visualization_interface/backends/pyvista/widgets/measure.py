@@ -33,7 +33,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import 
 
 
 class MeasureWidget(PlotterWidget):
-    """Provides the measure widget for the PyAnsys Visualizer ``Plotter`` class.
+    """Provides the measure widget for the Visualization Interface tool ``Plotter`` class.
 
     Parameters
     ----------

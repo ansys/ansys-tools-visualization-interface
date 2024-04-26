@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides widgets for the PyAnsys Visualizer plotter."""
+"""Provides widgets for the Visualization Interface tool plotter."""
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import (  # noqa: F401
     PlotterWidget,
 )
