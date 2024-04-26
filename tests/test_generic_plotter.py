@@ -22,7 +22,7 @@
 """Test module for the generic plotter."""
 import pyvista as pv
 
-from ansys.visualizer import ClipPlane, MeshObjectPlot, Plotter
+from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
 
 
 class CustomTestClass:

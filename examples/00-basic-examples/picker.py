@@ -59,7 +59,7 @@ custom_object = CustomObject()
 # Create a ``MeshObjectPlot`` instance
 # ====================================
 
-from ansys.visualizer import MeshObjectPlot
+from ansys.tools.visualization_interface import MeshObjectPlot
 
 # Create an instance
 mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
@@ -68,8 +68,9 @@ mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
 # Plot the ``MeshObjectPlot`` instance
 # ====================================
 
-from ansys.visualizer import Plotter
-from ansys.visualizer.backends.pyvista import PyVistaBackend
+from ansys.tools.visualization_interface import Plotter
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
+
 pv_backend = PyVistaBackend(allow_picking=True)
 pl = Plotter(backend=pv_backend)
 pl.plot(mesh_object)

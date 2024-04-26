@@ -3,44 +3,44 @@
 Getting started
 ###############
 
-This section describes how to install PyAnsys Visualizer in user mode and
-quickly begin using it. If you are interested in contributing to PyAnsys Visualizer,
+This section describes how to install Visualization Interface tool in user mode and
+quickly begin using it. If you are interested in contributing to Visualization Interface tool,
 see :ref:`contribute` for information on installing in developer mode.
 
 Installation
 ============
 
-To use `pip <https://pypi.org/project/pip/>`_ to install PyAnsys Visualizer,
+To use `pip <https://pypi.org/project/pip/>`_ to install Visualization Interface tool,
 run this command:
 
 .. code:: bash
 
-        pip install pyansys-visualizer
+        pip install ansys-tools-visualization-interface
 
 Alternatively, to install the latest version from this library's
-`GitHub repository <https://github.com/ansys-internal/pyansys-visualizer/>`_,
+`GitHub repository <https://github.com/ansys-internal/ansys-tools-visualization-interface/>`_,
 run these commands:
 
 .. code:: bash
 
-    git clone https://github.com/ansys/pyansys-visualizer
-    cd pyansys-visualizer
+    git clone https://github.com/ansys/ansys-tools-visualization-interface
+    cd ansys-tools-visualization-interface
     pip install .
 
 Quick start
 ^^^^^^^^^^^
 
-The following examples show how to use PyAnsys Visualizer to visualize a mesh file.
+The following examples show how to use Visualization Interface tool to visualize a mesh file.
 
 This code uses only a PyVista mesh:
 
 .. code:: python
 
-    from ansys.visualizer import Plotter
+    from ansys.tools.visualization_interface import Plotter
 
     my_mesh = my_custom_object.get_mesh()
 
-    # Create a PyAnsys Visualizer object
+    # Create a Visualization Interface tool object
     pl = Plotter()
     pl.plot(my_mesh)
 
@@ -51,14 +51,14 @@ This code uses objects from a PyAnsys library:
 
 .. code:: python
 
-    from ansys.visualizer import Plotter, MeshObjectPlot
+    from ansys.tools.visualization_interface import Plotter, MeshObjectPlot
 
     my_custom_object = MyObject()
     my_mesh = my_custom_object.get_mesh()
 
     mesh_object = MeshObjectPlot(my_custom_object, my_mesh)
 
-    # Create a PyAnsys Visualizer object
+    # Create a Visualization Interface tool object
     pl = Plotter()
     pl.plot(mesh_object)
 

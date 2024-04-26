@@ -6,30 +6,30 @@ Contribute
 Overall guidance on contributing to a PyAnsys library appears in the
 `Contributing <https://dev.docs.pyansys.com/how-to/contributing.html>`_ topic
 in the *PyAnsys developer's guide*. Ensure that you are thoroughly familiar
-with this guide before attempting to contribute to PyAnsys Visualizer.
+with this guide before attempting to contribute to Visualization Interface tool.
 
-The following contribution information is specific to PyAnsys Visualizer.
+The following contribution information is specific to Visualization Interface tool.
 
 Install in developer mode
 -------------------------
 
-Installing PyAnsys Visualizer in developer mode allows you to modify and enhance
+Installing Visualization Interface tool in developer mode allows you to modify and enhance
 the source.
 
-To clone and install the latest PyAnsys Visualizer release in development mode, run
+To clone and install the latest Visualization Interface tool release in development mode, run
 these commands:
 
 .. code::
 
-    git clone https://github.com/ansys/pyansys-visualizer
-    cd pyansys-visualizer
+    git clone https://github.com/ansys/ansys-tools-visualization-interface
+    cd ansys-tools-visualization-interface
     python -m pip install --upgrade pip
     pip install -e .
 
 Run tests
 ---------
 
-PyAnsys Visualizer uses `pytest <https://docs.pytest.org/en/stable/>`_ for testing.
+Visualization Interface tool uses `pytest <https://docs.pytest.org/en/stable/>`_ for testing.
 
 #. Prior to running tests, you must run this command to install
    test dependencies::
@@ -44,7 +44,7 @@ PyAnsys Visualizer uses `pytest <https://docs.pytest.org/en/stable/>`_ for testi
 Adhere to code style
 --------------------
 
-PyAnsys Visualizer follows the PEP8 standard as outlined in
+Visualization Interface tool follows the PEP8 standard as outlined in
 `PEP 8 <https://dev.docs.pyansys.com/coding-style/pep8.html>`_ in
 the *PyAnsys developer's guide* and implements style checking using
 `pre-commit <https://pre-commit.com/>`_.
@@ -79,7 +79,7 @@ This way, it's not possible for you to push code that fails the style checks::
 Build the documentation
 -----------------------
 
-You can build PyAnsys Visualizer documentation locally.
+You can build Visualization Interface tool documentation locally.
 
 #. Prior to building the documentation, you must run this command to install
    documentation dependencies::
@@ -108,11 +108,11 @@ You can clean the documentation build by running this command::
 Post issues
 -----------
 
-Use the `PyAnsys Visualizer Issues <https://github.com/ansys/pyansys-visualizer/issues>`_
+Use the `Visualization Interface tool Issues <https://github.com/ansys/ansys-tools-visualization-interface/issues>`_
 page to report bugs and request new features. When possible, use the issue templates provided.
 If your issue does not fit into one of these templates, click the link for opening a blank issue.
 
 If you have general questions about the PyAnsys ecosystem, email
 `pyansys.core@ansys.com <pyansys.core@ansys.com>`_. If your
-question is specific to PyAnsys Visualizer, ask your
+question is specific to Visualization Interface tool, ask your
 question in an issue as described in the previous paragraph.
