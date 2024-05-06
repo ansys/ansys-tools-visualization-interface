@@ -73,13 +73,7 @@ mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
 # ====================================
 
 from ansys.tools.visualization_interface import Plotter
-from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
 pl = Plotter()
 pl.plot(mesh_object)
 pl.show()
-
-pv_backend = PyVistaBackend(use_trame=True)
-pl = Plotter(backend=pv_backend)
-pl.add(mesh_object)
-pl.plot()
