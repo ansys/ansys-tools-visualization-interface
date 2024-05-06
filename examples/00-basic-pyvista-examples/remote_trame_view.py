@@ -19,6 +19,49 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides interfaces."""
-from ansys.tools.visualization_interface.backends.pyvista.trame_remote import send_mesh, send_pl  # noqa: F401, E402
-from ansys.tools.visualization_interface.backends.pyvista.trame_service import TrameService  # noqa: F401, E402
+
+"""
+.. _ref_trame_remote
+
+=============================
+Use trame as a remote service
+=============================
+
+This example shows how to launch a trame service and use it as a remote service.
+"""
+
+"""
+First, we need to launch the trame service. We can do this by running the following code:
+"""
+
+# import required libraries
+from ansys.tools.visualization_interface.backends.pyvista import TrameService
+
+# create a trame service, in whatever port is available in your system
+ts = TrameService(websocket_port=8765)
+
+# run the service
+ts.run()
+
+"""
+Now, we can send meshes and plotter to the trame service. We can do this by running the following code in a separate terminal:
+"""
+
+# import required libraries
+import time
+
+import pyvista as pv
+
+from ansys.tools.visualization_interface.backends.pyvista.trame_remote import send_mesh, send_pl
+
+# create an example plotter
+plotter = pv.Plotter()
+plotter.add_mesh(pv.Cube())
+
+# send some example meshes
+send_mesh(pv.Sphere())
+send_mesh(pv.Sphere(center=(3,0,0)))
+time.sleep(4)
+
+# if we send a plotter, the previous meshes will be deleted.
+send_pl(plotter)

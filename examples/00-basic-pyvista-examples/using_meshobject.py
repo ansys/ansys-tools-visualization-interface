@@ -77,3 +77,6 @@ from ansys.tools.visualization_interface import Plotter
 pl = Plotter()
 pl.plot(mesh_object)
 pl.show()
+pl = Plotter(use_trame=True)
+pl.add(mesh_object)
+pl.plot()

@@ -29,7 +29,7 @@ import pyvista as pv
 from ansys.tools.visualization_interface import USE_TRAME
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
-from ansys.tools.visualization_interface.backends.pyvista.trame_gui import (
+from ansys.tools.visualization_interface.backends.pyvista.trame_local import (
     _HAS_TRAME,
     TrameVisualizer,
 )
