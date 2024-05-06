@@ -24,16 +24,15 @@
 import asyncio
 import pickle
 
-from beartype.typing import TYPE_CHECKING
 import pyvista as pv
 from pyvista.trame.ui import plotter_ui
 from trame.app import get_server
 from trame.ui.vuetify3 import SinglePageLayout
 from trame.widgets import vuetify3
+from websockets import WebSocketServerProtocol
 from websockets.server import serve
 
-if TYPE_CHECKING:
-    from websockets import WebSocketServerProtocol
+
 class TrameService:
     """Trame service class.
 
@@ -41,16 +40,16 @@ class TrameService:
 
     Parameters
     ----------
-    webserver_port : int, optional
+    websocket_port : int, optional
         Port where the webserver will listen for new plotters and meshes, by default 8765
     """
-    def __init__(self, webserver_port: int=8765):
+    def __init__(self, websocket_port: int=8765):
         """Initialize the trame service."""
         pv.OFF_SCREEN = True
 
         self._server = get_server()
         self._state, self._ctrl = self._server.state, self._server.controller
-        self._webserver_port = webserver_port
+        self._websocket_port = websocket_port
         # pyvista plotter, we treat it as a view i.e. created once but updated as we see fit.
         self._pl = pv.Plotter()
 
@@ -87,7 +86,7 @@ class TrameService:
 
     async def _webserver(self):
         """Starts the webserver for the trame service listener."""
-        async with serve(self._listener, "localhost", self._webserver_port):
+        async with serve(self._listener, "localhost", self._websocket_port):
             await asyncio.Future()  # run forever
 
     def set_scene(self):
