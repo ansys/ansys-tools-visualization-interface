@@ -35,7 +35,7 @@ First, we need to launch the trame service. We can do this by running the follow
 """
 
 # import required libraries
-from ansys.tools.visualization_interface.backends.pyvista import TrameService
+from ansys.tools.visualization_interface.backends.pyvista.trame_service import TrameService
 
 # create a trame service, in whatever port is available in your system
 ts = TrameService(websocket_port=8765)

@@ -20,5 +20,3 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides interfaces."""
-from ansys.tools.visualization_interface.backends.pyvista.trame_remote import send_mesh, send_pl  # noqa: F401, E402
-from ansys.tools.visualization_interface.backends.pyvista.trame_service import TrameService  # noqa: F401, E402
