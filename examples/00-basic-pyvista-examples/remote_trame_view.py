@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """
-.. _ref_trame_remote
+.. _ref_remote_trame_view
 
 =============================
 Use trame as a remote service
