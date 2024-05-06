@@ -28,9 +28,7 @@ Use trame as a remote service
 =============================
 
 This example shows how to launch a trame service and use it as a remote service.
-"""
 
-"""
 First, we need to launch the trame service. We can do this by running the following code:
 
 ```python
