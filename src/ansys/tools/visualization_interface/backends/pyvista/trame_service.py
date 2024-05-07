@@ -43,13 +43,14 @@ class TrameService:
     websocket_port : int, optional
         Port where the webserver will listen for new plotters and meshes, by default 8765.
     """
-    def __init__(self, websocket_port: int=8765):
+    def __init__(self, websocket_url: str = "localhost", websocket_port: int=8765):
         """Initialize the trame service."""
         pv.OFF_SCREEN = True
 
         self._server = get_server()
         self._state, self._ctrl = self._server.state, self._server.controller
         self._websocket_port = websocket_port
+        self._websocket_url = websocket_url
         # pyvista plotter, we treat it as a view i.e. created once but updated as we see fit.
         self._pl = pv.Plotter()
 
@@ -86,7 +87,7 @@ class TrameService:
 
     async def _webserver(self):
         """Starts the webserver for the trame service listener."""
-        async with serve(self._listener, "localhost", self._websocket_port):
+        async with serve(self._listener, self._websocket_url, self._websocket_port):
             await asyncio.Future()  # run forever
 
     def set_scene(self):

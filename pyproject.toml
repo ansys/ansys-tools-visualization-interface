@@ -26,10 +26,10 @@ classifiers = [
 dependencies = [
     "pyvista >= 0.42.0",
     "beartype >= 0.17.0",
-    "websockets >= 12.0",
-    "trame >= 3.6.0",
-    "trame-vtk >= 2.8.7",
-    "trame-vuetify >= 2.4.3",
+    "websockets >= 12.0,<13",
+    "trame >= 3.6.0,<4",
+    "trame-vtk >= 2.8.7,<3",
+    "trame-vuetify >= 2.4.3,<3",
 ]
 
 [project.optional-dependencies]
