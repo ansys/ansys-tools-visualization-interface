@@ -27,7 +27,7 @@ import pyvista as pv
 from websockets.sync.client import connect
 
 
-def send_pl(plotter: pv.Plotter, url: str = "localhost", port: int = 8765):
+def send_pl(plotter: pv.Plotter, host: str = "localhost", port: int = 8765):
     """Send the plotter meshes to a remote trame service.
 
     Since plotter can't be pickled, we send the meshes list instead.
@@ -36,28 +36,28 @@ def send_pl(plotter: pv.Plotter, url: str = "localhost", port: int = 8765):
     ----------
     plotter : pv.Plotter
         Plotter to send.
-    url : str, optional
-        Websocket url to connect to, by default "localhost".
+    host : str, optional
+        Websocket host to connect to, by default "localhost".
     port : int, optional
         Websocket port to connect to, by default 8765.
     """
-    with connect("ws://" + url + ":" + str(port)) as websocket:
+    with connect("ws://" + host + ":" + str(port)) as websocket:
         # Plotter can't be pickled, so we send the meshes list instead
         meshes_list_pk = pickle.dumps(plotter.meshes)
         websocket.send(meshes_list_pk)
 
-def send_mesh(mesh: Union[pv.PolyData, pv.MultiBlock], url: str = "localhost", port: int = 8765):
+def send_mesh(mesh: Union[pv.PolyData, pv.MultiBlock], host: str = "localhost", port: int = 8765):
     """Send a mesh to a remote trame service.
 
     Parameters
     ----------
     mesh : Union[pv.PolyData, pv.MultiBlock]
         Mesh to send.
-    url : str, optional
-        Websocket url to connect to, by default "localhost".
+    host : str, optional
+        Websocket host to connect to, by default "localhost".
     port : int, optional
         Websocket port to connect to, by default 8765.
     """
-    with connect("ws://" + url + ":" + str(port)) as websocket:
+    with connect("ws://" + host + ":" + str(port)) as websocket:
         mesh_pk = pickle.dumps(mesh)
         websocket.send(mesh_pk)
