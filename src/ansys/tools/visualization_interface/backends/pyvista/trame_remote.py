@@ -37,7 +37,7 @@ def send_pl(plotter: pv.Plotter, port: int = 8765):
     plotter : pv.Plotter
         Plotter to send.
     port : int, optional
-        Websocket port to connect to, by default 8765
+        Websocket port to connect to, by default 8765.
     """
     with connect("ws://localhost:" + str(port)) as websocket:
         # Plotter can't be pickled, so we send the meshes list instead
@@ -52,7 +52,7 @@ def send_mesh(mesh: Union[pv.PolyData, pv.MultiBlock], port: int = 8765):
     mesh : Union[pv.PolyData, pv.MultiBlock]
         Mesh to send.
     port : int, optional
-        Websocket port to connect to, by default 8765
+        Websocket port to connect to, by default 8765.
     """
     with connect("ws://localhost:" + str(port)) as websocket:
         mesh_pk = pickle.dumps(mesh)

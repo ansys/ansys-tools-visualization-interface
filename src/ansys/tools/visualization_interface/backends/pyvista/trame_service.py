@@ -41,7 +41,7 @@ class TrameService:
     Parameters
     ----------
     websocket_port : int, optional
-        Port where the webserver will listen for new plotters and meshes, by default 8765
+        Port where the webserver will listen for new plotters and meshes, by default 8765.
     """
     def __init__(self, websocket_port: int=8765):
         """Initialize the trame service."""
