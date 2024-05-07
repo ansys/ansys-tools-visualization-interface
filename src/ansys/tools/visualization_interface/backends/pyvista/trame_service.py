@@ -40,6 +40,8 @@ class TrameService:
 
     Parameters
     ----------
+    websocket_url : str, optional
+        URL where the webserver will listen for new plotters and meshes, by default "localhost".
     websocket_port : int, optional
         Port where the webserver will listen for new plotters and meshes, by default 8765.
     """

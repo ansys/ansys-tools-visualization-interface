@@ -36,6 +36,8 @@ def send_pl(plotter: pv.Plotter, url: str = "localhost", port: int = 8765):
     ----------
     plotter : pv.Plotter
         Plotter to send.
+    url : str, optional
+        Websocket url to connect to, by default "localhost".
     port : int, optional
         Websocket port to connect to, by default 8765.
     """
@@ -51,6 +53,8 @@ def send_mesh(mesh: Union[pv.PolyData, pv.MultiBlock], url: str = "localhost", p
     ----------
     mesh : Union[pv.PolyData, pv.MultiBlock]
         Mesh to send.
+    url : str, optional
+        Websocket url to connect to, by default "localhost".
     port : int, optional
         Websocket port to connect to, by default 8765.
     """
