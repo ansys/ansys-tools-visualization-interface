@@ -139,7 +139,6 @@ jobs:
         uses: ansys/actions/release-github@v6
         with:
           library-name: ${{ env.PACKAGE_NAME }}
-          additional-artifacts: windows-dockerfile.zip linux-dockerfile.zip
 
   upload_docs_release:
     name: Upload release documentation
