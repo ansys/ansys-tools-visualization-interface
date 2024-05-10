@@ -29,15 +29,6 @@ jobs:
       - name: Check branch name
         uses: ansys/actions/branch-name-style@main
 
-  style:
-    name: Code style
-    runs-on: ubuntu-latest
-    steps:
-      - name: PyAnsys code style checks
-        uses: ansys/actions/code-style@v6
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-
   docs-style:
     name: Documentation Style Check
     runs-on: ubuntu-latest
@@ -57,14 +48,10 @@ jobs:
 
     - name: "Run Ansys documentation building action"
       uses: ansys/actions/doc-build@v6
-      with:
-        TODO: remove once public
-        check-links: false
 
   smoke-tests:
     name: Build and Smoke tests
     runs-on: ${{ matrix.os }}
-    needs: [style]
     strategy:
       fail-fast: false
       matrix:
@@ -142,12 +129,12 @@ jobs:
     needs: [package]
     runs-on: ubuntu-latest
     steps:
-      #- name: Release to the public PyPI repository
-        #uses: ansys/actions/release-pypi-public@v5
-        #with:
-        #  library-name: ${{ env.PACKAGE_NAME }}
-        #  twine-username: "__token__"
-        #  twine-token: ${{ secrets.PYPI_TOKEN }}
+      - name: Release to the public PyPI repository
+        uses: ansys/actions/release-pypi-public@v5
+        with:
+         library-name: ${{ env.PACKAGE_NAME }}
+         twine-username: "__token__"
+         twine-token: ${{ secrets.PYPI_TOKEN }}
 
       - name: Release to GitHub
         uses: ansys/actions/release-github@v6
