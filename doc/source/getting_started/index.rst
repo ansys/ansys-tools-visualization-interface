@@ -18,7 +18,7 @@ run this command:
         pip install ansys-tools-visualization-interface
 
 Alternatively, to install the latest version from this library's
-`GitHub repository <https://github.com/ansys-internal/ansys-tools-visualization-interface/>`_,
+`GitHub repository <https://github.com/ansys/ansys-tools-visualization-interface/>`_,
 run these commands:
 
 .. code:: bash
