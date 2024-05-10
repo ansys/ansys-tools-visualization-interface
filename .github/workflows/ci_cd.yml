@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check branch name
-        uses: ansys/actions/branch-name-style@main
+        uses: ansys/actions/branch-name-style@v6
 
   docs-style:
     name: Documentation Style Check
