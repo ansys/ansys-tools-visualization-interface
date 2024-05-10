@@ -74,7 +74,6 @@ jobs:
     name: Run Unit Tests
     needs: [ smoke-tests ]
     runs-on: ubuntu-latest
-
     steps:
       - name: Restore images cache
         uses: actions/cache@v4
@@ -130,7 +129,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Release to the public PyPI repository
-        uses: ansys/actions/release-pypi-public@v5
+        uses: ansys/actions/release-pypi-public@v6
         with:
          library-name: ${{ env.PACKAGE_NAME }}
          twine-username: "__token__"
