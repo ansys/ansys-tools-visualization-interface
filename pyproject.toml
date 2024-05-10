@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "ansys-tools-visualization-interface"
-version = "0.1.dev0"
+version = "0.2.dev0"
 description = "A Python visualization interface for PyAnsys libraries"
 readme = "README.rst"
 requires-python = ">=3.9,<4"
@@ -22,7 +22,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-
 dependencies = [
     "pyvista >= 0.42.0,<1",
     "beartype >= 0.17.0,<1",
@@ -33,13 +32,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-
-tests = [
-    "pytest==8.2.0",
-    "pytest-pyvista==0.1.9",
-    "pytest-cov==5.0.0",
-]
-
+tests = ["pytest==8.2.0", "pytest-pyvista==0.1.9", "pytest-cov==5.0.0"]
 doc = [
     "ansys-sphinx-theme==0.15.2",
     "jupyter_sphinx==0.5.3",
@@ -59,7 +52,6 @@ name = "ansys.tools.visualization_interface"
 
 [tool.black]
 line-length = 100
-indent-width = 4
 
 [tool.isort]
 profile = "black"
@@ -73,29 +65,23 @@ addopts = "-ra --cov=ansys.tools.visualization_interface --cov-report html:.cov/
 
 [tool.ruff]
 line-length = 120
-extend-exclude = [
-    "examples/**/*.py",
-]
+extend-exclude = ["examples/**/*.py"]
 
 [tool.ruff.lint]
 select = [
-    "E",    # pycodestyle, see https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
-    "D",    # pydocstyle, see https://beta.ruff.rs/docs/rules/#pydocstyle-d
-    "F",    # pyflakes, see https://beta.ruff.rs/docs/rules/#pyflakes-f
-    "I",    # isort, see https://beta.ruff.rs/docs/rules/#isort-i
-    "N",    # pep8-naming, see https://beta.ruff.rs/docs/rules/#pep8-naming-n
-    "PTH",  # flake8-use-pathlib, https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
+    "E",   # pycodestyle, see https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
+    "D",   # pydocstyle, see https://beta.ruff.rs/docs/rules/#pydocstyle-d
+    "F",   # pyflakes, see https://beta.ruff.rs/docs/rules/#pyflakes-f
+    "I",   # isort, see https://beta.ruff.rs/docs/rules/#isort-i
+    "N",   # pep8-naming, see https://beta.ruff.rs/docs/rules/#pep8-naming-n
+    "PTH", # flake8-use-pathlib, https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
 ]
-ignore = [
-    "D416",
-]
-
+ignore = ["D416"]
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "tab"
 line-ending = "auto"
-
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
@@ -105,4 +91,3 @@ known-first-party = ["ansys"]
 [tool.ruff.lint.pydocstyle]
 # Settings: https://docs.astral.sh/ruff/settings/#lintpydocstyle
 convention = "google"
-
