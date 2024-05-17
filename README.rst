@@ -34,7 +34,7 @@ Overview
 The Visualization Interface Tool is a Python API that provides an interface between PyAnsys libraries and
 different plotting backends.
 
-The Visualization Interface Tol offers these main features:
+The Visualization Interface Tool offers these main features:
 
 * Serves as an interface between PyAnsys and other plotting libraries (although only
   `PyVista <https://docs.pyvista.org/version/stable/>`_ is supported currently).
