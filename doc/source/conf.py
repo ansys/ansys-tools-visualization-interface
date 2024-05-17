@@ -42,7 +42,7 @@ switcher_version = get_version_match(__version__)
 # Select desired logo, theme, and declare the html title
 html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
-html_short_title = html_title = "Visualization Interface tool"
+html_short_title = html_title = "Visualization Interface Tool"
 html_baseurl = f"https://{cname}/version/stable"
 
 # specify the location of your github repo

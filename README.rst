@@ -1,4 +1,4 @@
-Visualization Interface Tool
+PyAdditive-Widgets
 ============================
 |pyansys| |python| |pypi| |MIT| |GH-CI| |pre-commit|
 
@@ -31,10 +31,10 @@ Visualization Interface Tool
 Overview
 --------
 
-Visualization Interface tool is a Python API that provides an interface between PyAnsys libraries and
+The Visualization Interface Tool is a Python API that provides an interface between PyAnsys libraries and
 different plotting backends.
 
-Visualization Interface tool offers these main features:
+The Visualization Interface Tol offers these main features:
 
 * Serves as an interface between PyAnsys and other plotting libraries (although only
   `PyVista <https://docs.pyvista.org/version/stable/>`_ is supported currently).
@@ -44,42 +44,42 @@ Visualization Interface tool offers these main features:
 Documentation and issues
 ------------------------
 
-Documentation for the latest stable release of Visualization Interface tool is hosted
-at `Visualization Interface tool documentation <https://visualization-interface.tools.docs.pyansys.com/version/dev/>`_.
+Documentation for the latest stable release of the Visualization Interface Tool is hosted
+at `Visualization Interface Tool documentation <https://visualization-interface.tools.docs.pyansys.com/version/stable/index.html>`_.
 
 The documentation has these sections:
 
-- `Getting started <https://visualization-interface.tools.docs.pyansys.com/version/dev/getting_started/index.html>`_: Learn
-  how to install Visualization Interface tool in user mode and quickly begin using it.
-- `User guide <https://visualization-interface.tools.docs.pyansys.com/version/dev/user_guide/index.html>`_: Understand key
-  concepts for implementing Visualization Interface tool in your workflow.
-- `API reference <https://visualization-interface.tools.docs.pyansys.com/version/dev/api/index.html>`_: Understand how to
-  use Python to interact programmatically with Visualization Interface tool.
-- `Examples <visualization-interface.tools.docs.pyansys.com/version/dev/examples/index.html>`_: Explore examples that
-  show how to use Visualization Interface tool to perform many different types of operations.
-- `Contribute <https://visualization-interface.tools.docs.pyansys.com/version/dev/contributing/index.html>`_: Learn how to
-  contribute to the Visualization Interface tool codebase or documentation.
+- `Getting started <https://visualization-interface.tools.docs.pyansys.com/version/stable/getting_started/index.html>`_: Learn
+  how to install the Visualization Interface Tool in user mode and quickly begin using it.
+- `User guide <https://visualization-interface.tools.docs.pyansys.com/version/stable/user_guide/index.html>`_: Understand key
+  concepts for implementing the Visualization Interface Tool in your workflow.
+- `API reference <https://visualization-interface.tools.docs.pyansys.com/version/stable/api/index.html>`_: Understand how to
+  use Python to interact programmatically with the Visualization Interface Tool.
+- `Examples <https://visualization-interface.tools.docs.pyansys.com/version/stable/examples/index.html>`_: Explore examples that
+  show how to use the Visualization Interface Tool to perform many different types of operations.
+- `Contribute <https://visualization-interface.tools.docs.pyansys.com/version/stable/contributing.html>`_: Learn how to
+  contribute to the Visualization Interface Tool codebase or documentation.
 
 In the upper right corner of the documentation's title bar, there is an option
 for switching from viewing the documentation for the latest stable release
 to viewing the documentation for the development version or previously
 released versions.
 
-On the `Visualization Interface tool Issues <https://github.com/ansys/ansys-tools-visualization-interface/issues>`_
+On the `Visualization Interface Tool Issues <https://github.com/ansys/ansys-tools-visualization-interface/issues>`_
 page, you can create issues to report bugs and request new features. On the
 `Discussions <https://discuss.ansys.com/>`_ page on the Ansys Developer portal,
 you can post questions, share ideas, and get community feedback.
 
 If you have general questions about the PyAnsys ecosystem, email
 `pyansys.core@ansys.com <pyansys.core@ansys.com>`_. If your
-question is specific to Visualization Interface tool, ask your
+question is specific to the Visualization Interface Tool, ask your
 question in an issue as described in the previous paragraph.
 
 License
 -------
 
-Visualization Interface tool is licensed under the `MIT License <https://github.com/ansys/ansys-tools-visualization-interface/blob/main/LICENSE>`_.
+The Visualization Interface Tool is licensed under the `MIT License <https://github.com/ansys/ansys-tools-visualization-interface/blob/main/LICENSE>`_.
 
-Visualization Interface tool makes no commercial claim over Ansys whatsoever. This library adds a
+The Visualization Interface Tool makes no commercial claim over Ansys whatsoever. This library adds a
 Python interface for visualizing Ansys results without changing the core behavior or
 license of the original Ansys software.

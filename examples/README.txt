@@ -1,5 +1,5 @@
 Examples
 ========
 
-This section show how to use Visualization Interface tool to perform many different
+This section show how to use the Visualization Interface Tool to perform many different
 types of operations.
