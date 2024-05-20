@@ -1,4 +1,4 @@
-PyAdditive-Widgets
+Visualization Interface Tool
 ============================
 |pyansys| |python| |pypi| |MIT| |GH-CI| |pre-commit|
 
