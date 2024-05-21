@@ -27,9 +27,9 @@
 Use the ``MeshObjectPlot`` class
 ================================
 
-Visualization Interface tool provides the ``MeshObject`` helper class to relate a custom object
-with its mesh. With a custom object, you can take advantage of the full potential of
-Visualization Interface tool.
+The Visualization Interface Tool provides the ``MeshObject`` helper class to relate a custom object
+with its mesh. With a custom object, you can take advantage of the full potential of the
+Visualization Interface Tool.
 
 This example shows how to use the ``MeshObjectPlot`` class to plot your custom objects.
 """

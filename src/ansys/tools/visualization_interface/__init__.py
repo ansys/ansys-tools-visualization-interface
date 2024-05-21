@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Visualization Interface tool is a Python client library for visualizing the results of Ansys simulations."""
+"""Visualization Interface Tool is a Python client library for visualizing the results of Ansys simulations."""
 import os
 
 import pkg_resources

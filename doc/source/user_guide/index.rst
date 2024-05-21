@@ -4,14 +4,14 @@
 User guide
 ==========
 
-This section explains key concepts for implementing Visualization Interface tool in your workflow.
-You can use Visualization Interface tool in your examples as well as integrate this library into
+This section explains key concepts for implementing the Visualization Interface Tool in your workflow.
+You can use the Visualization Interface Tool in your examples as well as integrate this library into
 your own code.
 
 Default plotter usage
 =====================
 
-Visualization Interface tool provides a default plotter that can be used out of the box, using the PyVista backend. This default
+The Visualization Interface Tool provides a default plotter that can be used out of the box, using the PyVista backend. This default
 plotter provides common functionalities so that you do not need to create a custom plotter.
 
 Use with PyVista meshes
@@ -89,7 +89,7 @@ The following code shows how to use the default plotter to visualize a PyAnsys c
 Customize your own plotter
 ==========================
 
-The Visualization Interface tool provides a base class, ``PlotterInterface``, for customizing certain functions
+The Visualization Interface Tool provides a base class, ``PlotterInterface``, for customizing certain functions
 of the plotter. This class provides a set of methods that can be overridden so that you can adapt the
 plotter to the specific need of your PyAnsys library.
 
