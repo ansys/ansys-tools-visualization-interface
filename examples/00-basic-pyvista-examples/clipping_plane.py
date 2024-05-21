@@ -27,7 +27,7 @@
 Use a clipping plane
 ====================
 
-This example shows how to use a clipping plane in Visualization Interface tool to cut a mesh.
+This example shows how to use a clipping plane in the Visualization Interface Tool to cut a mesh.
 """
 
 import pyvista as pv

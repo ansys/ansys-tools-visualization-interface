@@ -1,10 +1,10 @@
-Visualization Interface tool documentation |version|
+Visualization Interface Tool documentation |version|
 ====================================================
 
-Visualization Interface tool is a Python API that provides an interface between PyAnsys libraries and
+The Visualization Interface Tool is a Python API that provides an interface between PyAnsys libraries and
 different plotting backends.
 
-Visualization Interface tool offers these main features:
+The Visualization Interface Tool offers these main features:
 
 * Serves as an interface between PyAnsys and other plotting libraries (although only
   `PyVista <https://docs.pyvista.org/version/stable/>`_ is supported currently).
@@ -19,7 +19,7 @@ Visualization Interface tool offers these main features:
         :link: getting_started/index
         :link-type: doc
 
-        Learn how to install Visualization Interface tool in user mode and quickly
+        Learn how to install the Visualization Interface Tool in user mode and quickly
         begin using it.
 
     .. grid-item-card:: User guide :material-regular:`menu_book`
@@ -27,7 +27,7 @@ Visualization Interface tool offers these main features:
         :link: user_guide/index
         :link-type: doc
 
-        Understand key concepts for implementing Visualization Interface tool in
+        Understand key concepts for implementing the Visualization Interface Tool in
         your workflow.
 
     .. jinja:: main_toctree
@@ -39,7 +39,7 @@ Visualization Interface tool offers these main features:
             :link-type: doc
 
             Understand how to use Python to interact programmatically with
-            Visualization Interface tool.
+            the Visualization Interface Tool.
         {% endif %}
 
         {% if build_examples %}
@@ -48,7 +48,7 @@ Visualization Interface tool offers these main features:
             :link: examples/index
             :link-type: doc
 
-            Explore examples that show how to use Visualization Interface tool to
+            Explore examples that show how to use the Visualization Interface Tool to
             perform many different types of operations.
         {% endif %}
 
@@ -57,7 +57,7 @@ Visualization Interface tool offers these main features:
             :link: contributing
             :link-type: doc
 
-            Learn how to contribute to the Visualization Interface tool codebase or documentation.
+            Learn how to contribute to the Visualization Interface Tool codebase or documentation.
 
 
 .. jinja:: main_toctree

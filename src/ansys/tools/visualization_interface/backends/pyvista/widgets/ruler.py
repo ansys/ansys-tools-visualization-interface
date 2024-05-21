@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides the ruler widget for the Visualization Interface tool plotter."""
+"""Provides the ruler widget for the Visualization Interface Tool plotter."""
 
 from pathlib import Path
 
@@ -30,7 +30,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import 
 
 
 class Ruler(PlotterWidget):
-    """Provides the ruler widget for the Visualization Interface tool ``Plotter`` class.
+    """Provides the ruler widget for the Visualization Interface Tool ``Plotter`` class.
 
     Parameters
     ----------
