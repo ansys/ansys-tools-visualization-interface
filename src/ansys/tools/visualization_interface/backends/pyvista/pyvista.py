@@ -51,7 +51,7 @@ from ansys.tools.visualization_interface.utils.logger import logger
 
 
 class PyVistaBackendInterface(BaseBackend):
-    """Provides the interface for the Visualization Interface tool plotter.
+    """Provides the interface for the Visualization Interface Tool plotter.
 
     This class is intended to be used as a base class for the custom plotters
     in the different PyAnsys libraries. It provides the basic plotter functionalities,
@@ -218,7 +218,7 @@ class PyVistaBackendInterface(BaseBackend):
         """Unselect a custom object in the plotter.
 
         This method removes edge highlighting and the label from a plotter actor and removes
-        the object from the Visualization Interface tool object selection.
+        the object from the Visualization Interface Tool object selection.
 
         Parameters
         ----------
@@ -380,7 +380,7 @@ class PyVistaBackendInterface(BaseBackend):
         Parameters
         ----------
         plotter : Plotter
-            Visualization Interface tool plotter with the meshes added.
+            Visualization Interface Tool plotter with the meshes added.
         screenshot : str, default: None
             Path for saving a screenshot of the image that is being represented.
 
@@ -500,6 +500,3 @@ class PyVistaBackend(PyVistaBackendInterface):
         else:
             self.pv_interface.plot(object, filter, **plotting_options)
 
-    def show(self):
-        """Show the rendered scene."""
-        self.pv_interface.show()
