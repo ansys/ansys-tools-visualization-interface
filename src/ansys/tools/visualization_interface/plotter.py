@@ -73,6 +73,8 @@ class Plotter():
             Path to save a screenshot, by default None.
         filter : bool, optional
             Flag to filter the object, by default None.
+        plotting_options : dict
+            Additional plotting options the selected backend accepts.
         """
         self._backend.show(
             object=object,
