@@ -60,7 +60,6 @@ class Plotter():
         self,
         object: Any = None,
         screenshot: str = None,
-        view_2d: bool = None,
         filter: bool = None,
         **plotting_options
         ) -> None:
@@ -72,15 +71,12 @@ class Plotter():
             Object to show, by default None.
         screenshot : str, optional
             Path to save a screenshot, by default None.
-        view_2d : bool, optional
-            Flag to show the object in 2D, by default None.
         filter : bool, optional
             Flag to filter the object, by default None.
         """
         self._backend.show(
             object=object,
             screenshot=screenshot,
-            view_2d=view_2d,
             filter=filter,
             **plotting_options
             )
