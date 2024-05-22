@@ -500,6 +500,3 @@ class PyVistaBackend(PyVistaBackendInterface):
         else:
             self.pv_interface.plot(object, filter, **plotting_options)
 
-    def show(self):
-        """Show the rendered scene."""
-        self.pv_interface.show()
