@@ -330,8 +330,15 @@ class PyVistaInterface:
 
         # Enabling anti-aliasing by default on scene
         self.scene.enable_anti_aliasing("ssaa")
+
+        # If screenshot is requested, set off_screen to True for the plotter
+        if kwargs.get("screenshot") is not None:
+            self.scene.off_screen = True
+
+        # If running on testing, set off_screen to True for the plotter
         if TESTING_MODE:
             self.scene.off_screen = True
+
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
