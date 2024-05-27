@@ -74,7 +74,8 @@ class PyVistaInterface:
         # Generate custom scene if ``None`` is provided
         if scene is None:
             scene = pv.Plotter(plotter_kwargs)
-
+        if TESTING_MODE:
+            scene.off_screen = True
         # If required, use a white background with no gradient
         if not color_opts:
             color_opts = dict(color="white")
