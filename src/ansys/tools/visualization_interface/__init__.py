@@ -20,11 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Visualization Interface Tool is a Python client library for visualizing the results of Ansys simulations."""
+import importlib.metadata as importlib_metadata
 import os
 
-import pkg_resources
-
-__version__ = pkg_resources.get_distribution("ansys-tools-visualization-interface").version
+__version__ = importlib_metadata.version(__name__.replace(".", "-"))
 
 USE_TRAME: bool = False
 DOCUMENTATION_BUILD: bool = False
