@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Module for trame websocket client functions."""
-import pickle
+import pickle  # nosec B403
 
 from beartype.typing import Union
 import pyvista as pv
@@ -43,7 +43,7 @@ def send_pl(plotter: pv.Plotter, host: str = "localhost", port: int = 8765):
     """
     with connect("ws://" + host + ":" + str(port)) as websocket:
         # Plotter can't be pickled, so we send the meshes list instead
-        meshes_list_pk = pickle.dumps(plotter.meshes)
+        meshes_list_pk = pickle.dumps(plotter.meshes)  # nosec B403
         websocket.send(meshes_list_pk)
 
 def send_mesh(mesh: Union[pv.PolyData, pv.MultiBlock], host: str = "localhost", port: int = 8765):
@@ -59,5 +59,5 @@ def send_mesh(mesh: Union[pv.PolyData, pv.MultiBlock], host: str = "localhost", 
         Websocket port to connect to, by default 8765.
     """
     with connect("ws://" + host + ":" + str(port)) as websocket:
-        mesh_pk = pickle.dumps(mesh)
+        mesh_pk = pickle.dumps(mesh)  # nosec B403
         websocket.send(mesh_pk)
