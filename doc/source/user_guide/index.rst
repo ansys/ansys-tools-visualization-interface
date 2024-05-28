@@ -37,7 +37,7 @@ use it to visualize a simple PyVista mesh:
     pl.plot(mesh)
 
     # Show the plotter
-    pl.add()
+    pl.show()
 
 
 Use with PyAnsys custom objects
