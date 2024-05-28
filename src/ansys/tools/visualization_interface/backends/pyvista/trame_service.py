@@ -74,7 +74,7 @@ class TrameService:
             Websocket where to listen.
         """
         async for message in websocket:
-            obj = pickle.loads(message) # nosec B403
+            obj = pickle.loads(message) # nosec B301
 
             if isinstance(obj, list):
                 # if we get a list of meshes, assume it's a scene and clear previous meshes
