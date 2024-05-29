@@ -327,7 +327,7 @@ class PyVistaInterface:
 
         # Override Jupyter backend if building docs
         if DOCUMENTATION_BUILD:
-            jupyter_backend = "static"
+            jupyter_backend = "html"
 
         # Enabling anti-aliasing by default on scene
         self.scene.enable_anti_aliasing("ssaa")
@@ -337,7 +337,7 @@ class PyVistaInterface:
             self.scene.off_screen = True
 
         # If running on testing, set off_screen to True for the plotter
-        if TESTING_MODE:
+        if TESTING_MODE or DOCUMENTATION_BUILD:
             self.scene.off_screen = True
 
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)

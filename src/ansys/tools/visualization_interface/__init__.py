@@ -26,7 +26,7 @@ import os
 __version__ = importlib_metadata.version(__name__.replace(".", "-"))
 
 USE_TRAME: bool = False
-DOCUMENTATION_BUILD: bool = False
+DOCUMENTATION_BUILD: bool = os.environ.get("PYANSYS_VISUALIZER_DOC_MODE", "false").lower() == "true"
 TESTING_MODE: bool = os.environ.get("PYANSYS_VISUALIZER_TESTMODE", "false").lower() == "true"
 
 from ansys.tools.visualization_interface.plotter import Plotter  # noqa: F401, E402
