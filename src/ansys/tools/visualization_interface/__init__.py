@@ -26,8 +26,12 @@ import os
 __version__ = importlib_metadata.version(__name__.replace(".", "-"))
 
 USE_TRAME: bool = False
+
 DOCUMENTATION_BUILD: bool = os.environ.get("PYANSYS_VISUALIZER_DOC_MODE", "false").lower() == "true"
+"""Whether the documentation is being built or not."""
+
 TESTING_MODE: bool = os.environ.get("PYANSYS_VISUALIZER_TESTMODE", "false").lower() == "true"
+"""Whether the library is being built or not, used to avoid showing plots while testing."""
 
 from ansys.tools.visualization_interface.plotter import Plotter  # noqa: F401, E402
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot  # noqa: F401, E402
