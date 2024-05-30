@@ -132,6 +132,8 @@ jobs:
 
       - uses: codecov/codecov-action@v4
         name: 'Upload coverage to CodeCov'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   package:
     name: Package library
