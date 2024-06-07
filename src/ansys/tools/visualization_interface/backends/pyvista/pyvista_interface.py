@@ -27,7 +27,7 @@ from beartype.typing import Any, Dict, List, Optional
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
-from ansys.tools.visualization_interface import DOCUMENTATION_BUILD, TESTING_MODE
+import ansys.tools.visualization_interface as viz_interface
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
@@ -74,7 +74,7 @@ class PyVistaInterface:
         # Generate custom scene if ``None`` is provided
         if scene is None:
             scene = pv.Plotter(plotter_kwargs)
-        if TESTING_MODE:
+        if viz_interface.TESTING_MODE:
             scene.off_screen = True
         # If required, use a white background with no gradient
         if not color_opts:
@@ -326,8 +326,8 @@ class PyVistaInterface:
             jupyter_backend = "trame"
 
         # Override Jupyter backend if building docs
-        if DOCUMENTATION_BUILD:
-            jupyter_backend = "static"
+        if viz_interface.DOCUMENTATION_BUILD:
+            jupyter_backend = "html"
 
         # Enabling anti-aliasing by default on scene
         self.scene.enable_anti_aliasing("ssaa")
@@ -337,7 +337,7 @@ class PyVistaInterface:
             self.scene.off_screen = True
 
         # If running on testing, set off_screen to True for the plotter
-        if TESTING_MODE:
+        if viz_interface.TESTING_MODE or viz_interface.DOCUMENTATION_BUILD:
             self.scene.off_screen = True
 
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
