@@ -22,6 +22,10 @@
 
 """Trame service module."""
 import asyncio
+
+# Pickle vulnerabilities are ignored, since we require to use pickle to send and receive data
+# from the websocket. This is a trusted source, so we can ignore this vulnerability.
+# Potentially, someone could send a malicious pickle object and execute arbitrary code.
 import pickle  # nosec B403
 
 import pyvista as pv
