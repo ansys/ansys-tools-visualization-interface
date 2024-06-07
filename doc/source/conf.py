@@ -20,8 +20,6 @@ from sphinx.builders.latex import LaTeXBuilder
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface import __version__
 
-os.environ["PYANSYS_VISUALIZER_DOC_BUILD"] = "true"
-
 ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
