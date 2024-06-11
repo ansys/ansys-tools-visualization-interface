@@ -175,7 +175,7 @@ class PyVistaInterface:
         if "clipping_plane" in plotting_options:
             dataset = self.clip(dataset, plotting_options["clipping_plane"])
             plotting_options.pop("clipping_plane", None)
-        actor = self.scene.add_mesh(object.mesh, **plotting_options)
+        actor = self.scene.add_mesh(dataset, **plotting_options)
         object.actor = actor
         self._object_to_actors_map[actor] = object
         return actor.name
