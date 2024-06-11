@@ -46,7 +46,8 @@ class PyVistaInterface:
     Parameters
     ----------
     scene : ~pyvista.Plotter, default: None
-        Scene for rendering the objects.
+        Scene for rendering the objects. If passed, ``off_screen`` needs to
+        be set manually beforehand for documentation and testing.
     color_opts : dict, default: None
         Dictionary containing the background and top colors.
     num_points : int, default: 100
@@ -73,9 +74,10 @@ class PyVistaInterface:
         """Initialize the plotter."""
         # Generate custom scene if ``None`` is provided
         if scene is None:
-            scene = pv.Plotter(plotter_kwargs)
-        if viz_interface.TESTING_MODE:
-            scene.off_screen = True
+            if viz_interface.TESTING_MODE or viz_interface.DOCUMENTATION_BUILD:
+                scene = pv.Plotter(off_screen=True, **plotter_kwargs)
+            else:
+                scene = pv.Plotter(**plotter_kwargs)
         # If required, use a white background with no gradient
         if not color_opts:
             color_opts = dict(color="white")
@@ -173,7 +175,7 @@ class PyVistaInterface:
         if "clipping_plane" in plotting_options:
             dataset = self.clip(dataset, plotting_options["clipping_plane"])
             plotting_options.pop("clipping_plane", None)
-        actor = self.scene.add_mesh(object.mesh, **plotting_options)
+        actor = self.scene.add_mesh(dataset, **plotting_options)
         object.actor = actor
         self._object_to_actors_map[actor] = object
         return actor.name
@@ -334,10 +336,6 @@ class PyVistaInterface:
 
         # If screenshot is requested, set off_screen to True for the plotter
         if kwargs.get("screenshot") is not None:
-            self.scene.off_screen = True
-
-        # If running on testing, set off_screen to True for the plotter
-        if viz_interface.TESTING_MODE or viz_interface.DOCUMENTATION_BUILD:
             self.scene.off_screen = True
 
         self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
