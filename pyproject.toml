@@ -34,7 +34,7 @@ dependencies = [
 [project.optional-dependencies]
 tests = ["pytest==8.2.2", "pytest-pyvista==0.1.9", "pytest-cov==5.0.0"]
 doc = [
-    "ansys-sphinx-theme==0.16.2",
+    "ansys-sphinx-theme==0.16.5",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.16.2",
     "nbsphinx==0.9.4",
