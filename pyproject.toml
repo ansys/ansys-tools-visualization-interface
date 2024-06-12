@@ -47,6 +47,13 @@ doc = [
     "sphinx-jinja==2.0.2",
 ]
 
+[project.urls]
+Source = "https://github.com/ansys/ansys-tools-visualization-interface"
+Issues = "https://github.com/ansys/ansys-tools-visualization-interface/issues"
+Discussions = "https://github.com/ansys/ansys-tools-visualization-interface/discussions"
+Documentation = "https://visualization-interface.tools.docs.pyansys.com/"
+Releases = "https://github.com/ansys/ansys-tools-visualization-interface/releases/"
+
 [tool.flit.module]
 name = "ansys.tools.visualization_interface"
 
