@@ -159,25 +159,25 @@ class PyVistaInterface:
         """
         return mesh.clip(normal=plane.normal, origin=plane.origin)
 
-    def plot_meshobject(self, object: MeshObjectPlot, **plotting_options):
+    def plot_meshobject(self, custom_object: MeshObjectPlot, **plotting_options):
         """Plot a generic ``MeshObjectPlot`` object to the scene.
 
         Parameters
         ----------
-        object : MeshObjectPlot
+        plottable_object : MeshObjectPlot
             Object to add to the scene.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
-        dataset = object.mesh
+        dataset = custom_object.mesh
         if "clipping_plane" in plotting_options:
             dataset = self.clip(dataset, plotting_options["clipping_plane"])
             plotting_options.pop("clipping_plane", None)
         actor = self.scene.add_mesh(dataset, **plotting_options)
-        object.actor = actor
-        self._object_to_actors_map[actor] = object
+        custom_object.actor = actor
+        self._object_to_actors_map[actor] = custom_object
         return actor.name
 
     def plot_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
@@ -217,8 +217,8 @@ class PyVistaInterface:
 
     def plot(
         self,
-        object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot],
-        filter: str = None,
+        plottable_object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot],
+        name_filter: str = None,
         **plotting_options,
     ) -> None:
         """Plot any type of object to the scene.
@@ -228,43 +228,43 @@ class PyVistaInterface:
 
         Parameters
         ----------
-        object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot]
+        plottable_object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot]
             Object to plot.
-        filter : str, default: None
+        name_filter : str, default: None
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
-        if filter:
-            if hasattr(object, "name") and not re.search(filter, object.name):
+        if name_filter:
+            if hasattr(plottable_object, "name") and not re.search(name_filter, plottable_object.name):
                 return self._object_to_actors_map
 
         # Check what kind of object we are dealing with
-        if isinstance(object, pv.PolyData):
+        if isinstance(plottable_object, pv.PolyData):
             if "clipping_plane" in plotting_options:
-                mesh = self.clip(object, plotting_options["clipping_plane"])
+                mesh = self.clip(plottable_object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
                 self.scene.add_mesh(mesh, **plotting_options)
             else:
-                self.scene.add_mesh(object, **plotting_options)
-        elif isinstance(object, pv.MultiBlock):
+                self.scene.add_mesh(plottable_object, **plotting_options)
+        elif isinstance(plottable_object, pv.MultiBlock):
             if "clipping_plane" in plotting_options:
-                mesh = self.clip(object, plotting_options["clipping_plane"])
+                mesh = self.clip(plottable_object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
                 self.scene.add_composite(mesh, **plotting_options)
             else:
-                self.scene.add_composite(object, **plotting_options)
-        elif isinstance(object, MeshObjectPlot):
-            self.plot_meshobject(object, **plotting_options)
+                self.scene.add_composite(plottable_object, **plotting_options)
+        elif isinstance(plottable_object, MeshObjectPlot):
+            self.plot_meshobject(plottable_object, **plotting_options)
         else:
             logger.warning("The object type is not supported. ")
 
     def plot_iter(
         self,
         plotting_list: List[Any],
-        filter: str = None,
+        name_filter: str = None,
         **plotting_options,
     ) -> None:
         """Plot elements of an iterable of any type of objects to the scene.
@@ -276,15 +276,15 @@ class PyVistaInterface:
         ----------
         plotting_list : List[Any]
             List of objects to plot.
-        filter : str, default: None
+        name_filter : str, default: None
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
-        for object in plotting_list:
-            _ = self.plot(object, filter, **plotting_options)
+        for plottable_object in plotting_list:
+            _ = self.plot(plottable_object, name_filter, **plotting_options)
 
     def show(
         self,
