@@ -30,12 +30,12 @@ class BaseBackend(ABC):
     """Base class for plotting backends."""
 
     @abstractmethod
-    def plot(self, object: Any, **plotting_options):
+    def plot(self, plottable_object: Any, **plotting_options):
         """Plot the specified object."""
         raise NotImplementedError("plot method must be implemented")
 
     @abstractmethod
-    def plot_iter(self, object: Iterable):
+    def plot_iter(self, plotting_list: Iterable):
         """Plot the elements of an iterable."""
         raise NotImplementedError("plot_iter method must be implemented")
 

@@ -68,7 +68,7 @@ def test_plotter_filter():
     custom_cube = MeshObjectPlot(CustomTestClass("cube"), cube)
 
     pl = Plotter()
-    pl.plot([custom_sphere, custom_cube], filter="cube")
+    pl.plot([custom_sphere, custom_cube], name_filter="cube")
     pl.show()
 
 
