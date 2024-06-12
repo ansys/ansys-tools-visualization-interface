@@ -307,10 +307,10 @@ class PyVistaBackendInterface(BaseBackend):
 
     def show(
         self,
-        object: Any = None,
+        plottable_object: Any = None,
         screenshot: Optional[str] = None,
         view_2d: Dict = None,
-        filter: str = None,
+        name_filter: str = None,
         **plotting_options,
     ) -> List[Any]:
         """Plot and show any PyAnsys object.
@@ -320,13 +320,13 @@ class PyVistaBackendInterface(BaseBackend):
 
         Parameters
         ----------
-        object : Any, default: None
+        plottable_object : Any, default: None
            Object or list of objects to plot.
         screenshot : str, default: None
             Path for saving a screenshot of the image that is being represented.
         view_2d : Dict, default: None
             Dictionary with the plane and the viewup vectors of the 2D plane.
-        filter : str, default: None
+        name_filter : str, default: None
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
@@ -338,7 +338,7 @@ class PyVistaBackendInterface(BaseBackend):
             List with the picked bodies in the picked order.
 
         """
-        self.plot(object, filter, **plotting_options)
+        self.plot(plottable_object, name_filter, **plotting_options)
         if self._pl._object_to_actors_map:
             self._object_to_actors_map = self._pl._object_to_actors_map
         else:
@@ -363,14 +363,14 @@ class PyVistaBackendInterface(BaseBackend):
         self.show_plotter(screenshot)
 
         picked_objects_list = []
-        if isinstance(object, list):
+        if isinstance(plottable_object, list):
             # Keep them ordered based on picking
             for meshobject in self._picked_list:
-                for elem in object:
+                for elem in plottable_object:
                     if hasattr(elem, "name") and elem.name == meshobject.name:
                         picked_objects_list.append(elem)
-        elif hasattr(object, "name") and object in self._picked_list:
-            picked_objects_list = [object]
+        elif hasattr(plottable_object, "name") and plottable_object in self._picked_list:
+            picked_objects_list = [plottable_object]
 
         return picked_objects_list
 
@@ -395,14 +395,14 @@ class PyVistaBackendInterface(BaseBackend):
         pv.OFF_SCREEN = self._pv_off_screen_original
 
     @abstractmethod
-    def plot_iter(self, object: Any, filter: str = None, **plotting_options):
+    def plot_iter(self, plottable_object: Any, name_filter: str = None, **plotting_options):
         """Plot one or more compatible objects to the plotter.
 
         Parameters
         ----------
-        object : Any
+        plottable_object : Any
             One or more objects to add.
-        filter : str, default: None.
+        name_filter : str, default: None.
             Regular expression with the desired name or names  to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
@@ -412,14 +412,14 @@ class PyVistaBackendInterface(BaseBackend):
         pass
 
     @abstractmethod
-    def plot(self, object: Any, filter: str = None, **plotting_options):
+    def plot(self, plottable_object: Any, name_filter: str = None, **plotting_options):
         """Plot a single object to the plotter.
 
         Parameters
         ----------
-        object : Any
+        plottable_object : Any
             Object to add.
-        filter : str
+        name_filter : str
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
@@ -458,7 +458,7 @@ class PyVistaBackend(PyVistaBackendInterface):
     def plot_iter(
         self,
         plotting_list: List[Any],
-        filter: str = None,
+        name_filter: str = None,
         **plotting_options,
     ) -> None:
         """Plot the elements of an iterable of any type of object to the scene.
@@ -470,33 +470,33 @@ class PyVistaBackend(PyVistaBackendInterface):
         ----------
         plotting_list : List[Any]
             List of objects to plot.
-        filter : str, default: None
+        name_filter : str, default: None
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
-        for object in plotting_list:
-            self.plot(object, filter, **plotting_options)
+        for plottable_object in plotting_list:
+            self.plot(plottable_object, name_filter, **plotting_options)
 
-    def plot(self, object: Any, filter: str = None, **plotting_options):
+    def plot(self, plottable_object: Any, name_filter: str = None, **plotting_options):
         """Plot a ``pyansys`` or ``PyVista`` object to the plotter.
 
         Parameters
         ----------
-        object : Any
+        plottable_object : Any
             Object to add.
-        filter : str
+        name_filter : str
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
-        if hasattr(object, "__iter__"):
+        if hasattr(plottable_object, "__iter__"):
             logger.debug("Plotting objects in list...")
-            self.pv_interface.plot_iter(object, filter, **plotting_options)
+            self.pv_interface.plot_iter(plottable_object, name_filter, **plotting_options)
         else:
-            self.pv_interface.plot(object, filter, **plotting_options)
+            self.pv_interface.plot(plottable_object, name_filter, **plotting_options)
 

@@ -44,41 +44,41 @@ class Plotter():
         else:
             self._backend = backend
 
-    def plot(self, object: Any, **plotting_options):
+    def plot(self, plottable_object: Any, **plotting_options):
         """Plots an object using the specified backend.
 
         Parameters
         ----------
-        object : Any
+        plottable_object : Any
             Object to plot.
         plotting_options : dict
             Additional plotting options.
         """
-        self._backend.plot(object=object, **plotting_options)
+        self._backend.plot(plottable_object=plottable_object, **plotting_options)
 
     def show(
         self,
-        object: Any = None,
+        plottable_object: Any = None,
         screenshot: str = None,
-        filter: bool = None,
+        name_filter: bool = None,
         **plotting_options
         ) -> None:
         """Show the plotted objects.
 
         Parameters
         ----------
-        object : Any, optional
+        plottable_object : Any, optional
             Object to show, by default None.
         screenshot : str, optional
             Path to save a screenshot, by default None.
-        filter : bool, optional
+        name_filter : bool, optional
             Flag to filter the object, by default None.
         plotting_options : dict
             Additional plotting options the selected backend accepts.
         """
         self._backend.show(
-            object=object,
+            plottable_object=plottable_object,
             screenshot=screenshot,
-            filter=filter,
+            name_filter=name_filter,
             **plotting_options
             )
