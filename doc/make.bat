@@ -56,6 +56,7 @@ if NOT EXIST ansys-tools-visualization-interface.pdf (
 	Echo "no pdf generated!"
 	exit /b 1)
 Echo "pdf generated!"
+mkdir _build\html\_static\assets\download
 copy _build/latex/ansys-tools-visualization-interface.pdf _build\html\_static\assets\download
 goto end
 

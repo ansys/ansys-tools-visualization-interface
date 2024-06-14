@@ -28,6 +28,7 @@ clean:
 pdf:
 	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	cd $(BUILDDIR)/latex && latexmk -r latexmkrc -pdf *.tex -interaction=nonstopmode || true
+	mkdir $(BUILDDIR)/html/_static/assets/download/
 	cp $(BUILDDIR)/latex/ansys-tools-visualization-interface.pdf $(BUILDDIR)/html/_static/assets/download/
 # Build HTML files and generate examples as .py files
 html:
