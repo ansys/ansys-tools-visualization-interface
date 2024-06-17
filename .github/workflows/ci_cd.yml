@@ -13,7 +13,6 @@ env:
   MAIN_PYTHON_VERSION: '3.11'
   RESET_IMAGE_CACHE: 0
   PACKAGE_NAME: ansys-tools-visualization-interface
-  PYANSYS_VISUALIZER_TESTMODE: true
   DOCUMENTATION_CNAME: visualization-interface.tools.docs.pyansys.com
 
 concurrency:

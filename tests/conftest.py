@@ -23,9 +23,6 @@
 import os
 
 import pytest
-import pyvista as pv
-
-pv.OFF_SCREEN = True
 
 os.environ.setdefault("PYANSYS_VISUALIZER_TESTMODE", "true")
 
