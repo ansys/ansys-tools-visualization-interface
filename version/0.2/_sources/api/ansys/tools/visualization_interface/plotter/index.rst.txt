@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``plotter.py`` module
+=========================
+
+.. py:module:: ansys.tools.visualization_interface.plotter
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: plotter
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.plotter.Plotter`
+            - Base plotting class containing common methods and attributes.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> Plotter</api/ansys/tools/visualization_interface/plotter/Plotter>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Module for the Plotter class.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
