@@ -73,6 +73,7 @@ instance/
 doc/_build/
 doc/source/api
 doc/source/examples/*
+doc/**/sg_execution_times.rst
 
 # PyBuilder
 .pybuilder/
