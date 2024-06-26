@@ -15,6 +15,7 @@ from ansys_sphinx_theme import (
     watermark,
 )
 import pyvista
+from pyvista.plotting.utilities.sphinx_gallery import DynamicScraper
 from sphinx.builders.latex import LaTeXBuilder
 
 import ansys.tools.visualization_interface
@@ -95,6 +96,7 @@ extensions = [
     "autoapi.extension",
     "numpydoc",
     "sphinx_gallery.gen_gallery",
+    'pyvista.ext.viewer_directive',
 ]
 
 
@@ -112,7 +114,7 @@ sphinx_gallery_conf = {
     "backreferences_dir": None,
     # Modules for which function level galleries are created.  In
     "doc_module": "ansys-tools-visualization-interface",
-    "image_scrapers": ("pyvista"),
+    "image_scrapers": (DynamicScraper(), "matplotlib"),
     "ignore_pattern": "flycheck*",
     "thumbnail_size": (350, 350),
     "remove_config_comments": True,

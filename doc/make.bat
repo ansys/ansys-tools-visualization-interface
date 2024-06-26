@@ -37,7 +37,7 @@ goto end
 
 :html
 %SPHINXBUILD% -M html %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
-goto build-examples-py
+goto end
 
 :clean
 rmdir /s /q %BUILDDIR% > /NUL 2>&1
@@ -56,18 +56,6 @@ if NOT EXIST ansys-tools-visualization-interface.pdf (
 	Echo "no pdf generated!"
 	exit /b 1)
 Echo "pdf generated!"
-goto end
-
-:build-examples-py
-cd "%BUILDDIR%\html\examples"
-for /d %%D in (*) do (
-Echo Processing examples folder... %%D
-cd %%D
-for %%f in (*.ipynb) do (
-	jupytext --to py "%%f"
-)
-cd ../
-)
 goto end
 
 :end
