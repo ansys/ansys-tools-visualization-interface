@@ -31,4 +31,6 @@ pdf:
 
 # Build HTML files and generate examples as .py files
 html:
+	pip uninstall vtk -y
+	pip install --extra-index-url https://wheels.vtk.org vtk-osmesa
 	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
