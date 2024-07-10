@@ -20,6 +20,21 @@ if "%1" == "clean" goto clean
 if "%1" == "pdf" goto pdf
 if "%1" == "html" goto html
 
+
+REM Check if vtk is installed - if so, uninstall and install vtk-osmesa
+set IS_VTK_INSTALLED=0
+pip show vtk >NUL 2>NUL
+if %ERRORLEVEL% EQU 0 (
+	set IS_VTK_INSTALLED=1
+	echo Uninstalling vtk...
+	pip uninstall -y vtk
+)
+if %IS_VTK_INSTALLED% EQU 1 (
+	echo Installing vtk-osmesa...
+	pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==9.3.0
+)
+
+
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (
 	echo.

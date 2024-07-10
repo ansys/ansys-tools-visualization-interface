@@ -74,7 +74,7 @@ class PyVistaInterface:
         """Initialize the plotter."""
         # Generate custom scene if ``None`` is provided
         if scene is None:
-            if viz_interface.TESTING_MODE or viz_interface.DOCUMENTATION_BUILD:
+            if viz_interface.TESTING_MODE:
                 scene = pv.Plotter(off_screen=True, **plotter_kwargs)
             else:
                 scene = pv.Plotter(**plotter_kwargs)
@@ -323,22 +323,18 @@ class PyVistaInterface:
             self.scene.add_mesh(plane, color="white", show_edges=True, opacity=0.1)
 
         # To avoid a PyVista warning, conditionally set the Jupyter backend as not
-        # all users will be within a notebnook environment
-        if self.scene.notebook and jupyter_backend is None:
-            jupyter_backend = "trame"
-
-        # Override Jupyter backend if building docs
-        if viz_interface.DOCUMENTATION_BUILD:
-            jupyter_backend = "html"
+        # all users will be within a notebook environment
+        #if self.scene.notebook and jupyter_backend is None:
+        #    jupyter_backend = "trame"
 
         # Enabling anti-aliasing by default on scene
-        self.scene.enable_anti_aliasing("ssaa")
+        # self.scene.enable_anti_aliasing("ssaa")
 
         # If screenshot is requested, set off_screen to True for the plotter
-        if kwargs.get("screenshot") is not None:
-            self.scene.off_screen = True
+        #if kwargs.get("screenshot") is not None:
+        #    self.scene.off_screen = True
 
-        self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
+        self.scene.show()
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
         """Set the default values for the plotting options.

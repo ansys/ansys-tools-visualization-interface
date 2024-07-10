@@ -14,6 +14,7 @@ from ansys_sphinx_theme import (
     pyansys_logo_black,
     watermark,
 )
+import numpy as np
 import pyvista
 from pyvista.plotting.utilities.sphinx_gallery import DynamicScraper
 from sphinx.builders.latex import LaTeXBuilder
@@ -27,8 +28,10 @@ LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
 
 pyvista.BUILDING_GALLERY = True
+os.environ["PYVISTA_BUILDING_GALLERY"] = "true"
 pyvista.OFF_SCREEN = True
-
+pyvista.set_plot_theme('document')
+pyvista.global_theme.window_size = np.array([1024, 768]) * 2
 
 # Project information
 project = "ansys-tools-visualization-interface"
@@ -89,24 +92,22 @@ html_theme_options = {
 extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
-    "nbsphinx",
-    "jupyter_sphinx",
     "sphinx_design",
     "sphinx_jinja",
     "autoapi.extension",
     "numpydoc",
     "sphinx_gallery.gen_gallery",
-    'pyvista.ext.viewer_directive',
+    "pyvista.ext.viewer_directive",
 ]
 
-
+nbsphinx_execute = "always"
 sphinx_gallery_conf = {
     # path to your examples scripts
     "examples_dirs": ["../../examples"],
     # path where to save gallery generated examples
-    "gallery_dirs": ["./examples"],
+    "gallery_dirs": ["examples"],
     # Pattern to search for example files
-    "filename_pattern": r"\." + "py",
+    "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
@@ -119,6 +120,11 @@ sphinx_gallery_conf = {
     "thumbnail_size": (350, 350),
     "remove_config_comments": True,
     "show_signature": False,
+    "first_notebook_cell": (
+        "%matplotlib inline\n"
+        "from pyvista import set_plot_theme\n"
+        "set_plot_theme('document')\n"
+    ),
 }
 
 
