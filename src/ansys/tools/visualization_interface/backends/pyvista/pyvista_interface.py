@@ -298,8 +298,6 @@ class PyVistaInterface:
         ----------
         show_plane : bool, default: True
             Whether to show the XY plane.
-        jupyter_backend : str, default: None
-            PyVista Jupyter backend.
         **kwargs : dict, default: None
             Plotting keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.show <pyvista.Plotter.show>` method.
@@ -322,19 +320,14 @@ class PyVistaInterface:
             plane = pv.Plane(i_size=sfac * 1.3, j_size=sfac * 1.3)
             self.scene.add_mesh(plane, color="white", show_edges=True, opacity=0.1)
 
-        # To avoid a PyVista warning, conditionally set the Jupyter backend as not
-        # all users will be within a notebook environment
-        #if self.scene.notebook and jupyter_backend is None:
-        #    jupyter_backend = "trame"
-
         # Enabling anti-aliasing by default on scene
-        # self.scene.enable_anti_aliasing("ssaa")
+        self.scene.enable_anti_aliasing("ssaa")
 
         # If screenshot is requested, set off_screen to True for the plotter
-        #if kwargs.get("screenshot") is not None:
-        #    self.scene.off_screen = True
+        if kwargs.get("screenshot") is not None:
+            self.scene.off_screen = True
 
-        self.scene.show()
+        self.scene.show(**kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
         """Set the default values for the plotting options.
