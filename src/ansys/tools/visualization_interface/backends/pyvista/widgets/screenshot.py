@@ -29,34 +29,34 @@ from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
 
-class Ruler(PlotterWidget):
-    """Provides the ruler widget for the Visualization Interface Tool ``Plotter`` class.
+class ScreenshotButton(PlotterWidget):
+    """Provides the screenshot widget for the Visualization Interface Tool ``Plotter`` class.
 
     Parameters
     ----------
     plotter : ~pyvista.Plotter
-        Provides the plotter to add the ruler widget to.
+        Provides the plotter to add the screenshot widget to.
 
     """
 
     def __init__(self, plotter: Plotter) -> None:
-        """Initialize the ``Ruler`` class."""
+        """Initialize the ``ScreenshotButton`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter)
 
         # Initialize variables
         self._actor: vtkActor = None
-        self._button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
-            self.callback, position=(10, 100), size=30, border_size=3
+        self._button: vtkButtonWidget = self.plotter._pl.scene.add_checkbox_button_widget(
+            self.callback, position=(45, 100), size=30, border_size=3
         )
 
     def callback(self, state: bool) -> None:
-        """Remove or add the ruler widget actor upon click.
+        """Remove or add the screenshot widget actor upon click.
 
         Notes
         -----
         This method provides a callback function for the ruler widet.
-        It is called every time the ruler widget is clicked.
+        It is called every time the screenshot widget is clicked.
 
         Parameters
         ----------
@@ -64,27 +64,12 @@ class Ruler(PlotterWidget):
             Whether the state of the button, which is inherited from PyVista, is ``True``.
 
         """
-        if not state and self._actor:
-            self.plotter.remove_actor(self._actor)
-            self._actor = None
-        else:
-            self._actor = self.plotter.show_bounds(
-                grid="front",
-                location="outer",
-                all_edges=False,
-                show_xaxis=True,
-                show_yaxis=True,
-                show_zaxis=True,
-                color="black",
-                xtitle="X Axis [m]",
-                ytitle="Y Axis [m]",
-                ztitle="Z Axis [m]",
-            )
+        self.plotter._pl.scene.screenshot("screenshot.png")
 
     def update(self) -> None:
         """Define the configuration and representation of the ruler widget button."""
         show_ruler_vr = self._button.GetRepresentation()
-        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / "ruler.png")
+        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / "screenshot.png")
         show_ruler_r = vtkPNGReader()
         show_ruler_r.SetFileName(show_ruler_icon_file)
         show_ruler_r.Update()
