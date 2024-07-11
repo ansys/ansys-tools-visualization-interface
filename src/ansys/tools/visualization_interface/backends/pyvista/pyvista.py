@@ -38,6 +38,9 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrow
     DisplacementArrow,
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
+from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import (
+    MeshSliderWidget,
+)
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
 from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
@@ -153,6 +156,7 @@ class PyVistaBackendInterface(BaseBackend):
             ]
             self._widgets.append(MeasureWidget(self))
             self._widgets.append(ScreenshotButton(self))
+            self._widgets.append(MeshSliderWidget(self))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
