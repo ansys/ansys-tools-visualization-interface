@@ -5,6 +5,7 @@
 SPHINXOPTS    = -j auto -W --color
 SPHINXBUILD   = sphinx-build
 APIDIR        = api
+EXAMPLESDIR        = examples
 SOURCEDIR     = source
 BUILDDIR      = _build
 
@@ -23,6 +24,7 @@ help:
 clean:
 	rm -rf $(BUILDDIR)/*
 	find . -type d -name $(APIDIR) -exec rm -rf {} +
+	find . -type d -name $(EXAMPLESDIR) -exec rm -rf {} +
 
 # Create PDF
 pdf:

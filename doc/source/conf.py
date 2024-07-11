@@ -25,8 +25,9 @@ ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
-
+os.environ["PYANSYS_VISUALIZER_DOC_MODE"] = "true"
 pyvista.BUILDING_GALLERY = True
+os.environ["PYVISTA_BUILDING_GALLERY"] = "true"
 pyvista.OFF_SCREEN = True
 
 
@@ -89,24 +90,22 @@ html_theme_options = {
 extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
-    "nbsphinx",
-    "jupyter_sphinx",
     "sphinx_design",
     "sphinx_jinja",
     "autoapi.extension",
     "numpydoc",
     "sphinx_gallery.gen_gallery",
-    'pyvista.ext.viewer_directive',
+    "pyvista.ext.viewer_directive",
 ]
 
-
+nbsphinx_execute = "always"
 sphinx_gallery_conf = {
     # path to your examples scripts
     "examples_dirs": ["../../examples"],
     # path where to save gallery generated examples
-    "gallery_dirs": ["./examples"],
+    "gallery_dirs": ["examples"],
     # Pattern to search for example files
-    "filename_pattern": r"\." + "py",
+    "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
