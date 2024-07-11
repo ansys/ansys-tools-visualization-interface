@@ -34,10 +34,9 @@ import pyvista as pv
 
 from ansys.tools.visualization_interface import ClipPlane, Plotter
 
-# Create a mesh
-# =============
 mesh = pv.Cylinder()
 
+####################################
 # Create a plotter and clip the mesh
 # ==================================
 pl = Plotter()
