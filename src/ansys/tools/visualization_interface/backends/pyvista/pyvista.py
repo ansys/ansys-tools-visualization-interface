@@ -39,6 +39,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrow
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
+from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
     ViewButton,
     ViewDirection,
@@ -151,6 +152,7 @@ class PyVistaBackendInterface(BaseBackend):
                 for dir in ViewDirection
             ]
             self._widgets.append(MeasureWidget(self))
+            self._widgets.append(ScreenshotButton(self))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
