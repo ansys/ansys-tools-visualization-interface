@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Test module for the generic plotter."""
+from pathlib import Path
+
 import pyvista as pv
 
 from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
@@ -89,3 +91,11 @@ def test_plotter_add_list():
     polydata_list = [sphere, cube]
     pl.plot(polydata_list)
     pl.show()
+
+def test_screenshot(tmp_path):
+    """Test screenshot."""
+    sphere = pv.Sphere()
+    pl = Plotter()
+    pl.plot(sphere)
+    pl.show(screenshot=tmp_path / "screenshot.png")
+    assert Path(tmp_path / "screenshot.png").is_file()
