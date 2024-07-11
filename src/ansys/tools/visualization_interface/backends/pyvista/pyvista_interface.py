@@ -326,7 +326,6 @@ class PyVistaInterface:
         # If screenshot is requested, set off_screen to True for the plotter
         if kwargs.get("screenshot") is not None:
             self.scene.off_screen = True
-
         self.scene.show(**kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:

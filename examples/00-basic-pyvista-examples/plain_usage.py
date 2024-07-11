@@ -51,6 +51,28 @@ pl.plot(mesh)
 pl.show()
 
 
+
+######################
+# Getting a screenshot
+# ====================
+# Now we will check how to get a screenshot from our plotter.
+
+import pyvista as pv
+
+from ansys.tools.visualization_interface import Plotter
+
+mesh = pv.Cube()
+
+# Create a plotter
+pl = Plotter()
+
+# Add the mesh to the plotter
+pl.plot(mesh)
+
+# Show the plotter
+pl.show(screenshot="screenshot.png")
+
+
 ######################
 # Add a list of meshes
 # ====================

@@ -26,7 +26,7 @@ from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
 import pyvista as pv
 
-from ansys.tools.visualization_interface import USE_TRAME
+import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
 from ansys.tools.visualization_interface.backends.pyvista.trame_local import (
@@ -85,7 +85,7 @@ class PyVistaBackendInterface(BaseBackend):
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
         # Check if the use of trame was requested
         if use_trame is None:
-            use_trame = USE_TRAME
+            use_trame = ansys.tools.visualization_interface.USE_TRAME
 
         self._use_trame = use_trame
         self._allow_picking = allow_picking
@@ -353,7 +353,9 @@ class PyVistaBackendInterface(BaseBackend):
                 viewup=view_2d["viewup"],
             )
         # Enable widgets and picking capabilities
-        self.enable_widgets()
+        if screenshot is None or not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
+            self.enable_widgets()
+
         if self._allow_picking:
             self.enable_picking()
 
