@@ -21,6 +21,7 @@
 # SOFTWARE.
 """Provides the measure widget for the PyAnsys plotter."""
 from beartype.typing import TYPE_CHECKING
+import pyvista as pv
 
 if TYPE_CHECKING:
     from ansys.tools.visualization_interface.backends.pyvista.pyvista import Plotter
@@ -32,30 +33,33 @@ from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
 
-class MeasureWidget(PlotterWidget):
-    """Provides the measure widget for the Visualization Interface Tool ``Plotter`` class.
+class MeshSliderWidget(PlotterWidget):
+    """Provides the mesh slider widget for the Visualization Interface Tool ``Plotter`` class.
 
     Parameters
     ----------
     plotter_helper : PlotterHelper
-        Plotter to add the measure widget to.
+        Plotter to add the mesh slider widget to.
 
     """
 
     def __init__(self, plotter_helper: "Plotter") -> None:
-        """Initialize the ``MeasureWidget`` class."""
+        """Initialize the ``MeshSliderWidget`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter_helper._pl.scene)
 
         # Initialize variables
-        self._actor: vtkActor = None
+        self._widget_actor: vtkActor = None
         self.plotter_helper = plotter_helper
         self._button: vtkButtonWidget = self.plotter_helper._pl.scene.add_checkbox_button_widget(
-            self.callback, position=(10, 60), size=30, border_size=3
+            self.callback, position=(45, 60), size=30, border_size=3
         )
+        self._meshes = self.plotter_helper._pl.scene.meshes
+        self._mb = None
+        self._mesh_actor_list = []
 
     def callback(self, state: bool) -> None:
-        """Remove or add the measurement widget actor upon click.
+        """Remove or add the mesh slider widget actor upon click.
 
         Parameters
         ----------
@@ -67,20 +71,26 @@ class MeasureWidget(PlotterWidget):
         # in PyVista. If there are improvements in the compatibility between
         # the PyVista picker and the measurement widget, this should be reviewed.
         if not state:
-            self._widget.Off()
-            self.plotter_helper._pl.scene.clear_measure_widgets()
-            if self.plotter_helper._allow_picking:
-                self.plotter_helper.enable_picking()
+            self.plotter_helper._pl.scene.clear_actors()
+            self.plotter_helper._pl.scene.clear_plane_widgets()
+            for actor in self._mesh_actor_list:
+                self.plotter_helper._pl.scene.add_actor(actor)
         else:
-            if self.plotter_helper._allow_picking:
-                self.plotter_helper.disable_picking()
-            self._widget = self.plotter_helper._pl.scene.add_measurement_widget()
+            self._mb = pv.MultiBlock(self.plotter_helper._pl.scene.meshes).combine()
+            self._widget_actor = self.plotter_helper._pl.scene.add_mesh_clip_plane(self._mb)
+            for mesh in self._meshes:
+                if isinstance(mesh, pv.PolyData):
+                    mesh_id = "PolyData(" + mesh.memory_address + ")"
+                elif isinstance(mesh, pv.MultiBlock):
+                    mesh_id = "MultiBlock(" + mesh.memory_address + ")"
+                self._mesh_actor_list.append(self.plotter_helper._pl.scene.actors[mesh_id])
+                self.plotter_helper._pl.scene.remove_actor(mesh_id)
 
     def update(self) -> None:
-        """Define the measurement widget button parameters."""
+        """Define the mesh slider widget button parameters."""
         show_measure_vr = self._button.GetRepresentation()
         show_measure_icon_file = Path(
-            Path(__file__).parent / "_images"/ "measurement.png"
+            Path(__file__).parent / "_images"/ "planecut.png"
         )
         show_measure_r = vtkPNGReader()
         show_measure_r.SetFileName(show_measure_icon_file)
