@@ -77,13 +77,7 @@ html_theme_options = {
             "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-tools-visualization-interface.pdf",  # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
-    ],
-    "use_meilisearch": {
-        "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
-        "index_uids": {
-            f"ansys-tools-visualization-interface-v{get_version_match(__version__).replace('.', '-')}": "Visualization-interface",  # noqa: E501
-        },
-    },
+    ]
 }
 
 # Sphinx extensions
