@@ -76,9 +76,9 @@ class Ruler(PlotterWidget):
                 show_yaxis=True,
                 show_zaxis=True,
                 color="black",
-                xtitle="X Axis [m]",
-                ytitle="Y Axis [m]",
-                ztitle="Z Axis [m]",
+                xlabel="X Axis [m]",
+                ylabel="Y Axis [m]",
+                zlabel="Z Axis [m]",
             )
 
     def update(self) -> None:
