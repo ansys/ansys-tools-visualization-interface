@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides the ruler widget for the Visualization Interface Tool plotter."""
+"""Provides the screenshot widget for the Visualization Interface Tool plotter."""
 
 from pathlib import Path
 
@@ -55,7 +55,7 @@ class ScreenshotButton(PlotterWidget):
 
         Notes
         -----
-        This method provides a callback function for the ruler widet.
+        This method provides a callback function for the screenshot widget.
         It is called every time the screenshot widget is clicked.
 
         Parameters
@@ -67,12 +67,12 @@ class ScreenshotButton(PlotterWidget):
         self.plotter._pl.scene.screenshot("screenshot.png")
 
     def update(self) -> None:
-        """Define the configuration and representation of the ruler widget button."""
-        show_ruler_vr = self._button.GetRepresentation()
-        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / "screenshot.png")
-        show_ruler_r = vtkPNGReader()
-        show_ruler_r.SetFileName(show_ruler_icon_file)
-        show_ruler_r.Update()
-        image = show_ruler_r.GetOutput()
-        show_ruler_vr.SetButtonTexture(0, image)
-        show_ruler_vr.SetButtonTexture(1, image)
+        """Define the configuration and representation of the screenshot widget button."""
+        show_vr = self._button.GetRepresentation()
+        show_icon_file = Path(Path(__file__).parent / "_images" / "screenshot.png")
+        show_r = vtkPNGReader()
+        show_r.SetFileName(show_icon_file)
+        show_r.Update()
+        image = show_r.GetOutput()
+        show_vr.SetButtonTexture(0, image)
+        show_vr.SetButtonTexture(1, image)
