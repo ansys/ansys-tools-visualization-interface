@@ -14,7 +14,6 @@ from ansys_sphinx_theme import (
     pyansys_logo_black,
     watermark,
 )
-import numpy as np
 import pyvista
 from pyvista.plotting.utilities.sphinx_gallery import DynamicScraper
 from sphinx.builders.latex import LaTeXBuilder
@@ -26,12 +25,11 @@ ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
-
+os.environ["PYANSYS_VISUALIZER_DOC_MODE"] = "true"
 pyvista.BUILDING_GALLERY = True
 os.environ["PYVISTA_BUILDING_GALLERY"] = "true"
 pyvista.OFF_SCREEN = True
-pyvista.set_plot_theme('document')
-pyvista.global_theme.window_size = np.array([1024, 768]) * 2
+
 
 # Project information
 project = "ansys-tools-visualization-interface"
@@ -120,11 +118,6 @@ sphinx_gallery_conf = {
     "thumbnail_size": (350, 350),
     "remove_config_comments": True,
     "show_signature": False,
-    "first_notebook_cell": (
-        "%matplotlib inline\n"
-        "from pyvista import set_plot_theme\n"
-        "set_plot_theme('document')\n"
-    ),
 }
 
 
