@@ -67,9 +67,6 @@ class MeshSliderWidget(PlotterWidget):
             Whether the state of the button, which is inherited from PyVista, is active.
 
         """
-        # This implementation uses direct calls to VTK due to limitations
-        # in PyVista. If there are improvements in the compatibility between
-        # the PyVista picker and the measurement widget, this should be reviewed.
         if not state:
             self.plotter_helper._pl.scene.clear_actors()
             self.plotter_helper._pl.scene.clear_plane_widgets()
