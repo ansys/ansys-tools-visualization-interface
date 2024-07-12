@@ -41,7 +41,6 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrow
     CameraPanDirection,
     DisplacementArrow,
 )
-from ansys.tools.visualization_interface.backends.pyvista.widgets.hide_buttons import HideButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
 from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import (
     MeshSliderWidget,
@@ -172,7 +171,6 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(MeasureWidget(self))
             self._widgets.append(ScreenshotButton(self))
             self._widgets.append(MeshSliderWidget(self))
-            self._widgets.append(HideButton(self))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
@@ -368,7 +366,7 @@ class PyVistaBackendInterface(BaseBackend):
 
     def disable_hover(self):
         """Disable hover capabilities in the plotter."""
-        self._hover_widget.Off()
+        self._hover_widget.EnabledOff()
 
     def show(
         self,
