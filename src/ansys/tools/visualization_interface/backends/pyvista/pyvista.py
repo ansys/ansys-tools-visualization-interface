@@ -419,9 +419,9 @@ class PyVistaBackendInterface(BaseBackend):
         if screenshot is None and not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
             self.enable_widgets()
 
-        if self._picking_mode == "pick":
+        if self._picking_mode == PickingMode.PICK.value:
             self.enable_picking()
-        elif self._picking_mode == "hover":
+        elif self._picking_mode == PickingMode.HOVER.value:
             self.enable_hover()
         elif self._picking_mode is not None:
             logger.warning(f"Invalid picking mode {self._picking_mode}. Picking mode set to None.")
