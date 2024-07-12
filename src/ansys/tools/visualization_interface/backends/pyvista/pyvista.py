@@ -359,7 +359,7 @@ class PyVistaBackendInterface(BaseBackend):
                 viewup=view_2d["viewup"],
             )
         # Enable widgets and picking capabilities
-        if screenshot is None or not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
+        if screenshot is None and not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
             self.enable_widgets()
 
         if self._allow_picking:
