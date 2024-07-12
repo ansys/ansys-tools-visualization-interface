@@ -66,7 +66,7 @@ class MeasureWidget(PlotterWidget):
         # in PyVista. If there are improvements in the compatibility between
         # the PyVista picker and the measurement widget, this should be reviewed.
 
-        #lazy import to avoid circular import
+        # Lazy import to avoid circular import
         from ansys.tools.visualization_interface.backends.pyvista.pyvista import PickingMode
         if not state:
             self._widget.Off()
