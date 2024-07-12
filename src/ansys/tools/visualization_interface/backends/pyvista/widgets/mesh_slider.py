@@ -20,18 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides the measure widget for the PyAnsys plotter."""
-from beartype.typing import TYPE_CHECKING
-import pyvista as pv
-
-if TYPE_CHECKING:
-    from ansys.tools.visualization_interface.backends.pyvista.pyvista import Plotter
-
 from pathlib import Path
 
+from beartype.typing import TYPE_CHECKING
+import pyvista as pv
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
+if TYPE_CHECKING:
+    from ansys.tools.visualization_interface.backends.pyvista.pyvista import Plotter
 
 class MeshSliderWidget(PlotterWidget):
     """Provides the mesh slider widget for the Visualization Interface Tool ``Plotter`` class.
