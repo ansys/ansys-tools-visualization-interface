@@ -61,9 +61,9 @@ custom_sphere = CustomObject()
 custom_sphere.mesh = pv.Sphere(center=(0, 0, 5))
 custom_sphere.name = "CustomSphere"
 
-######################################
-# Create two ``MeshObjectPlot`` instance
-# ====================================
+#########################################
+# Create two ``MeshObjectPlot`` instances
+# =======================================
 
 from ansys.tools.visualization_interface import MeshObjectPlot
 
@@ -72,9 +72,9 @@ mesh_object_cube = MeshObjectPlot(custom_cube, custom_cube.get_mesh())
 mesh_object_sphere = MeshObjectPlot(custom_sphere, custom_sphere.get_mesh())
 
 
-##################################
+###################################
 # Activate the picking capabilities
-# ================================
+# =================================
 
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend

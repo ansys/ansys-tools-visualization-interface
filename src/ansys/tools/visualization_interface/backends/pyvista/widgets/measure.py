@@ -65,17 +65,20 @@ class MeasureWidget(PlotterWidget):
         # This implementation uses direct calls to VTK due to limitations
         # in PyVista. If there are improvements in the compatibility between
         # the PyVista picker and the measurement widget, this should be reviewed.
+
+        #lazy import to avoid circular import
+        from ansys.tools.visualization_interface.backends.pyvista.pyvista import PickingMode
         if not state:
             self._widget.Off()
             self.plotter_helper._pl.scene.clear_measure_widgets()
-            if self.plotter_helper._picking_mode == "pick":
+            if self.plotter_helper._picking_mode == PickingMode.PICK.value:
                 self.plotter_helper.enable_picking()
-            elif self.plotter_helper._picking_mode == "hover":
+            elif self.plotter_helper._picking_mode == PickingMode.HOVER.value:
                 self.plotter_helper.enable_hover()
         else:
-            if self.plotter_helper._picking_mode == "pick":
+            if self.plotter_helper._picking_mode == PickingMode.PICK.value:
                 self.plotter_helper.disable_picking()
-            elif self.plotter_helper._picking_mode == "hover":
+            elif self.plotter_helper._picking_mode == PickingMode.HOVER.value:
                 self.plotter_helper.disable_hover()
             self._widget = self.plotter_helper._pl.scene.add_measurement_widget()
 

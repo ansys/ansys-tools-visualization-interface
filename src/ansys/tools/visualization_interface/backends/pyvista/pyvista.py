@@ -21,6 +21,7 @@
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
+from enum import Enum
 
 from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
@@ -57,6 +58,12 @@ from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
 
 
+class PickingMode(Enum):
+    """Enumerate with the available picking modes."""
+    PICK = "pick"
+    HOVER = "hover"
+
+
 class PyVistaBackendInterface(BaseBackend):
     """Provides the interface for the Visualization Interface Tool plotter.
 
@@ -76,7 +83,7 @@ class PyVistaBackendInterface(BaseBackend):
     ----------
     use_trame : Optional[bool], default: None
         Whether to activate the usage of the trame UI instead of the Python window.
-    picking_mode : Optional[bool], default: None
+    picking_mode : Optional[PickingMode], default: None
         Whether to allow picking capabilities in the window. ["pick", "hover", None]
 
     """
@@ -84,7 +91,7 @@ class PyVistaBackendInterface(BaseBackend):
     def __init__(
         self,
         use_trame: Optional[bool] = None,
-        picking_mode: Optional[bool] = None,
+        picking_mode: Optional[PickingMode] = None,
         plot_picked_names: Optional[bool] = False,
         show_plane: Optional[bool] = False,
         **plotter_kwargs,
@@ -506,7 +513,7 @@ class PyVistaBackend(PyVistaBackendInterface):
         Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
         The default is ``None``, in which case the ``USE_TRAME`` global setting
         is used.
-    picking_mode: bool, default: False
+    picking_mode: PickingMode, default: False
         Whether to enable the picking capabilities in the PyVista plotter.
     plot_picked_names : bool, default: True
         Whether to plot the names of the picked objects.
@@ -516,7 +523,7 @@ class PyVistaBackend(PyVistaBackendInterface):
     def __init__(
         self,
         use_trame: Optional[bool] = None,
-        picking_mode: Optional[bool] = False,
+        picking_mode: Optional[PickingMode] = False,
         plot_picked_names: Optional[bool] = True
     ) -> None:
         """Initialize the generic plotter."""
