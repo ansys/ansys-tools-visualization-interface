@@ -68,11 +68,15 @@ class MeasureWidget(PlotterWidget):
         if not state:
             self._widget.Off()
             self.plotter_helper._pl.scene.clear_measure_widgets()
-            if self.plotter_helper._allow_picking:
+            if self.plotter_helper._picking_mode == "pick":
                 self.plotter_helper.enable_picking()
+            elif self.plotter_helper._picking_mode == "hover":
+                self.plotter_helper.enable_hover()
         else:
-            if self.plotter_helper._allow_picking:
+            if self.plotter_helper._picking_mode == "pick":
                 self.plotter_helper.disable_picking()
+            elif self.plotter_helper._picking_mode == "hover":
+                self.plotter_helper.disable_hover()
             self._widget = self.plotter_helper._pl.scene.add_measurement_widget()
 
     def update(self) -> None:

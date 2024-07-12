@@ -25,6 +25,9 @@ from abc import abstractmethod
 from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
 import pyvista as pv
+from vtkmodules.vtkCommonCore import vtkCommand
+from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
+from vtkmodules.vtkRenderingCore import vtkPointPicker
 
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
@@ -73,15 +76,15 @@ class PyVistaBackendInterface(BaseBackend):
     ----------
     use_trame : Optional[bool], default: None
         Whether to activate the usage of the trame UI instead of the Python window.
-    allow_picking : Optional[bool], default: False
-        Whether to allow picking capabilities in the window.
+    picking_mode : Optional[bool], default: None
+        Whether to allow picking capabilities in the window. ["pick", "hover", None]
 
     """
 
     def __init__(
         self,
         use_trame: Optional[bool] = None,
-        allow_picking: Optional[bool] = False,
+        picking_mode: Optional[bool] = None,
         plot_picked_names: Optional[bool] = False,
         show_plane: Optional[bool] = False,
         **plotter_kwargs,
@@ -92,7 +95,7 @@ class PyVistaBackendInterface(BaseBackend):
             use_trame = ansys.tools.visualization_interface.USE_TRAME
 
         self._use_trame = use_trame
-        self._allow_picking = allow_picking
+        self._picking_mode = picking_mode
         self._pv_off_screen_original = bool(pv.OFF_SCREEN)
         self._plot_picked_names = plot_picked_names
         # Map that relates PyVista actors with PyAnsys objects
@@ -134,6 +137,10 @@ class PyVistaBackendInterface(BaseBackend):
             self._pl = PyVistaInterface(show_plane=show_plane)
 
         self._enable_widgets = self._pl._enable_widgets
+
+        self._hover_picker = vtkPointPicker()
+        self._hover_widget = vtkHoverWidget()
+        self._added_hover_labels = []
 
     @property
     def pv_interface(self) -> PyVistaInterface:
@@ -282,6 +289,35 @@ class PyVistaBackendInterface(BaseBackend):
                 self.unselect_object(edge)
                 actor.prop.color = Color.EDGE.value
 
+    def hover_callback(self, _widget, event_name) -> None:
+        """Define the callback for the element hover.
+
+        Parameters
+        ----------
+        actor : ~pyvista.Actor
+            Actor to hover for the picker.
+
+        """
+        plotter = self._pl.scene
+        x, y = plotter.iren.interactor.GetEventPosition()
+        renderer = plotter.iren.get_poked_renderer(x, y)
+        self._hover_picker.Pick(x, y, 0, renderer)
+        actor = self._hover_picker.GetActor()
+        if event_name == "TimerEvent" and actor is not None and actor in self._object_to_actors_map:
+            custom_object = self._object_to_actors_map[actor]
+            label_actor = self._pl.scene.add_point_labels(
+                [actor.GetCenter()],
+                [custom_object.name],
+                always_visible=True,
+                point_size=0,
+                render_points_as_spheres=False,
+                show_points=False,
+            )
+            self._added_hover_labels.append(label_actor)
+        elif event_name == "EndInteractionEvent":
+            for label in self._added_hover_labels:
+                self._pl.scene.remove_actor(label)
+
     def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
         """Compute the mapping between plotter actors and ``EdgePlot`` objects.
 
@@ -307,9 +343,23 @@ class PyVistaBackendInterface(BaseBackend):
             picker="cell",
         )
 
+    def enable_hover(self):
+        """Enable hover capabilities in the plotter."""
+        self._hover_widget = vtkHoverWidget()
+        self._hover_widget.SetInteractor(self._pl.scene.iren.interactor)
+        self._hover_widget.SetTimerDuration(100)  # Time (ms) required to trigger a hover event
+        self._hover_widget.AddObserver(vtkCommand.TimerEvent, self.hover_callback)  # Start of hover
+        self._hover_widget.AddObserver(vtkCommand.EndInteractionEvent, self.hover_callback)  # Hover ended (mouse moved)
+        self._hover_widget.EnabledOn()
+
+
     def disable_picking(self):
         """Disable picking capabilities in the plotter."""
         self._pl.scene.disable_picking()
+
+    def disable_hover(self):
+        """Disable hover capabilities in the plotter."""
+        self._hover_widget.EnabledOff()
 
     def show(
         self,
@@ -362,9 +412,13 @@ class PyVistaBackendInterface(BaseBackend):
         if screenshot is None and not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
             self.enable_widgets()
 
-        if self._allow_picking:
+        if self._picking_mode == "pick":
             self.enable_picking()
-
+        elif self._picking_mode == "hover":
+            self.enable_hover()
+        elif self._picking_mode is not None:
+            logger.warning(f"Invalid picking mode {self._picking_mode}. Picking mode set to None.")
+            self._picking_mode = None
         # Update all buttons/widgets
         [widget.update() for widget in self._widgets]
 
@@ -452,16 +506,21 @@ class PyVistaBackend(PyVistaBackendInterface):
         Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
         The default is ``None``, in which case the ``USE_TRAME`` global setting
         is used.
-    allow_picking: bool, default: False
+    picking_mode: bool, default: False
         Whether to enable the picking capabilities in the PyVista plotter.
+    plot_picked_names : bool, default: True
+        Whether to plot the names of the picked objects.
 
     """
 
     def __init__(
-        self, use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False
+        self,
+        use_trame: Optional[bool] = None,
+        picking_mode: Optional[bool] = False,
+        plot_picked_names: Optional[bool] = True
     ) -> None:
         """Initialize the generic plotter."""
-        super().__init__(use_trame, allow_picking)
+        super().__init__(use_trame, picking_mode, plot_picked_names)
 
     def plot_iter(
         self,
