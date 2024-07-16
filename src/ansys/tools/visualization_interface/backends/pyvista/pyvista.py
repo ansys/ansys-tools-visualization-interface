@@ -84,15 +84,19 @@ class PyVistaBackendInterface(BaseBackend):
     ----------
     use_trame : Optional[bool], default: None
         Whether to activate the usage of the trame UI instead of the Python window.
-    picking_mode : Optional[PickingMode], default: None
-        Whether to allow picking capabilities in the window. ["pick", "hover", None]
-
+    allow_picking : Optional[bool], default: False
+        Whether to allow picking capabilities in the window. Incompatible with hovering.
+        Picking will take precedence over hovering.
+    allow_hovering : Optional[bool], default: False
+        Whether to allow hovering capabilities in the window. Incompatible with picking.
+        Picking will take precedence over hovering.
     """
 
     def __init__(
         self,
         use_trame: Optional[bool] = None,
-        picking_mode: Optional[PickingMode] = None,
+        allow_picking: Optional[bool] = None,
+        allow_hovering: Optional[bool] = False,
         plot_picked_names: Optional[bool] = False,
         show_plane: Optional[bool] = False,
         **plotter_kwargs,
@@ -103,7 +107,11 @@ class PyVistaBackendInterface(BaseBackend):
             use_trame = ansys.tools.visualization_interface.USE_TRAME
 
         self._use_trame = use_trame
-        self._picking_mode = picking_mode
+        self._allow_picking = allow_picking
+        if self._allow_picking:
+            self._allow_hovering = False
+        else:
+            self._allow_hovering = allow_hovering
         self._pv_off_screen_original = bool(pv.OFF_SCREEN)
         self._plot_picked_names = plot_picked_names
         # Map that relates PyVista actors with PyAnsys objects
@@ -421,13 +429,11 @@ class PyVistaBackendInterface(BaseBackend):
         if screenshot is None and not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
             self.enable_widgets()
 
-        if self._picking_mode == PickingMode.PICK.value:
+        if self._allow_picking:
             self.enable_picking()
-        elif self._picking_mode == PickingMode.HOVER.value:
+        elif self._allow_hovering:
             self.enable_hover()
-        elif self._picking_mode is not None:
-            logger.warning(f"Invalid picking mode {self._picking_mode}. Picking mode set to None.")
-            self._picking_mode = None
+
         # Update all buttons/widgets
         [widget.update() for widget in self._widgets]
 
@@ -515,8 +521,12 @@ class PyVistaBackend(PyVistaBackendInterface):
         Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
         The default is ``None``, in which case the ``USE_TRAME`` global setting
         is used.
-    picking_mode: PickingMode, default: False
-        Whether to enable the picking capabilities in the PyVista plotter.
+    allow_picking : Optional[bool], default: False
+        Whether to allow picking capabilities in the window. Incompatible with hovering.
+        Picking will take precedence over hovering.
+    allow_hovering : Optional[bool], default: False
+        Whether to allow hovering capabilities in the window. Incompatible with picking.
+        Picking will take precedence over hovering.
     plot_picked_names : bool, default: True
         Whether to plot the names of the picked objects.
 
@@ -525,11 +535,12 @@ class PyVistaBackend(PyVistaBackendInterface):
     def __init__(
         self,
         use_trame: Optional[bool] = None,
-        picking_mode: Optional[PickingMode] = False,
+        allow_picking: Optional[bool] = False,
+        allow_hovering: Optional[bool] = False,
         plot_picked_names: Optional[bool] = True
     ) -> None:
         """Initialize the generic plotter."""
-        super().__init__(use_trame, picking_mode, plot_picked_names)
+        super().__init__(use_trame, allow_picking, allow_hovering, plot_picked_names)
 
     def plot_iter(
         self,

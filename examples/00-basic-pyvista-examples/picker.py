@@ -79,7 +79,7 @@ mesh_object_sphere = MeshObjectPlot(custom_sphere, custom_sphere.get_mesh())
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
-pv_backend = PyVistaBackend(picking_mode="pick", plot_picked_names=True)
+pv_backend = PyVistaBackend(allow_picking=True, plot_picked_names=True)
 pl = Plotter(backend=pv_backend)
 pl.plot(mesh_object_cube)
 pl.plot(mesh_object_sphere)
@@ -92,7 +92,7 @@ pl.show()
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
-pv_backend = PyVistaBackend(picking_mode="hover")
+pv_backend = PyVistaBackend(allow_hovering=True)
 pl = Plotter(backend=pv_backend)
 pl.plot(mesh_object_cube)
 pl.plot(mesh_object_sphere)
