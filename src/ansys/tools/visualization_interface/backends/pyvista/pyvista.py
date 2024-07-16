@@ -109,6 +109,10 @@ class PyVistaBackendInterface(BaseBackend):
         self._use_trame = use_trame
         self._allow_picking = allow_picking
         if self._allow_picking:
+            if allow_hovering:
+                logger.warning(
+                    "Picking and hovering are incompatible. Picking will take precedence."
+                )
             self._allow_hovering = False
         else:
             self._allow_hovering = allow_hovering
