@@ -21,7 +21,6 @@
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
-from enum import Enum
 
 from beartype.typing import Any, Dict, List, Optional, Union
 import numpy as np
@@ -57,12 +56,6 @@ from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
-
-
-class PickingMode(Enum):
-    """Enumerate with the available picking modes."""
-    PICK = "pick"
-    HOVER = "hover"
 
 
 class PyVistaBackendInterface(BaseBackend):
@@ -108,14 +101,12 @@ class PyVistaBackendInterface(BaseBackend):
 
         self._use_trame = use_trame
         self._allow_picking = allow_picking
-        if self._allow_picking:
-            if allow_hovering:
-                logger.warning(
-                    "Picking and hovering are incompatible. Picking will take precedence."
-                )
+        self._allow_hovering = allow_hovering
+        if self._allow_picking and self._allow_hovering:
+            logger.warning(
+                "Picking and hovering are incompatible. Picking will take precedence."
+            )
             self._allow_hovering = False
-        else:
-            self._allow_hovering = allow_hovering
         self._pv_off_screen_original = bool(pv.OFF_SCREEN)
         self._plot_picked_names = plot_picked_names
         # Map that relates PyVista actors with PyAnsys objects
@@ -158,8 +149,8 @@ class PyVistaBackendInterface(BaseBackend):
 
         self._enable_widgets = self._pl._enable_widgets
 
-        self._hover_picker = vtkPointPicker()
-        self._hover_widget = vtkHoverWidget()
+        self._hover_picker = vtkPointPicker() if self. _allow_hovering else None
+        self._hover_widget = vtkHoverWidget() if self. _allow_hovering else None
         self._added_hover_labels = []
 
     @property
@@ -324,8 +315,10 @@ class PyVistaBackendInterface(BaseBackend):
         renderer = plotter.iren.get_poked_renderer(x, y)
         self._hover_picker.Pick(x, y, 0, renderer)
         actor = self._hover_picker.GetActor()
-        if event_name == "TimerEvent" and actor is not None and actor in self._object_to_actors_map:
+        if actor is not None and actor in self._object_to_actors_map:
             custom_object = self._object_to_actors_map[actor]
+            for label in self._added_hover_labels:
+                self._pl.scene.remove_actor(label)
             label_actor = self._pl.scene.add_point_labels(
                 [actor.GetCenter()],
                 [custom_object.name],
@@ -335,7 +328,7 @@ class PyVistaBackendInterface(BaseBackend):
                 show_points=False,
             )
             self._added_hover_labels.append(label_actor)
-        elif event_name == "EndInteractionEvent":
+        else:
             for label in self._added_hover_labels:
                 self._pl.scene.remove_actor(label)
 
