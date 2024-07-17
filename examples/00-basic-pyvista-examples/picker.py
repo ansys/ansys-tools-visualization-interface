@@ -44,7 +44,7 @@ import pyvista as pv
 class CustomObject:
     def __init__(self):
         self.name = "CustomObject"
-        self.mesh = pv.Cube()
+        self.mesh = pv.Cube(center=(1, 1, 0))
 
     def get_mesh(self):
         return self.mesh
@@ -52,26 +52,48 @@ class CustomObject:
     def name(self):
         return self.name
 
-# Create a custom object
-custom_object = CustomObject()
 
-######################################
-# Create a ``MeshObjectPlot`` instance
-# ====================================
+
+# Create a custom object
+custom_cube = CustomObject()
+custom_cube.name = "CustomCube"
+custom_sphere = CustomObject()
+custom_sphere.mesh = pv.Sphere(center=(0, 0, 5))
+custom_sphere.name = "CustomSphere"
+
+#########################################
+# Create two ``MeshObjectPlot`` instances
+# =======================================
 
 from ansys.tools.visualization_interface import MeshObjectPlot
 
 # Create an instance
-mesh_object = MeshObjectPlot(custom_object, custom_object.get_mesh())
+mesh_object_cube = MeshObjectPlot(custom_cube, custom_cube.get_mesh())
+mesh_object_sphere = MeshObjectPlot(custom_sphere, custom_sphere.get_mesh())
 
-######################################
-# Plot the ``MeshObjectPlot`` instance
-# ====================================
+
+###################################
+# Activate the picking capabilities
+# =================================
 
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
-pv_backend = PyVistaBackend(allow_picking=True)
+pv_backend = PyVistaBackend(allow_picking=True, plot_picked_names=True)
 pl = Plotter(backend=pv_backend)
-pl.plot(mesh_object)
+pl.plot(mesh_object_cube)
+pl.plot(mesh_object_sphere)
+pl.show()
+
+#################################
+# Activate the hover capabilities
+# ===============================
+
+from ansys.tools.visualization_interface import Plotter
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
+
+pv_backend = PyVistaBackend(allow_hovering=True)
+pl = Plotter(backend=pv_backend)
+pl.plot(mesh_object_cube)
+pl.plot(mesh_object_sphere)
 pl.show()
