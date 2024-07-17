@@ -95,7 +95,7 @@ class PyVistaBackendInterface(BaseBackend):
     def __init__(
         self,
         use_trame: Optional[bool] = None,
-        allow_picking: Optional[bool] = None,
+        allow_picking: Optional[bool] = False,
         allow_hovering: Optional[bool] = False,
         plot_picked_names: Optional[bool] = False,
         show_plane: Optional[bool] = False,
