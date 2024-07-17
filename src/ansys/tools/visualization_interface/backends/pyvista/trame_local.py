@@ -23,12 +23,19 @@
 try:
     from pyvista.trame.ui import plotter_ui
     from trame.app import get_server
-    from trame.ui.vuetify import SinglePageLayout
 
     _HAS_TRAME = True
 
 except ModuleNotFoundError:  # pragma: no cover
     _HAS_TRAME = False
+
+# Align Vue in client and server.
+try:
+    from trame.ui.vuetify import SinglePageLayout
+    CLIENT_TYPE = "vue2"
+except ModuleNotFoundError:
+    from trame.ui.vuetify3 import SinglePageLayout
+    CLIENT_TYPE = "vue3"
 
 
 class TrameVisualizer:
@@ -41,7 +48,7 @@ class TrameVisualizer:
                 "The package 'pyvista[trame]' is required to use this function."
             )
 
-        self.server = get_server()
+        self.server = get_server(client_type=CLIENT_TYPE)
         self.state, self.ctrl = self.server.state, self.server.controller
 
     def set_scene(self, plotter):
