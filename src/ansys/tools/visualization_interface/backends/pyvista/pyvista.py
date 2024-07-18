@@ -315,7 +315,7 @@ class PyVistaBackendInterface(BaseBackend):
         renderer = plotter.iren.get_poked_renderer(x, y)
         self._hover_picker.Pick(x, y, 0, renderer)
         actor = self._hover_picker.GetActor()
-        if actor is not None and actor in self._object_to_actors_map:
+        if actor in self._object_to_actors_map:
             custom_object = self._object_to_actors_map[actor]
             for label in self._added_hover_labels:
                 self._pl.scene.remove_actor(label)
@@ -409,8 +409,8 @@ class PyVistaBackendInterface(BaseBackend):
 
         """
         self.plot(plottable_object, name_filter, **plotting_options)
-        if self._pl._object_to_actors_map:
-            self._object_to_actors_map = self._pl._object_to_actors_map
+        if self._pl.object_to_actors_map:
+            self._object_to_actors_map = self._pl.object_to_actors_map
         else:
             logger.warning("No actors were added to the plotter.")
 
