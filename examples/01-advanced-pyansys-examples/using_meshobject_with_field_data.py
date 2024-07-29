@@ -48,8 +48,8 @@ from ansys.tools.visualization_interface import MeshObjectPlot, Plotter
 ###################################################
 # Download the VTK file
 # =====================
-
-# A VTK dataset can be produced utilizing the `pydpf <https://dpf.docs.pyansys.com/version/stable/>`_
+#
+# A VTK dataset can be produced utilizing `PyDPF <https://dpf.docs.pyansys.com/version/stable/>`_
 # for Ansys Flagship products simulations results file format.
 
 mixing_elbow_file_src = examples.download_file("mixing_elbow.vtk", "result_files/fluent-mixing_elbow_steady-state")
