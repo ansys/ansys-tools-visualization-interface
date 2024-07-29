@@ -39,11 +39,11 @@ This example shows how to use the ``MeshObjectPlot`` class to plot your custom o
 # =================
 
 
-import pyvista as pv
-from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
-from ansys.tools.visualization_interface import MeshObjectPlot
-from ansys.tools.visualization_interface import Plotter
 from ansys.fluent.core import examples
+import pyvista as pv
+
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
+from ansys.tools.visualization_interface import MeshObjectPlot, Plotter
 
 ###################################################
 # Download the VTK file
