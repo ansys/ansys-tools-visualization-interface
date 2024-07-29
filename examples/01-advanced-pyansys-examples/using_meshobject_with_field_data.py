@@ -47,7 +47,7 @@ from ansys.tools.visualization_interface import MeshObjectPlot, Plotter
 
 ###################################################
 # Download the VTK file
-# =================================================
+# =====================
 
 # A VTK dataset can be produced utilizing the `pydpf <https://dpf.docs.pyansys.com/version/stable/>`_
 # for Ansys Flagship products simulations results file format.
