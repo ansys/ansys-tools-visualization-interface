@@ -23,9 +23,9 @@
 """
 .. _ref_postprocess_using_meshobjects:
 
-======================================================================
-Use the ``MeshObjectPlot`` class to postprocess Simulation Results
-======================================================================
+====================================================================
+Postprocessing simulation results using the ``MeshObjectPlot`` class
+====================================================================
 
 The Visualization Interface Tool provides the ``MeshObject`` helper class to relate a custom object.
 With a custom object, you can take advantage of the full potential of the Visualization Interface Tool.
