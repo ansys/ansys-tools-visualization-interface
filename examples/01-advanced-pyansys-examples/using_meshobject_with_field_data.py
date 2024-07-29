@@ -100,9 +100,9 @@ cpos = (
 field_data_arrays = custom_vtk.get_field_array_info()
 print(f"Field data arrays: {field_data_arrays}")
 
-####################################################################
-# Plot the ``MeshObjectPlot`` instance with mesh object & field data
-# ==================================================================
+########################################################################
+# Plot the ``MeshObjectPlot`` instance with mesh object & field data (0)
+# ======================================================================
 
 pv_backend = PyVistaBackend()
 pl = Plotter(backend=pv_backend)
