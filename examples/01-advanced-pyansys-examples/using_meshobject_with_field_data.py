@@ -56,8 +56,8 @@ mixing_elbow_file_src = examples.download_file("mixing_elbow.vtk", "result_files
 
 ###################################################
 # Define a custom object class
-# =================================================
-
+# ============================
+#
 # Note that the ``CustomObject`` class must have a way to get the mesh
 # and a name or ID.
 
