@@ -36,7 +36,7 @@ This example shows how to use the ``MeshObjectPlot`` class to plot your custom o
 
 ###################################################
 # Necessary imports
-# =================================================
+# =================
 
 
 import pyvista as pv
