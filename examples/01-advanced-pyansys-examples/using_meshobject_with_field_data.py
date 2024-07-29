@@ -116,9 +116,9 @@ pl._backend.pv_interface.scene.camera_position = cpos
 pl.show()
 
 
-##########################################################################
-# Plot the ``MeshObjectPlot`` instance with mesh object & other field data
-# ========================================================================
+##############################################################################
+# Plot the ``MeshObjectPlot`` instance with mesh object & other field data (1)
+# ============================================================================
 
 pv_backend = PyVistaBackend()
 pl = Plotter(backend=pv_backend)
