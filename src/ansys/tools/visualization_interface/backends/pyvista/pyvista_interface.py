@@ -343,7 +343,7 @@ class PyVistaInterface:
         # This method should only be applied in 3D objects (bodies and components)
         if "smooth_shading" not in plotting_options:
             plotting_options.setdefault("smooth_shading", True)
-        if "color" not in plotting_options:
+        if all(entry not in plotting_options for entry in ["color", "multi_colors"]):
             plotting_options.setdefault("color", Color.DEFAULT.value)
 
     @property
