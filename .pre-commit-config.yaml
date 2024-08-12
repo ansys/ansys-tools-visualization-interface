@@ -20,7 +20,7 @@ repos:
   - id: trailing-whitespace
 
 - repo: https://github.com/ansys/pre-commit-hooks
-  rev: v0.4.2
+  rev: v0.4.3
   hooks:
     - id: add-license-headers
       files: '(src|examples|tests|docker)/.*\.(py)|\.(proto)'
@@ -34,7 +34,7 @@ repos:
     - id: check-github-workflows
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.5.6
+  rev: v0.5.7
   hooks:
     - id: ruff
       args: [--fix]
