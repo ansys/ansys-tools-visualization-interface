@@ -44,7 +44,7 @@ doc = [
     "sphinx_design==0.6.1",
     "sphinx-gallery==0.17.1",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.22.0",
+    "ansys-fluent-core==0.24.0",
 ]
 
 [project.urls]
