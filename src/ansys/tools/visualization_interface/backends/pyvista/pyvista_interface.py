@@ -289,7 +289,7 @@ class PyVistaInterface:
     def show(
         self,
         show_plane: bool = False,
-        jupyter_backend: Optional[str] = "trame", # Use the PyVista default backend
+        jupyter_backend: Optional[str] = None, # Use the PyVista default backend
         **kwargs: Optional[Dict],
     ) -> None:
         """Show the rendered scene on the screen.
@@ -332,7 +332,10 @@ class PyVistaInterface:
         # If screenshot is requested, set off_screen to True for the plotter
         if kwargs.get("screenshot") is not None:
             self.scene.off_screen = True
-        self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
+        if jupyter_backend:
+            self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
+        else:
+            self.scene.show(**kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
         """Set the default values for the plotting options.
