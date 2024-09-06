@@ -242,7 +242,7 @@ class PyVistaInterface:
                 return self._object_to_actors_map
 
         # Check what kind of object we are dealing with
-        if isinstance(plottable_object, pv.PolyData):
+        if isinstance(plottable_object, (pv.PolyData, pv.UnstructuredGrid)):
             if "clipping_plane" in plotting_options:
                 mesh = self.clip(plottable_object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)

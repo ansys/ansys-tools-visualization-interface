@@ -52,6 +52,13 @@ def test_plotter_add_mb():
     pl.plot(mb)
     pl.show()
 
+def test_plotter_add_unstructured_grid():
+    """Adds unstructured grid to the plotter."""
+    pl = Plotter()
+    sphere = pv.Sphere()
+    ug = pv.UnstructuredGrid(sphere)
+    pl.plot(ug)
+    pl.show()
 
 def test_plotter_add_custom():
     """Adds a MeshObjectPlot object to the plotter."""
