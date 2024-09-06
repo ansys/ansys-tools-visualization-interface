@@ -76,6 +76,8 @@ class MeshSliderWidget(PlotterWidget):
             for mesh in self._meshes:
                 if isinstance(mesh, pv.PolyData):
                     mesh_id = "PolyData(" + mesh.memory_address + ")"
+                elif isinstance(mesh, pv.UnstructuredGrid):
+                    mesh_id = "UnstructuredGrid(" + mesh.memory_address + ")"
                 elif isinstance(mesh, pv.MultiBlock):
                     mesh_id = "MultiBlock(" + mesh.memory_address + ")"
                 self._mesh_actor_list.append(self.plotter_helper._pl.scene.actors[mesh_id])
