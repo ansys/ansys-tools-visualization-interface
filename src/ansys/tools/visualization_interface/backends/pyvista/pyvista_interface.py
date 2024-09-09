@@ -241,6 +241,9 @@ class PyVistaInterface:
             if hasattr(plottable_object, "name") and not re.search(name_filter, plottable_object.name):
                 return self._object_to_actors_map
 
+        if "show_edges" in plotting_options:
+            self._show_edges = plotting_options["show_edges"]
+
         # Check what kind of object we are dealing with
         if isinstance(plottable_object, (pv.PolyData, pv.UnstructuredGrid)):
             if "clipping_plane" in plotting_options:
