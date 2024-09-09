@@ -72,10 +72,14 @@ class MeshSliderWidget(PlotterWidget):
                 self.plotter_helper._pl.scene.add_actor(actor)
         else:
             self._mb = pv.MultiBlock(self.plotter_helper._pl.scene.meshes).combine()
-            self._widget_actor = self.plotter_helper._pl.scene.add_mesh_clip_plane(self._mb)
+            self._widget_actor = self.plotter_helper._pl.scene.add_mesh_clip_plane(
+                self._mb, show_edges=self.plotter_helper._pl._show_edges
+            )
             for mesh in self._meshes:
                 if isinstance(mesh, pv.PolyData):
                     mesh_id = "PolyData(" + mesh.memory_address + ")"
+                elif isinstance(mesh, pv.UnstructuredGrid):
+                    mesh_id = "UnstructuredGrid(" + mesh.memory_address + ")"
                 elif isinstance(mesh, pv.MultiBlock):
                     mesh_id = "MultiBlock(" + mesh.memory_address + ")"
                 self._mesh_actor_list.append(self.plotter_helper._pl.scene.actors[mesh_id])
