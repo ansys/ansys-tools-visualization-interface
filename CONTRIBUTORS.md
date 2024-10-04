@@ -1,6 +1,6 @@
 # Contributors
 
-## Project Lead or Owner
+## Project Lead
 
 * [Alex Fernandez Luces](https://github.com/AlejandroFernandezLuces)
 
