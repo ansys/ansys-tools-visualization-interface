@@ -42,3 +42,10 @@
   description: Must be fixed promptly
   color: ab8a50
 
+- name: hacktoberfest
+  description: Hacktoberfest related
+  color: 62ca50
+
+- name: hacktoberfest-accepted
+  description: Hacktoberfest accepted contribution
+  color: 62ca50
