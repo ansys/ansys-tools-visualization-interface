@@ -97,6 +97,7 @@ class PyVistaInterface:
         # objects to actors mapping
         self._object_to_actors_map = {}
         self._enable_widgets = enable_widgets
+        self._show_edges = None
 
     @property
     def scene(self) -> PyVistaPlotter:
