@@ -7,7 +7,7 @@ name = "ansys-tools-visualization-interface"
 version = "0.4.5"
 description = "A Python visualization interface for PyAnsys libraries"
 readme = "README.rst"
-requires-python = ">=3.9,<4"
+requires-python = ">=3.10,<4"
 license = { file = "LICENSE" }
 authors = [{ name = "ANSYS, Inc.", email = "pyansys.core@ansys.com" }]
 maintainers = [{ name = "ANSYS, Inc.", email = "pyansys.core@ansys.com" }]
@@ -17,7 +17,6 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Information Analysis",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -32,20 +31,20 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-tests = ["pytest==8.3.2", "pytest-pyvista==0.1.9", "pytest-cov==5.0.0"]
+tests = ["pytest==8.3.3", "pytest-pyvista==0.1.9", "pytest-cov==5.0.0"]
 doc = [
-    "ansys-sphinx-theme==0.16.6",
+    "ansys-sphinx-theme==1.1.6",
     "jupyter_sphinx==0.5.3",
-    "jupytext==1.16.3",
-    "nbsphinx==0.9.4",
-    "numpydoc==1.7.0",
-    "sphinx==7.4.7",
-    "sphinx-autoapi==3.2.1",
+    "jupytext==1.16.4",
+    "nbsphinx==0.9.5",
+    "numpydoc==1.8.0",
+    "sphinx==8.1.3",
+    "sphinx-autoapi==3.3.2",
     "sphinx-copybutton==0.5.2",
-    "sphinx_design==0.6.0",
-    "sphinx-gallery==0.17.0",
+    "sphinx_design==0.6.1",
+    "sphinx-gallery==0.18.0",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.24.2",
+    "ansys-fluent-core==0.26.1",
 ]
 
 [project.urls]
@@ -132,4 +131,18 @@ showcontent = true
 [[tool.towncrier.type]]
 directory = "miscellaneous"
 name = "Miscellaneous"
+showcontent = true
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "maintenance"
+name = "Maintenance"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "test"
+name = "Test"
 showcontent = true

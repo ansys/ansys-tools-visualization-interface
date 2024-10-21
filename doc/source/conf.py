@@ -2,16 +2,13 @@
 
 from datetime import datetime
 import os
-from pathlib import Path
 
 from ansys_sphinx_theme import (
     ansys_favicon,
     ansys_logo_white,
     ansys_logo_white_cropped,
-    get_autoapi_templates_dir_relative_path,
     get_version_match,
     latex,
-    pyansys_logo_black,
     watermark,
 )
 import pyvista
@@ -40,7 +37,6 @@ cname = os.getenv("DOCUMENTATION_CNAME", default="visualization-interface.tools.
 switcher_version = get_version_match(__version__)
 
 # Select desired logo, theme, and declare the html title
-html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "Visualization Interface Tool"
 html_baseurl = f"https://{cname}/version/stable"
@@ -53,6 +49,7 @@ html_context = {
     "doc_path": "doc/source",
 }
 html_theme_options = {
+    "logo": "pyansys",
     "switcher": {
         "json_url": f"https://{cname}/versions.json",
         "version_match": switcher_version,
@@ -77,7 +74,10 @@ html_theme_options = {
             "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-tools-visualization-interface.pdf",  # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
-    ]
+    ],
+    "ansys_sphinx_theme_autoapi": {
+        "project": project,
+    },
 }
 
 # Sphinx extensions
@@ -86,10 +86,10 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_jinja",
-    "autoapi.extension",
     "numpydoc",
     "sphinx_gallery.gen_gallery",
     "pyvista.ext.viewer_directive",
+    "ansys_sphinx_theme.extension.autoapi",
 ]
 
 nbsphinx_execute = "always"
@@ -165,21 +165,7 @@ source_suffix = {
 master_doc = "index"
 
 # Configuration for Sphinx autoapi
-autoapi_type = "python"
-autoapi_dirs = ["../../src/ansys"]
-autoapi_root = "api"
-autoapi_options = [
-    "members",
-    "undoc-members",
-    "show-inheritance",
-    "show-module-summary",
-    "special-members",
-]
-autoapi_template_dir = get_autoapi_templates_dir_relative_path(Path(__file__))
 suppress_warnings = ["autoapi.python_import_resolution", "design.grid", "config.cache"]
-autoapi_python_use_implicit_namespaces = True
-autoapi_keep_files = True
-autoapi_own_page_level = "class"
 
 # Examples gallery customization
 nbsphinx_execute = "always"
