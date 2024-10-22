@@ -115,8 +115,8 @@ class PyVistaBackendInterface(BaseBackend):
         # PyVista plotter
         self._pl = None
 
-        # List of picked objects in MeshObject format.
-        self._picked_list = set()
+        # Dictionary of picked objects in MeshObject format.
+        self._picked_list = {}
 
         # Map that relates PyVista actors with the added actors by the picker
         self._picker_added_actors_map = {}
@@ -234,8 +234,8 @@ class PyVistaBackendInterface(BaseBackend):
             )
             added_actors.append(label_actor)
 
-        if custom_object not in self._picked_list:
-            self._picked_list.add(custom_object)
+        if custom_object.name not in self._picked_list:
+            self._picked_list[custom_object.name] = custom_object
 
         self._picker_added_actors_map[custom_object.actor.name] = added_actors
 
@@ -252,8 +252,8 @@ class PyVistaBackendInterface(BaseBackend):
 
         """
         # remove actor from picked list and from scene
-        if custom_object in self._picked_list:
-            self._picked_list.remove(custom_object)
+        if custom_object.name in self._picked_list:
+            self._picked_list.pop(custom_object.name)
 
         if isinstance(custom_object, MeshObjectPlot) and custom_object in self._origin_colors:
             custom_object.actor.prop.color = self._origin_colors[custom_object]
@@ -287,7 +287,7 @@ class PyVistaBackendInterface(BaseBackend):
         # if object is a body/component
         if actor in self._object_to_actors_map:
             body_plot = self._object_to_actors_map[actor]
-            if body_plot not in self._picked_list:
+            if body_plot.name not in self._picked_list:
                 self.select_object(body_plot, pt)
             else:
                 self.unselect_object(body_plot)
@@ -295,7 +295,7 @@ class PyVistaBackendInterface(BaseBackend):
         # if object is an edge
         elif actor in self._edge_actors_map and actor.GetVisibility():
             edge = self._edge_actors_map[actor]
-            if edge not in self._picked_list:
+            if edge.name not in self._picked_list:
                 self.select_object(edge, pt)
             else:
                 self.unselect_object(edge)
@@ -439,12 +439,15 @@ class PyVistaBackendInterface(BaseBackend):
         picked_objects_list = []
         if isinstance(plottable_object, list):
             # Keep them ordered based on picking
-            for meshobject in self._picked_list:
+            for meshobject in self._picked_list.values():
                 for elem in plottable_object:
                     if hasattr(elem, "name") and elem.name == meshobject.name:
                         picked_objects_list.append(elem)
-        elif hasattr(plottable_object, "name") and plottable_object in self._picked_list:
+        elif hasattr(plottable_object, "name") and plottable_object.name in self._picked_list:
             picked_objects_list = [plottable_object]
+        else:
+            # Return the picked objects in the order they were picked
+            picked_objects_list = list(self._picked_list.values())
 
         return picked_objects_list
 
