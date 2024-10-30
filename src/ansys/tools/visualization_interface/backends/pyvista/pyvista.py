@@ -22,8 +22,7 @@
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
 
-from beartype.typing import Any, Dict, List, Optional, Union
-import numpy as np
+from beartype.typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import pyvista as pv
 from vtkmodules.vtkCommonCore import vtkCommand
 from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
@@ -32,10 +31,6 @@ from vtkmodules.vtkRenderingCore import vtkPointPicker
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
-from ansys.tools.visualization_interface.backends.pyvista.trame_local import (
-    _HAS_TRAME,
-    TrameVisualizer,
-)
 from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import (
     CameraPanDirection,
     DisplacementArrow,
@@ -56,6 +51,9 @@ from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
+
+if TYPE_CHECKING:
+    import numpy as np
 
 
 class PyVistaBackendInterface(BaseBackend):
@@ -131,6 +129,8 @@ class PyVistaBackendInterface(BaseBackend):
         self._origin_colors = {}
 
         # Enable the use of trame if requested and available
+        from ansys.tools.visualization_interface.backends.pyvista.trame_local import _HAS_TRAME
+
         if self._use_trame and _HAS_TRAME:
             # avoids GUI window popping up
             pv.OFF_SCREEN = True
@@ -193,7 +193,7 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(widget)
             widget.update()
 
-    def select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: np.ndarray) -> None:
+    def select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: "np.ndarray") -> None:
         """Select a custom object in the plotter.
 
         This method highlights the edges of a body and adds a label. It also adds
@@ -462,7 +462,13 @@ class PyVistaBackendInterface(BaseBackend):
             Path for saving a screenshot of the image that is being represented.
 
         """
+        from ansys.tools.visualization_interface.backends.pyvista.trame_local import (
+            _HAS_TRAME,
+            TrameVisualizer,
+        )
+
         if self._use_trame and _HAS_TRAME:
+
             visualizer = TrameVisualizer()
             visualizer.set_scene(self._pl)
             visualizer.show()
