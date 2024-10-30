@@ -229,7 +229,7 @@ class PyVistaInterface:
 
         Parameters
         ----------
-        plottable_object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid]
+        plottable_object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid, pv.StructuredGrid]
             Object to plot.
         name_filter : str, default: None
             Regular expression with the desired name or names to include in the plotter.
