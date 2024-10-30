@@ -64,7 +64,7 @@ def test_plotter_add_unstructured_grid():
 
 
 def test_plotter_add_structured_grid():
-    """Adds unstructured grid to the plotter."""
+    """Adds structured grid to the plotter."""
     pl = Plotter()
     xrng = np.arange(-10, 10, 2, dtype=np.float32)
     yrng = np.arange(-10, 10, 5, dtype=np.float32)
@@ -72,7 +72,7 @@ def test_plotter_add_structured_grid():
     x, y, z = np.meshgrid(xrng, yrng, zrng, indexing='ij')
     grid = pv.StructuredGrid(x, y, z)
     pl.plot(grid)
-
+    pl.show()
 
 def test_plotter_add_custom():
     """Adds a MeshObjectPlot object to the plotter."""
@@ -105,7 +105,7 @@ def test_clipping_plane():
 
 
 def test_clipping_plane_structured_grid():
-    """Test clipping plane usage with unstructured grid."""
+    """Test clipping plane usage with structured grid."""
     pl = Plotter()
     xrng = np.arange(-10, 10, 2, dtype=np.float32)
     yrng = np.arange(-10, 10, 5, dtype=np.float32)
