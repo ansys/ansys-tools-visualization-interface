@@ -97,3 +97,36 @@ pl = Plotter(backend=pv_backend)
 pl.plot(mesh_object_cube)
 pl.plot(mesh_object_sphere)
 pl.show()
+
+
+############################
+# Using StructuredGrid mesh
+# ==========================
+
+import numpy as np
+
+
+class CustomStructuredObject:
+    def __init__(self):
+        self.name = "CustomObject"
+        xrng = np.arange(-10, 10, 2, dtype=np.float32)
+        yrng = np.arange(-10, 10, 5, dtype=np.float32)
+        zrng = np.arange(-10, 10, 1, dtype=np.float32)
+        x, y, z = np.meshgrid(xrng, yrng, zrng, indexing='ij')
+        grid = pv.StructuredGrid(x, y, z)
+        self.mesh = grid
+
+    def get_mesh(self):
+        return self.mesh
+
+    def name(self):
+        return self.name
+
+
+pv_backend = PyVistaBackend()
+pl = Plotter(backend=pv_backend)
+
+structured_object = CustomStructuredObject()
+mo_plot = MeshObjectPlot(structured_object, structured_object.get_mesh())
+pl.plot(mo_plot)
+pl.show()

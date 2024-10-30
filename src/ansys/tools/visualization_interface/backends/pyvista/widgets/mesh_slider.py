@@ -82,6 +82,8 @@ class MeshSliderWidget(PlotterWidget):
                     mesh_id = "UnstructuredGrid(" + mesh.memory_address + ")"
                 elif isinstance(mesh, pv.MultiBlock):
                     mesh_id = "MultiBlock(" + mesh.memory_address + ")"
+                elif isinstance(mesh, pv.StructuredGrid):
+                    mesh_id = "StructuredGrid(" + mesh.memory_address + ")"
                 self._mesh_actor_list.append(self.plotter_helper._pl.scene.actors[mesh_id])
                 self.plotter_helper._pl.scene.remove_actor(mesh_id)
 
