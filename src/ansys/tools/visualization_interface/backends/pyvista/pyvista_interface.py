@@ -246,7 +246,7 @@ class PyVistaInterface:
             self._show_edges = plotting_options["show_edges"]
 
         # Check what kind of object we are dealing with
-        if isinstance(plottable_object, (pv.PolyData, pv.UnstructuredGrid)):
+        if isinstance(plottable_object, (pv.PolyData, pv.UnstructuredGrid, pv.StructuredGrid)):
             if "clipping_plane" in plotting_options:
                 mesh = self.clip(plottable_object, plotting_options["clipping_plane"])
                 plotting_options.pop("clipping_plane", None)
