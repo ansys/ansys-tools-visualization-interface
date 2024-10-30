@@ -136,7 +136,7 @@ class PyVistaInterface:
         self.scene.view_zy()
 
     def clip(
-        self, mesh: Union[pv.PolyData, pv.MultiBlock], plane: ClipPlane
+        self, mesh: Union[pv.PolyData, pv.MultiBlock, pv.UnstructuredGrid], plane: ClipPlane
     ) -> Union[pv.PolyData, pv.MultiBlock]:
         """Clip a given mesh with a plane.
 
@@ -218,7 +218,7 @@ class PyVistaInterface:
 
     def plot(
         self,
-        plottable_object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot],
+        plottable_object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid],
         name_filter: str = None,
         **plotting_options,
     ) -> None:
@@ -229,7 +229,7 @@ class PyVistaInterface:
 
         Parameters
         ----------
-        plottable_object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot]
+        plottable_object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid]
             Object to plot.
         name_filter : str, default: None
             Regular expression with the desired name or names to include in the plotter.
@@ -272,9 +272,6 @@ class PyVistaInterface:
         **plotting_options,
     ) -> None:
         """Plot elements of an iterable of any type of objects to the scene.
-
-        Supported object types are ``Body``, ``Component``, ``List[pv.PolyData]``,
-        ``pv.MultiBlock``, and ``Sketch``.
 
         Parameters
         ----------
