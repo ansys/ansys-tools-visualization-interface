@@ -22,6 +22,7 @@
 """Test module for the generic plotter."""
 from pathlib import Path
 
+import numpy as np
 import pyvista as pv
 
 from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
@@ -52,12 +53,25 @@ def test_plotter_add_mb():
     pl.plot(mb)
     pl.show()
 
+
 def test_plotter_add_unstructured_grid():
     """Adds unstructured grid to the plotter."""
     pl = Plotter()
     sphere = pv.Sphere()
     ug = pv.UnstructuredGrid(sphere)
     pl.plot(ug)
+    pl.show()
+
+
+def test_plotter_add_structured_grid():
+    """Adds structured grid to the plotter."""
+    pl = Plotter()
+    xrng = np.arange(-10, 10, 2, dtype=np.float32)
+    yrng = np.arange(-10, 10, 5, dtype=np.float32)
+    zrng = np.arange(-10, 10, 1, dtype=np.float32)
+    x, y, z = np.meshgrid(xrng, yrng, zrng, indexing='ij')
+    grid = pv.StructuredGrid(x, y, z)
+    pl.plot(grid)
     pl.show()
 
 def test_plotter_add_custom():
@@ -87,6 +101,19 @@ def test_clipping_plane():
     pl = Plotter()
     clipping_plane = ClipPlane()
     pl.plot(sphere, clipping_plane=clipping_plane)
+    pl.show()
+
+
+def test_clipping_plane_structured_grid():
+    """Test clipping plane usage with structured grid."""
+    pl = Plotter()
+    xrng = np.arange(-10, 10, 2, dtype=np.float32)
+    yrng = np.arange(-10, 10, 5, dtype=np.float32)
+    zrng = np.arange(-10, 10, 1, dtype=np.float32)
+    x, y, z = np.meshgrid(xrng, yrng, zrng, indexing='ij')
+    grid = pv.StructuredGrid(x, y, z)
+    clipping_plane = ClipPlane()
+    pl.plot(grid, clipping_plane=clipping_plane)
     pl.show()
 
 
