@@ -22,8 +22,8 @@
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
 import importlib.util
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
-from beartype.typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import pyvista as pv
 from vtkmodules.vtkCommonCore import vtkCommand
 from vtkmodules.vtkInteractionWidgets import vtkHoverWidget

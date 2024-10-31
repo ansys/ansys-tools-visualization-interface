@@ -21,8 +21,8 @@
 # SOFTWARE.
 """Provides the measure widget for the PyAnsys plotter."""
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from beartype.typing import TYPE_CHECKING
 import pyvista as pv
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 

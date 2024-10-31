@@ -22,7 +22,8 @@
 """Provides the edge type for plotting."""
 
 
-from beartype.typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any
+
 import pyvista as pv
 
 if TYPE_CHECKING:
