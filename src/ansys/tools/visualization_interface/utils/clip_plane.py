@@ -21,7 +21,7 @@
 # SOFTWARE.
 """Provides the ``ClipPlane`` class."""
 
-from beartype.typing import Tuple
+from typing import Tuple
 
 
 class ClipPlane:

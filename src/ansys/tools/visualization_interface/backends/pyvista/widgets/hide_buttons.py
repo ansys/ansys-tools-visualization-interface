@@ -21,8 +21,8 @@
 # SOFTWARE.
 """Provides the hide buttons widget for the PyAnsys plotter."""
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from beartype.typing import TYPE_CHECKING
 from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget

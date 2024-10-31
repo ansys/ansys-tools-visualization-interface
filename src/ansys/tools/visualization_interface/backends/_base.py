@@ -22,8 +22,7 @@
 
 """Module for the backend base class."""
 from abc import ABC, abstractmethod
-
-from beartype.typing import Any, Iterable
+from typing import Any, Iterable
 
 
 class BaseBackend(ABC):

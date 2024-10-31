@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Module for the Plotter class."""
-from beartype.typing import Any
+from typing import Any
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend

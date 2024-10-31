@@ -22,7 +22,8 @@
 """Provides the ``MeshObjectPlot`` class."""
 
 
-from beartype.typing import Any, List, Union
+from typing import Any, List, Union
+
 import pyvista as pv
 
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot

@@ -24,8 +24,8 @@
 # from the websocket. This is a trusted source, so we can ignore this vulnerability.
 # Potentially, someone could send a malicious pickle object and execute arbitrary code.
 import pickle  # nosec B403
+from typing import Union
 
-from beartype.typing import Union
 import pyvista as pv
 from websockets.sync.client import connect
 

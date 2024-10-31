@@ -21,9 +21,8 @@
 # SOFTWARE.
 """Provides plotting for various PyAnsys objects."""
 import re
-from typing import Union
+from typing import Any, Dict, List, Optional, Union
 
-from beartype.typing import Any, Dict, List, Optional
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
