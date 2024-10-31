@@ -21,6 +21,7 @@
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
+import importlib.util
 
 from beartype.typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import pyvista as pv
@@ -51,6 +52,8 @@ from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
+
+_HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
 
 if TYPE_CHECKING:
     import numpy as np
@@ -129,8 +132,6 @@ class PyVistaBackendInterface(BaseBackend):
         self._origin_colors = {}
 
         # Enable the use of trame if requested and available
-        from ansys.tools.visualization_interface.backends.pyvista.trame_local import _HAS_TRAME
-
         if self._use_trame and _HAS_TRAME:
             # avoids GUI window popping up
             pv.OFF_SCREEN = True
@@ -462,13 +463,10 @@ class PyVistaBackendInterface(BaseBackend):
             Path for saving a screenshot of the image that is being represented.
 
         """
-        from ansys.tools.visualization_interface.backends.pyvista.trame_local import (
-            _HAS_TRAME,
-            TrameVisualizer,
-        )
-
         if self._use_trame and _HAS_TRAME:
-
+            from ansys.tools.visualization_interface.backends.pyvista.trame_local import (
+                TrameVisualizer,
+            )
             visualizer = TrameVisualizer()
             visualizer.set_scene(self._pl)
             visualizer.show()

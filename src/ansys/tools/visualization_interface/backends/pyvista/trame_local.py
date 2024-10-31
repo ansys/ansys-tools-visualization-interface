@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides `trame <https://kitware.github.io/trame/index.html>`_ visualizer interface for visualization."""
+
 try:
     from pyvista.trame.ui import plotter_ui
     from trame.app import get_server
