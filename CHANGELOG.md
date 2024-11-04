@@ -1,3 +1,8 @@
+`0.5.0 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.5.0>`_ - 2024-11-04
+
+No significant changes.
+
+
 `0.5.0 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.5.0>`_ - 2024-10-31
 
 
