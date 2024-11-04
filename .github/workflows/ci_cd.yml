@@ -158,7 +158,7 @@ jobs:
   release:
     name: Release project
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    needs: [package]
+    needs: [package, update-changelog]
     runs-on: ubuntu-latest
     environment: release
     permissions:
