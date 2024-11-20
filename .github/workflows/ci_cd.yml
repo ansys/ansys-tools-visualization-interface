@@ -105,7 +105,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y libxcb-xinerama0 libxkbcommon-x11-0
+        run: apt install libegl1
+
       - name: Restore images cache
         uses: actions/cache@v4
         with:
