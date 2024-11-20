@@ -26,6 +26,7 @@ import numpy as np
 import pyvista as pv
 
 from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
 
 class CustomTestClass:
@@ -39,6 +40,15 @@ class CustomTestClass:
 def test_plotter_add_pd():
     """Adds polydata to the plotter."""
     pl = Plotter()
+    sphere = pv.Sphere()
+    pl.plot(sphere)
+    pl.show()
+
+
+def test_plotter_pyvistaqt():
+    """Adds polydata to the plotter."""
+    qt_backend = PyVistaBackend(use_qt=True)
+    pl = Plotter(backend=qt_backend)
     sphere = pv.Sphere()
     pl.plot(sphere)
     pl.show()
