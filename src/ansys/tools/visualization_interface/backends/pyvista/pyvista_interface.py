@@ -83,6 +83,8 @@ class PyVistaInterface:
                 scene = pyvistaqt.BackgroundPlotter()
             else:
                 scene = pv.Plotter(**plotter_kwargs)
+
+        self._use_qt = use_qt
         # If required, use a white background with no gradient
         if not color_opts:
             color_opts = dict(color="white")
