@@ -20,11 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides plotting for various PyAnsys objects."""
+import importlib
 import re
 from typing import Any, Dict, List, Optional, Union
 
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
+import pyvistaqt
 
 import ansys.tools.visualization_interface as viz_interface
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
@@ -32,6 +34,8 @@ from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjec
 from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
+
+_HAS_PYVISTAQT = importlib.util.find_spec("pyvistaqt")
 
 
 class PyVistaInterface:
@@ -77,9 +81,15 @@ class PyVistaInterface:
         # Generate custom scene if ``None`` is provided
         if scene is None:
             if viz_interface.TESTING_MODE:
-                scene = pv.Plotter(off_screen=True, **plotter_kwargs)
+                if use_qt and _HAS_PYVISTAQT:
+                    scene = pyvistaqt.BackgroundPlotter(off_screen=True)
+                else:
+                    if use_qt and not _HAS_PYVISTAQT:
+                        message = "PyVistaQt dependency is not installed. Install it with " + \
+                                  "`pip install ansys-tools-visualization-interface[pyvistaqt]`."
+                        logger.warning(message)
+                    scene = pv.Plotter(off_screen=True, **plotter_kwargs)
             elif use_qt:
-                import pyvistaqt
                 scene = pyvistaqt.BackgroundPlotter()
             else:
                 scene = pv.Plotter(**plotter_kwargs)
