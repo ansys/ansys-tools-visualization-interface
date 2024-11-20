@@ -10,7 +10,7 @@ on:
       - main
 
 env:
-  MAIN_PYTHON_VERSION: '3.11'
+  MAIN_PYTHON_VERSION: '3.12'
   RESET_IMAGE_CACHE: 0
   PACKAGE_NAME: ansys-tools-visualization-interface
   DOCUMENTATION_CNAME: visualization-interface.tools.docs.pyansys.com
@@ -101,8 +101,8 @@ jobs:
 
   testing:
     name: Run Unit Tests
-    # needs: [ smoke-tests ]
-    runs-on: windows-latest
+    needs: [ smoke-tests ]
+    runs-on: ubuntu-latest
     steps:
       - name: Restore images cache
         uses: actions/cache@v4
@@ -115,7 +115,7 @@ jobs:
         uses: ansys/actions/tests-pytest@v8
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          # requires-xvfb: true
+          requires-xvfb: true
 
       - name: Upload PyVista generated images (cache and results)
         if: always()
