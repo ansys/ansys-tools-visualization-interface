@@ -101,7 +101,7 @@ jobs:
 
   testing:
     name: Run Unit Tests
-    needs: [ smoke-tests ]
+    # needs: [ smoke-tests ]
     runs-on: windows-latest
     steps:
       - name: Restore images cache
@@ -115,7 +115,7 @@ jobs:
         uses: ansys/actions/tests-pytest@v8
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          requires-xvfb: true
+          # requires-xvfb: true
 
       - name: Upload PyVista generated images (cache and results)
         if: always()
