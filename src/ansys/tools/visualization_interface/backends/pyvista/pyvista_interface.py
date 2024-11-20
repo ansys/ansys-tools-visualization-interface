@@ -58,6 +58,8 @@ class PyVistaInterface:
         for visualization.
     show_plane : bool, default: False
         Whether to show the XY plane in the plotter window.
+    use_qt : bool, default: False
+        Whether to use the Qt backend for the plotter window.
 
     """
 
@@ -68,6 +70,7 @@ class PyVistaInterface:
         num_points: int = 100,
         enable_widgets: bool = True,
         show_plane: bool = False,
+        use_qt: bool = False,
         **plotter_kwargs,
     ) -> None:
         """Initialize the plotter."""
@@ -75,6 +78,9 @@ class PyVistaInterface:
         if scene is None:
             if viz_interface.TESTING_MODE:
                 scene = pv.Plotter(off_screen=True, **plotter_kwargs)
+            elif use_qt:
+                import pyvistaqt
+                scene = pyvistaqt.BackgroundPlotter()
             else:
                 scene = pv.Plotter(**plotter_kwargs)
         # If required, use a white background with no gradient
@@ -335,7 +341,10 @@ class PyVistaInterface:
         if jupyter_backend:
             self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
         else:
-            self.scene.show(**kwargs)
+            if self._use_qt:
+                self.scene.show()
+            else:
+                self.scene.show(**kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
         """Set the default values for the plotting options.
