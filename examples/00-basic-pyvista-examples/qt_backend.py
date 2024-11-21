@@ -62,3 +62,5 @@ sphere = pv.Sphere()
 pl_parallel = Plotter()
 pl_parallel.plot(sphere)
 pl_parallel.show()
+
+pl._backend._pl.scene.close()
