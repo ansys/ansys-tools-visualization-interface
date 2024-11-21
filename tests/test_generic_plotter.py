@@ -20,13 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Test module for the generic plotter."""
+import os
 from pathlib import Path
 
 import numpy as np
+import pytest
 import pyvista as pv
 
 from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
+
+IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
 
 
 class CustomTestClass:
@@ -44,7 +48,7 @@ def test_plotter_add_pd():
     pl.plot(sphere)
     pl.show()
 
-
+@pytest.mark.skipif(IN_GITHUB_ACTIONS, reason="Qt breaks CICD.")
 def test_plotter_pyvistaqt():
     """Adds polydata to the plotter."""
     qt_backend = PyVistaBackend(use_qt=True)

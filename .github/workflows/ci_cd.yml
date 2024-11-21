@@ -14,6 +14,7 @@ env:
   RESET_IMAGE_CACHE: 0
   PACKAGE_NAME: ansys-tools-visualization-interface
   DOCUMENTATION_CNAME: visualization-interface.tools.docs.pyansys.com
+  IN_GITHUB_ACTIONS: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
