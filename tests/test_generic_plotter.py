@@ -51,7 +51,8 @@ def test_plotter_pyvistaqt():
     pl = Plotter(backend=qt_backend)
     sphere = pv.Sphere()
     pl.plot(sphere)
-    pl.show()
+    # PyVista QT show() breaks PyTest, so we avoid it.
+    qt_backend.close()
 
 
 def test_plotter_add_mb():

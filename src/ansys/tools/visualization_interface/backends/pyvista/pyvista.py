@@ -600,3 +600,7 @@ class PyVistaBackend(PyVistaBackendInterface):
         else:
             self.pv_interface.plot(plottable_object, name_filter, **plotting_options)
 
+    def close(self):
+        """Close the plotter for PyVistaQT."""
+        if self._use_qt:
+            self.pv_interface.scene.close()

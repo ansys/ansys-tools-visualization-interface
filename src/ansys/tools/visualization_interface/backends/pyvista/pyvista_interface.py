@@ -29,7 +29,6 @@ from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 import pyvistaqt
 
 import ansys.tools.visualization_interface as viz_interface
-from ansys.tools.visualization_interface import DOCUMENTATION_BUILD
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
@@ -110,7 +109,8 @@ class PyVistaInterface:
 
         # Show the XY plane
         self._show_plane = show_plane
-        if (not DOCUMENTATION_BUILD) or (DOCUMENTATION_BUILD and not use_qt):
+        # if (not DOCUMENTATION_BUILD) or (DOCUMENTATION_BUILD and not use_qt) or (TESTING_MODE and not use_qt):
+        if not use_qt:
             self.scene.add_axes(interactive=False)
 
         # objects to actors mapping
