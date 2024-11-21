@@ -71,7 +71,7 @@ jobs:
     # needs: [docs-style]
     steps:
     - name: Install system dependencies
-      run: sudo apt install libegl1  libxcb-cursor-dev libsm6 libxext6 libxcb-xinerama0 -y
+      run: sudo apt install libegl1 qt6-base-dev libsm6 libxext6 libxcb-xinerama0 -y
     - name: Setup headless display
       uses: pyvista/setup-headless-display-action@v2
 
