@@ -68,7 +68,7 @@ jobs:
   docs-build:
     name: Documentation Build
     runs-on: ubuntu-latest
-    needs: [docs-style]
+    # needs: [docs-style]
     steps:
     - name: Setup headless display
       uses: pyvista/setup-headless-display-action@v2
