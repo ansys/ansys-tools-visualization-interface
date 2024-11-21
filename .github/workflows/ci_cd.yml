@@ -71,7 +71,7 @@ jobs:
     # needs: [docs-style]
     steps:
     - name: Install system dependencies
-      run: sudo apt install qt6-base-dev -y
+      run: sudo apt install -qq libglu1-mesa-dev libx11-xcb-dev '^libxcb*'
     - name: Setup headless display
       uses: pyvista/setup-headless-display-action@v2
 
