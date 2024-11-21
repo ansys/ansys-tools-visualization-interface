@@ -39,19 +39,18 @@ import pyvista as pv
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
-# Create a PyVista mesh
-cube = pv.Cube()
+#########################
+# Open a pyvistaqt window
+# =======================
+# .. code-block:: python
+#
+#    cube = pv.Cube()
+#    pv_backend = PyVistaBackend(use_qt=True)
+#    pl = Plotter(backend=pv_backend)
+#    pl.plot(cube)
+#    pl.show()
+#
 
-pv_backend = PyVistaBackend(use_qt=True)
-
-# Create a plotter
-pl = Plotter(backend=pv_backend)
-
-# Add the mesh to the plotter
-pl.plot(cube)
-
-# Show the plotter
-pl.show()
 
 #####################
 # Parallel VTK window
@@ -63,4 +62,10 @@ pl_parallel = Plotter()
 pl_parallel.plot(sphere)
 pl_parallel.show()
 
-pl._backend._pl.scene.close()
+############################
+# Close the pyvistaqt window
+# ==========================
+# .. code-block:: python
+#
+#    pv_backend.close()
+#
