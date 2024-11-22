@@ -30,7 +30,7 @@ import pyvista as pv
 from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
-IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
+IN_GITHUB_ACTIONS = os.getenv("IN_GITHUB_ACTIONS") == "true"
 
 
 class CustomTestClass:
