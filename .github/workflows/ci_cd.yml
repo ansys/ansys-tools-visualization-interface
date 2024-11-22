@@ -105,6 +105,8 @@ jobs:
     needs: [ smoke-tests ]
     runs-on: ubuntu-latest
     steps:
+      - name: Install system dependencies
+        run: sudo apt install libegl1 libxcb-cursor0 libsm6 libxext6 libxcb-xinerama0 -y
       - name: Restore images cache
         uses: actions/cache@v4
         with:
