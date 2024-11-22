@@ -544,7 +544,7 @@ class PyVistaBackend(PyVistaBackendInterface):
         use_trame: Optional[bool] = None,
         allow_picking: Optional[bool] = False,
         allow_hovering: Optional[bool] = False,
-        plot_picked_names: Optional[bool] = True,
+        plot_picked_names: Optional[bool] = True
     ) -> None:
         """Initialize the generic plotter."""
         super().__init__(use_trame, allow_picking, allow_hovering, plot_picked_names)
