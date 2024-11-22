@@ -71,8 +71,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [docs-style]
     steps:
-    - name: Install system dependencies
-      run: sudo apt install -qq libglu1-mesa-dev libx11-xcb-dev '^libxcb*'
     - name: Setup headless display
       uses: pyvista/setup-headless-display-action@v2
 
@@ -107,8 +105,6 @@ jobs:
     needs: [ smoke-tests ]
     runs-on: ubuntu-latest
     steps:
-      - name: Install system dependencies
-        run: sudo apt install libegl1 libxcb-cursor0 libsm6 libxext6 libxcb-xinerama0 -y
       - name: Restore images cache
         uses: actions/cache@v4
         with:
