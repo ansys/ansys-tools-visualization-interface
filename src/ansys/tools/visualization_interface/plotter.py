@@ -62,7 +62,7 @@ class Plotter():
         screenshot: str = None,
         name_filter: bool = None,
         **plotting_options
-    ) -> None:
+        ) -> None:
         """Show the plotted objects.
 
         Parameters

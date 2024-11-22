@@ -88,6 +88,8 @@ class PyVistaBackendInterface(BaseBackend):
         Whether to plot the names of the picked objects.
     show_plane : Optional[bool], default: False
         Whether to show the plane in the plotter.
+    use_qt : Optional[bool], default: False
+        Whether to use the Qt backend for the plotter.
     """
 
     def __init__(
@@ -97,12 +99,14 @@ class PyVistaBackendInterface(BaseBackend):
         allow_hovering: Optional[bool] = False,
         plot_picked_names: Optional[bool] = False,
         show_plane: Optional[bool] = False,
+        use_qt: Optional[bool] = False,
         **plotter_kwargs,
     ) -> None:
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = ansys.tools.visualization_interface.USE_TRAME
+        self._use_qt = use_qt
         self._use_trame = use_trame
         self._allow_picking = allow_picking
         self._allow_hovering = allow_hovering
@@ -149,7 +153,7 @@ class PyVistaBackendInterface(BaseBackend):
             logger.warning(warn_msg)
             self._pl = PyVistaInterface(show_plane=show_plane)
         else:
-            self._pl = PyVistaInterface(show_plane=show_plane, **plotter_kwargs)
+            self._pl = PyVistaInterface(show_plane=show_plane, use_qt=use_qt, **plotter_kwargs)
 
         self._enable_widgets = self._pl._enable_widgets
 
@@ -178,7 +182,8 @@ class PyVistaBackendInterface(BaseBackend):
             ]
             self._widgets.append(MeasureWidget(self))
             self._widgets.append(ScreenshotButton(self))
-            self._widgets.append(MeshSliderWidget(self))
+            if not self._use_qt:
+                self._widgets.append(MeshSliderWidget(self))
             self._widgets.append(HideButton(self))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
@@ -544,10 +549,11 @@ class PyVistaBackend(PyVistaBackendInterface):
         use_trame: Optional[bool] = None,
         allow_picking: Optional[bool] = False,
         allow_hovering: Optional[bool] = False,
-        plot_picked_names: Optional[bool] = True
+        plot_picked_names: Optional[bool] = True,
+        use_qt: Optional[bool] = False
     ) -> None:
         """Initialize the generic plotter."""
-        super().__init__(use_trame, allow_picking, allow_hovering, plot_picked_names)
+        super().__init__(use_trame, allow_picking, allow_hovering, plot_picked_names, use_qt=use_qt)
 
     def plot_iter(
         self,
@@ -593,3 +599,8 @@ class PyVistaBackend(PyVistaBackendInterface):
             self.pv_interface.plot_iter(plottable_object, name_filter, **plotting_options)
         else:
             self.pv_interface.plot(plottable_object, name_filter, **plotting_options)
+
+    def close(self):
+        """Close the plotter for PyVistaQT."""
+        if self._use_qt:
+            self.pv_interface.scene.close()

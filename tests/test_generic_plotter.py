@@ -28,9 +28,7 @@ import pytest
 import pyvista as pv
 
 from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
-from ansys.tools.visualization_interface.backends.pyvista.pyvistaqt_interface import (
-    PyVistaQtBackend,
-)
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
 IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
 
@@ -52,8 +50,8 @@ def test_plotter_add_pd():
 
 @pytest.mark.skipif(IN_GITHUB_ACTIONS, reason="Qt breaks CICD.")
 def test_plotter_pyvistaqt():
-    """Run PyVistaQt backend."""
-    qt_backend = PyVistaQtBackend()
+    """Adds polydata to the plotter."""
+    qt_backend = PyVistaBackend(use_qt=True)
     pl = Plotter(backend=qt_backend)
     sphere = pv.Sphere()
     pl.plot(sphere)

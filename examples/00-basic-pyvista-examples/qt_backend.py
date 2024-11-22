@@ -37,9 +37,7 @@ This example shows how to use the PyVista Qt backend to create a plotter
 import pyvista as pv
 
 from ansys.tools.visualization_interface import Plotter
-from ansys.tools.visualization_interface.backends.pyvista.pyvistaqt_interface import (
-    PyVistaQtBackend,
-)
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 
 #########################
 # Open a pyvistaqt window
@@ -47,7 +45,7 @@ from ansys.tools.visualization_interface.backends.pyvista.pyvistaqt_interface im
 # .. code-block:: python
 #
 #    cube = pv.Cube()
-#    pv_backend = PyVistaQtBackend()
+#    pv_backend = PyVistaBackend(use_qt=True)
 #    pl = Plotter(backend=pv_backend)
 #    pl.plot(cube)
 #    pl.show()

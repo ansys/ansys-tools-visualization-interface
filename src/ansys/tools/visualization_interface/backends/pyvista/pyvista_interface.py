@@ -20,11 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides plotting for various PyAnsys objects."""
+import importlib
 import re
 from typing import Any, Dict, List, Optional, Union
 
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
+import pyvistaqt
 
 import ansys.tools.visualization_interface as viz_interface
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
@@ -32,6 +34,8 @@ from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjec
 from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
+
+_HAS_PYVISTAQT = importlib.util.find_spec("pyvistaqt")
 
 
 class PyVistaInterface:
@@ -58,6 +62,9 @@ class PyVistaInterface:
         for visualization.
     show_plane : bool, default: False
         Whether to show the XY plane in the plotter window.
+    use_qt : bool, default: False
+        Whether to use the Qt backend for the plotter window.
+
     """
 
     def __init__(
@@ -67,16 +74,27 @@ class PyVistaInterface:
         num_points: int = 100,
         enable_widgets: bool = True,
         show_plane: bool = False,
+        use_qt: bool = False,
         **plotter_kwargs,
     ) -> None:
         """Initialize the plotter."""
         # Generate custom scene if ``None`` is provided
         if scene is None:
             if viz_interface.TESTING_MODE:
-                scene = pv.Plotter(off_screen=True, **plotter_kwargs)
+                if use_qt and _HAS_PYVISTAQT:
+                    scene = pyvistaqt.BackgroundPlotter(off_screen=True)
+                else:
+                    if use_qt and not _HAS_PYVISTAQT:
+                        message = "PyVistaQt dependency is not installed. Install it with " + \
+                                  "`pip install ansys-tools-visualization-interface[pyvistaqt]`."
+                        logger.warning(message)
+                    scene = pv.Plotter(off_screen=True, **plotter_kwargs)
+            elif use_qt:
+                scene = pyvistaqt.BackgroundPlotter()
             else:
                 scene = pv.Plotter(**plotter_kwargs)
 
+        self._use_qt = use_qt
         # If required, use a white background with no gradient
         if not color_opts:
             color_opts = dict(color="white")
@@ -91,7 +109,9 @@ class PyVistaInterface:
 
         # Show the XY plane
         self._show_plane = show_plane
-        self.scene.add_axes(interactive=False)
+        # if (not DOCUMENTATION_BUILD) or (DOCUMENTATION_BUILD and not use_qt) or (TESTING_MODE and not use_qt):
+        if not use_qt:
+            self.scene.add_axes(interactive=False)
 
         # objects to actors mapping
         self._object_to_actors_map = {}
@@ -335,7 +355,10 @@ class PyVistaInterface:
         if jupyter_backend:
             self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
         else:
-            self.scene.show(**kwargs)
+            if self._use_qt:
+                self.scene.show()
+            else:
+                self.scene.show(**kwargs)
 
     def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
         """Set the default values for the plotting options.
