@@ -26,7 +26,6 @@ from typing import Any, Dict, List, Optional, Union
 
 import pyvista as pv
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
-import pyvistaqt
 
 import ansys.tools.visualization_interface as viz_interface
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
@@ -36,7 +35,8 @@ from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
 
 _HAS_PYVISTAQT = importlib.util.find_spec("pyvistaqt")
-
+if _HAS_PYVISTAQT:
+    import pyvistaqt
 
 class PyVistaInterface:
     """Provides the middle class between PyVista plotting operations and PyAnsys objects.
