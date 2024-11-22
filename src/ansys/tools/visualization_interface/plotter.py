@@ -81,4 +81,4 @@ class Plotter():
             screenshot=screenshot,
             name_filter=name_filter,
             **plotting_options
-            )
+        )

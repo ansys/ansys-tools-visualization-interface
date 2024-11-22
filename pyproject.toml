@@ -30,7 +30,19 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-tests = ["pytest==8.3.3", "pytest-pyvista==0.1.9", "pytest-cov==6.0.0"]
+pyvistaqt = [
+    "pyside6 >= 6.8.0,<7",
+    "pyvistaqt >= 0.11.1,<1",
+]
+tests = [
+    "pytest==8.3.3",
+    "pytest-pyvista==0.1.9",
+    "pytest-cov==6.0.0",
+    "pyside6==6.7.3",
+    "pyvistaqt==0.11.1,<1",
+    "pytest-qt"
+]
+
 doc = [
     "ansys-sphinx-theme==1.2.0",
     "jupyter_sphinx==0.5.3",
