@@ -44,12 +44,12 @@ from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 # =======================
 # .. code-block:: python
 #
-cube = pv.Cube()
-pv_backend = PyVistaBackend(use_qt=True)
-pl = Plotter(backend=pv_backend)
-pl.plot(cube)
-pl.show()
-
+#    cube = pv.Cube()
+#    pv_backend = PyVistaBackend(use_qt=True)
+#    pl = Plotter(backend=pv_backend)
+#    pl.plot(cube)
+#    pl.show()
+#
 
 
 #####################
