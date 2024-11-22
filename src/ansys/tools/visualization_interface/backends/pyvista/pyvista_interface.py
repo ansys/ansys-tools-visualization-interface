@@ -109,7 +109,6 @@ class PyVistaInterface:
 
         # Show the XY plane
         self._show_plane = show_plane
-        # if (not DOCUMENTATION_BUILD) or (DOCUMENTATION_BUILD and not use_qt) or (TESTING_MODE and not use_qt):
         if not use_qt:
             self.scene.add_axes(interactive=False)
 
