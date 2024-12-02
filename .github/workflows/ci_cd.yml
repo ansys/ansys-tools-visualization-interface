@@ -72,7 +72,7 @@ jobs:
     needs: [docs-style]
     steps:
     - name: Setup headless display
-      uses: pyvista/setup-headless-display-action@v2
+      uses: pyvista/setup-headless-display-action@v3
 
     - name: "Run Ansys documentation building action"
       uses: ansys/actions/doc-build@v8
