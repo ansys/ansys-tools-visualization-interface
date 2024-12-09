@@ -44,7 +44,7 @@ tests = [
 ]
 
 doc = [
-    "ansys-sphinx-theme==1.2.2",
+    "ansys-sphinx-theme==1.2.3",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.16.4",
     "nbsphinx==0.9.5",
