@@ -1,3 +1,34 @@
+`0.6.1 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.1>`_ - 2024-12-11
+
+
+### Fixed
+
+- fix: not checking if actors have datasets. `#209 <https://github.com/ansys/ansys-tools-visualization-interface/pull/209>`_
+
+`0.6.0 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.0>`_ - 2024-11-26
+
+
+### Added
+
+- feat: Add PyVista Qt support `#192 <https://github.com/ansys/ansys-tools-visualization-interface/pull/192>`_
+
+
+### Dependencies
+
+- build(deps): bump pytest-cov from 5.0.0 to 6.0.0 in the test-dependencies group `#182 <https://github.com/ansys/ansys-tools-visualization-interface/pull/182>`_
+- build(deps): bump ansys-sphinx-theme from 1.1.7 to 1.2.0 in the doc-dependencies group `#183 <https://github.com/ansys/ansys-tools-visualization-interface/pull/183>`_
+- build(deps): update websockets requirement from <14,>=12.0 to >=12.0,<15 in the general-dependencies group `#188 <https://github.com/ansys/ansys-tools-visualization-interface/pull/188>`_
+- build(deps): bump codecov/codecov-action from 4 to 5 `#190 <https://github.com/ansys/ansys-tools-visualization-interface/pull/190>`_
+- build(deps): bump pyside6 from 6.7.3 to 6.8.0.2 in the general-dependencies group `#193 <https://github.com/ansys/ansys-tools-visualization-interface/pull/193>`_
+- build(deps): bump ansys-sphinx-theme from 1.2.0 to 1.2.2 in the doc-dependencies group `#194 <https://github.com/ansys/ansys-tools-visualization-interface/pull/194>`_
+
+
+### Maintenance
+
+- chore: update CHANGELOG for v0.5.0 `#181 <https://github.com/ansys/ansys-tools-visualization-interface/pull/181>`_
+- maint: Update AUTHORS `#184 <https://github.com/ansys/ansys-tools-visualization-interface/pull/184>`_
+- [pre-commit.ci] pre-commit autoupdate `#186 <https://github.com/ansys/ansys-tools-visualization-interface/pull/186>`_, `#189 <https://github.com/ansys/ansys-tools-visualization-interface/pull/189>`_, `#191 <https://github.com/ansys/ansys-tools-visualization-interface/pull/191>`_, `#195 <https://github.com/ansys/ansys-tools-visualization-interface/pull/195>`_
+
 `0.5.0 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.5.0>`_ - 2024-10-31
 
 
