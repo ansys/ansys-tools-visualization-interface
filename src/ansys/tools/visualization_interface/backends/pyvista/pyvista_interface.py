@@ -88,6 +88,8 @@ class PyVistaInterface:
                         message = "PyVistaQt dependency is not installed. Install it with " + \
                                   "`pip install ansys-tools-visualization-interface[pyvistaqt]`."
                         logger.warning(message)
+                    # Avoiding having duplicated argument
+                    plotter_kwargs.pop("off_screen", None)
                     scene = pv.Plotter(off_screen=True, **plotter_kwargs)
             elif use_qt:
                 scene = pyvistaqt.BackgroundPlotter()
