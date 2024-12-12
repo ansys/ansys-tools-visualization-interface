@@ -52,9 +52,20 @@ class MeshSliderWidget(PlotterWidget):
         self._button: vtkButtonWidget = self.plotter_helper._pl.scene.add_checkbox_button_widget(
             self.callback, position=(45, 60), size=30, border_size=3
         )
-        self._meshes = self.plotter_helper._pl.scene.meshes
         self._mb = None
         self._mesh_actor_list = []
+
+    @property
+    def _meshes(self):
+        """Return all the meshes which have dataset from the underlying plotter."""
+        # This method is patching #208
+        # until pyvista fix this upstream.
+        actors = self.plotter_helper._pl.scene.actors.values()
+        meshes = []
+        for actor in actors:
+            if hasattr(actor, 'mapper') and hasattr(actor.mapper, "dataset"):
+                meshes.append(actor.mapper.dataset)
+        return meshes
 
     def callback(self, state: bool) -> None:
         """Remove or add the mesh slider widget actor upon click.
