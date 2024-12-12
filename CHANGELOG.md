@@ -5,6 +5,7 @@
 
 - fix: not checking if actors have datasets. `#209 <https://github.com/ansys/ansys-tools-visualization-interface/pull/209>`_
 
+
 `0.6.1 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.1>`_ - 2024-12-11
 
 
