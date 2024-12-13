@@ -1,4 +1,4 @@
-[0.6.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.2) - 2024-12-12
+## [0.6.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.2) - 2024-12-12
 
 
 ### Fixed
@@ -6,14 +6,14 @@
 - fix: not checking if actors have datasets. [#209](https://github.com/ansys/ansys-tools-visualization-interface/pull/209)
 
 
-[0.6.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.1) - 2024-12-11
+## [0.6.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.1) - 2024-12-11
 
 
 ### Fixed
 
 - fix: not checking if actors have datasets. [#209](https://github.com/ansys/ansys-tools-visualization-interface/pull/209)
 
-[0.6.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.0) - 2024-11-26
+## [0.6.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.0) - 2024-11-26
 
 
 ### Added
@@ -37,7 +37,7 @@
 - maint: Update AUTHORS [#184](https://github.com/ansys/ansys-tools-visualization-interface/pull/184)
 - [pre-commit.ci] pre-commit autoupdate [#186](https://github.com/ansys/ansys-tools-visualization-interface/pull/186), [#189](https://github.com/ansys/ansys-tools-visualization-interface/pull/189), [#191](https://github.com/ansys/ansys-tools-visualization-interface/pull/191), [#195](https://github.com/ansys/ansys-tools-visualization-interface/pull/195)
 
-[0.5.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.5.0) - 2024-10-31
+## [0.5.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.5.0) - 2024-10-31
 
 
 ### Added
