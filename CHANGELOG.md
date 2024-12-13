@@ -131,6 +131,6 @@
 - fix: Remove deprecated name checking action [#159](https://github.com/ansys/ansys-tools-visualization-interface/pull/159)
 - maint: add hacktoberfest labels [#161](https://github.com/ansys/ansys-tools-visualization-interface/pull/161)
 
-This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release can be found in(https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/>.
+This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
 
 <!-- towncrier release notes start -->
