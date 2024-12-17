@@ -99,6 +99,7 @@ jobs:
           library-name: ${{ env.PACKAGE_NAME }}
           operating-system: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
+          whitelist-license-check: "attrs" # This has MIT license but fails the check
 
   testing:
     name: Run Unit Tests
