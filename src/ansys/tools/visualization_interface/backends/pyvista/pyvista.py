@@ -174,6 +174,11 @@ class PyVistaBackendInterface(BaseBackend):
         """PyVista interface."""
         return self._pl
 
+    @property
+    def scene(self) -> pv.Plotter:
+        """PyVista scene."""
+        return self._pl.scene
+
     def enable_widgets(self):
         """Enable the widgets for the plotter."""
         # Create Plotter widgets

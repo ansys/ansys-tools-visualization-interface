@@ -49,7 +49,7 @@ from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 #   pl = Plotter(backend=pv_backend)
 #   pl.plot(cube)
 #   pl.backend.enable_widgets()
-#   pl.show()
+#   pv_backend.scene.show()
 
 
 #####################
@@ -85,4 +85,4 @@ pl_parallel.show()
 #   pv_backend.enable_widgets()
 #
 #   # You can use this plotter in a Qt application
-#   pl = pv_backend.pv_interface.scene
+#   pl = pv_backend.scene
