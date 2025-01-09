@@ -49,7 +49,6 @@ class MeasureWidget(PlotterWidget):
         # Initialize variables
         self._actor: vtkActor = None
         self.plotter_helper = plotter_helper
-        print("MeasureWidget init")
         self._button: vtkButtonWidget = self.plotter_helper._pl.scene.add_checkbox_button_widget(
             self.callback, position=(10, 60), size=30, border_size=3
         )
@@ -89,7 +88,6 @@ class MeasureWidget(PlotterWidget):
         show_measure_icon_file = Path(
             Path(__file__).parent / "_images"/ "measurement.png"
         )
-        print(show_measure_icon_file)
         show_measure_r = vtkPNGReader()
         show_measure_r.SetFileName(show_measure_icon_file)
         show_measure_r.Update()
