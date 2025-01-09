@@ -49,7 +49,7 @@ from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 #   pl = Plotter(backend=pv_backend)
 #   pl.plot(cube)
 #   pl.backend.enable_widgets()
-#   pl.backend.pv_interface.scene.show()
+#   pl.show()
 
 
 #####################
