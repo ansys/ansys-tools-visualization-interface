@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -54,6 +54,7 @@ class MeshSliderWidget(PlotterWidget):
         )
         self._mb = None
         self._mesh_actor_list = []
+        self.update()
 
     @property
     def _meshes(self):

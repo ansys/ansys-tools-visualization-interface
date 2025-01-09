@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -90,6 +90,8 @@ class PyVistaBackendInterface(BaseBackend):
         Whether to show the plane in the plotter.
     use_qt : Optional[bool], default: False
         Whether to use the Qt backend for the plotter.
+    show_qt : Optional[bool], default: True
+        Whether to show the Qt window.
     """
 
     def __init__(
@@ -100,6 +102,7 @@ class PyVistaBackendInterface(BaseBackend):
         plot_picked_names: Optional[bool] = False,
         show_plane: Optional[bool] = False,
         use_qt: Optional[bool] = False,
+        show_qt: Optional[bool] = True,
         **plotter_kwargs,
     ) -> None:
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
@@ -153,7 +156,12 @@ class PyVistaBackendInterface(BaseBackend):
             logger.warning(warn_msg)
             self._pl = PyVistaInterface(show_plane=show_plane)
         else:
-            self._pl = PyVistaInterface(show_plane=show_plane, use_qt=use_qt, **plotter_kwargs)
+            self._pl = PyVistaInterface(
+                show_plane=show_plane,
+                use_qt=use_qt,
+                show_qt=show_qt,
+                **plotter_kwargs
+            )
 
         self._enable_widgets = self._pl._enable_widgets
 
@@ -550,10 +558,16 @@ class PyVistaBackend(PyVistaBackendInterface):
         allow_picking: Optional[bool] = False,
         allow_hovering: Optional[bool] = False,
         plot_picked_names: Optional[bool] = True,
-        use_qt: Optional[bool] = False
+        use_qt: Optional[bool] = False,
+        show_qt: Optional[bool] = False,
     ) -> None:
         """Initialize the generic plotter."""
-        super().__init__(use_trame, allow_picking, allow_hovering, plot_picked_names, use_qt=use_qt)
+        super().__init__(use_trame, allow_picking, allow_hovering, plot_picked_names, use_qt=use_qt, show_qt=show_qt)
+
+    @property
+    def base_plotter(self):
+        """Return the base plotter object."""
+        return self._pl.scene
 
     def plot_iter(
         self,

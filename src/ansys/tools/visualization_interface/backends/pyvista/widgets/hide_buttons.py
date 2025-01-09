@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -52,6 +52,7 @@ class HideButton(PlotterWidget):
         self._button: vtkButtonWidget = self._plotter._pl.scene.add_checkbox_button_widget(
             self.callback, position=(10, 10), size=30, border_size=3
         )
+        self.update()
 
     def callback(self, state: bool) -> None:
         """Remove or add the hide widget actor upon click.

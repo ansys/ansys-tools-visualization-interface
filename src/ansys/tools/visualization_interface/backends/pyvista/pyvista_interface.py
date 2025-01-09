@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -64,7 +64,8 @@ class PyVistaInterface:
         Whether to show the XY plane in the plotter window.
     use_qt : bool, default: False
         Whether to use the Qt backend for the plotter window.
-
+    show_qt : bool, default: True
+        Whether to show the Qt plotter window.
     """
 
     def __init__(
@@ -75,6 +76,7 @@ class PyVistaInterface:
         enable_widgets: bool = True,
         show_plane: bool = False,
         use_qt: bool = False,
+        show_qt: bool = True,
         **plotter_kwargs,
     ) -> None:
         """Initialize the plotter."""
@@ -92,7 +94,7 @@ class PyVistaInterface:
                     plotter_kwargs.pop("off_screen", None)
                     scene = pv.Plotter(off_screen=True, **plotter_kwargs)
             elif use_qt:
-                scene = pyvistaqt.BackgroundPlotter()
+                scene = pyvistaqt.BackgroundPlotter(show=show_qt)
             else:
                 scene = pv.Plotter(**plotter_kwargs)
 

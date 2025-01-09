@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -49,9 +49,11 @@ class MeasureWidget(PlotterWidget):
         # Initialize variables
         self._actor: vtkActor = None
         self.plotter_helper = plotter_helper
+        print("MeasureWidget init")
         self._button: vtkButtonWidget = self.plotter_helper._pl.scene.add_checkbox_button_widget(
             self.callback, position=(10, 60), size=30, border_size=3
         )
+        self.update()
 
     def callback(self, state: bool) -> None:
         """Remove or add the measurement widget actor upon click.
@@ -87,6 +89,7 @@ class MeasureWidget(PlotterWidget):
         show_measure_icon_file = Path(
             Path(__file__).parent / "_images"/ "measurement.png"
         )
+        print(show_measure_icon_file)
         show_measure_r = vtkPNGReader()
         show_measure_r.SetFileName(show_measure_icon_file)
         show_measure_r.Update()

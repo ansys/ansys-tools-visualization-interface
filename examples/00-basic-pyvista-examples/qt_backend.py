@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -44,17 +44,24 @@ from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 # =======================
 # .. code-block:: python
 #
-#    cube = pv.Cube()
-#    pv_backend = PyVistaBackend(use_qt=True)
-#    pl = Plotter(backend=pv_backend)
-#    pl.plot(cube)
-#    pl.show()
-#
+#   cube = pv.Cube()
+#   pv_backend = PyVistaBackend(use_qt=True, show_qt=True)
+#   pl = Plotter(backend=pv_backend)
+#   pl.plot(cube)
+#   pl.backend.enable_widgets()
+#   pl.backend.pv_interface.scene.show()
 
 
 #####################
 # Parallel VTK window
 # ===================
+
+cube = pv.Cube()
+pv_backend = PyVistaBackend(use_qt=True, show_qt=False)
+pl = Plotter(backend=pv_backend)
+pl.plot(cube)
+pl.backend.enable_widgets()
+pl.backend.pv_interface.scene.show()
 
 sphere = pv.Sphere()
 
@@ -67,5 +74,15 @@ pl_parallel.show()
 # ==========================
 # .. code-block:: python
 #
-#    pv_backend.close()
+#   pv_backend.close()
+
+###########################################
+# Integrate the plotter in a Qt application
+# =========================================
+# .. code-block:: python
 #
+#   pv_backend = PyVistaBackend(use_qt=True, show_qt=False)
+#   pv_backend.enable_widgets()
+#
+#   # You can use this plotter in a Qt application
+#   pl = pv_backend.pv_interface.scene

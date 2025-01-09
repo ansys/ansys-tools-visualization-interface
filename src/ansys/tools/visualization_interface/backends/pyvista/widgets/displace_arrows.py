@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -54,6 +54,7 @@ class DisplacementArrow(Button):
         """Initialize the ``DisplacementArrow`` class."""
         super().__init__(plotter, direction)
         self.direction = direction
+        self.update()
 
     def callback(self, state: bool) -> None:
         """Move the camera in the direction defined by the button.

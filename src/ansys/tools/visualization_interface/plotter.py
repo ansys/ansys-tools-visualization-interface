@@ -1,4 +1,4 @@
-# Copyright (C) 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -43,6 +43,11 @@ class Plotter():
             self._backend = PyVistaBackend()
         else:
             self._backend = backend
+
+    @property
+    def backend(self):
+        """Return the base plotter object."""
+        return self._backend
 
     def plot(self, plottable_object: Any, **plotting_options):
         """Plots an object using the specified backend.
