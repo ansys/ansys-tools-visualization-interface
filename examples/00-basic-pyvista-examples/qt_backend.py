@@ -56,13 +56,6 @@ from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 # Parallel VTK window
 # ===================
 
-cube = pv.Cube()
-pv_backend = PyVistaBackend(use_qt=True, show_qt=False)
-pl = Plotter(backend=pv_backend)
-pl.plot(cube)
-pl.backend.enable_widgets()
-pl.backend.pv_interface.scene.show()
-
 sphere = pv.Sphere()
 
 pl_parallel = Plotter()
