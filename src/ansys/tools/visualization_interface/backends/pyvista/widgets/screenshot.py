@@ -49,6 +49,7 @@ class ScreenshotButton(PlotterWidget):
         self._button: vtkButtonWidget = self.plotter._pl.scene.add_checkbox_button_widget(
             self.callback, position=(45, 100), size=30, border_size=3
         )
+        self.update()
 
     def callback(self, state: bool) -> None:
         """Remove or add the screenshot widget actor upon click.

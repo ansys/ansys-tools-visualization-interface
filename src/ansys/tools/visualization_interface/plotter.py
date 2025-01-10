@@ -44,6 +44,11 @@ class Plotter():
         else:
             self._backend = backend
 
+    @property
+    def backend(self):
+        """Return the base plotter object."""
+        return self._backend
+
     def plot(self, plottable_object: Any, **plotting_options):
         """Plots an object using the specified backend.
 
