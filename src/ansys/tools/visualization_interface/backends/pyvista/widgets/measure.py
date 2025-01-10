@@ -52,6 +52,7 @@ class MeasureWidget(PlotterWidget):
         self._button: vtkButtonWidget = self.plotter_helper._pl.scene.add_checkbox_button_widget(
             self.callback, position=(10, 60), size=30, border_size=3
         )
+        self.update()
 
     def callback(self, state: bool) -> None:
         """Remove or add the measurement widget actor upon click.

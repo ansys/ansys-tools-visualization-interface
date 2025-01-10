@@ -54,6 +54,7 @@ class MeshSliderWidget(PlotterWidget):
         )
         self._mb = None
         self._mesh_actor_list = []
+        self.update()
 
     @property
     def _meshes(self):

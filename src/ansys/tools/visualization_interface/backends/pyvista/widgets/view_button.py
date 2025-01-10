@@ -56,6 +56,7 @@ class ViewButton(Button):
         """Initialize the ``ViewButton`` class."""
         super().__init__(plotter, direction)
         self.direction = direction
+        self.update()
 
     def callback(self, state: bool) -> None:
         """Change the view depending on button interaction.
