@@ -1,3 +1,10 @@
+`0.6.3 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.3>`_ - 2025-01-10
+
+
+### Added
+
+- fix: PyVista Qt integration in third-party applications `#223 <https://github.com/ansys/ansys-tools-visualization-interface/pull/223>`_
+
 `0.6.2 <https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.2>`_ - 2024-12-12
 
 
