@@ -92,7 +92,7 @@ class MeasureWidget(PlotterWidget):
             is_inv = ""
         show_measure_vr = self._button.GetRepresentation()
         show_measure_icon_file = Path(
-            Path(__file__).parent / "_images" / ("measurement" + is_inv + ".png")
+            Path(__file__).parent / "_images" / f"measurement{is_inv}.png"
         )
         show_measure_r = vtkPNGReader()
         show_measure_r.SetFileName(show_measure_icon_file)

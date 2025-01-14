@@ -76,7 +76,7 @@ class ScreenshotButton(PlotterWidget):
         else:
             is_inv = ""
         show_vr = self._button.GetRepresentation()
-        show_icon_file = Path(Path(__file__).parent / "_images" / ("screenshot" + is_inv + ".png"))
+        show_icon_file = Path(Path(__file__).parent / "_images" / f"screenshot{is_inv}.png")
         show_r = vtkPNGReader()
         show_r.SetFileName(show_icon_file)
         show_r.Update()

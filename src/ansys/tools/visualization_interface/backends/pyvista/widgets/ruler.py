@@ -71,10 +71,6 @@ class Ruler(PlotterWidget):
             self.plotter.remove_actor(self._actor)
             self._actor = None
         else:
-            if self._dark_mode:
-                color = "white"
-            else:
-                color = "black"
             self._actor = self.plotter.show_bounds(
                 grid="front",
                 location="outer",
@@ -82,7 +78,7 @@ class Ruler(PlotterWidget):
                 show_xaxis=True,
                 show_yaxis=True,
                 show_zaxis=True,
-                color=color,
+                color="white" if self._dark_mode else "black",
                 xtitle="X Axis [m]",
                 ytitle="Y Axis [m]",
                 ztitle="Z Axis [m]",
@@ -95,7 +91,7 @@ class Ruler(PlotterWidget):
         else:
             is_inv = ""
         show_ruler_vr = self._button.GetRepresentation()
-        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / ("ruler" + is_inv + ".png"))
+        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / f"ruler{is_inv}.png")
         show_ruler_r = vtkPNGReader()
         show_ruler_r.SetFileName(show_ruler_icon_file)
         show_ruler_r.Update()

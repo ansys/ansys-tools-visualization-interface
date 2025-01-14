@@ -77,7 +77,7 @@ class Button(PlotterWidget):
             is_inv = ""
         button_repr = self._button.GetRepresentation()
         button_icon_path = Path(
-            Path(__file__).parent / "_images", self.button_config.value[1] + is_inv + ".png"
+            Path(__file__).parent / "_images", f"{self.button_config.value[1]}{is_inv}.png"
         )
         button_icon = vtkPNGReader()
         button_icon.SetFileName(button_icon_path)
