@@ -31,13 +31,13 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.button import 
 class ViewDirection(Enum):
     """Provides an enum with the available views."""
 
-    XYPLUS = 0, "+xy.png", (5, 220)
-    XYMINUS = 1, "-xy.png", (5, 251)
-    XZPLUS = 2, "+xz.png", (5, 282)
-    XZMINUS = 3, "-xz.png", (5, 313)
-    YZPLUS = 4, "+yz.png", (5, 344)
-    YZMINUS = 5, "-yz.png", (5, 375)
-    ISOMETRIC = 6, "isometric.png", (5, 406)
+    XYPLUS = 0, "+xy", (5, 220)
+    XYMINUS = 1, "-xy", (5, 251)
+    XZPLUS = 2, "+xz", (5, 282)
+    XZMINUS = 3, "-xz", (5, 313)
+    YZPLUS = 4, "+yz", (5, 344)
+    YZMINUS = 5, "-yz", (5, 375)
+    ISOMETRIC = 6, "isometric", (5, 406)
 
 
 class ViewButton(Button):
@@ -49,12 +49,13 @@ class ViewButton(Button):
         Plotter to draw the buttons on.
     direction : ViewDirection
         Direction of the view.
-
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
     """
 
-    def __init__(self, plotter: Plotter, direction: tuple):
+    def __init__(self, plotter: Plotter, direction: tuple, dark_mode: bool = False) -> None:
         """Initialize the ``ViewButton`` class."""
-        super().__init__(plotter, direction)
+        super().__init__(plotter, direction, dark_mode)
         self.direction = direction
         self.update()
 

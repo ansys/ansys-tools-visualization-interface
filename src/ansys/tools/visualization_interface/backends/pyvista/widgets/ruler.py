@@ -36,14 +36,16 @@ class Ruler(PlotterWidget):
     ----------
     plotter : ~pyvista.Plotter
         Provides the plotter to add the ruler widget to.
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
 
     """
 
-    def __init__(self, plotter: Plotter) -> None:
+    def __init__(self, plotter: Plotter, dark_mode: bool = False) -> None:
         """Initialize the ``Ruler`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter)
-
+        self._dark_mode = dark_mode
         # Initialize variables
         self._actor: vtkActor = None
         self._button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
@@ -76,7 +78,7 @@ class Ruler(PlotterWidget):
                 show_xaxis=True,
                 show_yaxis=True,
                 show_zaxis=True,
-                color="black",
+                color="white" if self._dark_mode else "black",
                 xtitle="X Axis [m]",
                 ytitle="Y Axis [m]",
                 ztitle="Z Axis [m]",
@@ -84,8 +86,12 @@ class Ruler(PlotterWidget):
 
     def update(self) -> None:
         """Define the configuration and representation of the ruler widget button."""
+        if self._dark_mode:
+            is_inv = "_inv"
+        else:
+            is_inv = ""
         show_ruler_vr = self._button.GetRepresentation()
-        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / "ruler.png")
+        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / f"ruler{is_inv}.png")
         show_ruler_r = vtkPNGReader()
         show_ruler_r.SetFileName(show_ruler_icon_file)
         show_ruler_r.Update()

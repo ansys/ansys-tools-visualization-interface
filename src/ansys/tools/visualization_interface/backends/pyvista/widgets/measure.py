@@ -38,14 +38,16 @@ class MeasureWidget(PlotterWidget):
     ----------
     plotter_helper : PlotterHelper
         Plotter to add the measure widget to.
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
 
     """
 
-    def __init__(self, plotter_helper: "Plotter") -> None:
+    def __init__(self, plotter_helper: "Plotter", dark_mode: bool = False) -> None:
         """Initialize the ``MeasureWidget`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter_helper._pl.scene)
-
+        self._dark_mode = dark_mode
         # Initialize variables
         self._actor: vtkActor = None
         self.plotter_helper = plotter_helper
@@ -84,9 +86,13 @@ class MeasureWidget(PlotterWidget):
 
     def update(self) -> None:
         """Define the measurement widget button parameters."""
+        if self._dark_mode:
+            is_inv = "_inv"
+        else:
+            is_inv = ""
         show_measure_vr = self._button.GetRepresentation()
         show_measure_icon_file = Path(
-            Path(__file__).parent / "_images"/ "measurement.png"
+            Path(__file__).parent / "_images" / f"measurement{is_inv}.png"
         )
         show_measure_r = vtkPNGReader()
         show_measure_r.SetFileName(show_measure_icon_file)

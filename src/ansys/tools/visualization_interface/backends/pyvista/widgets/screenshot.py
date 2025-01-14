@@ -36,14 +36,16 @@ class ScreenshotButton(PlotterWidget):
     ----------
     plotter : ~pyvista.Plotter
         Provides the plotter to add the screenshot widget to.
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
 
     """
 
-    def __init__(self, plotter: Plotter) -> None:
+    def __init__(self, plotter: Plotter, dark_mode: bool = False) -> None:
         """Initialize the ``ScreenshotButton`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter)
-
+        self._dark_mode = dark_mode
         # Initialize variables
         self._actor: vtkActor = None
         self._button: vtkButtonWidget = self.plotter._pl.scene.add_checkbox_button_widget(
@@ -69,8 +71,12 @@ class ScreenshotButton(PlotterWidget):
 
     def update(self) -> None:
         """Define the configuration and representation of the screenshot widget button."""
+        if self._dark_mode:
+            is_inv = "_inv"
+        else:
+            is_inv = ""
         show_vr = self._button.GetRepresentation()
-        show_icon_file = Path(Path(__file__).parent / "_images" / "screenshot.png")
+        show_icon_file = Path(Path(__file__).parent / "_images" / f"screenshot{is_inv}.png")
         show_r = vtkPNGReader()
         show_r.SetFileName(show_icon_file)
         show_r.Update()

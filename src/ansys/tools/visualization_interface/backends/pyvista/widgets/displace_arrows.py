@@ -30,12 +30,12 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.button import 
 class CameraPanDirection(Enum):
     """Provides an enum with the available movement directions of the camera."""
 
-    XUP = 0, "upxarrow.png", (5, 170)
-    XDOWN = 1, "downarrow.png", (5, 130)
-    YUP = 2, "upyarrow.png", (35, 170)
-    YDOWN = 3, "downarrow.png", (35, 130)
-    ZUP = 4, "upzarrow.png", (65, 170)
-    ZDOWN = 5, "downarrow.png", (65, 130)
+    XUP = 0, "upxarrow", (5, 170)
+    XDOWN = 1, "downarrow", (5, 130)
+    YUP = 2, "upyarrow", (35, 170)
+    YDOWN = 3, "downarrow", (35, 130)
+    ZUP = 4, "upzarrow", (65, 170)
+    ZDOWN = 5, "downarrow", (65, 130)
 
 
 class DisplacementArrow(Button):
@@ -47,12 +47,13 @@ class DisplacementArrow(Button):
         Plotter to draw the buttons on.
     direction : CameraPanDirection
         Direction that the camera is to move.
-
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
     """
 
-    def __init__(self, plotter: Plotter, direction: CameraPanDirection):
+    def __init__(self, plotter: Plotter, direction: CameraPanDirection, dark_mode: bool = False) -> None:
         """Initialize the ``DisplacementArrow`` class."""
-        super().__init__(plotter, direction)
+        super().__init__(plotter, direction, dark_mode)
         self.direction = direction
         self.update()
 

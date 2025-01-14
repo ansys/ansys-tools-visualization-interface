@@ -43,12 +43,15 @@ class Button(PlotterWidget):
         Plotter to draw the buttons on.
     button_config : tuple
         Tuple containing the position and the path to the icon of the button.
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
 
     """
 
-    def __init__(self, plotter: Plotter, button_config: tuple):
+    def __init__(self, plotter: Plotter, button_config: tuple, dark_mode: bool = False) -> None:
         """Initialize the ``Button`` class."""
         super().__init__(plotter)
+        self._dark_mode = dark_mode
         self._button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
             self.callback, position=button_config.value[2], size=30, border_size=3
         )
@@ -68,9 +71,13 @@ class Button(PlotterWidget):
 
     def update(self) -> None:
         """Assign the image that represents the button."""
+        if self._dark_mode:
+            is_inv = "_inv"
+        else:
+            is_inv = ""
         button_repr = self._button.GetRepresentation()
         button_icon_path = Path(
-            Path(__file__).parent / "_images", self.button_config.value[1]
+            Path(__file__).parent / "_images", f"{self.button_config.value[1]}{is_inv}.png"
         )
         button_icon = vtkPNGReader()
         button_icon.SetFileName(button_icon_path)
