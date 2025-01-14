@@ -49,7 +49,8 @@ class ViewButton(Button):
         Plotter to draw the buttons on.
     direction : ViewDirection
         Direction of the view.
-
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
     """
 
     def __init__(self, plotter: Plotter, direction: tuple, dark_mode: bool = False) -> None:

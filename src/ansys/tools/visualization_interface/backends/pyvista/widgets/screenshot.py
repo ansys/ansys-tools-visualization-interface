@@ -36,6 +36,8 @@ class ScreenshotButton(PlotterWidget):
     ----------
     plotter : ~pyvista.Plotter
         Provides the plotter to add the screenshot widget to.
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
 
     """
 

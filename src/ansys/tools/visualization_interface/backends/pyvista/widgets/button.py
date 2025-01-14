@@ -43,6 +43,8 @@ class Button(PlotterWidget):
         Plotter to draw the buttons on.
     button_config : tuple
         Tuple containing the position and the path to the icon of the button.
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
 
     """
 

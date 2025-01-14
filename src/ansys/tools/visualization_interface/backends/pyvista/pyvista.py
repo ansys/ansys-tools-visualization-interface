@@ -55,6 +55,8 @@ from ansys.tools.visualization_interface.utils.logger import logger
 
 _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
 
+DARK_MODE_THRESHOLD = 120
+
 if TYPE_CHECKING:
     import numpy as np
 
@@ -180,7 +182,13 @@ class PyVistaBackendInterface(BaseBackend):
         return self._pl.scene
 
     def enable_widgets(self, dark_mode: bool = False) -> None:
-        """Enable the widgets for the plotter."""
+        """Enable the widgets for the plotter.
+
+        Parameters
+        ----------
+        dark_mode : bool, default: False
+            Whether to use dark mode for the widgets.
+        """
         # Create Plotter widgets
         if self._enable_widgets:
             self._widgets: List[PlotterWidget] = []
@@ -403,6 +411,7 @@ class PyVistaBackendInterface(BaseBackend):
         screenshot: Optional[str] = None,
         view_2d: Dict = None,
         name_filter: str = None,
+        dark_mode: bool = False,
         **plotting_options,
     ) -> List[Any]:
         """Plot and show any PyAnsys object.
@@ -420,6 +429,8 @@ class PyVistaBackendInterface(BaseBackend):
             Dictionary with the plane and the viewup vectors of the 2D plane.
         name_filter : str, default: None
             Regular expression with the desired name or names to include in the plotter.
+        dark_mode : bool, default: False
+            Whether to use dark mode for the widgets.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -446,7 +457,16 @@ class PyVistaBackendInterface(BaseBackend):
             )
         # Enable widgets and picking capabilities
         if screenshot is None and not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
-            self.enable_widgets(dark_mode=True)
+            if dark_mode:
+                self.enable_widgets(dark_mode=dark_mode)
+            elif all([
+                    color < DARK_MODE_THRESHOLD
+                    for color in self._pl.scene.background_color.int_rgb
+                    ]):
+                print([color for color in self._pl.scene.background_color.int_rgb])
+                self.enable_widgets(dark_mode=True)
+            else:
+                self.enable_widgets()
 
         if self._allow_picking:
             self.enable_picking()

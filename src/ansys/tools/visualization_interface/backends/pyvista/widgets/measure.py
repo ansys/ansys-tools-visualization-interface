@@ -38,6 +38,8 @@ class MeasureWidget(PlotterWidget):
     ----------
     plotter_helper : PlotterHelper
         Plotter to add the measure widget to.
+    dark_mode : bool, optional
+        Whether to activate the dark mode or not.
 
     """
 
