@@ -50,9 +50,9 @@ class DisplacementArrow(Button):
 
     """
 
-    def __init__(self, plotter: Plotter, direction: CameraPanDirection):
+    def __init__(self, plotter: Plotter, direction: CameraPanDirection, dark_mode: bool = False) -> None:
         """Initialize the ``DisplacementArrow`` class."""
-        super().__init__(plotter, direction)
+        super().__init__(plotter, direction, dark_mode)
         self.direction = direction
         self.update()
 

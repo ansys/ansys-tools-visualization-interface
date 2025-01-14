@@ -179,25 +179,25 @@ class PyVistaBackendInterface(BaseBackend):
         """PyVista scene."""
         return self._pl.scene
 
-    def enable_widgets(self):
+    def enable_widgets(self, dark_mode: bool = False) -> None:
         """Enable the widgets for the plotter."""
         # Create Plotter widgets
         if self._enable_widgets:
             self._widgets: List[PlotterWidget] = []
-            self._widgets.append(Ruler(self._pl._scene))
+            self._widgets.append(Ruler(self._pl._scene, dark_mode))
             [
-                self._widgets.append(DisplacementArrow(self._pl._scene, direction=dir))
+                self._widgets.append(DisplacementArrow(self._pl._scene, dir, dark_mode))
                 for dir in CameraPanDirection
             ]
             [
-                self._widgets.append(ViewButton(self._pl._scene, direction=dir))
+                self._widgets.append(ViewButton(self._pl._scene, dir, dark_mode))
                 for dir in ViewDirection
             ]
-            self._widgets.append(MeasureWidget(self))
-            self._widgets.append(ScreenshotButton(self))
+            self._widgets.append(MeasureWidget(self, dark_mode))
+            self._widgets.append(ScreenshotButton(self, dark_mode))
             if not self._use_qt:
-                self._widgets.append(MeshSliderWidget(self))
-            self._widgets.append(HideButton(self))
+                self._widgets.append(MeshSliderWidget(self, dark_mode))
+            self._widgets.append(HideButton(self, dark_mode))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
@@ -446,7 +446,7 @@ class PyVistaBackendInterface(BaseBackend):
             )
         # Enable widgets and picking capabilities
         if screenshot is None and not ansys.tools.visualization_interface.DOCUMENTATION_BUILD:
-            self.enable_widgets()
+            self.enable_widgets(dark_mode=True)
 
         if self._allow_picking:
             self.enable_picking()

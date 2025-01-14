@@ -39,11 +39,11 @@ class Ruler(PlotterWidget):
 
     """
 
-    def __init__(self, plotter: Plotter) -> None:
+    def __init__(self, plotter: Plotter, dark_mode: bool = False) -> None:
         """Initialize the ``Ruler`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter)
-
+        self._dark_mode = dark_mode
         # Initialize variables
         self._actor: vtkActor = None
         self._button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
@@ -84,8 +84,12 @@ class Ruler(PlotterWidget):
 
     def update(self) -> None:
         """Define the configuration and representation of the ruler widget button."""
+        if self._dark_mode:
+            is_inv = "_inv"
+        else:
+            is_inv = ""
         show_ruler_vr = self._button.GetRepresentation()
-        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / "ruler.png")
+        show_ruler_icon_file = Path(Path(__file__).parent / "_images" / ("ruler" + is_inv + ".png"))
         show_ruler_r = vtkPNGReader()
         show_ruler_r.SetFileName(show_ruler_icon_file)
         show_ruler_r.Update()

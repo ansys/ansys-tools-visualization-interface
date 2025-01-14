@@ -41,11 +41,11 @@ class HideButton(PlotterWidget):
 
     """
 
-    def __init__(self, plotter: "Plotter") -> None:
+    def __init__(self, plotter: "Plotter", dark_mode: bool = False) -> None:
         """Initialize the ``HideButton`` class."""
         # Call PlotterWidget ctor
         super().__init__(plotter._pl.scene)
-
+        self._dark_mode = dark_mode
         # Initialize variables
         self._actor: vtkActor = None
         self._plotter = plotter
@@ -70,17 +70,22 @@ class HideButton(PlotterWidget):
                     widget._button.GetRepresentation().SetVisibility(0)
         else:
             for widget in self.plotter._widgets:
-                    widget._button.On()
-                    widget._button.GetRepresentation().SetVisibility(1)
+                widget._button.On()
+                widget._button.GetRepresentation().SetVisibility(1)
 
     def update(self) -> None:
         """Define the hide widget button parameters."""
+        if self._dark_mode:
+            is_inv = "_inv"
+        else:
+            is_inv = ""
+
         show_vr = self._button.GetRepresentation()
         show_vison_icon_file = Path(
-            Path(__file__).parent / "_images"/ "visibilityon.png"
+            Path(__file__).parent / "_images" / ("visibilityon" + is_inv + ".png")
         )
         show_visoff_icon_file = Path(
-            Path(__file__).parent / "_images"/ "visibilityoff.png"
+            Path(__file__).parent / "_images" / ("visibilityon" + is_inv + ".png")
         )
         show_r_on = vtkPNGReader()
         show_r_on.SetFileName(show_vison_icon_file)
