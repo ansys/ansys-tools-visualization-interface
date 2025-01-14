@@ -71,6 +71,10 @@ class Ruler(PlotterWidget):
             self.plotter.remove_actor(self._actor)
             self._actor = None
         else:
+            if self._dark_mode:
+                color = "white"
+            else:
+                color = "black"
             self._actor = self.plotter.show_bounds(
                 grid="front",
                 location="outer",
@@ -78,7 +82,7 @@ class Ruler(PlotterWidget):
                 show_xaxis=True,
                 show_yaxis=True,
                 show_zaxis=True,
-                color="black",
+                color=color,
                 xtitle="X Axis [m]",
                 ytitle="Y Axis [m]",
                 ztitle="Z Axis [m]",
