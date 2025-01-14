@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -33,7 +33,7 @@ class Color(Enum):
     PICKED = "#BB6EEE"
     """Color for the actors that are currently picked."""
 
-    EDGE = "#000000"
+    EDGE = "#2024 - 202500"
     """Default color for the edges."""
 
     PICKED_EDGE = "#9C9C9C"
