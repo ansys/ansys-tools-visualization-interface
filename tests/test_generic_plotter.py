@@ -148,3 +148,33 @@ def test_screenshot(tmp_path):
     pl.plot(sphere)
     pl.show(screenshot=tmp_path / "screenshot.png")
     assert Path(tmp_path / "screenshot.png").is_file()
+
+
+def test_dark_mode():
+    """Test dark mode different functionalities."""
+    # Test auto dark mode
+    sphere = pv.Sphere()
+    pl = Plotter()
+    pl.backend.scene.background_color = [10, 10, 10]
+    pl.plot(sphere)
+    pl.show()
+
+    # Test auto dark mode below threshold
+    sphere = pv.Sphere()
+    pl = Plotter()
+    pl.backend.scene.background_color = [10, 10, 10]
+    pl.plot(sphere)
+    pl.show()
+
+    # Test auto dark mode above threshold
+    sphere = pv.Sphere()
+    pl = Plotter()
+    pl.backend.scene.background_color = [0, 121, 255]
+    pl.plot(sphere)
+    pl.show()
+
+    # Test manual dark mode
+    sphere = pv.Sphere()
+    pl = Plotter()
+    pl.plot(sphere)
+    pl.show(dark_mode=True)
