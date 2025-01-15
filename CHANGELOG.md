@@ -1,3 +1,25 @@
+`[0.8.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.0) - 2025-01-15
+
+
+### Added
+
+- feat: Add dark mode when background is dark `[#228](https://github.com/ansys/ansys-tools-visualization-interface/pull/228)
+
+
+### Dependencies
+
+- build(deps): bump ansys-fluent-core from 0.28.0 to 0.28.1 in the general-dependencies group `[#226](https://github.com/ansys/ansys-tools-visualization-interface/pull/226)
+
+
+### Maintenance
+
+- chore: update CHANGELOG for v0.7.0 `[#225](https://github.com/ansys/ansys-tools-visualization-interface/pull/225)
+
+
+### Test
+
+- [pre-commit.ci] pre-commit autoupdate `[#227](https://github.com/ansys/ansys-tools-visualization-interface/pull/227)
+
 `[0.7.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.7.0) - 2025-01-10
 
 
