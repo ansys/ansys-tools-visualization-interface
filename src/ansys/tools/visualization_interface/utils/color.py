@@ -33,7 +33,7 @@ class Color(Enum):
     PICKED = "#BB6EEE"
     """Color for the actors that are currently picked."""
 
-    EDGE = "#2024 - 202500"
+    EDGE = "#000000"
     """Default color for the edges."""
 
     PICKED_EDGE = "#9C9C9C"
