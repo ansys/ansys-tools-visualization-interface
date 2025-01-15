@@ -1,3 +1,10 @@
+`[0.8.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.1) - 2025-01-15
+
+
+### Fixed
+
+- fix: Revert some bad changes from pre-commit `[#231](https://github.com/ansys/ansys-tools-visualization-interface/pull/231)
+
 `[0.8.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.0) - 2025-01-15
 
 
