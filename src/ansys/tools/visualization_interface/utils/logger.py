@@ -22,7 +22,7 @@
 
 """Provides the singleton helper class for the logger."""
 
-# logger from https://gist.github.com/huklee/cea2024 - 20251dd05da7c2024 - 20252024 - 2025f52fcc7c
+# logger from https://gist.github.com/huklee/cea20761dd05da7c39120084f52fcc7c
 import datetime
 import logging
 from pathlib import Path

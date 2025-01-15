@@ -37,7 +37,7 @@ First, we need to launch the trame service. We can do this by running the follow
     )
 
     # create a trame service, in whatever port is available in your system
-    ts = TrameService(websocket_port=2024 - 2025)
+    ts = TrameService(websocket_port=8765)
 
     # run the service
     ts.run()
