@@ -2,6 +2,9 @@
 
 This document contains the release notes for the Ansys Tools Visualization Interface project.
 
+This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release
+can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
+
 <!-- towncrier release notes start -->
 
 ## [0.8.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.1) - 2025-01-15
@@ -205,7 +208,3 @@ This document contains the release notes for the Ansys Tools Visualization Inter
 - [pre-commit.ci] pre-commit autoupdate [#126](https://github.com/ansys/ansys-tools-visualization-interface/pull/126), [#129](https://github.com/ansys/ansys-tools-visualization-interface/pull/129), [#133](https://github.com/ansys/ansys-tools-visualization-interface/pull/133), [#138](https://github.com/ansys/ansys-tools-visualization-interface/pull/138), [#145](https://github.com/ansys/ansys-tools-visualization-interface/pull/145), [#148](https://github.com/ansys/ansys-tools-visualization-interface/pull/148), [#150](https://github.com/ansys/ansys-tools-visualization-interface/pull/150), [#152](https://github.com/ansys/ansys-tools-visualization-interface/pull/152), [#163](https://github.com/ansys/ansys-tools-visualization-interface/pull/163), [#168](https://github.com/ansys/ansys-tools-visualization-interface/pull/168), [#174](https://github.com/ansys/ansys-tools-visualization-interface/pull/174), [#177](https://github.com/ansys/ansys-tools-visualization-interface/pull/177)
 - fix: Remove deprecated name checking action [#159](https://github.com/ansys/ansys-tools-visualization-interface/pull/159)
 - maint: add hacktoberfest labels [#161](https://github.com/ansys/ansys-tools-visualization-interface/pull/161)
-
-This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
-
-<!-- towncrier release notes start -->
