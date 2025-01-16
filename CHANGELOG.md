@@ -1,3 +1,9 @@
+# Changelog
+
+This document contains the release notes for the Ansys Tools Visualization Interface project.
+
+<!-- towncrier release notes start -->
+
 ## [0.8.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.1) - 2025-01-15
 
 
