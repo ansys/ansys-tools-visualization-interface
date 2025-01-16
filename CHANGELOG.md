@@ -1,71 +1,80 @@
-`[0.8.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.1) - 2025-01-15
+# Changelog
+
+This document contains the release notes for the Ansys Tools Visualization Interface project.
+
+This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release
+can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
+
+<!-- towncrier release notes start -->
+
+## [0.8.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.1) - 2025-01-15
 
 
 ### Fixed
 
-- fix: Revert some bad changes from pre-commit `[#231](https://github.com/ansys/ansys-tools-visualization-interface/pull/231)
+- fix: Revert some bad changes from pre-commit [#231](https://github.com/ansys/ansys-tools-visualization-interface/pull/231)
 
-`[0.8.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.0) - 2025-01-15
+## [0.8.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.0) - 2025-01-15
 
 
 ### Added
 
-- feat: Add dark mode when background is dark `[#228](https://github.com/ansys/ansys-tools-visualization-interface/pull/228)
+- feat: Add dark mode when background is dark [#228](https://github.com/ansys/ansys-tools-visualization-interface/pull/228)
 
 
 ### Dependencies
 
-- build(deps): bump ansys-fluent-core from 0.28.0 to 0.28.1 in the general-dependencies group `[#226](https://github.com/ansys/ansys-tools-visualization-interface/pull/226)
+- build(deps): bump ansys-fluent-core from 0.28.0 to 0.28.1 in the general-dependencies group [#226](https://github.com/ansys/ansys-tools-visualization-interface/pull/226)
 
 
 ### Maintenance
 
-- chore: update CHANGELOG for v0.7.0 `[#225](https://github.com/ansys/ansys-tools-visualization-interface/pull/225)
+- chore: update CHANGELOG for v0.7.0 [#225](https://github.com/ansys/ansys-tools-visualization-interface/pull/225)
 
 
 ### Test
 
-- [pre-commit.ci] pre-commit autoupdate `[#227](https://github.com/ansys/ansys-tools-visualization-interface/pull/227)
+- [pre-commit.ci] pre-commit autoupdate [#227](https://github.com/ansys/ansys-tools-visualization-interface/pull/227)
 
-`[0.7.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.7.0) - 2025-01-10
+## [0.7.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.7.0) - 2025-01-10
 
 
 ### Added
 
-- fix: PyVista Qt integration in third-party applications `[#223](https://github.com/ansys/ansys-tools-visualization-interface/pull/223)
+- fix: PyVista Qt integration in third-party applications [#223](https://github.com/ansys/ansys-tools-visualization-interface/pull/223)
 
 
 ### Fixed
 
-- fix: avoid passing twice same argument `[#207](https://github.com/ansys/ansys-tools-visualization-interface/pull/207)
-- fix: Changelog links `[#212](https://github.com/ansys/ansys-tools-visualization-interface/pull/212)
-- fix: Convert old links to markdown format `[#213](https://github.com/ansys/ansys-tools-visualization-interface/pull/213)
+- fix: avoid passing twice same argument [#207](https://github.com/ansys/ansys-tools-visualization-interface/pull/207)
+- fix: Changelog links [#212](https://github.com/ansys/ansys-tools-visualization-interface/pull/212)
+- fix: Convert old links to markdown format [#213](https://github.com/ansys/ansys-tools-visualization-interface/pull/213)
 
 
 ### Dependencies
 
-- build(deps): bump ansys-fluent-core from 0.26.1 to 0.27.0 in the general-dependencies group `[#197](https://github.com/ansys/ansys-tools-visualization-interface/pull/197)
-- build(deps): bump pytest from 8.3.3 to 8.3.4 in the test-dependencies group `[#198](https://github.com/ansys/ansys-tools-visualization-interface/pull/198)
-- build(deps): bump sphinx-autoapi from 3.3.3 to 3.4.0 in the doc-dependencies group `[#199](https://github.com/ansys/ansys-tools-visualization-interface/pull/199)
-- build(deps): bump pyvista/setup-headless-display-action from 2 to 3 `[#200](https://github.com/ansys/ansys-tools-visualization-interface/pull/200)
-- build(deps): bump pyside6 from 6.8.0.2 to 6.8.1 in the general-dependencies group `[#203](https://github.com/ansys/ansys-tools-visualization-interface/pull/203)
-- build(deps): bump ansys-sphinx-theme from 1.2.2 to 1.2.3 in the doc-dependencies group `[#204](https://github.com/ansys/ansys-tools-visualization-interface/pull/204)
-- build(deps): bump jupytext from 1.16.4 to 1.16.5 in the general-dependencies group `[#214](https://github.com/ansys/ansys-tools-visualization-interface/pull/214)
-- build(deps): bump the doc-dependencies group across 1 directory with 2 updates `[#219](https://github.com/ansys/ansys-tools-visualization-interface/pull/219)
-- build(deps): bump the general-dependencies group across 1 directory with 2 updates `[#222](https://github.com/ansys/ansys-tools-visualization-interface/pull/222)
+- build(deps): bump ansys-fluent-core from 0.26.1 to 0.27.0 in the general-dependencies group [#197](https://github.com/ansys/ansys-tools-visualization-interface/pull/197)
+- build(deps): bump pytest from 8.3.3 to 8.3.4 in the test-dependencies group [#198](https://github.com/ansys/ansys-tools-visualization-interface/pull/198)
+- build(deps): bump sphinx-autoapi from 3.3.3 to 3.4.0 in the doc-dependencies group [#199](https://github.com/ansys/ansys-tools-visualization-interface/pull/199)
+- build(deps): bump pyvista/setup-headless-display-action from 2 to 3 [#200](https://github.com/ansys/ansys-tools-visualization-interface/pull/200)
+- build(deps): bump pyside6 from 6.8.0.2 to 6.8.1 in the general-dependencies group [#203](https://github.com/ansys/ansys-tools-visualization-interface/pull/203)
+- build(deps): bump ansys-sphinx-theme from 1.2.2 to 1.2.3 in the doc-dependencies group [#204](https://github.com/ansys/ansys-tools-visualization-interface/pull/204)
+- build(deps): bump jupytext from 1.16.4 to 1.16.5 in the general-dependencies group [#214](https://github.com/ansys/ansys-tools-visualization-interface/pull/214)
+- build(deps): bump the doc-dependencies group across 1 directory with 2 updates [#219](https://github.com/ansys/ansys-tools-visualization-interface/pull/219)
+- build(deps): bump the general-dependencies group across 1 directory with 2 updates [#222](https://github.com/ansys/ansys-tools-visualization-interface/pull/222)
 
 
 ### Maintenance
 
-- chore: update CHANGELOG for v0.6.0 `[#196](https://github.com/ansys/ansys-tools-visualization-interface/pull/196)
-- [pre-commit.ci] pre-commit autoupdate `[#201](https://github.com/ansys/ansys-tools-visualization-interface/pull/201), `[#205](https://github.com/ansys/ansys-tools-visualization-interface/pull/205), `[#215](https://github.com/ansys/ansys-tools-visualization-interface/pull/215), `[#218](https://github.com/ansys/ansys-tools-visualization-interface/pull/218)
-- chore: update CHANGELOG for v0.6.1 `[#210](https://github.com/ansys/ansys-tools-visualization-interface/pull/210)
-- chore: update CHANGELOG for v0.6.2 `[#211](https://github.com/ansys/ansys-tools-visualization-interface/pull/211)
+- chore: update CHANGELOG for v0.6.0 [#196](https://github.com/ansys/ansys-tools-visualization-interface/pull/196)
+- [pre-commit.ci] pre-commit autoupdate [#201](https://github.com/ansys/ansys-tools-visualization-interface/pull/201), [#205](https://github.com/ansys/ansys-tools-visualization-interface/pull/205), [#215](https://github.com/ansys/ansys-tools-visualization-interface/pull/215), [#218](https://github.com/ansys/ansys-tools-visualization-interface/pull/218)
+- chore: update CHANGELOG for v0.6.1 [#210](https://github.com/ansys/ansys-tools-visualization-interface/pull/210)
+- chore: update CHANGELOG for v0.6.2 [#211](https://github.com/ansys/ansys-tools-visualization-interface/pull/211)
 
 
 ### Test
 
-- [pre-commit.ci] pre-commit autoupdate `[#221](https://github.com/ansys/ansys-tools-visualization-interface/pull/221)
+- [pre-commit.ci] pre-commit autoupdate [#221](https://github.com/ansys/ansys-tools-visualization-interface/pull/221)
 
 ## [0.6.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.6.2) - 2024-12-12
 
@@ -199,7 +208,3 @@
 - [pre-commit.ci] pre-commit autoupdate [#126](https://github.com/ansys/ansys-tools-visualization-interface/pull/126), [#129](https://github.com/ansys/ansys-tools-visualization-interface/pull/129), [#133](https://github.com/ansys/ansys-tools-visualization-interface/pull/133), [#138](https://github.com/ansys/ansys-tools-visualization-interface/pull/138), [#145](https://github.com/ansys/ansys-tools-visualization-interface/pull/145), [#148](https://github.com/ansys/ansys-tools-visualization-interface/pull/148), [#150](https://github.com/ansys/ansys-tools-visualization-interface/pull/150), [#152](https://github.com/ansys/ansys-tools-visualization-interface/pull/152), [#163](https://github.com/ansys/ansys-tools-visualization-interface/pull/163), [#168](https://github.com/ansys/ansys-tools-visualization-interface/pull/168), [#174](https://github.com/ansys/ansys-tools-visualization-interface/pull/174), [#177](https://github.com/ansys/ansys-tools-visualization-interface/pull/177)
 - fix: Remove deprecated name checking action [#159](https://github.com/ansys/ansys-tools-visualization-interface/pull/159)
 - maint: add hacktoberfest labels [#161](https://github.com/ansys/ansys-tools-visualization-interface/pull/161)
-
-This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
-
-<!-- towncrier release notes start -->
