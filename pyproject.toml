@@ -38,7 +38,7 @@ tests = [
     "pytest==8.3.4",
     "pytest-pyvista==0.1.9",
     "pytest-cov==6.0.0",
-    "pyside6==6.8.2",
+    "pyside6==6.8.2.1",
 ]
 
 doc = [
@@ -53,7 +53,7 @@ doc = [
     "sphinx_design==0.6.1",
     "sphinx-gallery==0.18.0",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.28.2",
+    "ansys-fluent-core==0.29.0",
 ]
 
 [project.urls]
