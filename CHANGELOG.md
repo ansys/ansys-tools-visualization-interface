@@ -1,3 +1,10 @@
+`[0.8.3](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.3) - 2025-02-21
+
+
+### Fixed
+
+- fix: Upper limit for flit version `[#250](https://github.com/ansys/ansys-tools-visualization-interface/pull/250)
+
 `[0.8.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.2) - 2025-02-21
 
 
