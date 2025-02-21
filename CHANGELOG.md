@@ -1,3 +1,10 @@
+`[0.8.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.2) - 2025-02-21
+
+
+### Dependencies
+
+- build(deps): bump the general-dependencies group with 2 updates `[#246](https://github.com/ansys/ansys-tools-visualization-interface/pull/246)
+
 `[0.8.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.1) - 2025-01-15
 
 
