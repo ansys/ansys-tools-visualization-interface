@@ -35,7 +35,7 @@ pyvistaqt = [
     "pyvistaqt >= 0.11.1,<1",
 ]
 tests = [
-    "pytest==8.3.4",
+    "pytest==8.3.5",
     "pytest-pyvista==0.1.9",
     "pytest-cov==6.0.0",
     "pyside6==6.8.2.1",
