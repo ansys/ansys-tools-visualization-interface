@@ -1,0 +1,49 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**00:02.843** total execution time for 5 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_plain_usage.py` (``../../examples/00-basic-pyvista-examples/plain_usage.py``)
+     - 00:01.053
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_clipping_plane.py` (``../../examples/00-basic-pyvista-examples/clipping_plane.py``)
+     - 00:00.847
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_picker.py` (``../../examples/00-basic-pyvista-examples/picker.py``)
+     - 00:00.485
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_using_meshobject.py` (``../../examples/00-basic-pyvista-examples/using_meshobject.py``)
+     - 00:00.457
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_remote_trame_view.py` (``../../examples/00-basic-pyvista-examples/remote_trame_view.py``)
+     - 00:00.000
+     - 0.0
