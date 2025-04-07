@@ -38,7 +38,7 @@ tests = [
     "pytest==8.3.5",
     "pytest-pyvista==0.1.9",
     "pytest-cov==6.0.0",
-    "pyside6==6.8.3",
+    "pyside6==6.9.0",
 ]
 
 doc = [
