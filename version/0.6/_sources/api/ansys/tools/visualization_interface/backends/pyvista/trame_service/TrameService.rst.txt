@@ -1,0 +1,154 @@
+
+
+
+
+
+
+:class:`TrameService`
+=====================
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.trame_service.TrameService(websocket_host: str = 'localhost', websocket_port: int = 8765)
+
+   
+   Trame service class.
+
+   Initializes a trame service where you can send meshes to plot in a trame webview plotter.
+
+   :Parameters:
+
+       **websocket_host** : :class:`python:str`, :obj:`optional`
+           Host where the webserver will listen for new plotters and meshes, by default "localhost".
+
+       **websocket_port** : :class:`python:int`, :obj:`optional`
+           Port where the webserver will listen for new plotters and meshes, by default 8765.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: TrameService
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~clear_plotter`
+            - Clears the web view in the service.
+          * - :py:attr:`~set_scene`
+            - Sets the web view scene for the trame service.
+          * - :py:attr:`~run`
+            - Start the trame web view and the websocket services.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.trame_service import TrameService
+
+
+
+Method detail
+-------------
+
+.. py:method:: clear_plotter()
+
+   
+   Clears the web view in the service.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: set_scene()
+
+   
+   Sets the web view scene for the trame service.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: run()
+
+   
+   Start the trame web view and the websocket services.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
