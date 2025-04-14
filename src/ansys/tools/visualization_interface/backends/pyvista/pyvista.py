@@ -476,7 +476,7 @@ class PyVistaBackendInterface(BaseBackend):
         # Update all buttons/widgets
         [widget.update() for widget in self._widgets]
 
-        self.show_plotter(screenshot)
+        self.show_plotter(screenshot, **plotting_options)
 
         picked_objects_list = []
         if isinstance(plottable_object, list):
@@ -493,7 +493,7 @@ class PyVistaBackendInterface(BaseBackend):
 
         return picked_objects_list
 
-    def show_plotter(self, screenshot: Optional[str] = None) -> None:
+    def show_plotter(self, screenshot: Optional[str] = None, **kwargs) -> None:
         """Show the plotter or start the `trame <https://kitware.github.io/trame/index.html>`_ service.
 
         Parameters
@@ -512,7 +512,7 @@ class PyVistaBackendInterface(BaseBackend):
             visualizer.set_scene(self._pl)
             visualizer.show()
         else:
-            self.pv_interface.show(screenshot=screenshot)
+            self.pv_interface.show(screenshot=screenshot, **kwargs)
 
         pv.OFF_SCREEN = self._pv_off_screen_original
 
