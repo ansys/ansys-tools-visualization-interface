@@ -512,7 +512,8 @@ class PyVistaBackendInterface(BaseBackend):
             visualizer.set_scene(self._pl)
             visualizer.show()
         else:
-            self.pv_interface.show(screenshot=screenshot, **kwargs)
+            jupyter_backend = kwargs.pop("jupyter_backend", None)
+            self.pv_interface.show(screenshot=screenshot, jupyter_backend=jupyter_backend)
 
         pv.OFF_SCREEN = self._pv_off_screen_original
 
