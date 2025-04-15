@@ -185,6 +185,7 @@ jobs:
       - name: Release to GitHub
         uses: ansys/actions/release-github@v9
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           library-name: ${{ env.PACKAGE_NAME }}
 
   upload_docs_release:
