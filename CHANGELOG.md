@@ -1,3 +1,10 @@
+`[0.8.4](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.4) - April 15, 2025
+
+
+### Fixed
+
+- fix: Allow jupyter backend manual selection `[#275](https://github.com/ansys/ansys-tools-visualization-interface/pull/275)
+
 `[0.8.3](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.3) - 2025-02-21
 
 
