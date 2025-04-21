@@ -182,7 +182,7 @@ class PyVistaInterface:
         """
         # Make sure to pass new copies/objects to the mesh for the normal
         # This should be fixed by PyVista eventually... it is coming from
-        # https://github.com/RobPasMue/pyvista/commit/2db1888a294a14e4f28a140d8aa0466d332912dc
+        # https://github.com/pyvista/pyvista/commit/2db1888a294a14e4f28a140d8aa0466d332912dc
         return mesh.clip(normal=[elem for elem in plane.normal],
                          origin=plane.origin)
 
