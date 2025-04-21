@@ -1,3 +1,10 @@
+## [0.9.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.9.1) - April 21, 2025
+
+
+### Fixed
+
+- fix: pyvista read-only behaviour [#281](https://github.com/ansys/ansys-tools-visualization-interface/pull/281)
+
 ## [0.9.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.9.0) - April 15, 2025
 
 
