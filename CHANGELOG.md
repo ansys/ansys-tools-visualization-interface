@@ -1,3 +1,52 @@
+## [0.9.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.9.1) - April 21, 2025
+
+
+### Fixed
+
+- fix: pyvista read-only behaviour [#281](https://github.com/ansys/ansys-tools-visualization-interface/pull/281)
+
+## [0.9.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.9.0) - April 15, 2025
+
+
+### Fixed
+
+- fix: issues on changelog formats [#233](https://github.com/ansys/ansys-tools-visualization-interface/pull/233)
+- fix: Allow jupyter backend manual selection [#275](https://github.com/ansys/ansys-tools-visualization-interface/pull/275)
+
+
+### Dependencies
+
+- build(deps): bump ansys-fluent-core from 0.28.1 to 0.28.2 in the general-dependencies group [#234](https://github.com/ansys/ansys-tools-visualization-interface/pull/234)
+- build(deps): bump ansys-sphinx-theme from 1.2.4 to 1.2.6 in the doc-dependencies group [#235](https://github.com/ansys/ansys-tools-visualization-interface/pull/235)
+- build(deps): bump pyside6 from 6.8.1 to 6.8.2 in the general-dependencies group [#238](https://github.com/ansys/ansys-tools-visualization-interface/pull/238)
+- build(deps): bump the general-dependencies group with 2 updates [#240](https://github.com/ansys/ansys-tools-visualization-interface/pull/240), [#246](https://github.com/ansys/ansys-tools-visualization-interface/pull/246), [#274](https://github.com/ansys/ansys-tools-visualization-interface/pull/274)
+- build(deps): bump the doc-dependencies group across 1 directory with 2 updates [#242](https://github.com/ansys/ansys-tools-visualization-interface/pull/242)
+- build(deps): bump sphinx-gallery from 0.18.0 to 0.19.0 in the doc-dependencies group [#247](https://github.com/ansys/ansys-tools-visualization-interface/pull/247)
+- build(deps): bump the doc-dependencies group with 3 updates [#253](https://github.com/ansys/ansys-tools-visualization-interface/pull/253)
+- build(deps): bump pytest from 8.3.4 to 8.3.5 in the test-dependencies group [#256](https://github.com/ansys/ansys-tools-visualization-interface/pull/256)
+- build(deps): bump sphinx from 8.2.1 to 8.2.3 in the doc-dependencies group [#257](https://github.com/ansys/ansys-tools-visualization-interface/pull/257)
+- build(deps): bump ansys-fluent-core from 0.29.0 to 0.30.0 in the general-dependencies group [#262](https://github.com/ansys/ansys-tools-visualization-interface/pull/262)
+- build(deps): bump ansys-fluent-core from 0.30.0 to 0.30.2 in the general-dependencies group [#264](https://github.com/ansys/ansys-tools-visualization-interface/pull/264)
+- build(deps): bump pyside6 from 6.8.2.1 to 6.8.3 in the general-dependencies group [#266](https://github.com/ansys/ansys-tools-visualization-interface/pull/266)
+- build(deps): bump pyside6 from 6.8.3 to 6.9.0 in the general-dependencies group [#269](https://github.com/ansys/ansys-tools-visualization-interface/pull/269)
+- build(deps): bump pytest-cov from 6.0.0 to 6.1.1 in the test-dependencies group [#270](https://github.com/ansys/ansys-tools-visualization-interface/pull/270)
+- build(deps): bump ansys/actions from 8 to 9 [#273](https://github.com/ansys/ansys-tools-visualization-interface/pull/273)
+
+
+### Maintenance
+
+- chore: update CHANGELOG for v0.8.0 [#230](https://github.com/ansys/ansys-tools-visualization-interface/pull/230)
+- chore: update CHANGELOG for v0.8.1 [#232](https://github.com/ansys/ansys-tools-visualization-interface/pull/232)
+- [pre-commit.ci] pre-commit autoupdate [#236](https://github.com/ansys/ansys-tools-visualization-interface/pull/236), [#237](https://github.com/ansys/ansys-tools-visualization-interface/pull/237), [#239](https://github.com/ansys/ansys-tools-visualization-interface/pull/239), [#243](https://github.com/ansys/ansys-tools-visualization-interface/pull/243), [#254](https://github.com/ansys/ansys-tools-visualization-interface/pull/254), [#258](https://github.com/ansys/ansys-tools-visualization-interface/pull/258), [#260](https://github.com/ansys/ansys-tools-visualization-interface/pull/260), [#263](https://github.com/ansys/ansys-tools-visualization-interface/pull/263), [#265](https://github.com/ansys/ansys-tools-visualization-interface/pull/265), [#267](https://github.com/ansys/ansys-tools-visualization-interface/pull/267), [#272](https://github.com/ansys/ansys-tools-visualization-interface/pull/272), [#276](https://github.com/ansys/ansys-tools-visualization-interface/pull/276)
+- maint: Update dev version [#248](https://github.com/ansys/ansys-tools-visualization-interface/pull/248)
+- chore: update CHANGELOG for v0.8.3 [#251](https://github.com/ansys/ansys-tools-visualization-interface/pull/251)
+- docs: Update ``CONTRIBUTORS.md`` with the latest contributors [#271](https://github.com/ansys/ansys-tools-visualization-interface/pull/271)
+
+
+### Test
+
+- test: Add tests for dark mode [#229](https://github.com/ansys/ansys-tools-visualization-interface/pull/229)
+
 ## [0.8.3](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.8.3) - 2025-02-21
 
 

@@ -180,7 +180,11 @@ class PyVistaInterface:
             Clipped mesh.
 
         """
-        return mesh.clip(normal=plane.normal, origin=plane.origin)
+        # Make sure to pass new copies/objects to the mesh for the normal
+        # This should be fixed by PyVista eventually... it is coming from
+        # https://github.com/pyvista/pyvista/commit/2db1888a294a14e4f28a140d8aa0466d332912dc
+        return mesh.clip(normal=[elem for elem in plane.normal],
+                         origin=plane.origin)
 
     def plot_meshobject(self, custom_object: MeshObjectPlot, **plotting_options):
         """Plot a generic ``MeshObjectPlot`` object to the scene.
