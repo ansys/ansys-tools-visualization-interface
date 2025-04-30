@@ -68,7 +68,7 @@ jobs:
 
   docs-build:
     name: Documentation Build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: [docs-style]
     steps:
     - name: Setup headless display
