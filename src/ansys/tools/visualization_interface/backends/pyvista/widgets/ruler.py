@@ -56,16 +56,15 @@ class Ruler(PlotterWidget):
     def callback(self, state: bool) -> None:
         """Remove or add the ruler widget actor upon click.
 
-        Notes
-        -----
-        This method provides a callback function for the ruler widet.
-        It is called every time the ruler widget is clicked.
-
         Parameters
         ----------
         state : bool
             Whether the state of the button, which is inherited from PyVista, is ``True``.
 
+        Notes
+        -----
+        This method provides a callback function for the ruler widet.
+        It is called every time the ruler widget is clicked.
         """
         if not state and self._actor:
             self.plotter.remove_actor(self._actor)

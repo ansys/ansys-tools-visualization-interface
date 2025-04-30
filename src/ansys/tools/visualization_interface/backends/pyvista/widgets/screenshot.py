@@ -56,16 +56,16 @@ class ScreenshotButton(PlotterWidget):
     def callback(self, state: bool) -> None:
         """Remove or add the screenshot widget actor upon click.
 
-        Notes
-        -----
-        This method provides a callback function for the screenshot widget.
-        It is called every time the screenshot widget is clicked.
-
         Parameters
         ----------
         state : bool
             Whether the state of the button, which is inherited from PyVista, is ``True``.
 
+
+        Notes
+        -----
+        This method provides a callback function for the screenshot widget.
+        It is called every time the screenshot widget is clicked.
         """
         self.plotter._pl.scene.screenshot("screenshot.png")
 
