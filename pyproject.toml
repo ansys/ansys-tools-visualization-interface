@@ -20,9 +20,10 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "pyvista >= 0.43.0,<1",
+    "pyvista >= 0.45.0,<1",
     "websockets >= 12.0,< 16",
     "trame >= 3.6.0,<4",
     "trame-vtk >= 2.8.7,<3",
@@ -36,6 +37,7 @@ pyvistaqt = [
 ]
 tests = [
     "pytest==8.3.5",
+    "pyvista==0.45.0",
     "pytest-pyvista==0.1.9",
     "pytest-cov==6.1.1",
     "pyside6==6.9.0",
