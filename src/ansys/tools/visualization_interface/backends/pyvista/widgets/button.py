@@ -33,10 +33,6 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import 
 class Button(PlotterWidget):
     """Provides the abstract class for implementing buttons in PyAnsys.
 
-    Notes
-    -----
-    This class wraps the PyVista ``add_checkbox_button_widget()`` method.
-
     Parameters
     ----------
     plotter : Plotter
@@ -46,6 +42,9 @@ class Button(PlotterWidget):
     dark_mode : bool, optional
         Whether to activate the dark mode or not.
 
+    Notes
+    -----
+    This class wraps the PyVista ``add_checkbox_button_widget()`` method.
     """
 
     def __init__(self, plotter: Plotter, button_config: tuple, dark_mode: bool = False) -> None:
