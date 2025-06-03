@@ -1,3 +1,10 @@
+## [0.9.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.9.2) - June 03, 2025
+
+
+### Documentation
+
+- docs: avoid parallelization [#299](https://github.com/ansys/ansys-tools-visualization-interface/pull/299)
+
 ## [0.9.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.9.1) - April 21, 2025
 
 
