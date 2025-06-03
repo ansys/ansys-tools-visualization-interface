@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``clip_plane.py`` module
+============================
+
+.. py:module:: ansys.tools.visualization_interface.utils.clip_plane
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: clip_plane
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.utils.clip_plane.ClipPlane`
+            - Provides the clipping plane for clipping meshes in the plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> ClipPlane</api/ansys/tools/visualization_interface/utils/clip_plane/ClipPlane>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the ``ClipPlane`` class.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
