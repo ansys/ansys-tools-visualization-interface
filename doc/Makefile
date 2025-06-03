@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    = -j 1 -W --color
+SPHINXOPTS    = -j auto -W --color
 SPHINXBUILD   = sphinx-build
 APIDIR        = api
 EXAMPLESDIR        = examples
