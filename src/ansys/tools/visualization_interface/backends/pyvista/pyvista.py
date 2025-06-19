@@ -413,7 +413,7 @@ class PyVistaBackendInterface(BaseBackend):
         name_filter: str = None,
         dark_mode: bool = False,
         plotting_options: Optional[Dict[str, Any]] = {},
-        **show_options: Any,
+        **show_options: Dict[str, Any],
     ) -> List[Any]:
         """Plot and show any PyAnsys object.
 
