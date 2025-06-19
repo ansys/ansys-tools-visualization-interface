@@ -178,3 +178,15 @@ def test_dark_mode():
     pl = Plotter()
     pl.plot(sphere)
     pl.show(dark_mode=True)
+
+
+def test_plotter_show_mix():
+    """Test mixing plot and show methods."""
+    pl = Plotter()
+    sphere = pv.Sphere()
+    sphere1 = pv.Sphere(center=(0, 0, 1))
+    # Plot
+    pl.plot(sphere1, opacity=0.5, color="blue")
+
+    # Mix plot and show
+    pl.show(sphere, plotting_options={"show_edges": True}, cpos="xy")

@@ -412,7 +412,8 @@ class PyVistaBackendInterface(BaseBackend):
         view_2d: Dict = None,
         name_filter: str = None,
         dark_mode: bool = False,
-        **plotting_options,
+        plotting_options: Optional[Dict[str, Any]] = None,
+        **show_options: Any,
     ) -> List[Any]:
         """Plot and show any PyAnsys object.
 
@@ -431,9 +432,11 @@ class PyVistaBackendInterface(BaseBackend):
             Regular expression with the desired name or names to include in the plotter.
         dark_mode : bool, default: False
             Whether to use dark mode for the widgets.
-        **plotting_options : dict, default: None
+        plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+        **show_options : Any
+            Additional keyword arguments for the show method.
 
         Returns
         -------
@@ -476,7 +479,7 @@ class PyVistaBackendInterface(BaseBackend):
         # Update all buttons/widgets
         [widget.update() for widget in self._widgets]
 
-        self.show_plotter(screenshot, **plotting_options)
+        self.show_plotter(screenshot, **show_options)
 
         picked_objects_list = []
         if isinstance(plottable_object, list):
@@ -513,7 +516,17 @@ class PyVistaBackendInterface(BaseBackend):
             visualizer.show()
         else:
             jupyter_backend = kwargs.pop("jupyter_backend", None)
-            self.pv_interface.show(screenshot=screenshot, jupyter_backend=jupyter_backend)
+            try:
+                self.pv_interface.show(
+                    screenshot=screenshot, jupyter_backend=jupyter_backend,
+                    **kwargs
+                )
+            except TypeError as e:
+                logger.warning(
+                    "There are incompatible keyword arguments in the `show` method. "
+                    "Please check the documentation for the correct usage." + str(e)
+                )
+                self.pv_interface.show(screenshot=screenshot, jupyter_backend=jupyter_backend)
 
         pv.OFF_SCREEN = self._pv_off_screen_original
 
