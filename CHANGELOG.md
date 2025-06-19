@@ -1,3 +1,40 @@
+## [0.10.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.10.0) - June 19, 2025
+
+
+### Dependencies
+
+- build(deps): bump actions/download-artifact from 4.1.9 to 4.2.1 [#280](https://github.com/ansys/ansys-tools-visualization-interface/pull/280)
+- build(deps): bump the general-dependencies group with 2 updates [#284](https://github.com/ansys/ansys-tools-visualization-interface/pull/284), [#297](https://github.com/ansys/ansys-tools-visualization-interface/pull/297)
+- build(deps): bump pyvista/setup-headless-display-action from 3 to 4 [#285](https://github.com/ansys/ansys-tools-visualization-interface/pull/285)
+- build(deps): bump actions/download-artifact from 4.2.1 to 4.3.0 [#286](https://github.com/ansys/ansys-tools-visualization-interface/pull/286)
+- build(deps): bump ansys-fluent-core from 0.30.4 to 0.30.5 in the general-dependencies group [#289](https://github.com/ansys/ansys-tools-visualization-interface/pull/289)
+- build(deps): bump pyvista from 0.45.0 to 0.45.1 in the pyvista group [#292](https://github.com/ansys/ansys-tools-visualization-interface/pull/292)
+- build(deps): bump pyvista from 0.45.1 to 0.45.2 in the pyvista group [#294](https://github.com/ansys/ansys-tools-visualization-interface/pull/294)
+
+
+### Miscellaneous
+
+- Build(deps): bump pyside6 from 6.9.0 to 6.9.1 in the general-dependencies group [#301](https://github.com/ansys/ansys-tools-visualization-interface/pull/301)
+- Build(deps): bump pytest from 8.3.5 to 8.4.0 in the test-dependencies group [#302](https://github.com/ansys/ansys-tools-visualization-interface/pull/302)
+- Build(deps): bump ansys/actions from 9 to 10 [#303](https://github.com/ansys/ansys-tools-visualization-interface/pull/303)
+- [pre-commit.ci] pre-commit autoupdate [#304](https://github.com/ansys/ansys-tools-visualization-interface/pull/304)
+- Build(deps): bump pytest-cov from 6.1.1 to 6.2.1 in the test-dependencies group [#305](https://github.com/ansys/ansys-tools-visualization-interface/pull/305)
+- Feat: improve optional arguments in `show` [#306](https://github.com/ansys/ansys-tools-visualization-interface/pull/306)
+
+
+### Documentation
+
+- maint: Update PyVista [#288](https://github.com/ansys/ansys-tools-visualization-interface/pull/288)
+
+
+### Maintenance
+
+- chore: update CHANGELOG for v0.9.0 [#278](https://github.com/ansys/ansys-tools-visualization-interface/pull/278)
+- maint: Add missing input token to release CI [#279](https://github.com/ansys/ansys-tools-visualization-interface/pull/279)
+- chore: update CHANGELOG for v0.9.1 [#282](https://github.com/ansys/ansys-tools-visualization-interface/pull/282)
+- [pre-commit.ci] pre-commit autoupdate [#283](https://github.com/ansys/ansys-tools-visualization-interface/pull/283), [#287](https://github.com/ansys/ansys-tools-visualization-interface/pull/287), [#290](https://github.com/ansys/ansys-tools-visualization-interface/pull/290), [#293](https://github.com/ansys/ansys-tools-visualization-interface/pull/293), [#295](https://github.com/ansys/ansys-tools-visualization-interface/pull/295), [#296](https://github.com/ansys/ansys-tools-visualization-interface/pull/296), [#298](https://github.com/ansys/ansys-tools-visualization-interface/pull/298)
+- chore: update CHANGELOG for v0.9.2 [#300](https://github.com/ansys/ansys-tools-visualization-interface/pull/300)
+
 ## [0.9.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.9.2) - June 03, 2025
 
 
