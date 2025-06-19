@@ -515,18 +515,7 @@ class PyVistaBackendInterface(BaseBackend):
             visualizer.set_scene(self._pl)
             visualizer.show()
         else:
-            jupyter_backend = kwargs.pop("jupyter_backend", None)
-            try:
-                self.pv_interface.show(
-                    screenshot=screenshot, jupyter_backend=jupyter_backend,
-                    **kwargs
-                )
-            except TypeError as e:
-                logger.warning(
-                    "There are incompatible keyword arguments in the `show` method. "
-                    "Please check the documentation for the correct usage." + str(e)
-                )
-                self.pv_interface.show(screenshot=screenshot, jupyter_backend=jupyter_backend)
+            self.pv_interface.show(screenshot=screenshot, **kwargs)
 
         pv.OFF_SCREEN = self._pv_off_screen_original
 
