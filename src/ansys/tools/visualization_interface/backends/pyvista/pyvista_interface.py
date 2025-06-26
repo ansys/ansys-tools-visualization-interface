@@ -328,8 +328,9 @@ class PyVistaInterface:
         jupyter_backend : str, default: None
             PyVista Jupyter backend.
         **kwargs : dict, default: None
-            Plotting keyword arguments. For allowable keyword arguments, see the
-            :meth:`Plotter.show <pyvista.Plotter.show>` method.
+            Plotting and show keyword arguments. For allowable keyword arguments, see the
+            :meth:`Plotter.show <pyvista.Plotter.show>` and
+            :meth:`Plotter.show <pyvista.Plotter.add_mesh>` methods.
 
         Notes
         -----
@@ -360,6 +361,7 @@ class PyVistaInterface:
         if kwargs.get("screenshot") is not None:
             self.scene.off_screen = True
         if jupyter_backend:
+            kwargs.pop("jupyter_backend", None)
             self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
         else:
             if self._use_qt:
