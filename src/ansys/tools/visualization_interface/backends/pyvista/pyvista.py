@@ -20,7 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
-from abc import Callable, abstractmethod
+from abc import abstractmethod
+from collections.abc import Callable
 import importlib.util
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
