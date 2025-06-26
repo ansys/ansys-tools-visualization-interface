@@ -361,6 +361,7 @@ class PyVistaInterface:
         if kwargs.get("screenshot") is not None:
             self.scene.off_screen = True
         if jupyter_backend:
+            # Remove jupyter_backend from show options since we pass it manually
             kwargs.pop("jupyter_backend", None)
             self.scene.show(jupyter_backend=jupyter_backend, **kwargs)
         else:
