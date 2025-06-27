@@ -428,11 +428,7 @@ class PyVistaBackendInterface(BaseBackend):
         for k, v in signature.parameters.items():
             # We are ignoring positional arguments, and passing everything as kwarg
             if v.default is not inspect.Parameter.empty:
-                kwargs[k] = v.default
-        for k, v in kwargs.items():
-            # my_args is the arguments passed to the ansys-visualization API
-            if k in input_kwargs:
-                kwargs[k] = input_kwargs[k]
+                kwargs[k] = input_kwargs[k] if k in input_kwargs else v.default
         return kwargs
 
     def show(
@@ -462,7 +458,7 @@ class PyVistaBackendInterface(BaseBackend):
         dark_mode : bool, default: False
             Whether to use dark mode for the widgets.
         **kwargs : Any
-            Additional keyword arguments for the show method.
+            Additional keyword arguments for the show or plot method.
 
         Returns
         -------
