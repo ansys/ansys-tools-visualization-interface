@@ -188,5 +188,5 @@ def test_plotter_show_mix():
     # Plot
     pl.plot(sphere1, opacity=0.5, color="blue")
 
-    # Mix plot and show
-    pl.show(sphere, plotting_options={"show_edges": True}, cpos="xy")
+    # Mix plot and show kwargs
+    pl.show(sphere, show_edges=True, cpos="xy")

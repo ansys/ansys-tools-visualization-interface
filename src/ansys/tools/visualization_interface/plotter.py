@@ -66,7 +66,7 @@ class Plotter():
         plottable_object: Any = None,
         screenshot: str = None,
         name_filter: bool = None,
-        **plotting_options
+        **kwargs
         ) -> None:
         """Show the plotted objects.
 
@@ -78,12 +78,12 @@ class Plotter():
             Path to save a screenshot, by default None.
         name_filter : bool, optional
             Flag to filter the object, by default None.
-        plotting_options : dict
-            Additional plotting options the selected backend accepts.
+        kwargs : dict
+            Additional options the selected backend accepts.
         """
         self._backend.show(
             plottable_object=plottable_object,
             screenshot=screenshot,
             name_filter=name_filter,
-            **plotting_options
+            **kwargs
         )

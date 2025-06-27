@@ -21,6 +21,7 @@
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
+from collections.abc import Callable
 import importlib.util
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
@@ -405,6 +406,31 @@ class PyVistaBackendInterface(BaseBackend):
         """Disable hover capabilities in the plotter."""
         self._hover_widget.EnabledOff()
 
+    def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
+        """Extracts the keyword arguments from a function signature and returns it as dict.
+
+        Parameters
+        ----------
+        func_name : Callable
+            Function to extract the keyword arguments from. It should be a callable function
+        input_kwargs : Dict[str, Any]
+            Dictionary with the keyword arguments to update the extracted ones.
+
+        Returns
+        -------
+        Dict[str, Any]
+            Dictionary with the keyword arguments extracted from the function signature and
+            updated with the input kwargs.
+        """
+        import inspect
+        signature = inspect.signature(func_name)
+        kwargs = {}
+        for k, v in signature.parameters.items():
+            # We are ignoring positional arguments, and passing everything as kwarg
+            if v.default is not inspect.Parameter.empty:
+                kwargs[k] = input_kwargs[k] if k in input_kwargs else v.default
+        return kwargs
+
     def show(
         self,
         plottable_object: Any = None,
@@ -412,8 +438,7 @@ class PyVistaBackendInterface(BaseBackend):
         view_2d: Dict = None,
         name_filter: str = None,
         dark_mode: bool = False,
-        plotting_options: Optional[Dict[str, Any]] = {},
-        **show_options: Dict[str, Any],
+        **kwargs: Dict[str, Any],
     ) -> List[Any]:
         """Plot and show any PyAnsys object.
 
@@ -432,11 +457,8 @@ class PyVistaBackendInterface(BaseBackend):
             Regular expression with the desired name or names to include in the plotter.
         dark_mode : bool, default: False
             Whether to use dark mode for the widgets.
-        plotting_options : dict, default: None
-            Keyword arguments. For allowable keyword arguments, see the
-            :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
-        **show_options : Any
-            Additional keyword arguments for the show method.
+        **kwargs : Any
+            Additional keyword arguments for the show or plot method.
 
         Returns
         -------
@@ -444,6 +466,14 @@ class PyVistaBackendInterface(BaseBackend):
             List with the picked bodies in the picked order.
 
         """
+        plotting_options = self.__extract_kwargs(
+            self._pl._scene.add_mesh,
+            kwargs,
+        )
+        show_options = self.__extract_kwargs(
+            self._pl.scene.show,
+            kwargs,
+        )
         self.plot(plottable_object, name_filter, **plotting_options)
         if self._pl.object_to_actors_map:
             self._object_to_actors_map = self._pl.object_to_actors_map
@@ -479,6 +509,8 @@ class PyVistaBackendInterface(BaseBackend):
         # Update all buttons/widgets
         [widget.update() for widget in self._widgets]
 
+        # Remove screenshot from show options since we pass it manually
+        show_options.pop("screenshot", None)
         self.show_plotter(screenshot, **show_options)
 
         picked_objects_list = []
