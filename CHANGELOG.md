@@ -1,3 +1,17 @@
+## [0.11.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.11.0) - July 01, 2025
+
+
+### Miscellaneous
+
+- Chore: update changelog for v0.10.0 [#307](https://github.com/ansys/ansys-tools-visualization-interface/pull/307)
+- Build(deps): bump ansys-fluent-core from 0.32.1 to 0.32.2 in the general-dependencies group [#308](https://github.com/ansys/ansys-tools-visualization-interface/pull/308)
+- Build(deps): bump pytest from 8.4.0 to 8.4.1 in the test-dependencies group [#309](https://github.com/ansys/ansys-tools-visualization-interface/pull/309)
+- [pre-commit.ci] pre-commit autoupdate [#310](https://github.com/ansys/ansys-tools-visualization-interface/pull/310), [#317](https://github.com/ansys/ansys-tools-visualization-interface/pull/317)
+- Fix: improve kwargs processing in `show` [#312](https://github.com/ansys/ansys-tools-visualization-interface/pull/312)
+- Build(deps): bump ansys-fluent-core from 0.32.2 to 0.33.0 in the general-dependencies group [#314](https://github.com/ansys/ansys-tools-visualization-interface/pull/314)
+- Build(deps): bump the doc-dependencies group across 1 directory with 3 updates [#315](https://github.com/ansys/ansys-tools-visualization-interface/pull/315)
+- Maint: add security.md file [#316](https://github.com/ansys/ansys-tools-visualization-interface/pull/316)
+
 ## [0.10.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.10.0) - June 19, 2025
 
 
