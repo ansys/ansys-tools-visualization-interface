@@ -25,6 +25,8 @@ updates:
         patterns:
           - "*sphinx*"
           - "numpydoc"
+        exclude-patterns:
+          - "nbsphinx"
       pyvista:
         patterns:
           - "pyvista*"
