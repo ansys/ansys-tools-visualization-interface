@@ -37,14 +37,14 @@ pyvistaqt = [
 ]
 tests = [
     "pytest==8.4.1",
-    "pyvista==0.46.2",
+    "pyvista==0.46.3",
     "pytest-pyvista==0.2.0",
     "pytest-cov==6.2.1",
     "pyside6==6.9.1",
 ]
 
 doc = [
-    "pyvista==0.46.2",
+    "pyvista==0.46.3",
     "ansys-sphinx-theme==1.6.0",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.17.2",
