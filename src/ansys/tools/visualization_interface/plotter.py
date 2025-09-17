@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Module for the Plotter class."""
-from typing import Any, List
+from typing import Any
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
@@ -67,7 +67,7 @@ class Plotter():
         screenshot: str = None,
         name_filter: bool = None,
         **kwargs
-        ) -> List:
+        ) -> None:
         """Show the plotted objects.
 
         Parameters
@@ -80,13 +80,8 @@ class Plotter():
             Flag to filter the object, by default None.
         kwargs : dict
             Additional options the selected backend accepts.
-
-        Returns
-        -------
-        List
-            List of picked objects.
         """
-        return self._backend.show(
+        self._backend.show(
             plottable_object=plottable_object,
             screenshot=screenshot,
             name_filter=name_filter,
