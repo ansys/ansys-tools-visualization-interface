@@ -70,7 +70,7 @@ pl = Plotter()
 pl.plot(mesh)
 
 # Show the plotter
-pl.show(screenshot="screenshot.png")
+pl.show()
 
 
 ######################
