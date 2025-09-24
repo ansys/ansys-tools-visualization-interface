@@ -42,13 +42,13 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import
 from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import (
     MeshSliderWidget,
 )
+from ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center import PickRotCenterButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
 from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
     ViewButton,
     ViewDirection,
 )
-from ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center import PickRotCenterButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
@@ -404,7 +404,7 @@ class PyVistaBackendInterface(BaseBackend):
             show_message=False,
             picker="cell",
         )
-    
+
     def enable_set_focus_center(self):
         """Enable setting the focus of the camera to the picked point."""
         self._pl.scene.enable_mesh_picking(
