@@ -82,7 +82,10 @@ class MeasureWidget(PlotterWidget):
                 self.plotter_helper.disable_picking()
             elif self.plotter_helper._allow_hovering:
                 self.plotter_helper.disable_hover()
-            self._widget = self.plotter_helper._pl.scene.add_measurement_widget()
+            if self._dark_mode:
+                self._widget = self.plotter_helper._pl.scene.add_measurement_widget(color="white")
+            else:
+                self._widget = self.plotter_helper._pl.scene.add_measurement_widget()
 
     def update(self) -> None:
         """Define the measurement widget button parameters."""
