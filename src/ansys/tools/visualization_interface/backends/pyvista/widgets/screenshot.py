@@ -67,7 +67,13 @@ class ScreenshotButton(PlotterWidget):
         This method provides a callback function for the screenshot widget.
         It is called every time the screenshot widget is clicked.
         """
+        for widget in self.plotter._widgets:
+            widget._button.GetRepresentation().SetVisibility(0)
+        self._plotter._pl.scene.render()
         self.plotter._pl.scene.screenshot("screenshot.png")
+        for widget in self.plotter._widgets:
+            widget._button.GetRepresentation().SetVisibility(1)
+        self._plotter._pl.scene.render()
 
     def update(self) -> None:
         """Define the configuration and representation of the screenshot widget button."""
