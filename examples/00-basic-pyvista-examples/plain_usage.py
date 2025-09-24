@@ -48,6 +48,7 @@ pl = Plotter()
 pl.plot(mesh)
 
 # Show the plotter
+pl.backend._pl.scene.set_background("black")
 pl.show()
 
 
