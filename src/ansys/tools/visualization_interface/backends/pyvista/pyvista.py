@@ -376,7 +376,7 @@ class PyVistaBackendInterface(BaseBackend):
         """
         pt = self._pl.scene.picked_point
         sphere = pv.Sphere(center=pt, radius=0.1)
-        self._pl.scene.add_mesh(sphere, color="red", name="focus_sphere_temp", reset_camera=False)
+        self._picked_ball = self._pl.scene.add_mesh(sphere, color="red", name="focus_sphere_temp", reset_camera=False)
         self._pl.scene.set_focus(pt)
         self._pl.scene.render()
 
@@ -432,6 +432,11 @@ class PyVistaBackendInterface(BaseBackend):
     def disable_hover(self):
         """Disable hover capabilities in the plotter."""
         self._hover_widget.EnabledOff()
+
+    def disable_center_focus(self):
+        """Disable setting the focus of the camera to the picked point."""
+        self._pl.scene.disable_picking()
+        self._picked_ball.SetVisibility(False)
 
     def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """Extracts the keyword arguments from a function signature and returns it as dict.

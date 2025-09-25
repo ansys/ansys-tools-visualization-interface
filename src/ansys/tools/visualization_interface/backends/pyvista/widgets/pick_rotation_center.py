@@ -72,7 +72,7 @@ class PickRotCenterButton(PlotterWidget):
         # Lazy import to avoid circular import
         if not state:
             self._text_actor.SetVisibility(0)
-            self.plotter_helper.scene.disable_picking()
+            self.plotter_helper.disable_center_focus()
             if self.plotter_helper._allow_picking:
                 self.plotter_helper.enable_picking()
             elif self.plotter_helper._allow_hovering:
