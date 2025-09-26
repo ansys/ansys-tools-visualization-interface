@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-"""Provides the hide buttons widget for the PyAnsys plotter."""
+"""Provides the dark mode button widget for the PyAnsys plotter."""
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -83,7 +83,7 @@ class DarkModeButton(PlotterWidget):
                 self._plotter.scene.iren._mouse_right_button_click()
 
     def update(self) -> None:
-        """Define the hide widget button parameters."""
+        """Define the dark mode widget button parameters."""
         if self._dark_mode:
             is_inv = "_inv"
         else:
