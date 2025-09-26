@@ -88,9 +88,9 @@ class MeasureWidget(PlotterWidget):
                 self._widget = self.plotter_helper._pl.scene.add_measurement_widget()
 
     def update(self) -> None:
+        """Define the measurement widget button parameters."""
         from vtk import vtkPNGReader
 
-        """Define the measurement widget button parameters."""
         if self._dark_mode:
             is_inv = "_inv"
         else:
