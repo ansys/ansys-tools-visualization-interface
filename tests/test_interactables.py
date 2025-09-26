@@ -319,3 +319,28 @@ def test_slicing_tool():
 
     raw_plotter.iren._mouse_left_button_click(45, 60)
     raw_plotter.close()
+
+def test_pick_rotation_center():
+    """Test pick rotation center tool interaction."""
+    pv_backend = PyVistaBackend()
+
+    pl = Plotter(backend=pv_backend)
+
+    # Create custom sphere
+    custom_sphere = CustomObject()
+    custom_sphere.mesh = pv.Sphere(center=(0, 0, 5))
+    custom_sphere.name = "CustomSphere"
+    mesh_object_sphere = MeshObjectPlot(custom_sphere, custom_sphere.get_mesh())
+
+    pl.plot(mesh_object_sphere)
+
+    # Run the plotter and simulate a click
+    pl.show(auto_close=False)
+
+    raw_plotter = pl.backend.scene
+    width, height = raw_plotter.window_size
+
+    raw_plotter.iren._mouse_left_button_click(45, 10)
+    raw_plotter.iren._mouse_right_button_press(width//2, height//2)
+    raw_plotter.iren._mouse_right_button_release(width//2, height//2)
+    raw_plotter.close()

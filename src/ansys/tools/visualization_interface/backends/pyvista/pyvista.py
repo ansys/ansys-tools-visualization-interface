@@ -42,6 +42,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import
 from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import (
     MeshSliderWidget,
 )
+from ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center import PickRotCenterButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
 from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
@@ -207,6 +208,7 @@ class PyVistaBackendInterface(BaseBackend):
             if not self._use_qt:
                 self._widgets.append(MeshSliderWidget(self, dark_mode))
             self._widgets.append(HideButton(self, dark_mode))
+            self._widgets.append(PickRotCenterButton(self, dark_mode))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
@@ -363,6 +365,21 @@ class PyVistaBackendInterface(BaseBackend):
             for label in self._added_hover_labels:
                 self._pl.scene.remove_actor(label)
 
+    def focus_point_selection(self, actor: "pv.Actor") -> None:
+        """Focus the camera on a selected actor.
+
+        Parameters
+        ----------
+        actor : ~pyvista.Actor
+            Actor to focus the camera on.
+
+        """
+        pt = self._pl.scene.picked_point
+        sphere = pv.Sphere(center=pt, radius=0.1)
+        self._picked_ball = self._pl.scene.add_mesh(sphere, color="red", name="focus_sphere_temp", reset_camera=False)
+        self._pl.scene.set_focus(pt)
+        self._pl.scene.render()
+
     def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
         """Compute the mapping between plotter actors and ``EdgePlot`` objects.
 
@@ -388,6 +405,16 @@ class PyVistaBackendInterface(BaseBackend):
             picker="cell",
         )
 
+    def enable_set_focus_center(self):
+        """Enable setting the focus of the camera to the picked point."""
+        self._pl.scene.enable_mesh_picking(
+            callback=self.focus_point_selection,
+            use_actor=True,
+            show=False,
+            show_message=False,
+            picker="cell",
+        )
+
     def enable_hover(self):
         """Enable hover capabilities in the plotter."""
         self._hover_widget = vtkHoverWidget()
@@ -405,6 +432,11 @@ class PyVistaBackendInterface(BaseBackend):
     def disable_hover(self):
         """Disable hover capabilities in the plotter."""
         self._hover_widget.EnabledOff()
+
+    def disable_center_focus(self):
+        """Disable setting the focus of the camera to the picked point."""
+        self._pl.scene.disable_picking()
+        self._picked_ball.SetVisibility(False)
 
     def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """Extracts the keyword arguments from a function signature and returns it as dict.
