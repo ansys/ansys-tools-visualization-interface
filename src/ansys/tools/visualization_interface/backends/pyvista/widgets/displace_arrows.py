@@ -30,12 +30,12 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.button import 
 class CameraPanDirection(Enum):
     """Provides an enum with the available movement directions of the camera."""
 
-    XUP = 0, "upxarrow", (5, 170)
-    XDOWN = 1, "downarrow", (5, 130)
-    YUP = 2, "upyarrow", (35, 170)
-    YDOWN = 3, "downarrow", (35, 130)
-    ZUP = 4, "upzarrow", (65, 170)
-    ZDOWN = 5, "downarrow", (65, 130)
+    XUP = 0, "upxarrow", (5, 230)
+    XDOWN = 1, "downarrow", (5, 190)
+    YUP = 2, "upyarrow", (35, 230)
+    YDOWN = 3, "downarrow", (35, 190)
+    ZUP = 4, "upzarrow", (65, 230)
+    ZDOWN = 5, "downarrow", (65, 190)
 
 
 class DisplacementArrow(Button):

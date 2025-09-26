@@ -52,7 +52,7 @@ class MeshSliderWidget(PlotterWidget):
         self._widget_actor: vtkActor = None
         self.plotter_helper = plotter_helper
         self._button: vtkButtonWidget = self.plotter_helper._pl.scene.add_checkbox_button_widget(
-            self.callback, position=(45, 60), size=30, border_size=3
+            self.callback, position=(37, 160), size=30, border_size=3
         )
         self._mb = None
         self._mesh_actor_list = []

@@ -11,7 +11,7 @@ on:
 
 env:
   MAIN_PYTHON_VERSION: '3.13'
-  RESET_IMAGE_CACHE: 0
+  RESET_IMAGE_CACHE: 1
   PACKAGE_NAME: ansys-tools-visualization-interface
   DOCUMENTATION_CNAME: visualization-interface.tools.docs.pyansys.com
   IN_GITHUB_ACTIONS: true

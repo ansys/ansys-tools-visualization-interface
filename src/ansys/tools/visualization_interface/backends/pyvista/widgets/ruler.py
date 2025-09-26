@@ -49,7 +49,7 @@ class Ruler(PlotterWidget):
         # Initialize variables
         self._actor: vtkActor = None
         self._button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
-            self.callback, position=(10, 100), size=30, border_size=3
+            self.callback, position=(3, 128), size=30, border_size=3
         )
         self.update()
 

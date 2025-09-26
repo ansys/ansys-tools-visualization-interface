@@ -49,7 +49,7 @@ class ScreenshotButton(PlotterWidget):
         # Initialize variables
         self._actor: vtkActor = None
         self._button: vtkButtonWidget = self.plotter._pl.scene.add_checkbox_button_widget(
-            self.callback, position=(45, 100), size=30, border_size=3
+            self.callback, position=(69, 160), size=30, border_size=3
         )
         self.update()
 

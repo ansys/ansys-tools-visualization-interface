@@ -70,13 +70,13 @@ def test_picking():
 
 # TODO: View and displace arrows tests do not give expected results, PyVista issue?
 view = [
-    (5, 220), # XYPLUS
-    (5, 251), # XYMINUS
-    (5, 282), # XZPLUS
-    (5, 313), # XZMINUS
-    (5, 344), # YZPLUS
-    (5, 375), # YZMINUS
-    (5, 406)  # ISOMETRIC
+    (5, 280), # XYPLUS
+    (5, 311), # XYMINUS
+    (5, 342), # XZPLUS
+    (5, 373), # XZMINUS
+    (5, 404), # YZPLUS
+    (5, 435), # YZMINUS
+    (5, 466)  # ISOMETRIC
 
 ]
 
@@ -107,12 +107,12 @@ def test_view_buttons(view):
     raw_plotter.close()
 
 displace_arrow = [
-    (5, 170), # XUP
-    (5, 130), # XDOWN
-    (35, 170), # YUP
-    (35, 130), # YDOWN
-    (65, 170), # ZUP
-    (65, 130)  # ZDOWN
+    (5, 230), # XUP
+    (5, 190), # XDOWN
+    (35, 230), # YUP
+    (35, 190), # YDOWN
+    (65, 230), # ZUP
+    (65, 190)  # ZDOWN
 ]
 
 @pytest.mark.parametrize("displace_arrow", displace_arrow)
@@ -160,7 +160,7 @@ def test_ruler_button():
     raw_plotter = pl.backend.scene
     width, height = raw_plotter.window_size
 
-    raw_plotter.iren._mouse_left_button_click(10, 100)
+    raw_plotter.iren._mouse_left_button_click(3, 128)
     raw_plotter.close()
 
 
@@ -184,7 +184,7 @@ def test_measure_tool():
     raw_plotter = pl.backend.scene
     width, height = raw_plotter.window_size
 
-    raw_plotter.iren._mouse_left_button_click(10, 60)
+    raw_plotter.iren._mouse_left_button_click(5, 160)
     raw_plotter.iren._mouse_left_button_click(200, 200)
     raw_plotter.iren._mouse_left_button_click(300, 300)
     raw_plotter.close()
@@ -210,10 +210,10 @@ def test_measure_tool_close():
     raw_plotter = pl.backend.scene
     width, height = raw_plotter.window_size
 
-    raw_plotter.iren._mouse_left_button_click(10, 60)
+    raw_plotter.iren._mouse_left_button_click(5, 160)
     raw_plotter.iren._mouse_left_button_click(200, 200)
     raw_plotter.iren._mouse_left_button_click(300, 300)
-    raw_plotter.iren._mouse_left_button_click(10, 60)
+    raw_plotter.iren._mouse_left_button_click(5, 160)
 
     raw_plotter.close()
 
@@ -238,7 +238,7 @@ def test_screenshot_button():
     raw_plotter = pl.backend.scene
     width, height = raw_plotter.window_size
 
-    raw_plotter.iren._mouse_left_button_click(45, 100)
+    raw_plotter.iren._mouse_left_button_click(69, 160)
 
     raw_plotter.close()
     assert Path("screenshot.png").exists()
@@ -317,7 +317,7 @@ def test_slicing_tool():
     raw_plotter = pl.backend.scene
     width, height = raw_plotter.window_size
 
-    raw_plotter.iren._mouse_left_button_click(45, 60)
+    raw_plotter.iren._mouse_left_button_click(37, 160)
     raw_plotter.close()
 
 def test_pick_rotation_center():
@@ -340,7 +340,30 @@ def test_pick_rotation_center():
     raw_plotter = pl.backend.scene
     width, height = raw_plotter.window_size
 
-    raw_plotter.iren._mouse_left_button_click(45, 10)
+    raw_plotter.iren._mouse_left_button_click(37, 128)
     raw_plotter.iren._mouse_right_button_press(width//2, height//2)
     raw_plotter.iren._mouse_right_button_release(width//2, height//2)
+    raw_plotter.close()
+
+def test_dark_mode_button():
+    """Test dark mode button interaction."""
+    pv_backend = PyVistaBackend()
+
+    pl = Plotter(backend=pv_backend)
+
+    # Create custom sphere
+    custom_sphere = CustomObject()
+    custom_sphere.mesh = pv.Sphere(center=(0, 0, 5))
+    custom_sphere.name = "CustomSphere"
+    mesh_object_sphere = MeshObjectPlot(custom_sphere, custom_sphere.get_mesh())
+
+    pl.plot(mesh_object_sphere)
+
+    # Run the plotter and simulate a click
+    pl.show(auto_close=False)
+
+    raw_plotter = pl.backend.scene
+    width, height = raw_plotter.window_size
+
+    raw_plotter.iren._mouse_left_button_click(43, 10)
     raw_plotter.close()
