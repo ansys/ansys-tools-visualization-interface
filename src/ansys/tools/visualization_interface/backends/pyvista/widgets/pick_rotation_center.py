@@ -23,7 +23,6 @@
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
 if TYPE_CHECKING:
@@ -94,7 +93,6 @@ class PickRotCenterButton(PlotterWidget):
 
     def update(self) -> None:
         """Define the measurement widget button parameters."""
-        
         from vtk import vtkPNGReader
         if self._dark_mode:
             is_inv = "_inv"

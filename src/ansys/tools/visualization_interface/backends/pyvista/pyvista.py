@@ -107,7 +107,6 @@ class PyVistaBackendInterface(BaseBackend):
         **plotter_kwargs,
     ) -> None:
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
-
         from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
         from vtkmodules.vtkRenderingCore import vtkPointPicker
 
@@ -418,7 +417,6 @@ class PyVistaBackendInterface(BaseBackend):
 
     def enable_hover(self):
         """Enable hover capabilities in the plotter."""
-
         from vtkmodules.vtkCommonCore import vtkCommand
         from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
 
