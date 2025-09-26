@@ -23,8 +23,6 @@
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
-
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
 if TYPE_CHECKING:
@@ -45,6 +43,9 @@ class HideButton(PlotterWidget):
 
     def __init__(self, plotter: "Plotter", dark_mode: bool = False) -> None:
         """Initialize the ``HideButton`` class."""
+        from vtk import vtkActor, vtkButtonWidget
+
+
         # Call PlotterWidget ctor
         super().__init__(plotter._pl.scene)
         self._dark_mode = dark_mode
@@ -77,6 +78,8 @@ class HideButton(PlotterWidget):
 
     def update(self) -> None:
         """Define the hide widget button parameters."""
+        from vtk import vtkPNGReader
+
         if self._dark_mode:
             is_inv = "_inv"
         else:

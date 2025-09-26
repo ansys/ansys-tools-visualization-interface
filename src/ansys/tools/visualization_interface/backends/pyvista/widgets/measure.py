@@ -23,8 +23,6 @@
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
-
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
 if TYPE_CHECKING:
@@ -45,6 +43,8 @@ class MeasureWidget(PlotterWidget):
 
     def __init__(self, plotter_helper: "Plotter", dark_mode: bool = False) -> None:
         """Initialize the ``MeasureWidget`` class."""
+        from vtk import vtkActor, vtkButtonWidget
+
         # Call PlotterWidget ctor
         super().__init__(plotter_helper._pl.scene)
         self._dark_mode = dark_mode
@@ -89,6 +89,8 @@ class MeasureWidget(PlotterWidget):
 
     def update(self) -> None:
         """Define the measurement widget button parameters."""
+        from vtk import vtkPNGReader
+
         if self._dark_mode:
             is_inv = "_inv"
         else:
