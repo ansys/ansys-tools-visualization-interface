@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``pick_rotation_center.py`` module
+======================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: pick_rotation_center
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center.PickRotCenterButton`
+            - Provides the pick rotation center widget for the Visualization Interface Tool ``Plotter`` class.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> PickRotCenterButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/pick_rotation_center/PickRotCenterButton>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the measure widget for the PyAnsys plotter.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
