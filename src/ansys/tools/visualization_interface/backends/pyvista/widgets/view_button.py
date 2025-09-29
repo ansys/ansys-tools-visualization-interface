@@ -31,13 +31,13 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.button import 
 class ViewDirection(Enum):
     """Provides an enum with the available views."""
 
-    XYPLUS = 0, "+xy", (5, 220)
-    XYMINUS = 1, "-xy", (5, 251)
-    XZPLUS = 2, "+xz", (5, 282)
-    XZMINUS = 3, "-xz", (5, 313)
-    YZPLUS = 4, "+yz", (5, 344)
-    YZMINUS = 5, "-yz", (5, 375)
-    ISOMETRIC = 6, "isometric", (5, 406)
+    XYPLUS = 0, "+xy", (5, 280)
+    XYMINUS = 1, "-xy", (5, 311)
+    XZPLUS = 2, "+xz", (5, 342)
+    XZMINUS = 3, "-xz", (5, 373)
+    YZPLUS = 4, "+yz", (5, 404)
+    YZMINUS = 5, "-yz", (5, 435)
+    ISOMETRIC = 6, "isometric", (5, 466)
 
 
 class ViewButton(Button):

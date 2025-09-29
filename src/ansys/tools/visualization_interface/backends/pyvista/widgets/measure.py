@@ -52,7 +52,7 @@ class MeasureWidget(PlotterWidget):
         self._actor: vtkActor = None
         self.plotter_helper = plotter_helper
         self._button: vtkButtonWidget = self.plotter_helper._pl.scene.add_checkbox_button_widget(
-            self.callback, position=(10, 60), size=30, border_size=3
+            self.callback, position=(5, 160), size=30, border_size=3
         )
         self.update()
 

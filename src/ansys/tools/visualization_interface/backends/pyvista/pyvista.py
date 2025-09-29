@@ -30,6 +30,7 @@ import pyvista as pv
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
+from ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode import DarkModeButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import (
     CameraPanDirection,
     DisplacementArrow,
@@ -209,6 +210,7 @@ class PyVistaBackendInterface(BaseBackend):
                 self._widgets.append(MeshSliderWidget(self, dark_mode))
             self._widgets.append(HideButton(self, dark_mode))
             self._widgets.append(PickRotCenterButton(self, dark_mode))
+            self._widgets.append(DarkModeButton(self, dark_mode))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
