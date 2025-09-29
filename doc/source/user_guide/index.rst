@@ -117,7 +117,7 @@ The Visualization Interface Tool provides a base class, ``AbstractPicker``, for 
 callbacks of the plotter. This class provides a set of methods that can be overridden so that you can adapt the
 picker and hover functionalities to the specific need of your PyAnsys library.
 
-The first thing you must do is to create a class that inherits from the ``AbstractPicker`` class. After that, see 
+The first thing you must do is to create a class that inherits from the ``AbstractPicker`` class. After that, see
 these main use cases for customizing the picker and hover callbacks:
 
 * You may want to change the way that objects are picked in the plotter. To do this, you can override the

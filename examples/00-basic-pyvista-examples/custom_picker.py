@@ -101,7 +101,7 @@ class CustomPicker(AbstractPicker):
             )
             # Add the label actor to the list of added actors
             added_actors.append(label_actor)
-        
+
         # Add the picked object to the picked dictionary if not already present, to keep track of it
         if custom_object.name not in self._picked_dict:
             self._picked_dict[custom_object.name] = custom_object
@@ -150,7 +150,7 @@ class CustomPicker(AbstractPicker):
             show_points=False,
         )
         self._added_hover_labels.append(label_actor)
-    
+
     def hover_unselect_object(self):
         """Remove all hover labels from the scene."""
         for label in self._added_hover_labels:
@@ -159,7 +159,7 @@ class CustomPicker(AbstractPicker):
     @property
     def picked_dict(self) -> dict:
         """Return the dictionary of picked objects.
-        
+
         Returns
         -------
         dict

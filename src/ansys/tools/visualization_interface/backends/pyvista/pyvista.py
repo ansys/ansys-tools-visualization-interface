@@ -32,6 +32,7 @@ from vtkmodules.vtkRenderingCore import vtkPointPicker
 
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
+from ansys.tools.visualization_interface.backends.pyvista.picker import AbstractPicker, Picker
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
 from ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode import DarkModeButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import (
@@ -54,14 +55,13 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import 
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
-from ansys.tools.visualization_interface.backends.pyvista.picker import Picker, AbstractPicker
 
 _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
 
 DARK_MODE_THRESHOLD = 120
 
 if TYPE_CHECKING:
-    import numpy as np
+    pass
 
 
 class PyVistaBackendInterface(BaseBackend):
@@ -563,12 +563,12 @@ class PyVistaBackend(PyVistaBackendInterface):
     ) -> None:
         """Initialize the generic plotter."""
         super().__init__(
-            use_trame, 
-            allow_picking, 
-            allow_hovering, 
-            plot_picked_names, 
-            use_qt=use_qt, 
-            show_qt=show_qt, 
+            use_trame,
+            allow_picking,
+            allow_hovering,
+            plot_picked_names,
+            use_qt=use_qt,
+            show_qt=show_qt,
             custom_picker=custom_picker
         )
 
