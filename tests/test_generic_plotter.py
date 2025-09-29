@@ -29,6 +29,7 @@ import pyvista as pv
 
 from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
+from ansys.tools.visualization_interface.backends.pyvista.picker import Picker
 
 IN_GITHUB_ACTIONS = os.getenv("IN_GITHUB_ACTIONS") == "true"
 
@@ -190,3 +191,12 @@ def test_plotter_show_mix():
 
     # Mix plot and show kwargs
     pl.show(sphere, show_edges=True, cpos="xy")
+
+
+def test_plotter_custom_picker():
+    """Test custom picker can be used."""
+    pl_backend = PyVistaBackend(allow_picking=True, custom_picker=Picker)
+    pl = Plotter(backend=pl_backend)
+    sphere = pv.Sphere()
+    pl.plot(sphere)
+    pl.show()

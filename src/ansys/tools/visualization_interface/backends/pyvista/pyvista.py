@@ -52,9 +52,9 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button im
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
-from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
+from ansys.tools.visualization_interface.backends.pyvista.picker import Picker, AbstractPicker
 
 _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
 
@@ -108,6 +108,7 @@ class PyVistaBackendInterface(BaseBackend):
         show_plane: Optional[bool] = False,
         use_qt: Optional[bool] = False,
         show_qt: Optional[bool] = True,
+        custom_picker: AbstractPicker = None,
         **plotter_kwargs,
     ) -> None:
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
@@ -131,20 +132,8 @@ class PyVistaBackendInterface(BaseBackend):
         # PyVista plotter
         self._pl = None
 
-        # Dictionary of picked objects in MeshObject format.
-        self._picked_dict = {}
-
-        # Map that relates PyVista actors with the added actors by the picker
-        self._picker_added_actors_map = {}
-
-        # Map that relates PyVista actors with EdgePlot objects
-        self._edge_actors_map = {}
-
         # List of widgets added to the plotter.
         self._widgets = []
-
-        # Map that saves original colors of the plotted objects.
-        self._origin_colors = {}
 
         # Enable the use of trame if requested and available
         if self._use_trame and _HAS_TRAME:
@@ -170,9 +159,15 @@ class PyVistaBackendInterface(BaseBackend):
 
         self._enable_widgets = self._pl._enable_widgets
 
-        self._hover_picker = vtkPointPicker() if self. _allow_hovering else None
-        self._hover_widget = vtkHoverWidget() if self. _allow_hovering else None
-        self._added_hover_labels = []
+        self._hover_picker = vtkPointPicker() if self._allow_hovering else None
+        self._hover_widget = vtkHoverWidget() if self._allow_hovering else None
+
+        if custom_picker is None:
+            self._custom_picker = Picker(self, self._plot_picked_names)
+        elif issubclass(custom_picker, AbstractPicker):
+            self._custom_picker = custom_picker(self, self._plot_picked_names)
+        else:
+            raise TypeError("custom_picker must be an instance of AbstractPicker.")
 
     @property
     def pv_interface(self) -> PyVistaInterface:
@@ -228,86 +223,6 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(widget)
             widget.update()
 
-    def select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: "np.ndarray") -> None:
-        """Select a custom object in the plotter.
-
-        This method highlights the edges of a body and adds a label. It also adds
-        the object to the ``_picked_dict`` and the actor to the ``_picker_added_actors_map``.
-
-        Parameters
-        ----------
-        custom_object : Union[MeshObjectPlot, EdgePlot]
-            Custom object to select.
-        pt : ~numpy.ndarray
-            Set of points to determine the label position.
-
-        """
-        added_actors = []
-
-        # Add edges if selecting an object
-        if isinstance(custom_object, MeshObjectPlot):
-            self._origin_colors[custom_object] = custom_object.actor.prop.color
-            custom_object.actor.prop.color = Color.PICKED.value
-            children_list = custom_object.edges
-            if children_list is not None:
-                for edge in children_list:
-                    edge.actor.SetVisibility(True)
-                    edge.actor.prop.color = Color.EDGE.value
-        elif isinstance(custom_object, EdgePlot):
-            custom_object.actor.prop.color = Color.PICKED_EDGE.value
-
-        text = custom_object.name
-
-        if self._plot_picked_names:
-            label_actor = self._pl.scene.add_point_labels(
-                [pt],
-                [text],
-                always_visible=True,
-                point_size=0,
-                render_points_as_spheres=False,
-                show_points=False,
-            )
-            added_actors.append(label_actor)
-
-        if custom_object.name not in self._picked_dict:
-            self._picked_dict[custom_object.name] = custom_object
-
-        self._picker_added_actors_map[custom_object.actor.name] = added_actors
-
-    def unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
-        """Unselect a custom object in the plotter.
-
-        This method removes edge highlighting and the label from a plotter actor and removes
-        the object from the Visualization Interface Tool object selection.
-
-        Parameters
-        ----------
-        custom_object : Union[MeshObjectPlot, EdgePlot]
-            Custom object to unselect.
-
-        """
-        # remove actor from picked list and from scene
-        if custom_object.name in self._picked_dict:
-            self._picked_dict.pop(custom_object.name)
-
-        if isinstance(custom_object, MeshObjectPlot) and custom_object in self._origin_colors:
-            custom_object.actor.prop.color = self._origin_colors[custom_object]
-        elif isinstance(custom_object, EdgePlot):
-            custom_object.actor.prop.color = Color.EDGE.value
-
-        if custom_object.actor.name in self._picker_added_actors_map:
-            self._pl.scene.remove_actor(self._picker_added_actors_map[custom_object.actor.name])
-
-            # remove actor and its children(edges) from the scene
-            if isinstance(custom_object, MeshObjectPlot):
-                if custom_object.edges is not None:
-                    for edge in custom_object.edges:
-                        # hide edges in the scene
-                        edge.actor.SetVisibility(False)
-                        # recursion
-                        self.unselect_object(edge)
-            self._picker_added_actors_map.pop(custom_object.actor.name)
-
     def picker_callback(self, actor: "pv.Actor") -> None:
         """Define the callback for the element picker.
 
@@ -322,18 +237,18 @@ class PyVistaBackendInterface(BaseBackend):
         # if object is a body/component
         if actor in self._object_to_actors_map:
             body_plot = self._object_to_actors_map[actor]
-            if body_plot.name not in self._picked_dict:
-                self.select_object(body_plot, pt)
+            if body_plot.name not in self._custom_picker.picked_dict:
+                self._custom_picker.pick_select_object(body_plot, pt)
             else:
-                self.unselect_object(body_plot)
+                self._custom_picker.pick_unselect_object(body_plot)
 
         # if object is an edge
         elif actor in self._edge_actors_map and actor.GetVisibility():
             edge = self._edge_actors_map[actor]
-            if edge.name not in self._picked_dict:
-                self.select_object(edge, pt)
+            if edge.name not in self._custom_picker.picked_dict:
+                self._custom_picker.pick_select_object(edge, pt)
             else:
-                self.unselect_object(edge)
+                self._custom_picker.pick_unselect_object(edge)
                 actor.prop.color = Color.EDGE.value
 
     def hover_callback(self, _widget, event_name) -> None:
@@ -352,20 +267,10 @@ class PyVistaBackendInterface(BaseBackend):
         actor = self._hover_picker.GetActor()
         if actor in self._object_to_actors_map:
             custom_object = self._object_to_actors_map[actor]
-            for label in self._added_hover_labels:
-                self._pl.scene.remove_actor(label)
-            label_actor = self._pl.scene.add_point_labels(
-                [actor.GetCenter()],
-                [custom_object.name],
-                always_visible=True,
-                point_size=0,
-                render_points_as_spheres=False,
-                show_points=False,
-            )
-            self._added_hover_labels.append(label_actor)
+            self._custom_picker.hover_select_object(custom_object, actor)
+
         else:
-            for label in self._added_hover_labels:
-                self._pl.scene.remove_actor(label)
+            self._custom_picker.hover_unselect_object()
 
     def focus_point_selection(self, actor: "pv.Actor") -> None:
         """Focus the camera on a selected actor.
@@ -550,15 +455,15 @@ class PyVistaBackendInterface(BaseBackend):
         picked_objects_list = []
         if isinstance(plottable_object, list):
             # Keep them ordered based on picking
-            for meshobject in self._picked_dict.values():
+            for meshobject in self._custom_picker.picked_dict.values():
                 for elem in plottable_object:
                     if hasattr(elem, "name") and elem.name == meshobject.name:
                         picked_objects_list.append(elem)
-        elif hasattr(plottable_object, "name") and plottable_object.name in self._picked_dict:
+        elif hasattr(plottable_object, "name") and plottable_object.name in self._custom_picker.picked_dict:
             picked_objects_list = [plottable_object]
         else:
             # Return the picked objects in the order they were picked
-            picked_objects_list = list(self._picked_dict.values())
+            picked_objects_list = list(self._custom_picker.picked_dict.values())
 
         return picked_objects_list
 
@@ -654,9 +559,18 @@ class PyVistaBackend(PyVistaBackendInterface):
         plot_picked_names: Optional[bool] = True,
         use_qt: Optional[bool] = False,
         show_qt: Optional[bool] = False,
+        custom_picker: AbstractPicker = None,
     ) -> None:
         """Initialize the generic plotter."""
-        super().__init__(use_trame, allow_picking, allow_hovering, plot_picked_names, use_qt=use_qt, show_qt=show_qt)
+        super().__init__(
+            use_trame, 
+            allow_picking, 
+            allow_hovering, 
+            plot_picked_names, 
+            use_qt=use_qt, 
+            show_qt=show_qt, 
+            custom_picker=custom_picker
+        )
 
     @property
     def base_plotter(self):
