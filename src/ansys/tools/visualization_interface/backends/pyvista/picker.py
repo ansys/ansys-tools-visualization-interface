@@ -1,3 +1,25 @@
+# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 """Module for managing picking and hovering of objects in a PyVista plotter."""
 from typing import TYPE_CHECKING, Union
 
@@ -7,13 +29,15 @@ from ansys.tools.visualization_interface.utils.color import Color
 
 if TYPE_CHECKING:
     import numpy as np
-    from ansys.tools.visualization_interface.backends.pyvista.pyvista import Plotter
     from pyvista import Actor
+
+    from ansys.tools.visualization_interface.backends.pyvista.pyvista import Plotter
 
 class AbstractPicker:
     """Abstract base class for pickers."""
 
     def __init__(self):
+        """Initialize the AbstractPicker class."""
         pass
 
     def pick_select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: "np.ndarray") -> None:
@@ -36,6 +60,7 @@ class AbstractPicker:
         """Return the dictionary of picked objects."""
         pass
 
+
 class Picker(AbstractPicker):
     """Class to manage picking and hovering of objects in the plotter.
 
@@ -44,7 +69,7 @@ class Picker(AbstractPicker):
     currently selected and hovered objects, and provides methods to select and unselect
     them.
 
-    
+
     Parameters
     ----------
     plotter_backend : Plotter
@@ -164,7 +189,7 @@ class Picker(AbstractPicker):
             show_points=False,
         )
         self._added_hover_labels.append(label_actor)
-    
+
     def hover_unselect_object(self):
         """Remove all hover labels from the scene."""
         for label in self._added_hover_labels:

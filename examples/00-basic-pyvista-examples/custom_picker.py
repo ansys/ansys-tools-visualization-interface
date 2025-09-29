@@ -21,11 +21,11 @@
 # SOFTWARE.
 
 """
-.. _ref_picker:
+.. _ref_custom_picker:
 
-===================
-Activate the picker
-===================
+====================
+Create custom picker
+====================
 
 This example shows how to create a custom picker. In this case we will show how the default
 picker is implemented through the ``AbstractPicker`` class.
@@ -51,6 +51,17 @@ from ansys.tools.visualization_interface.utils.color import Color
 # =================================
 
 class CustomPicker(AbstractPicker):
+    """Custom picker class that extends the AbstractPicker.
+    This custom picker changes the color of picked objects to red and adds a label with the object's name.
+    It also adds a label when hovering over an object.
+
+    Parameters
+    ----------
+    plotter_backend : Plotter
+        The plotter backend to use.
+    plot_picked_names : bool, optional
+        Whether to plot the names of picked objects, by default True.
+    """
     def __init__(self, plotter_backend: "Plotter", plot_picked_names: bool = True) -> None:
         """Initialize the ``Picker`` class."""
         # Picking variables
@@ -101,7 +112,7 @@ class CustomPicker(AbstractPicker):
             )
             # Add the label actor to the list of added actors
             added_actors.append(label_actor)
-        
+
         # Add the picked object to the picked dictionary if not already present, to keep track of it
         if custom_object.name not in self._picked_dict:
             self._picked_dict[custom_object.name] = custom_object
@@ -150,7 +161,7 @@ class CustomPicker(AbstractPicker):
             show_points=False,
         )
         self._added_hover_labels.append(label_actor)
-    
+
     def hover_unselect_object(self):
         """Remove all hover labels from the scene."""
         for label in self._added_hover_labels:
@@ -159,7 +170,7 @@ class CustomPicker(AbstractPicker):
     @property
     def picked_dict(self) -> dict:
         """Return the dictionary of picked objects.
-        
+
         Returns
         -------
         dict
