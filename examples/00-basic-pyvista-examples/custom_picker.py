@@ -222,4 +222,9 @@ mesh_object_cube = MeshObjectPlot(custom_cube, custom_cube.get_mesh())
 # ============================
 
 pl.plot(mesh_object_cube)
-pl.show()
+
+
+##################################################
+# Display the plotter and interact with the object
+# ================================================
+# ``pl.show()``
