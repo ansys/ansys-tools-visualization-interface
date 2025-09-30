@@ -25,7 +25,6 @@ from abc import abstractmethod
 from pathlib import Path
 
 from pyvista import Plotter
-from vtk import vtkButtonWidget, vtkPNGReader
 
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
@@ -49,6 +48,8 @@ class Button(PlotterWidget):
 
     def __init__(self, plotter: Plotter, button_config: tuple, dark_mode: bool = False) -> None:
         """Initialize the ``Button`` class."""
+        from vtk import vtkButtonWidget
+
         super().__init__(plotter)
         self._dark_mode = dark_mode
         self._button: vtkButtonWidget = self.plotter.add_checkbox_button_widget(
@@ -70,6 +71,8 @@ class Button(PlotterWidget):
 
     def update(self) -> None:
         """Assign the image that represents the button."""
+        from vtk import vtkPNGReader
+
         if self._dark_mode:
             is_inv = "_inv"
         else:
