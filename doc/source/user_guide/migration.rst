@@ -3,8 +3,8 @@
 Migration
 #########
 
-In this section we will provide guides to help you migrate from PyVista plotters to the Ansys Tools Visualization Interface plotters.
-The first one will address code migration, and the second one will address documentation migration.
+In this section two guides are provided to help you migrate from PyVista plotters to the Ansys Tools Visualization Interface plotters.
+The first one addresses code migration, and the second one addresses documentation migration.
 
 Code migration guide
 ====================
