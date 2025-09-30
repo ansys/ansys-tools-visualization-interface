@@ -84,6 +84,14 @@ class MeshSliderWidget(PlotterWidget):
             self.plotter_helper._pl.scene.clear_plane_widgets()
             for actor in self._mesh_actor_list:
                 self.plotter_helper._pl.scene.add_actor(actor)
+    
+            # Reset all buttons because the slicer removes all actors for some reason
+            for widget in self.plotter_helper._widgets:
+                widget._button.Off()
+                widget._button.GetRepresentation().SetVisibility(0)
+                widget._button.On()
+                widget._button.GetRepresentation().SetVisibility(1)
+
         else:
             self._mb = pv.MultiBlock(self.plotter_helper._pl.scene.meshes).combine()
             self._widget_actor = self.plotter_helper._pl.scene.add_mesh_clip_plane(
@@ -98,7 +106,8 @@ class MeshSliderWidget(PlotterWidget):
                     mesh_id = "MultiBlock(" + mesh.memory_address + ")"
                 elif isinstance(mesh, pv.StructuredGrid):
                     mesh_id = "StructuredGrid(" + mesh.memory_address + ")"
-                self._mesh_actor_list.append(self.plotter_helper._pl.scene.actors[mesh_id])
+                if mesh_id in self.plotter_helper._pl.scene.actors:
+                    self._mesh_actor_list.append(self.plotter_helper._pl.scene.actors[mesh_id])
                 self.plotter_helper._pl.scene.remove_actor(mesh_id)
 
     def update(self) -> None:
