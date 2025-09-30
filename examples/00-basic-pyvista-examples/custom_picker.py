@@ -185,8 +185,6 @@ class CustomPicker(AbstractPicker):
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 pl_backend = PyVistaBackend(allow_picking=True, custom_picker=CustomPicker)
 
-# Create the plotter with the custom backend
-pl = Plotter(backend=pl_backend)
 
 #################################################
 # Create a custom object with a name to be picked
@@ -217,14 +215,11 @@ from ansys.tools.visualization_interface import MeshObjectPlot
 # Create an instance
 mesh_object_cube = MeshObjectPlot(custom_cube, custom_cube.get_mesh())
 
-##############################
-# Plot the custom object
-# ============================
-
-pl.plot(mesh_object_cube)
-
-
 ##################################################
 # Display the plotter and interact with the object
 # ================================================
-# ``pl.show()``
+# .. code-block:: python
+#
+#   pl = Plotter(backend=pl_backend)
+#   pl.plot(mesh_object_cube)
+#   pl.show()
