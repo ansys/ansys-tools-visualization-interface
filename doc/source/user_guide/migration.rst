@@ -87,7 +87,7 @@ Then you need to create a ``MeshObjectPlot`` instance that relates the PyVista m
         mesh=custom_object.get_mesh(),
     )
 
-With this, you can use the Ansys Tools Visualization Interface plotter to visualize your custom object. It will enable interactivity such as picking and hovering.
+With this, you can use the Ansys Tools Visualization Interface plotter to visualize your custom object. It enables interactivity such as picking and hovering.
 
 
 Customizing the PyVista backend
@@ -153,9 +153,9 @@ and implementing the required methods. You can find more information about this 
         pass
 
 
-The rest of the methods are implemented for you. This ensures that while you can customize what you need for plotting, the rest of the functionalities will work as expected.
+The rest of the methods are implemented for you. This ensures that while you can customize what you need for plotting, the rest of the functionalities still work as expected.
 If you need to even go further, you can also create your own plotter by inheriting from the ``BaseBackend`` class and implementing the required methods,
-although this may break existing functionality. You can find more information about this in the plotter documentation.
+although this may break existing features. You can find more information about this in the plotter documentation.
 
 Customize the picker or hover behavior
 --------------------------------------
@@ -176,7 +176,7 @@ before creating the plotter. Here is an example of how to do this:
    pl.backend.enable_widgets()
    pv_backend.scene.show()
 
-With this, you can integrate the plotter into a PyQt or PySide application by disabling ``show_qt`` parameter.
+With this, you can integrate the plotter into a PyQt or PySide app by disabling ``show_qt`` parameter.
 You can find more information about this in the `PyVista documentation <https://qtdocs.pyvista.org/>`_.
 
 
