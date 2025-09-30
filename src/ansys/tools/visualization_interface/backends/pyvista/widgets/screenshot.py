@@ -24,7 +24,6 @@
 from pathlib import Path
 
 from pyvista import Plotter
-from vtk import vtkActor, vtkButtonWidget, vtkPNGReader
 
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
@@ -43,6 +42,7 @@ class ScreenshotButton(PlotterWidget):
 
     def __init__(self, plotter: Plotter, dark_mode: bool = False) -> None:
         """Initialize the ``ScreenshotButton`` class."""
+        from vtk import vtkActor, vtkButtonWidget
         # Call PlotterWidget ctor
         super().__init__(plotter)
         self._dark_mode = dark_mode
@@ -77,6 +77,7 @@ class ScreenshotButton(PlotterWidget):
 
     def update(self) -> None:
         """Define the configuration and representation of the screenshot widget button."""
+        from vtk import vtkPNGReader
         if self._dark_mode:
             is_inv = "_inv"
         else:
