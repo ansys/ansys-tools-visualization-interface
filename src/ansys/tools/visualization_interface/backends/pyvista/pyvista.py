@@ -26,9 +26,6 @@ import importlib.util
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 import pyvista as pv
-from vtkmodules.vtkCommonCore import vtkCommand
-from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
-from vtkmodules.vtkRenderingCore import vtkPointPicker
 
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
@@ -112,6 +109,9 @@ class PyVistaBackendInterface(BaseBackend):
         **plotter_kwargs,
     ) -> None:
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
+        from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
+        from vtkmodules.vtkRenderingCore import vtkPointPicker
+
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = ansys.tools.visualization_interface.USE_TRAME
@@ -324,6 +324,9 @@ class PyVistaBackendInterface(BaseBackend):
 
     def enable_hover(self):
         """Enable hover capabilities in the plotter."""
+        from vtkmodules.vtkCommonCore import vtkCommand
+        from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
+
         self._hover_widget = vtkHoverWidget()
         self._hover_widget.SetInteractor(self._pl.scene.iren.interactor)
         self._hover_widget.SetTimerDuration(100)  # Time (ms) required to trigger a hover event
