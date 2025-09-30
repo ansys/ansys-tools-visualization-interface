@@ -21,7 +21,7 @@ Here is an example of how to do this:
 - PyVista code:
 
 .. code-block:: python
-    
+
     import pyvista as pv
 
     # Create a pyvista mesh
@@ -93,7 +93,7 @@ With this, you can use the Ansys Tools Visualization Interface plotter to visual
 Customizing the PyVista backend
 -------------------------------
 
-You can customize the backend of the Ansys Tools Visualization Interface plotter to enable or disable certain functionalities. For example, 
+You can customize the backend of the Ansys Tools Visualization Interface plotter to enable or disable certain functionalities. For example,
 if you want to enable picking, you can do it as follows:
 
 .. code-block:: python
@@ -112,7 +112,7 @@ if you want to enable picking, you can do it as follows:
     # Show the plotter
     pl.show()
 
-If you want to go further and customize the backend even more, you can create your own backend by inheriting from the ``PyVistaBackendInterface`` class 
+If you want to go further and customize the backend even more, you can create your own backend by inheriting from the ``PyVistaBackendInterface`` class
 and implementing the required methods. You can find more information about this in the backend documentation:
 
 .. code-block:: python
@@ -133,6 +133,7 @@ and implementing the required methods. You can find more information about this 
 
         """
         pass
+
 
     @abstractmethod
     def plot(self, plottable_object: Any, name_filter: str = None, **plotting_options):
@@ -158,12 +159,12 @@ although this may break existing functionality. You can find more information ab
 
 Customize the picker or hover behavior
 --------------------------------------
-You can customize the picker of the Ansys Tools Visualization Interface plotter to decide what happens when an object is picked or hovered. 
+You can customize the picker of the Ansys Tools Visualization Interface plotter to decide what happens when an object is picked or hovered.
 For example, if you want to print the name of the picked object, you can do it as described in the custom picker example.
 
 Using PyVista Qt backend
 ------------------------
-You can use the PyVista Qt backend with the Ansys Tools Visualization Interface plotter. To do this, you need to set the PyVista backend to Qt 
+You can use the PyVista Qt backend with the Ansys Tools Visualization Interface plotter. To do this, you need to set the PyVista backend to Qt
 before creating the plotter. Here is an example of how to do this:
 
 .. code-block:: python
@@ -175,7 +176,7 @@ before creating the plotter. Here is an example of how to do this:
    pl.backend.enable_widgets()
    pv_backend.scene.show()
 
-With this, you can integrate the plotter into a PyQt or PySide application by disabling ``show_qt`` parameter. 
+With this, you can integrate the plotter into a PyQt or PySide application by disabling ``show_qt`` parameter.
 You can find more information about this in the `PyVista documentation <https://qtdocs.pyvista.org/>`_.
 
 
@@ -196,21 +197,16 @@ This guide is intended to help users transition from PyVista documentation confi
 .. code-block:: python
 
     from pyvista.plotting.utilities.sphinx_gallery import DynamicScraper
+
     sphinx_gallery_conf = {
-        ...
         "image_scrapers": (DynamicScraper()),
-        ...
     }
 
 3. Add PyVista viewer directive to extensions:
 
 .. code-block:: python
 
-    extensions = [
-        ...
-        "pyvista.ext.viewer_directive",
-        ...
-    ]
+    extensions = ["pyvista.ext.viewer_directive"]
 
 4. Make sure you are executing the notebook cells:
 
