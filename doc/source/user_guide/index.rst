@@ -6,7 +6,8 @@ User guide
 
 This section explains key concepts for implementing the Visualization Interface Tool in your workflow.
 You can use the Visualization Interface Tool in your examples as well as integrate this library into
-your own code.
+your own code. If you need further details on how to migrate from PyVista, please refer to the
+:ref:`ref_migration_guide` section.
 
 Default plotter usage
 =====================
@@ -108,3 +109,5 @@ class. After that, see these main use cases for customizing the plotter:
 
 Some practical examples of how to use the ``PlotterInterface`` class are included in some PyAnsys libraries,
 such as `PyAnsys Geometry <https://github.com/ansys/pyansys-geometry/pull/959>`_.
+
+An extended migration guide with code examples is available in :ref:`ref_migration_guide`.
