@@ -84,7 +84,7 @@ class MeshSliderWidget(PlotterWidget):
             self.plotter_helper._pl.scene.clear_plane_widgets()
             for actor in self._mesh_actor_list:
                 self.plotter_helper._pl.scene.add_actor(actor)
-    
+
             # Reset all buttons because the slicer removes all actors for some reason
             for widget in self.plotter_helper._widgets:
                 widget._button.Off()
