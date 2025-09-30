@@ -93,7 +93,7 @@ With this, you can use the Ansys Tools Visualization Interface plotter to visual
 Customizing the PyVista backend
 -------------------------------
 
-You can customize the backend of the Ansys Tools Visualization Interface plotter to enable or disable certain functionalities. For example,
+You can customize the backend of the Ansys Tools Visualization Interface plotter to enable or turn off certain functionalities. For example,
 if you want to enable picking, you can do it as follows:
 
 .. code-block:: python
