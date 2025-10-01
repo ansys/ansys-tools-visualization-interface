@@ -111,3 +111,24 @@ Some practical examples of how to use the ``PlotterInterface`` class are include
 such as `PyAnsys Geometry <https://github.com/ansys/pyansys-geometry/pull/959>`_.
 
 An extended migration guide with code examples is available in :ref:`ref_migration_guide`.
+
+
+Customizing the picker and hover callbacks
+==========================================
+
+The Visualization Interface Tool provides a base class, ``AbstractPicker``, for customizing the picker and hover
+callbacks of the plotter. This class provides a set of methods that can be overridden so that you can adapt the
+picker and hover functionalities to the specific need of your PyAnsys library.
+
+The first thing you must do is to create a class that inherits from the ``AbstractPicker`` class. After that, see
+these main use cases for customizing the picker and hover callbacks:
+
+* You may want to change the way that objects are picked in the plotter. To do this, you can override the
+  ``pick_select_object`` and ``pick_unselect_object`` methods. These methods are called when an object is
+  selected or unselected, respectively.
+
+* Similarly, you may want to change the way that objects are hovered over in the plotter. To do this, you can
+  override the ``hover_select_object`` and ``hover_unselect_object`` methods. These methods are called when an
+  object is hovered over or unhovered, respectively.
+
+A practical example of how to use the ``AbstractPicker`` class are included in the examples section of the documentation.
