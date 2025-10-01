@@ -65,7 +65,7 @@ def test_picking():
     raw_plotter.iren._mouse_right_button_press(width//2, height//2)
     raw_plotter.iren._mouse_right_button_release(width//2, height//2)
     raw_plotter.close()
-    picked = pl.backend._picked_dict
+    picked = pl.backend._custom_picker.picked_dict
     assert "CustomSphere" in picked
 
 # TODO: View and displace arrows tests do not give expected results, PyVista issue?
