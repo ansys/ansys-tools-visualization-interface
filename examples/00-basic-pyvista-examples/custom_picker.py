@@ -61,12 +61,15 @@ class CustomPicker(AbstractPicker):
         The plotter backend to use.
     plot_picked_names : bool, optional
         Whether to plot the names of picked objects, by default True.
+    label : str, optional
+        Extra parameter to exemplify the usage of custom parameters.
     """
-    def __init__(self, plotter_backend: "Plotter", plot_picked_names: bool = True) -> None:
+    def __init__(self, plotter_backend: "Plotter", plot_picked_names: bool = True, label: str = "This label: ") -> None:
         """Initialize the ``Picker`` class."""
         # Picking variables
         self._plotter_backend = plotter_backend
         self._plot_picked_names = plot_picked_names
+        self._label = label
 
         # Map that relates PyVista actors with the added actors by the picker
         self._picker_added_actors_map = {}
@@ -104,7 +107,7 @@ class CustomPicker(AbstractPicker):
         if self._plot_picked_names:
             label_actor = self._plotter_backend.pv_interface.scene.add_point_labels(
                 [pt],
-                [text],
+                [self._label + text],
                 always_visible=True,
                 point_size=0,
                 render_points_as_spheres=False,
