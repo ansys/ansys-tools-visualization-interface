@@ -57,9 +57,6 @@ _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_s
 
 DARK_MODE_THRESHOLD = 120
 
-if TYPE_CHECKING:
-    pass
-
 
 class PyVistaBackendInterface(BaseBackend):
     """Provides the interface for the Visualization Interface Tool plotter.

@@ -26,6 +26,8 @@ from typing import TYPE_CHECKING, Union
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.color import Color
+from abc import ABC, abstractmethod 
+
 
 if TYPE_CHECKING:
     import numpy as np
@@ -33,29 +35,35 @@ if TYPE_CHECKING:
 
     from ansys.tools.visualization_interface.backends.pyvista.pyvista import Plotter
 
-class AbstractPicker:
+class AbstractPicker(ABC):
     """Abstract base class for pickers."""
 
-    def __init__(self):
+    @abstractmethod
+    def __init__(self, **custom_picker_kwargs) -> None:
         """Initialize the AbstractPicker class."""
         pass
 
+    @abstractmethod
     def pick_select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: "np.ndarray") -> None:
         """Determine actions to take when an object is selected."""
         pass
 
+    @abstractmethod
     def pick_unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
         """Determine actions to take when an object is unselected."""
         pass
-
+    @abstractmethod
     def hover_select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: "np.ndarray") -> None:
         """Determine actions to take when an object is hovered over."""
         pass
 
+    @abstractmethod
     def hover_unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
         """Determine actions to take when an object is unhovered."""
         pass
-
+    
+    @property
+    @abstractmethod
     def picked_dict(self) -> dict:
         """Return the dictionary of picked objects."""
         pass
