@@ -21,13 +21,12 @@
 # SOFTWARE.
 
 """Module for managing picking and hovering of objects in a PyVista plotter."""
+from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Union
 
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.color import Color
-from abc import ABC, abstractmethod 
-
 
 if TYPE_CHECKING:
     import numpy as np
@@ -56,7 +55,7 @@ class AbstractPicker(ABC):
     def hover_unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
         """Determine actions to take when an object is unhovered."""
         pass
-    
+
     @property
     @abstractmethod
     def picked_dict(self) -> dict:

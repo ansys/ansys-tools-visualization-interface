@@ -23,7 +23,7 @@
 from abc import abstractmethod
 from collections.abc import Callable
 import importlib.util
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 import pyvista as pv
 
