@@ -167,7 +167,10 @@ class PyVistaBackendInterface(BaseBackend):
         if custom_picker is None:
             self._custom_picker = Picker(self, self._plot_picked_names)
         elif issubclass(custom_picker, AbstractPicker):
-            self._custom_picker = custom_picker(self, **custom_picker_kwargs) if custom_picker_kwargs else custom_picker(self)
+            if custom_picker_kwargs:
+                self._custom_picker = custom_picker(self, **custom_picker_kwargs)
+            else:
+                self._custom_picker = custom_picker(self)
         else:
             raise TypeError("custom_picker must be an instance of AbstractPicker.")
 
