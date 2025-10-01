@@ -39,11 +39,6 @@ class AbstractPicker(ABC):
     """Abstract base class for pickers."""
 
     @abstractmethod
-    def __init__(self, **custom_picker_kwargs) -> None:
-        """Initialize the AbstractPicker class."""
-        pass
-
-    @abstractmethod
     def pick_select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: "np.ndarray") -> None:
         """Determine actions to take when an object is selected."""
         pass
