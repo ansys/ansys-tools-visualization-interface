@@ -36,6 +36,10 @@ if TYPE_CHECKING:
 
 class AbstractPicker(ABC):
     """Abstract base class for pickers."""
+    @abstractmethod
+    def __init__(self, plotter_backend: "Plotter", **kwargs) -> None:
+        """Initialize the ``AbstractPicker`` class."""
+        pass
 
     @abstractmethod
     def pick_select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], pt: "np.ndarray") -> None:
