@@ -90,7 +90,7 @@ class HideButton(PlotterWidget):
             Path(__file__).parent / "_images" / f"visibilityon{is_inv}.png"
         )
         show_visoff_icon_file = Path(
-            Path(__file__).parent / "_images" / f"visibilityon{is_inv}.png"
+            Path(__file__).parent / "_images" / f"visibilityoff{is_inv}.png"
         )
         show_r_on = vtkPNGReader()
         show_r_on.SetFileName(show_vison_icon_file)
