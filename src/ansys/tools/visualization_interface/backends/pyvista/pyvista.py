@@ -91,6 +91,10 @@ class PyVistaBackendInterface(BaseBackend):
         Whether to use the Qt backend for the plotter.
     show_qt : Optional[bool], default: True
         Whether to show the Qt window.
+    custom_picker : AbstractPicker, default: None
+        Custom picker class that extends the ``AbstractPicker`` class.
+    custom_picker_kwargs : Optional[Dict[str, Any]], default: None
+        Keyword arguments to pass to the custom picker class.
     """
 
     def __init__(
@@ -103,6 +107,7 @@ class PyVistaBackendInterface(BaseBackend):
         use_qt: Optional[bool] = False,
         show_qt: Optional[bool] = True,
         custom_picker: AbstractPicker = None,
+        custom_picker_kwargs: Optional[Dict[str, Any]] = None,
         **plotter_kwargs,
     ) -> None:
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
@@ -162,7 +167,10 @@ class PyVistaBackendInterface(BaseBackend):
         if custom_picker is None:
             self._custom_picker = Picker(self, self._plot_picked_names)
         elif issubclass(custom_picker, AbstractPicker):
-            self._custom_picker = custom_picker(self, self._plot_picked_names)
+            if custom_picker_kwargs:
+                self._custom_picker = custom_picker(self, **custom_picker_kwargs)
+            else:
+                self._custom_picker = custom_picker(self)
         else:
             raise TypeError("custom_picker must be an instance of AbstractPicker.")
 
