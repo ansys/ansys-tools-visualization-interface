@@ -79,7 +79,7 @@ class TrameVisualizer:
         # Define controller methods for tools
         @self.ctrl.set("toggle_measure")
         def toggle_measure():
-            """Toggle measurement tool from PyVista"""
+            """Toggle measurement tool from PyVista."""
             if self.plotter:
                 self.state.measure_active = not self.state.measure_active
                 if not self.state.measure_active:
@@ -380,13 +380,13 @@ class TrameVisualizer:
                                 v3.VIcon("mdi-ruler")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Ruler")
-                        
+
                         with v3.VListItem(click=self.ctrl.take_screenshot):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-camera")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Take Screenshot")
-                        
+
                         with v3.VListItem(click=self.ctrl.download_html):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-download")
