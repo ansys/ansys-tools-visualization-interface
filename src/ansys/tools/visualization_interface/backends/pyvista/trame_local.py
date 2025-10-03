@@ -79,6 +79,7 @@ class TrameVisualizer:
         # Define controller methods for tools
         @self.ctrl.set("toggle_measure")
         def toggle_measure():
+            """Toggle measurement tool from PyVista"""
             if self.plotter:
                 self.state.measure_active = not self.state.measure_active
                 if not self.state.measure_active:
@@ -94,6 +95,7 @@ class TrameVisualizer:
 
         @self.ctrl.set("toggle_mesh_slider")
         def toggle_mesh_slider():
+            """Toggle mesh slider PyVista widget."""
             if self.plotter:
                 self.state.mesh_slider_active = not self.state.mesh_slider_active
                 if not self.state.mesh_slider_active:
@@ -160,29 +162,27 @@ class TrameVisualizer:
             except Exception as e:
                 print(f"Error toggling ruler: {e}")
 
-        @self.ctrl.set("toggle_pick_rotation_center")
-        def toggle_pick_rotation_center():
-            """Toggle pick rotation center mode."""
-            try:
-                self.state.pick_rotation_center_active = not getattr(self.state, 'pick_rotation_center_active', False)
-                if not self.state.pick_rotation_center_active:
-                    # Disable pick rotation center mode
-                    if hasattr(self, '_rotation_text_actor') and self._rotation_text_actor:
-                        self._rotation_text_actor.SetVisibility(0)
-                    # Re-enable default interaction
-                    # Note: This is a simplified implementation
-                else:
-                    # Enable pick rotation center mode
-                    self._rotation_text_actor = self.plotter.scene.add_text(
-                        "Select a point to set the rotation center with right click",
-                        position="upper_edge",
-                        font_size=14,
-                        color="grey",
-                        shadow=True
-                    )
-                self.ctrl.view_update()
-            except Exception as e:
-                print(f"Error toggling pick rotation center: {e}")
+        @self.ctrl.set("take_screenshot")
+        def take_screenshot():
+            """Take a screenshot of the current scene."""
+            if self.plotter:
+                try:
+                    # Take screenshot of the scene
+                    self.plotter.scene.screenshot("screenshot.png")
+                    print("Screenshot saved as 'screenshot.png'")
+                except Exception as e:
+                    print(f"Error taking screenshot: {e}")
+
+        @self.ctrl.set("download_html")
+        def download_html():
+            """Export the scene as an HTML file."""
+            if self.plotter:
+                try:
+                    # Use PyVista's export_html functionality
+                    self.plotter.scene.export_html("scene.html")
+                    print("Scene exported as 'scene.html'")
+                except Exception as e:
+                    print(f"Error exporting HTML: {e}")
 
         @self.ctrl.set("toggle_dark_mode")
         def toggle_dark_mode():
@@ -196,66 +196,6 @@ class TrameVisualizer:
                 self.ctrl.view_update()
             except Exception as e:
                 print(f"Error toggling dark mode: {e}")
-
-        @self.ctrl.set("toggle_wireframe")
-        def toggle_wireframe():
-            if self.plotter:
-                self.state.wireframe_mode = not self.state.wireframe_mode
-                for actor in self.plotter.actors.values():
-                    if hasattr(actor, 'prop'):
-                        if self.state.wireframe_mode:
-                            actor.prop.representation = 'wireframe'
-                        else:
-                            actor.prop.representation = 'surface'
-                self.ctrl.view_update()
-
-        @self.ctrl.set("toggle_edges")
-        def toggle_edges():
-            if self.plotter:
-                self.state.show_edges = not self.state.show_edges
-                for actor in self.plotter.actors.values():
-                    if hasattr(actor, 'prop'):
-                        actor.prop.edge_visibility = self.state.show_edges
-                self.ctrl.view_update()
-
-        @self.ctrl.set("toggle_point_mode")
-        def toggle_point_mode():
-            if self.plotter:
-                self.state.point_mode = not self.state.point_mode
-                for actor in self.plotter.actors.values():
-                    if hasattr(actor, 'prop'):
-                        if self.state.point_mode:
-                            actor.prop.representation = 'points'
-                        else:
-                            actor.prop.representation = 'surface'
-                self.ctrl.view_update()
-
-        @self.ctrl.set("toggle_background")
-        def toggle_background():
-            if self.plotter:
-                self.state.dark_background = not self.state.dark_background
-                if self.state.dark_background:
-                    self.plotter.scene.set_background('black')
-                else:
-                    self.plotter.scene.set_background('white')
-                self.ctrl.view_update()
-
-        @self.ctrl.set("toggle_axes")
-        def toggle_axes():
-            if self.plotter:
-                self.state.show_axes = not self.state.show_axes
-                if self.state.show_axes:
-                    self.plotter.scene.show_axes()
-                else:
-                    self.plotter.scene.hide_axes()
-                self.ctrl.view_update()
-
-        @self.ctrl.set("toggle_local_rendering")
-        def toggle_local_rendering():
-            self.state.local_rendering = not self.state.local_rendering
-            # The mode_local parameter should automatically sync with the state variable
-            # Force a view update to apply the change
-            self.ctrl.view_update()
 
         @self.ctrl.set("displace_camera_x_up")
         def displace_camera_x_up():
@@ -398,14 +338,6 @@ class TrameVisualizer:
             except Exception as e:
                 print(f"Error setting isometric view: {e}")
 
-        @self.ctrl.set("view_reset_camera")
-        def view_reset_camera():
-            """Reset camera view."""
-            try:
-                self.plotter.scene.reset_camera()
-                self.ctrl.view_update()
-            except Exception as e:
-                print(f"Error resetting camera: {e}")
 
         with SinglePageWithDrawerLayout(self.server) as layout:
             layout.title.set_text("Ansys Visualization Tool")
@@ -448,6 +380,18 @@ class TrameVisualizer:
                                 v3.VIcon("mdi-ruler")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Ruler")
+                        
+                        with v3.VListItem(click=self.ctrl.take_screenshot):
+                            with v3.VListItemIcon():
+                                v3.VIcon("mdi-camera")
+                            with v3.VListItemContent():
+                                v3.VListItemTitle("Take Screenshot")
+                        
+                        with v3.VListItem(click=self.ctrl.download_html):
+                            with v3.VListItemIcon():
+                                v3.VIcon("mdi-download")
+                            with v3.VListItemContent():
+                                v3.VListItemTitle("Download HTML")
                     
                     # Camera Movement Section
                     with v3.VListGroup(value=("true",)):
