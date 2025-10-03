@@ -33,11 +33,11 @@ except ModuleNotFoundError:  # pragma: no cover
 # Align Vue in client and server.
 try:
     from trame.ui.vuetify import SinglePageWithDrawerLayout
-    from trame.widgets import vuetify as v3
+    from trame.widgets import vuetify as vue
     CLIENT_TYPE = "vue2"
 except ModuleNotFoundError:
     from trame.ui.vuetify3 import SinglePageWithDrawerLayout
-    from trame.widgets import vuetify3 as v3
+    from trame.widgets import vuetify3 as vue
     CLIENT_TYPE = "vue3"
 
 
@@ -356,144 +356,144 @@ class TrameVisualizer:
 
             # Add buttons to side drawer/menu
             with layout.drawer:
-                with v3.VList(shaped=True):
+                with vue.VList(shaped=True):
                     # Tools Section
-                    with v3.VListGroup(value=("true",)):
-                        with v3.Template(v_slot_activator=True):
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Tools")
+                    with vue.VListGroup(value=("true",)):
+                        with vue.Template(v_slot_activator=True):
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Tools")
 
-                        with v3.VListItem(click=self.ctrl.toggle_measure):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-ruler")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Measurement Tool")
+                        with vue.VListItem(click=self.ctrl.toggle_measure):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-ruler")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Measurement Tool")
 
-                        with v3.VListItem(click=self.ctrl.toggle_mesh_slider):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-content-cut")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Mesh Slicer")
+                        with vue.VListItem(click=self.ctrl.toggle_mesh_slider):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-content-cut")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Mesh Slicer")
 
-                        with v3.VListItem(click=self.ctrl.toggle_ruler):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-ruler")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Ruler")
+                        with vue.VListItem(click=self.ctrl.toggle_ruler):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-ruler")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Ruler")
 
-                        with v3.VListItem(click=self.ctrl.take_screenshot):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-camera")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Take Screenshot")
+                        with vue.VListItem(click=self.ctrl.take_screenshot):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-camera")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Take Screenshot")
 
-                        with v3.VListItem(click=self.ctrl.download_html):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-download")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Download HTML")
+                        with vue.VListItem(click=self.ctrl.download_html):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-download")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Download HTML")
 
                     # Camera Movement Section
-                    with v3.VListGroup(value=("true",)):
-                        with v3.Template(v_slot_activator=True):
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Camera Movement")
+                    with vue.VListGroup(value=("true",)):
+                        with vue.Template(v_slot_activator=True):
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Camera Movement")
 
-                        with v3.VListItem(click=self.ctrl.displace_camera_x_up):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-arrow-up-bold")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Move X+")
+                        with vue.VListItem(click=self.ctrl.displace_camera_x_up):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-arrow-up-bold")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Move X+")
 
-                        with v3.VListItem(click=self.ctrl.displace_camera_x_down):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-arrow-down-bold")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Move X-")
+                        with vue.VListItem(click=self.ctrl.displace_camera_x_down):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-arrow-down-bold")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Move X-")
 
-                        with v3.VListItem(click=self.ctrl.displace_camera_y_up):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-arrow-up-bold")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Move Y+")
+                        with vue.VListItem(click=self.ctrl.displace_camera_y_up):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-arrow-up-bold")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Move Y+")
 
-                        with v3.VListItem(click=self.ctrl.displace_camera_y_down):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-arrow-down-bold")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Move Y-")
+                        with vue.VListItem(click=self.ctrl.displace_camera_y_down):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-arrow-down-bold")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Move Y-")
 
-                        with v3.VListItem(click=self.ctrl.displace_camera_z_up):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-arrow-up-bold")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Move Z+")
+                        with vue.VListItem(click=self.ctrl.displace_camera_z_up):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-arrow-up-bold")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Move Z+")
 
-                        with v3.VListItem(click=self.ctrl.displace_camera_z_down):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-arrow-down-bold")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Move Z-")
+                        with vue.VListItem(click=self.ctrl.displace_camera_z_down):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-arrow-down-bold")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Move Z-")
 
                     # Camera Views Section
-                    with v3.VListGroup():
-                        with v3.Template(v_slot_activator=True):
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Camera Views")
+                    with vue.VListGroup():
+                        with vue.Template(v_slot_activator=True):
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Camera Views")
 
-                        with v3.VListItem(click=self.ctrl.view_xy_plus):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-axis-arrow")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("XY+ View")
+                        with vue.VListItem(click=self.ctrl.view_xy_plus):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-axis-arrow")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("XY+ View")
 
-                        with v3.VListItem(click=self.ctrl.view_xy_minus):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-axis-arrow")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("XY- View")
+                        with vue.VListItem(click=self.ctrl.view_xy_minus):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-axis-arrow")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("XY- View")
 
-                        with v3.VListItem(click=self.ctrl.view_xz_plus):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-axis-arrow")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("XZ+ View")
+                        with vue.VListItem(click=self.ctrl.view_xz_plus):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-axis-arrow")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("XZ+ View")
 
-                        with v3.VListItem(click=self.ctrl.view_xz_minus):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-axis-arrow")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("XZ- View")
+                        with vue.VListItem(click=self.ctrl.view_xz_minus):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-axis-arrow")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("XZ- View")
 
-                        with v3.VListItem(click=self.ctrl.view_yz_plus):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-axis-arrow")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("YZ+ View")
+                        with vue.VListItem(click=self.ctrl.view_yz_plus):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-axis-arrow")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("YZ+ View")
 
-                        with v3.VListItem(click=self.ctrl.view_yz_minus):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-axis-arrow")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("YZ- View")
+                        with vue.VListItem(click=self.ctrl.view_yz_minus):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-axis-arrow")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("YZ- View")
 
-                        with v3.VListItem(click=self.ctrl.view_isometric):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-cube-outline")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Isometric View")
+                        with vue.VListItem(click=self.ctrl.view_isometric):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-cube-outline")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Isometric View")
 
                     # Display Controls Section
-                    with v3.VListGroup():
-                        with v3.Template(v_slot_activator=True):
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Display Options")
+                    with vue.VListGroup():
+                        with vue.Template(v_slot_activator=True):
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Display Options")
 
-                        with v3.VListItem(click=self.ctrl.toggle_dark_mode):
-                            with v3.VListItemIcon():
-                                v3.VIcon("mdi-theme-light-dark")
-                            with v3.VListItemContent():
-                                v3.VListItemTitle("Dark Mode")
+                        with vue.VListItem(click=self.ctrl.toggle_dark_mode):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-theme-light-dark")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Dark Mode")
 
             # Hide footer with trame watermark
             layout.footer.hide()
