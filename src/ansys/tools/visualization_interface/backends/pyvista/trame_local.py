@@ -380,13 +380,13 @@ class TrameVisualizer:
                                 v3.VIcon("mdi-ruler")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Ruler")
-                        
+
                         with v3.VListItem(click=self.ctrl.take_screenshot):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-camera")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Take Screenshot")
-                        
+
                         with v3.VListItem(click=self.ctrl.download_html):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-download")
