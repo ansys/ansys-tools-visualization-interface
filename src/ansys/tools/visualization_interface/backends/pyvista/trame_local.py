@@ -53,13 +53,13 @@ class TrameVisualizer:
 
         self.server = get_server(client_type=CLIENT_TYPE)
         self.state, self.ctrl = self.server.state, self.server.controller
-        
+
         # Initialize state variables for toggles
         self.state.dark_background = False
         self.state.measure_active = False
         self.state.mesh_slider_active = False
         self.state.ruler_active = False
-        
+
         # Store reference to plotter for controller methods
         self.plotter = None
 
@@ -113,11 +113,11 @@ class TrameVisualizer:
                     for actor in self.plotter.scene.actors.values():
                         if hasattr(actor, 'mapper') and hasattr(actor.mapper, "dataset"):
                             meshes.append(actor.mapper.dataset)
-                    
+
                     if meshes:
                         mb = pv.MultiBlock(meshes).combine()
                         self._widget_actor = self.plotter.scene.add_mesh_clip_plane(mb)
-                        
+
                         # Store original actors before removing them
                         for mesh in meshes:
                             if isinstance(mesh, pv.PolyData):
@@ -128,7 +128,7 @@ class TrameVisualizer:
                                 mesh_id = "MultiBlock(" + mesh.memory_address + ")"
                             elif isinstance(mesh, pv.StructuredGrid):
                                 mesh_id = "StructuredGrid(" + mesh.memory_address + ")"
-                            
+
                             if mesh_id in self.plotter.scene.actors:
                                 self._mesh_actor_list.append(self.plotter.scene.actors[mesh_id])
                                 self.plotter.scene.remove_actor(mesh_id)
@@ -284,7 +284,7 @@ class TrameVisualizer:
             except Exception as e:
                 print(f"Error setting XY+ view: {e}")
 
-        @self.ctrl.set("view_xy_minus") 
+        @self.ctrl.set("view_xy_minus")
         def view_xy_minus():
             """Set camera to XY- view."""
             try:
@@ -350,31 +350,31 @@ class TrameVisualizer:
                     mode="trame"
                 )
                 self.ctrl.view_update = view.update
-                
+
                 # Store the view reference for local rendering updates
                 self.view = view
 
             # Add buttons to side drawer/menu
             with layout.drawer:
-                with v3.VList(shaped=True):                    
+                with v3.VList(shaped=True):
                     # Tools Section
                     with v3.VListGroup(value=("true",)):
                         with v3.Template(v_slot_activator=True):
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Tools")
-                        
+
                         with v3.VListItem(click=self.ctrl.toggle_measure):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-ruler")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Measurement Tool")
-                        
+
                         with v3.VListItem(click=self.ctrl.toggle_mesh_slider):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-content-cut")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Mesh Slicer")
-                        
+
                         with v3.VListItem(click=self.ctrl.toggle_ruler):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-ruler")
@@ -392,103 +392,103 @@ class TrameVisualizer:
                                 v3.VIcon("mdi-download")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Download HTML")
-                    
+
                     # Camera Movement Section
                     with v3.VListGroup(value=("true",)):
                         with v3.Template(v_slot_activator=True):
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Camera Movement")
-                        
+
                         with v3.VListItem(click=self.ctrl.displace_camera_x_up):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-arrow-up-bold")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Move X+")
-                        
+
                         with v3.VListItem(click=self.ctrl.displace_camera_x_down):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-arrow-down-bold")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Move X-")
-                        
+
                         with v3.VListItem(click=self.ctrl.displace_camera_y_up):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-arrow-up-bold")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Move Y+")
-                        
+
                         with v3.VListItem(click=self.ctrl.displace_camera_y_down):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-arrow-down-bold")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Move Y-")
-                        
+
                         with v3.VListItem(click=self.ctrl.displace_camera_z_up):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-arrow-up-bold")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Move Z+")
-                        
+
                         with v3.VListItem(click=self.ctrl.displace_camera_z_down):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-arrow-down-bold")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Move Z-")
-                    
+
                     # Camera Views Section
                     with v3.VListGroup():
                         with v3.Template(v_slot_activator=True):
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Camera Views")
-                        
+
                         with v3.VListItem(click=self.ctrl.view_xy_plus):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-axis-arrow")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("XY+ View")
-                        
+
                         with v3.VListItem(click=self.ctrl.view_xy_minus):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-axis-arrow")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("XY- View")
-                        
+
                         with v3.VListItem(click=self.ctrl.view_xz_plus):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-axis-arrow")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("XZ+ View")
-                        
+
                         with v3.VListItem(click=self.ctrl.view_xz_minus):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-axis-arrow")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("XZ- View")
-                        
+
                         with v3.VListItem(click=self.ctrl.view_yz_plus):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-axis-arrow")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("YZ+ View")
-                        
+
                         with v3.VListItem(click=self.ctrl.view_yz_minus):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-axis-arrow")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("YZ- View")
-                        
+
                         with v3.VListItem(click=self.ctrl.view_isometric):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-cube-outline")
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Isometric View")
-                    
+
                     # Display Controls Section
                     with v3.VListGroup():
                         with v3.Template(v_slot_activator=True):
                             with v3.VListItemContent():
                                 v3.VListItemTitle("Display Options")
-                        
+
                         with v3.VListItem(click=self.ctrl.toggle_dark_mode):
                             with v3.VListItemIcon():
                                 v3.VIcon("mdi-theme-light-dark")
