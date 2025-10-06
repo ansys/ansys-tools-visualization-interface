@@ -27,7 +27,7 @@ import numpy as np
 import pytest
 import pyvista as pv
 
-from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, EdgePlot, Plotter
+from ansys.tools.visualization_interface import ClipPlane, EdgePlot, MeshObjectPlot, Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 from ansys.tools.visualization_interface.backends.pyvista.picker import Picker
 
