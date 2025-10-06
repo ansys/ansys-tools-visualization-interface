@@ -28,6 +28,7 @@ dependencies = [
     "trame >= 3.6.0,<4",
     "trame-vtk >= 2.8.7,<3,!=2.8.16",
     "trame-vuetify >= 2.4.3,< 4",
+    "trame-router >= 2.3.0,<3",
 ]
 
 [project.optional-dependencies]
@@ -40,18 +41,17 @@ tests = [
     "pyvista==0.46.3",
     "pytest-pyvista==0.2.0",
     "pytest-cov==7.0.0",
-    "pyside6==6.9.2",
+    "pyside6==6.9.3",
 ]
 
 doc = [
     "pyvista==0.46.3",
-    "ansys-sphinx-theme==1.6.1",
+    "ansys-sphinx-theme[autoapi]==1.6.1",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.17.3",
     "nbsphinx==0.9.6",
     "numpydoc==1.9.0",
     "sphinx==8.2.3",
-    "sphinx-autoapi==3.6.0",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.6.1",
     "sphinx-gallery==0.19.0",
