@@ -27,7 +27,7 @@ import numpy as np
 import pytest
 import pyvista as pv
 
-from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, Plotter
+from ansys.tools.visualization_interface import ClipPlane, MeshObjectPlot, EdgePlot, Plotter
 from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 from ansys.tools.visualization_interface.backends.pyvista.picker import Picker
 
@@ -93,7 +93,9 @@ def test_plotter_add_structured_grid():
 def test_plotter_add_custom():
     """Adds a MeshObjectPlot object to the plotter."""
     sphere = pv.Sphere()
-    custom = MeshObjectPlot(CustomTestClass("myname"), sphere)
+    edge = pv.Cube((0, 1, 0))
+    custom_edge = EdgePlot(CustomTestClass("myname_edge"), edge)
+    custom = MeshObjectPlot(CustomTestClass("myname"), sphere, edges=[custom_edge])
     pl = Plotter()
     pl.plot(custom)
     pl.show()

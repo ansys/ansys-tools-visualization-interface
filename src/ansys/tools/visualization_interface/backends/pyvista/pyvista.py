@@ -131,6 +131,8 @@ class PyVistaBackendInterface(BaseBackend):
         # Map that relates PyVista actors with PyAnsys objects
         self._object_to_actors_map = {}
 
+        self._edge_actors_map: Dict[pv.Actor, EdgePlot] = {}
+
         # PyVista plotter
         self._pl = None
 
