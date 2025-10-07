@@ -4,19 +4,17 @@ Migration
 #########
 
 In this section two guides are provided to help you migrate from PyVista plotters to the Ansys Tools Visualization Interface plotters.
-The first one addresses code migration, and the second one addresses documentation migration.
 
-Code migration guide
-====================
+Code migration
+==============
+This topic explains how to migrate from PyVista plotters to the new Ansys Tools Visualization Interface plotters. Because cases vary greatly, it provides a few examples that cover the most common scenarios.
 
-This guide intends to help users transition from PyVista plotters to the new Ansys Tools Visualization Interface plotters. Since cases are very different
-from each other, a few examples are provided to cover the most common scenarios.
-
-From simple PyVista mesh plotting to the Ansys visualization interface plotter
-------------------------------------------------------------------------------
+Replace PyVista plotter code with Ansys Tools Visualization Interface plotter code
+----------------------------------------------------------------------------------
 If you only need to plot simple PyVista meshes, you can directly replace your PyVista plotter code with the Ansys Tools Visualization Interface plotter code.
-On top of common PyVista functionalities, the Ansys Tools Visualization Interface plotter provides additional interactivity such as view buttons, mesh slicing, etc.
-Here is an example of how to do this:
+On top of common PyVista functionalities, the Ansys Tools Visualization Interface plotter provides additional interactivity such as view buttons and mesh slicing.
+
+The following code shows how to do the plotter code replacement:
 
 - PyVista code:
 
@@ -24,7 +22,7 @@ Here is an example of how to do this:
 
     import pyvista as pv
 
-    # Create a pyvista mesh
+    # Create a PyVista mesh
     mesh = pv.Cube()
 
     # Create a plotter
@@ -43,7 +41,7 @@ Here is an example of how to do this:
     import pyvista as pv
     from ansys.tools.visualization_interface import Plotter
 
-    # Create a pyvista mesh
+    # Create a PyVista mesh
     mesh = pv.Cube()
 
     # Create a plotter
@@ -56,10 +54,10 @@ Here is an example of how to do this:
     pl.show()
 
 
-Convert your custom meshes to MeshObjectPlot and use the Ansys visualization interface plotter
-----------------------------------------------------------------------------------------------
+Convert your custom meshes to objects usable by the Ansys Tools Visualization Interface plotter
+-----------------------------------------------------------------------------------------------
 
-Your custom object must have a method that returns a PyVista mesh and a method that exposes a ``name`` or ``id`` attribute of your object.
+Your custom object must have a method that returns a PyVista mesh and a method that exposes a ``name`` or ``id`` attribute of your object:
 
 .. code-block:: python
 
@@ -75,7 +73,7 @@ Your custom object must have a method that returns a PyVista mesh and a method t
             return self.name
 
 
-Then you need to create a ``MeshObjectPlot`` instance that relates the PyVista mesh with your custom object.
+You then need to create a ``MeshObjectPlot`` instance that relates the PyVista mesh with your custom object:
 
 .. code-block:: python
 
@@ -90,11 +88,10 @@ Then you need to create a ``MeshObjectPlot`` instance that relates the PyVista m
 With this, you can use the Ansys Tools Visualization Interface plotter to visualize your custom object. It enables interactivity such as picking and hovering.
 
 
-Customizing the PyVista backend
--------------------------------
+Customize the PyVista backend
+-----------------------------
 
-You can customize the backend of the Ansys Tools Visualization Interface plotter to enable or turn off certain functionalities. For example,
-if you want to enable picking, you can do it as follows:
+You can customize the backend of the Ansys Tools Visualization Interface plotter to enable or turn off certain functionalities. The following code shows how to enable picking:
 
 .. code-block:: python
 
@@ -112,8 +109,8 @@ if you want to enable picking, you can do it as follows:
     # Show the plotter
     pl.show()
 
-If you want to go further and customize the backend even more, you can create your own backend by inheriting from the ``PyVistaBackendInterface`` class
-and implementing the required methods. You can find more information about this in the backend documentation:
+If you want to customize the backend even more, you can create your own backend by inheriting from the ``PyVistaBackendInterface`` class
+and implementing the required methods:
 
 .. code-block:: python
 
@@ -124,9 +121,9 @@ and implementing the required methods. You can find more information about this 
         Parameters
         ----------
         plottable_object : Any
-            One or more objects to add.
+            One or more objects plot.
         name_filter : str, default: None.
-            Regular expression with the desired name or names  to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -142,7 +139,7 @@ and implementing the required methods. You can find more information about this 
         Parameters
         ----------
         plottable_object : Any
-            Object to add.
+            Object to plot.
         name_filter : str
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
@@ -154,18 +151,18 @@ and implementing the required methods. You can find more information about this 
 
 
 The rest of the methods are implemented for you. This ensures that while you can customize what you need for plotting, the rest of the functionalities still work as expected.
-If you need to even go further, you can also create your own plotter by inheriting from the ``BaseBackend`` class and implementing the required methods,
+If you need to even go further, you can create your own plotter by inheriting from the ``BaseBackend`` class and implementing the required methods,
 although this may break existing features. You can find more information about this in the plotter documentation.
 
 Customize the picker or hover behavior
 --------------------------------------
-You can customize the picker of the Ansys Tools Visualization Interface plotter to decide what happens when an object is picked or hovered.
+You can customize the picker of the Ansys Tools Visualization Interface plotter to decide what happens when you pick or hover over an object.
 For example, if you want to print the name of the picked object, you can do it as described in the custom picker example.
 
-Using PyVista Qt backend
-------------------------
-You can use the PyVista Qt backend with the Ansys Tools Visualization Interface plotter. To do this, you need to set the PyVista backend to Qt
-before creating the plotter. Here is an example of how to do this:
+Use the PyVista Qt backend
+--------------------------
+You can use the PyVista Qt backend with the Ansys Tools Visualization Interface plotter. To do this, you must set the PyVista backend to Qt
+before creating the plotter:
 
 .. code-block:: python
 
@@ -176,14 +173,14 @@ before creating the plotter. Here is an example of how to do this:
    pl.backend.enable_widgets()
    pv_backend.scene.show()
 
-With this, you can integrate the plotter into a PyQt or PySide app by disabling ``show_qt`` parameter.
-You can find more information about this in the `PyVista documentation <https://qtdocs.pyvista.org/>`_.
+You can then integrate the plotter into a PyQt or PySide app by disabling the ``show_qt`` parameter.
+For more information about this, see the `PyVista documentation <https://qtdocs.pyvista.org/>`_.
 
 
-Documentation migration guide
-=============================
+Documentation configuration migration
+=====================================
 
-This guide is intended to help users transition from PyVista documentation configuration to the new Ansys Tools Visualization Interface documentation configuration.
+This topic explains how to migrate from the PyVista documentation configuration to the new Ansys Tools Visualization Interface documentation configuration.
 
 1. Add environment variables for documentation:
 
