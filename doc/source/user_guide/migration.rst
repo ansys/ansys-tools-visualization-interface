@@ -3,7 +3,11 @@
 Migration
 #########
 
-In this section two guides are provided to help you migrate from PyVista plotters to the Ansys Tools Visualization Interface plotters.
+This section helps you migrate from PyVista plotters to the Ansys Tools Visualization Interface plotters.
+It consists of two major topics:
+
+- `Code migration`_
+- `Documentation configuration migration`_
 
 Code migration
 ==============
@@ -73,7 +77,7 @@ Your custom object must have a method that returns a PyVista mesh and a method t
             return self.name
 
 
-You then need to create a ``MeshObjectPlot`` instance that relates the PyVista mesh with your custom object:
+You then need to create a :class:`~ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot` instance that relates the PyVista mesh with your custom object:
 
 .. code-block:: python
 
@@ -109,7 +113,7 @@ You can customize the backend of the Ansys Tools Visualization Interface plotter
     # Show the plotter
     pl.show()
 
-If you want to customize the backend even more, you can create your own backend by inheriting from the ``PyVistaBackendInterface`` class
+If you want to customize the backend even more, you can create your own backend by inheriting from the :class:`~ansys.tools.visualization_interface.backends.pyvista.PyVistaBackendInterface` class
 and implementing the required methods:
 
 .. code-block:: python
@@ -150,14 +154,15 @@ and implementing the required methods:
         pass
 
 
-The rest of the methods are implemented for you. This ensures that while you can customize what you need for plotting, the rest of the functionalities still work as expected.
-If you need to even go further, you can create your own plotter by inheriting from the ``BaseBackend`` class and implementing the required methods,
-although this may break existing features. You can find more information about this in the plotter documentation.
+The rest of the methods are implemented for you. This ensures that while you can customize what you need for plotting, 
+the rest of the functionalities still work as expected. For more information, see the backend documentation. If you 
+need to even go further, you can create your own plotter by inheriting from the :class:`~ansys.tools.visualization_interface.backends._base.BaseBackend` class and implementing the required methods,
+although this may break existing features.
 
 Customize the picker or hover behavior
 --------------------------------------
 You can customize the picker of the Ansys Tools Visualization Interface plotter to decide what happens when you pick or hover over an object.
-For example, if you want to print the name of the picked object, you can do it as described in the custom picker example.
+For example, if you want to print the name of the picked object, you can do it as described in the :ref:`sphx_glr_examples_00-basic-pyvista-examples_custom_picker.py` example.
 
 Use the PyVista Qt backend
 --------------------------
