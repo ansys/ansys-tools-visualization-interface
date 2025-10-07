@@ -154,8 +154,8 @@ and implementing the required methods:
         pass
 
 
-The rest of the methods are implemented for you. This ensures that while you can customize what you need for plotting, 
-the rest of the functionalities still work as expected. For more information, see the backend documentation. If you 
+The rest of the methods are implemented for you. This ensures that while you can customize what you need for plotting,
+the rest of the functionalities still work as expected. For more information, see the backend documentation. If you
 need to even go further, you can create your own plotter by inheriting from the :class:`~ansys.tools.visualization_interface.backends._base.BaseBackend` class and implementing the required methods,
 although this may break existing features.
 
