@@ -1,3 +1,52 @@
+## [0.12.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.12.1) - October 07, 2025
+
+
+### Miscellaneous
+
+- Fix: Uninitialized variable in PyVistaBackendInterface [#375](https://github.com/ansys/ansys-tools-visualization-interface/pull/375)
+
+## [0.12.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.12.0) - October 06, 2025
+
+
+### Added
+
+- Feat: Refactor picker to allow custom callbacks [#360](https://github.com/ansys/ansys-tools-visualization-interface/pull/360)
+
+
+### Miscellaneous
+
+- Chore: update changelog for v0.11.0 [#318](https://github.com/ansys/ansys-tools-visualization-interface/pull/318)
+- Build(deps): bump ansys-sphinx-theme from 1.5.2 to 1.5.3 in the doc-dependencies group [#321](https://github.com/ansys/ansys-tools-visualization-interface/pull/321)
+- [pre-commit.ci] pre-commit autoupdate [#322](https://github.com/ansys/ansys-tools-visualization-interface/pull/322), [#324](https://github.com/ansys/ansys-tools-visualization-interface/pull/324), [#326](https://github.com/ansys/ansys-tools-visualization-interface/pull/326), [#328](https://github.com/ansys/ansys-tools-visualization-interface/pull/328), [#329](https://github.com/ansys/ansys-tools-visualization-interface/pull/329), [#333](https://github.com/ansys/ansys-tools-visualization-interface/pull/333), [#353](https://github.com/ansys/ansys-tools-visualization-interface/pull/353), [#361](https://github.com/ansys/ansys-tools-visualization-interface/pull/361)
+- Build(deps): bump pytest-pyvista from 0.1.9 to 0.2.0 in the test-dependencies group [#323](https://github.com/ansys/ansys-tools-visualization-interface/pull/323)
+- Build(deps): bump pyvista from 0.45.2 to 0.45.3 in the pyvista group [#325](https://github.com/ansys/ansys-tools-visualization-interface/pull/325)
+- Build(deps): bump ansys-fluent-core from 0.33.0 to 0.34.0 in the general-dependencies group [#327](https://github.com/ansys/ansys-tools-visualization-interface/pull/327)
+- Build(deps): bump pyvista from 0.45.3 to 0.46.0 in the pyvista group [#330](https://github.com/ansys/ansys-tools-visualization-interface/pull/330)
+- Build(deps): bump ansys-fluent-core from 0.34.0 to 0.34.1 in the general-dependencies group [#331](https://github.com/ansys/ansys-tools-visualization-interface/pull/331)
+- Build(deps): bump actions/download-artifact from 4.3.0 to 5.0.0 [#332](https://github.com/ansys/ansys-tools-visualization-interface/pull/332)
+- Build(deps): bump actions/checkout from 4 to 5 [#334](https://github.com/ansys/ansys-tools-visualization-interface/pull/334)
+- Build(deps): bump ansys-fluent-core from 0.34.1 to 0.34.2 in the general-dependencies group [#335](https://github.com/ansys/ansys-tools-visualization-interface/pull/335)
+- Build(deps): bump pyvista from 0.46.0 to 0.46.1 in the pyvista group [#336](https://github.com/ansys/ansys-tools-visualization-interface/pull/336)
+- Test: Add interaction testing [#352](https://github.com/ansys/ansys-tools-visualization-interface/pull/352)
+- Fix: Remove buttons in screenshots [#354](https://github.com/ansys/ansys-tools-visualization-interface/pull/354)
+- Fix: Add measure tool dark mode [#355](https://github.com/ansys/ansys-tools-visualization-interface/pull/355)
+- Feat: Add rotation center selection [#357](https://github.com/ansys/ansys-tools-visualization-interface/pull/357)
+- Fix: Avoid importing VTK on startup [#358](https://github.com/ansys/ansys-tools-visualization-interface/pull/358)
+- Fix: Mesh slider unclick makes buttons disappear [#362](https://github.com/ansys/ansys-tools-visualization-interface/pull/362)
+- Fix: Custom picker init arguments [#365](https://github.com/ansys/ansys-tools-visualization-interface/pull/365)
+- Fix: Zizmor fixes [#366](https://github.com/ansys/ansys-tools-visualization-interface/pull/366)
+- Fix: Improve button quality [#367](https://github.com/ansys/ansys-tools-visualization-interface/pull/367)
+- Feat: Add buttons to Trame viewer [#368](https://github.com/ansys/ansys-tools-visualization-interface/pull/368)
+- Maint: Zizmor ignore cache issue [#369](https://github.com/ansys/ansys-tools-visualization-interface/pull/369)
+- Build(deps): bump pyside6 from 6.9.2 to 6.9.3 in the general-dependencies group [#371](https://github.com/ansys/ansys-tools-visualization-interface/pull/371)
+
+
+### Maintenance
+
+- Feat: Add night mode and reorganize buttons [#359](https://github.com/ansys/ansys-tools-visualization-interface/pull/359)
+- Build(deps): bump ansys/actions from 10.1.3 to 10.1.4 [#372](https://github.com/ansys/ansys-tools-visualization-interface/pull/372)
+- Build(deps): bump peter-evans/create-or-update-comment from 4.0.0 to 5.0.0 [#373](https://github.com/ansys/ansys-tools-visualization-interface/pull/373)
+
 ## [0.11.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.11.0) - July 01, 2025
 
 
