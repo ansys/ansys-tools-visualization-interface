@@ -1,3 +1,10 @@
+## [0.12.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.12.1) - October 07, 2025
+
+
+### Miscellaneous
+
+- Fix: Uninitialized variable in PyVistaBackendInterface [#375](https://github.com/ansys/ansys-tools-visualization-interface/pull/375)
+
 ## [0.12.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.12.0) - October 06, 2025
 
 
