@@ -21,10 +21,10 @@
 # SOFTWARE.
 """Conftest file for unit tests."""
 import os
-
-import pytest
-from PIL import Image, ImageChops
 from pathlib import Path
+
+from PIL import Image, ImageChops
+import pytest
 
 os.environ.setdefault("PYANSYS_VISUALIZER_TESTMODE", "true")
 
