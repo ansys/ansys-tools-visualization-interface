@@ -6,7 +6,8 @@ User guide
 
 This section explains key concepts for implementing the Visualization Interface Tool in your workflow.
 You can use the Visualization Interface Tool in your examples as well as integrate this library into
-your own code.
+your own code. For information on how to migrate from PyVista to the Ansys Visualization Interface Tool, see
+:ref:`ref_migration_guide`.
 
 Default plotter usage
 =====================
@@ -45,7 +46,7 @@ Use with PyAnsys custom objects
 
 You can also use the default plotter to visualize PyAnsys custom objects. The only requirement is that the
 custom object must have a method that returns a PyVista mesh a method that exposes a ``name`` or
-``id`` attribute of your object. To expose a custom object, you use a ``MeshObjectPlot`` instance. This class
+``id`` attribute of your object. To expose a custom object, you use a :class:`~ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot` instance. This class
 relates PyVista meshes with any object.
 
 The following code shows how to use the default plotter to visualize a PyAnsys custom object:
@@ -99,7 +100,7 @@ class. After that, see these main use cases for customizing the plotter:
 * The most common use case is to customize the way that the objects you represent are shown in the plotter.
   To this end, you can override the ``plot`` and ``plot_iter`` methods. These methods are called every time
   a new object is added to the plotter. The default implementation of this method is to add a PyVista mesh
-  or a  ``MeshObjectPlot`` instance to the plotter. You can override this method to add your own meshes or
+  or a :class:`~ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot` instance to the plotter. You can override this method to add your own meshes or
   objects to the plotter in a manner that fits the way that you want to represent the meshes.
 
 * Another use case is the need to have custom button functionalities for your library. For example, you may
@@ -109,15 +110,17 @@ class. After that, see these main use cases for customizing the plotter:
 Some practical examples of how to use the ``PlotterInterface`` class are included in some PyAnsys libraries,
 such as `PyAnsys Geometry <https://github.com/ansys/pyansys-geometry/pull/959>`_.
 
+For comprehensive migration information with code examples, see :ref:`ref_migration_guide`.
+
 
 Customizing the picker and hover callbacks
 ==========================================
 
-The Visualization Interface Tool provides a base class, ``AbstractPicker``, for customizing the picker and hover
+The Visualization Interface Tool provides a base class, :class:`~ansys.tools.visualization_interface.backends.pyvista.picker.AbstractPicker`, for customizing the picker and hover
 callbacks of the plotter. This class provides a set of methods that can be overridden so that you can adapt the
 picker and hover functionalities to the specific need of your PyAnsys library.
 
-The first thing you must do is to create a class that inherits from the ``AbstractPicker`` class. After that, see
+The first thing you must do is to create a class that inherits from the :class:`~ansys.tools.visualization_interface.backends.pyvista.picker.AbstractPicker` class. After that, see
 these main use cases for customizing the picker and hover callbacks:
 
 * You may want to change the way that objects are picked in the plotter. To do this, you can override the
@@ -128,4 +131,4 @@ these main use cases for customizing the picker and hover callbacks:
   override the ``hover_select_object`` and ``hover_unselect_object`` methods. These methods are called when an
   object is hovered over or unhovered, respectively.
 
-A practical example of how to use the ``AbstractPicker`` class are included in the examples section of the documentation.
+A practical example of how to use the :class:`~ansys.tools.visualization_interface.backends.pyvista.picker.AbstractPicker` class is included in :ref:`sphx_glr_examples_00-basic-pyvista-examples_custom_picker.py`.
