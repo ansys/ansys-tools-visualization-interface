@@ -77,7 +77,6 @@ jobs:
         uses: ansys/actions/doc-style@c2fa7c93f6883114e0e643599431b33d29f0b13f # v10.1.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          optional-dependencies-name: 'docs,all'
 
   docs-build:
     name: Documentation Build
@@ -92,6 +91,7 @@ jobs:
       with:
         python-version: ${{ env.MAIN_PYTHON_VERSION }}
         add-pdf-html-docs-as-assets: true
+        optional-dependencies-name: 'docs,all'
 
   smoke-tests:
     name: Build and Smoke tests
