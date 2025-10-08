@@ -142,9 +142,11 @@ class PlotlyBackend(BaseBackend):
         if plottable_object is not None:
             self.plot(plottable_object)
 
+
         # Only show in browser if no screenshot is being taken
         if not screenshot:
             self._fig.show(**kwargs)
+
 
         if screenshot:
             screenshot_str = str(screenshot)
