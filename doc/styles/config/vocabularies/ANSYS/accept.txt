@@ -1,3 +1,8 @@
 (?i)Ansys
 pytest
 unhovered
+
+t.M
+a.P
+e.B
+r.A

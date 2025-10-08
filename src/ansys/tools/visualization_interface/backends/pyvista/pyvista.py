@@ -509,7 +509,7 @@ class PyVistaBackendInterface(BaseBackend):
         plottable_object : Any
             One or more objects to add.
         name_filter : str, default: None.
-            Regular expression with the desired name or names  to include in the plotter.
+            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -524,7 +524,7 @@ class PyVistaBackendInterface(BaseBackend):
         Parameters
         ----------
         plottable_object : Any
-            Object to add.
+            Object to plot.
         name_filter : str
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
@@ -618,7 +618,7 @@ class PyVistaBackend(PyVistaBackendInterface):
         Parameters
         ----------
         plottable_object : Any
-            Object to add.
+            Object to plot.
         name_filter : str
             Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None

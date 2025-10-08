@@ -68,6 +68,7 @@ The Visualization Interface Tool offers these main features:
 
        getting_started/index
        user_guide/index
+       user_guide/migration
        {% if build_api %}
        api/index
        {% endif %}
