@@ -19,12 +19,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+"""
+.. _ref_plain_usage_plotly:
+
+=================================
+Plain usage of the plotly backend
+=================================
+
+This example shows the plain usage of the Plotly backend in the Visualization Interface Tool to plot different objects,
+including PyVista meshes, custom objects, and Plotly-specific objects.
+"""
 
 from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
 from ansys.tools.visualization_interface.types import MeshObjectPlot
 from ansys.tools.visualization_interface import Plotter
 import pyvista as pv
 from plotly.graph_objects import Mesh3d
+
 
 # Create a plotter with the Plotly backend
 pl = Plotter(backend=PlotlyBackend())
@@ -35,8 +46,12 @@ mesh = pv.Sphere()
 # Plot the mesh
 pl.plot(mesh)
 
+#####################
 # Display the plotter
-pl.show()
+#
+# code-block:: python
+#
+#   pl.show()
 
 # Now create a custom object
 class CustomObject:
@@ -62,8 +77,14 @@ mesh_object_cube = MeshObjectPlot(custom_cube, custom_cube.get_mesh())
 # Plot the custom mesh object
 pl.plot(mesh_object_cube)
 
-# Since Plotly is a web-based visualization, we can show the plot again to include the new object
-pl.show()
+###########################
+# Display the plotter again
+# =========================
+# Since Plotly is a web-based visualization, we can show the plot again to include the new object.
+#
+# code-block:: python
+#
+#   pl.show()
 
 # Add a Plotly Mesh3d object directly
 custom_mesh3d = Mesh3d(
@@ -77,7 +98,6 @@ custom_mesh3d = Mesh3d(
     opacity=0.50
 )
 pl.plot(custom_mesh3d)
-pl.show()
 
 # Show other plotly objects like Scatter3d
 from plotly.graph_objects import Scatter3d
@@ -90,4 +110,11 @@ scatter = Scatter3d(
     marker=dict(size=5, color='red')
 )
 pl.plot(scatter)
-pl.show()
+
+###########################
+# Display the plotter again
+# =========================
+#
+# code-block:: python
+#
+#   pl.show()
