@@ -6,7 +6,7 @@ from pyvista import PolyData
 from typing import Union, Iterable, Any
 
 
-class PlotlyInterface(BaseBackend):
+class PlotlyBackend(BaseBackend):
     """Plotly interface for visualization."""
 
     def __init__(self, **kwargs):
@@ -17,7 +17,11 @@ class PlotlyInterface(BaseBackend):
         points = pv_mesh.points
         x, y, z = points[:, 0], points[:, 1], points[:, 2]
         
-        faces = pv_mesh.faces.reshape((-1, 4))  # First number in each row is the number of points in the face (3 for triangles)
+        # Convert mesh to triangular mesh if needed, since Plotly only supports triangular faces
+        triangulated_mesh = pv_mesh.triangulate()
+        
+        # Extract triangular faces
+        faces = triangulated_mesh.faces.reshape((-1, 4))  # Now we know all faces are triangular (3 vertices + count)
         i, j, k = faces[:, 1], faces[:, 2], faces[:, 3]
         
         return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k)
@@ -25,8 +29,8 @@ class PlotlyInterface(BaseBackend):
     def layout(self) -> Any:
         """Get the current layout of the Plotly figure."""
         return self._fig.layout
-    
-    @setters.layout
+
+    @layout.setter
     def layout(self, new_layout: Any):
         """Set a new layout for the Plotly figure."""
         self._fig.update_layout(new_layout)
@@ -54,6 +58,22 @@ class PlotlyInterface(BaseBackend):
             except Exception:
                 raise TypeError("Unsupported plottable_object type for PlotlyInterface.")
 
-    def show(self):
+    def show(self, 
+            plottable_object=None,
+            screenshot: str = None,
+            name_filter=None,
+            **kwargs):
         """Render the Plotly scene."""
-        self._fig.show()
+        if plottable_object is not None:
+            self.plot(plottable_object)
+        
+        # Only show in browser if no screenshot is being taken
+        if not screenshot:
+            self._fig.show(**kwargs)
+        
+        if screenshot:
+            screenshot_str = str(screenshot)
+            if screenshot_str.endswith('.html'):
+                self._fig.write_html(screenshot_str)
+            else:
+                self._fig.write_image(screenshot_str)

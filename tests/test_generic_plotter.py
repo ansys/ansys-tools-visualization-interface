@@ -42,6 +42,23 @@ class CustomTestClass:
         self.name = name
 
 
+@pytest.fixture(autouse=True)
+def wrapped_verify_image_cache(verify_image_cache):
+    """Wraps the verify_image_cache fixture to ensure that the image cache is verified.
+
+    Parameters
+    ----------
+    verify_image_cache : fixture
+        Fixture to wrap.
+
+    Returns
+    -------
+    fixture
+        Wrapped fixture.
+    """
+    return verify_image_cache
+
+
 def test_plotter_add_pd():
     """Adds polydata to the plotter."""
     pl = Plotter()

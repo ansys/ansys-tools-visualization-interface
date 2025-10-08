@@ -39,6 +39,7 @@ pyvistaqt = [
 
 plotly = [
     "plotly >= 5.15.0,<6",
+    "kaleido >= 1.1.0,<2",
 ]
 tests = [
     "pytest==8.4.2",
