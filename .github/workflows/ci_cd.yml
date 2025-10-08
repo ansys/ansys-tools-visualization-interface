@@ -91,7 +91,7 @@ jobs:
       with:
         python-version: ${{ env.MAIN_PYTHON_VERSION }}
         add-pdf-html-docs-as-assets: true
-        optional-dependencies-name: 'docs,all'
+        optional-dependencies-name: 'doc,all'
 
   smoke-tests:
     name: Build and Smoke tests
