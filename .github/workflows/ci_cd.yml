@@ -132,7 +132,7 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           requires-xvfb: true
-          optional-dependencies-name: 'tests, all'
+          optional-dependencies-name: 'tests,all'
 
       - name: Upload PyVista generated images (cache and results)
         if: always()
