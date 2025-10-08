@@ -41,6 +41,14 @@ plotly = [
     "plotly >= 5.15.0,<6",
     "kaleido >= 1.1.0,<2",
 ]
+
+all = [
+    "pyside6 >= 6.8.0,<7",
+    "pyvistaqt >= 0.11.1,<1",
+    "plotly >= 5.15.0,<6",
+    "kaleido >= 1.1.0,<2",
+]
+
 tests = [
     "pytest==8.4.2",
     "pyvista==0.46.3",
