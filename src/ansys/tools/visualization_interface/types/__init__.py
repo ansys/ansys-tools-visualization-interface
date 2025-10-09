@@ -20,4 +20,3 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides custom types."""
-from .mesh_object_plot import MeshObjectPlot  # noqa: F401

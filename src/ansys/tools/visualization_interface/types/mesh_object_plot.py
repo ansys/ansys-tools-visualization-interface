@@ -22,13 +22,14 @@
 """Provides the ``MeshObjectPlot`` class."""
 
 
-from typing import Any, List, Type, Union
+from typing import TYPE_CHECKING, Any, List, Type, Union
 
-from plotly.graph_objects import Mesh3d
 import pyvista as pv
 
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 
+if TYPE_CHECKING:
+    from plotly.graph_objects import Mesh3d
 
 class MeshObjectPlot:
     """Relates a custom object with a mesh, provided by the consumer library."""
@@ -36,7 +37,7 @@ class MeshObjectPlot:
     def __init__(
         self,
         custom_object: Any,
-        mesh: Union[pv.PolyData, pv.MultiBlock, Mesh3d],
+        mesh: Union[pv.PolyData, pv.MultiBlock, "Mesh3d"],
         actor: pv.Actor = None,
         edges: List[EdgePlot] = None,
     ) -> None:
@@ -64,7 +65,7 @@ class MeshObjectPlot:
         self._edges = edges
 
     @property
-    def mesh(self) -> Union[pv.PolyData, pv.MultiBlock, Mesh3d]:
+    def mesh(self) -> Union[pv.PolyData, pv.MultiBlock, "Mesh3d"]:
         """Mesh of the object in PyVista format.
 
         Returns
@@ -76,7 +77,7 @@ class MeshObjectPlot:
         return self._mesh
 
     @mesh.setter
-    def mesh(self, mesh: Union[pv.PolyData, pv.MultiBlock, Mesh3d]):
+    def mesh(self, mesh: Union[pv.PolyData, pv.MultiBlock, "Mesh3d"]):
         """Set the mesh of the object in PyVista format.
 
         Parameters
