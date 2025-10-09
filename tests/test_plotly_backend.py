@@ -25,7 +25,7 @@ import pyvista as pv
 
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
-from ansys.tools.visualization_interface.types import MeshObjectPlot
+from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 
 
 def test_plot_3dmesh(tmp_path, image_compare):

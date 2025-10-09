@@ -31,7 +31,7 @@ including PyVista meshes, custom objects, and Plotly-specific objects.
 """
 
 from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
-from ansys.tools.visualization_interface.types import MeshObjectPlot
+from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface import Plotter
 import pyvista as pv
 from plotly.graph_objects import Mesh3d
