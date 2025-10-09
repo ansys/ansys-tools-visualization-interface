@@ -46,6 +46,15 @@ mesh = pv.Sphere()
 # Plot the mesh
 pl.plot(mesh)
 
+
+# Create a PyVista MultiBlock
+multi_block = pv.MultiBlock()
+multi_block.append(pv.Sphere(center=(-1, -1, 0)))
+multi_block.append(pv.Cube(center=(-1, 1, 0)))
+
+# Plot the MultiBlock
+pl.plot(multi_block)
+
 #####################
 # Display the plotter
 #
@@ -64,7 +73,6 @@ class CustomObject:
 
     def name(self):
         return self.name
-
 
 
 # Create a custom object
@@ -110,6 +118,8 @@ scatter = Scatter3d(
     marker=dict(size=5, color='red')
 )
 pl.plot(scatter)
+
+
 
 ###########################
 # Display the plotter again

@@ -24,6 +24,7 @@
 from typing import Any, Iterable, Union
 
 import plotly.graph_objects as go
+import pyvista as pv
 from pyvista import PolyData
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
@@ -37,8 +38,46 @@ class PlotlyBackend(BaseBackend):
         """Initialize the Plotly backend."""
         self._fig = go.Figure()
 
-    def _pv_to_mesh3d(self, pv_mesh: PolyData) -> go.Mesh3d:
-        """Convert a PyVista PolyData mesh to Plotly Mesh3d format.
+    def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.MultiBlock]) -> Union[go.Mesh3d, list]:
+        """Convert a PyVista PolyData or MultiBlock mesh to Plotly Mesh3d format.
+
+        Parameters
+        ----------
+        pv_mesh : Union[PolyData, pv.MultiBlock]
+            The PyVista PolyData or MultiBlock mesh to convert.
+
+        Returns
+        -------
+        Union[go.Mesh3d, list]
+            The converted Plotly Mesh3d object(s). Returns a single Mesh3d for PolyData,
+            or a list of Mesh3d objects for MultiBlock.
+        """
+        if isinstance(pv_mesh, pv.MultiBlock):
+            # Handle MultiBlock by converting each block and returning a list
+            mesh_list = []
+            for i, block in enumerate(pv_mesh):
+                if block is not None:
+                    # Convert each block to PolyData if needed
+                    if hasattr(block, 'extract_surface'):
+                        # For volume meshes, extract the surface
+                        block = block.extract_surface()
+                    elif not isinstance(block, PolyData):
+                        # Try to convert to PolyData
+                        try:
+                            block = block.cast_to_polydata()
+                        except AttributeError:
+                            continue  # Skip blocks that can't be converted
+
+                    # Now convert the PolyData block
+                    mesh_3d = self._convert_polydata_to_mesh3d(block)
+                    mesh_list.append(mesh_3d)
+            return mesh_list
+        else:
+            # Handle single PolyData
+            return self._convert_polydata_to_mesh3d(pv_mesh)
+
+    def _convert_polydata_to_mesh3d(self, pv_mesh: PolyData) -> go.Mesh3d:
+        """Convert a single PolyData mesh to Plotly Mesh3d format.
 
         Parameters
         ----------
@@ -96,23 +135,36 @@ class PlotlyBackend(BaseBackend):
             self.plot(item)
 
 
-    def plot(self, plottable_object: Union[PolyData, MeshObjectPlot, go.Mesh3d], **plotting_options) -> None:
+    def plot(
+            self,
+            plottable_object: Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d],
+            **plotting_options
+        ) -> None:
         """Plot a single object using Plotly.
 
         Parameters
         ----------
-        plottable_object : Union[PolyData, MeshObjectPlot, go.Mesh3d]
-            The object to plot. Can be a PyVista PolyData, a MeshObjectPlot, or a Plotly Mesh3d.
+        plottable_object : Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d]
+            The object to plot. Can be a PyVista PolyData, MultiBlock, a MeshObjectPlot, or a Plotly Mesh3d.
         plotting_options : dict
             Additional plotting options.
         """
-        if isinstance(plottable_object, PolyData):
-            mesh = self._pv_to_mesh3d(plottable_object)
-            self._fig.add_trace(mesh)
-        elif isinstance(plottable_object, MeshObjectPlot):
-            pv_mesh = plottable_object.mesh
-            mesh = self._pv_to_mesh3d(pv_mesh)
-            self._fig.add_trace(mesh)
+        if isinstance(plottable_object, MeshObjectPlot):
+            mesh = plottable_object.mesh
+        else:
+            mesh = plottable_object
+
+        if isinstance(mesh, (PolyData, pv.MultiBlock)):
+            mesh_result = self._pv_to_mesh3d(mesh)
+
+            # Handle both single mesh and list of meshes
+            if isinstance(mesh_result, list):
+                # MultiBlock case - add all meshes
+                for mesh_3d in mesh_result:
+                    self._fig.add_trace(mesh_3d)
+            else:
+                # Single PolyData case
+                self._fig.add_trace(mesh_result)
         elif isinstance(plottable_object, go.Mesh3d):
             self._fig.add_trace(plottable_object)
         else:

@@ -22,8 +22,9 @@
 """Provides the ``MeshObjectPlot`` class."""
 
 
-from typing import Any, List, Union
+from typing import Any, List, Type, Union
 
+from plotly.graph_objects import Mesh3d
 import pyvista as pv
 
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
@@ -35,7 +36,7 @@ class MeshObjectPlot:
     def __init__(
         self,
         custom_object: Any,
-        mesh: Union[pv.PolyData, pv.MultiBlock],
+        mesh: Union[pv.PolyData, pv.MultiBlock, Mesh3d],
         actor: pv.Actor = None,
         edges: List[EdgePlot] = None,
     ) -> None:
@@ -49,7 +50,7 @@ class MeshObjectPlot:
         ----------
         custom_object : Any
             Any object that the consumer library wants to relate with a mesh.
-        mesh : Union[pv.PolyData, pv.MultiBlock]
+        mesh : Union[pv.PolyData, pv.MultiBlock, Mesh3d]
             PyVista mesh that represents the custom object.
         actor : pv.Actor, default: None
             Actor of the mesh in the plotter.
@@ -63,7 +64,7 @@ class MeshObjectPlot:
         self._edges = edges
 
     @property
-    def mesh(self) -> Union[pv.PolyData, pv.MultiBlock]:
+    def mesh(self) -> Union[pv.PolyData, pv.MultiBlock, Mesh3d]:
         """Mesh of the object in PyVista format.
 
         Returns
@@ -75,12 +76,12 @@ class MeshObjectPlot:
         return self._mesh
 
     @mesh.setter
-    def mesh(self, mesh: Union[pv.PolyData, pv.MultiBlock]):
+    def mesh(self, mesh: Union[pv.PolyData, pv.MultiBlock, Mesh3d]):
         """Set the mesh of the object in PyVista format.
 
         Parameters
         ----------
-        mesh : Union[pv.PolyData, pv.MultiBlock]
+        mesh : Union[pv.PolyData, pv.MultiBlock, Mesh3d]
             Mesh of the object.
 
         """
@@ -174,3 +175,15 @@ class MeshObjectPlot:
             return self._custom_object.id
         else:
             return "Unknown"
+
+    @property
+    def mesh_type(self) -> Type:
+        """Type of the mesh.
+
+        Returns
+        -------
+        type
+            Type of the mesh.
+
+        """
+        return type(self._mesh)

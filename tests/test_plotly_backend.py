@@ -71,6 +71,25 @@ def test_plot_pyvista_mesh(tmp_path, image_compare):
     assert image_compare(file)
 
 
+def test_plot_pyvista_multiblock(tmp_path, image_compare):
+    """Test plotting a PyVista MultiBlock mesh."""
+    # Create a plotter with the Plotly backend
+    pl = Plotter(backend=PlotlyBackend())
+
+    # Create a PyVista MultiBlock
+    multi_block = pv.MultiBlock()
+    multi_block.append(pv.Sphere(center=(-1, -1, 0)))
+    multi_block.append(pv.Cube(center=(-1, 1, 0)))
+
+    # Plot the MultiBlock
+    pl.plot(multi_block)
+
+    # Show the plot (this will open a browser window)
+    file = tmp_path / "test_plot_pyvista_multiblock.png"
+    pl.show(screenshot=file)
+    assert image_compare(file)
+
+
 def test_plot_mesh_object_plot(tmp_path, image_compare):
     """Test plotting a MeshObjectPlot."""
     # Create a plotter with the Plotly backend
