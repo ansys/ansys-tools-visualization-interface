@@ -198,9 +198,7 @@ class PlotlyBackend(BaseBackend):
         # Only show in browser if no screenshot is being taken
         if not screenshot:
             self._fig.show(**kwargs)
-
-
-        if screenshot:
+        else:
             screenshot_str = str(screenshot)
             if screenshot_str.endswith('.html'):
                 self._fig.write_html(screenshot_str)
