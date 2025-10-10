@@ -49,6 +49,18 @@ class Plotter():
         """Return the base plotter object."""
         return self._backend
 
+    def plot_iter(self, plotting_list: List, **plotting_options):
+        """Plots multiple objects using the specified backend.
+
+        Parameters
+        ----------
+        plotting_list : List
+            List of objects to plot.
+        plotting_options : dict
+            Additional plotting options.
+        """
+        self._backend.plot_iter(plotting_list=plotting_list, **plotting_options)
+
     def plot(self, plottable_object: Any, **plotting_options):
         """Plots an object using the specified backend.
 

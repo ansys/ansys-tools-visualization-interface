@@ -22,11 +22,13 @@
 """Provides the edge type for plotting."""
 
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Union
 
 import pyvista as pv
 
 if TYPE_CHECKING:
+    from plotly.graph_objects import Mesh3d
+
     from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 
 class EdgePlot:
@@ -34,7 +36,7 @@ class EdgePlot:
 
     Parameters
     ----------
-    actor : ~pyvista.Actor
+    actor : Union[~pyvista.Actor, Mesh3d]
         PyVista actor that represents the edge.
     edge_object : Edge
         PyAnsys object edge that is represented by the PyVista actor.
@@ -43,7 +45,7 @@ class EdgePlot:
 
     """
 
-    def __init__(self, actor: pv.Actor, edge_object: Any, parent: Any = None) -> None:
+    def __init__(self, actor: Union[pv.Actor, "Mesh3d"], edge_object: Any, parent: Any = None) -> None:
         """Initialize ``EdgePlot`` variables."""
         self._actor = actor
         self._object = edge_object

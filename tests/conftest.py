@@ -21,23 +21,53 @@
 # SOFTWARE.
 """Conftest file for unit tests."""
 import os
+from pathlib import Path
 
+from PIL import Image, ImageChops
 import pytest
 
 os.environ.setdefault("PYANSYS_VISUALIZER_TESTMODE", "true")
 
-@pytest.fixture(autouse=True)
-def wrapped_verify_image_cache(verify_image_cache):
-    """Wraps the verify_image_cache fixture to ensure that the image cache is verified.
+@pytest.fixture
+def image_compare():
+    """Fixture to compare images."""
+    def _compare_images(generated_image_path):
+        """Compare two images and optionally save the difference image.
 
-    Parameters
-    ----------
-    verify_image_cache : fixture
-        Fixture to wrap.
+        Parameters
+        ----------
+        generated_image_path : str
+            Path to the generated image.
+        baseline_image_path : str
+            Path to the baseline image.
+        diff_image_path : str, optional
+            Path to save the difference image if images do not match.
 
-    Returns
-    -------
-    fixture
-        Wrapped fixture.
-    """
-    return verify_image_cache
+        Returns
+        -------
+        bool
+            True if images match, False otherwise.
+        """
+        # Get the name of the image file using Pathlib
+        image_name = Path(generated_image_path).name
+
+        # Define the baseline image path
+        baseline_image_path = Path(__file__).parent / "_image_cache" / image_name
+
+        img1 = Image.open(generated_image_path).convert("RGB")
+        try:
+            img2 = Image.open(baseline_image_path).convert("RGB")
+        except FileNotFoundError:
+            # copy generated image to baseline location if baseline does not exist
+            img1.save(baseline_image_path)
+            img2 = Image.open(baseline_image_path).convert("RGB")
+
+        # Compute the difference between the two images
+        diff = ImageChops.difference(img1, img2)
+
+        if diff.getbbox() is None:
+            return True
+        else:
+            return False
+
+    return _compare_images
