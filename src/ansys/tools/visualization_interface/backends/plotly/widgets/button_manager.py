@@ -41,16 +41,6 @@ class ButtonManager:
         """Initialize ButtonManager."""
         self._fig = fig
         self._buttons = []
-        # Enable measurement tools by default
-        self._enable_measurement_by_default()
-
-    def _enable_measurement_by_default(self) -> None:
-        """Enable measurement tools in the modebar by default."""
-        self._fig.update_layout(
-            modebar={
-                "add": ["drawline", "drawopenpath", "drawclosedpath", "drawcircle", "drawrect", "eraseshape"]
-            }
-        )
 
     def add_button(self,
                     label: str,
@@ -317,78 +307,11 @@ class ButtonManager:
             }
         ]
 
-        self.add_dropdown_menu("Camera Views", view_options, x=x, y=y)
+        self.add_dropdown_menu(view_options, x=x, y=y)
 
     def _update_buttons(self) -> None:
         """Update the figure layout with all buttons."""
         self._update_dropdowns()
-
-    def clear_buttons(self) -> None:
-        """Remove all buttons from the figure."""
-        self._buttons.clear()
-        self._fig.update_layout(updatemenus=[])
-
-    def add_visibility_toggle_button(
-            self,
-            trace_indices: List[int],
-            label: str = "Toggle Visibility",
-            x: float = 0.02,
-            y: float = 0.95
-        ) -> None:
-        """Add a button to toggle visibility of specific traces.
-
-        Parameters
-        ----------
-        trace_indices : List[int]
-            List of indices of traces to toggle.
-        label : str, optional
-            The text to display on the button, by default "Toggle Visibility".
-        x : float, optional
-            X position of the button (0-1), by default 0.02.
-        y : float, optional
-            Y position of the button (0-1), by default 0.95.
-        """
-        # Create visibility arrays for toggle functionality
-        visible_true = [True if i in trace_indices else None for i in range(len(self._fig.data))]
-        visible_false = [False if i in trace_indices else None for i in range(len(self._fig.data))]
-
-        self.add_button(
-            label=label,
-            method="restyle",
-            args=[{"visible": visible_true}],
-            args2=[{"visible": visible_false}],
-            x=x,
-            y=y
-        )
-
-    def add_reset_view_button(
-            self,
-            label: str = "Reset View",
-            x: float = 0.02,
-            y: float = 0.95
-        ) -> None:
-        """Add a button to reset the 3D view to default.
-
-        Parameters
-        ----------
-        label : str, optional
-            The text to display on the button, by default "Reset View".
-        x : float, optional
-            X position of the button (0-1), by default 0.02.
-        y : float, optional
-            Y position of the button (0-1), by default 0.95.
-        """
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[{
-                "scene.camera.eye": {"x": 1.25, "y": 1.25, "z": 1.25},
-                "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                "scene.camera.up": {"x": 0, "y": 0, "z": 1}
-            }],
-            x=x,
-            y=y
-        )
 
     def add_measurement_toggle_button(
             self,
