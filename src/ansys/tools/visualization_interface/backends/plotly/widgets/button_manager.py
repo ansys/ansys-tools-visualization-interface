@@ -44,13 +44,14 @@ class ButtonManager:
 
     def add_button(self,
                     label: str,
+                    x: float,
+                    y: float,
+                    xanchor: str = "left",
+                    yanchor: str = "bottom",
                     method: str = "restyle",
                     args: List[Any] = None,
                     args2: List[Any] = None,
-                    x: float = 0.02,
-                    y: float = 1.02,
-                    xanchor: str = "left",
-                    yanchor: str = "bottom") -> None:
+            ) -> None:
             """Add a button to the Plotly figure.
 
             Parameters
