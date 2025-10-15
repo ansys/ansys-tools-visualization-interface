@@ -58,6 +58,10 @@ class ButtonManager:
             ----------
             label : str
                 The text to display on the button.
+            x : float
+                X position of the button (0-1).
+            y : float
+                Y position of the button (0-1).
             method : str, optional
                 The method to call when the button is clicked. Options include:
                 'restyle', 'relayout', 'update', 'animate', by default 'restyle'.
@@ -65,10 +69,6 @@ class ButtonManager:
                 Arguments to pass to the method when the button is clicked, by default None.
             args2 : List[Any], optional
                 Secondary arguments for toggle functionality, by default None.
-            x : float, optional
-                X position of the button (0-1), by default 0.02.
-            y : float, optional
-                Y position of the button (0-1), by default 1.02.
             xanchor : str, optional
                 X anchor point for the button, by default "left".
             yanchor : str, optional
