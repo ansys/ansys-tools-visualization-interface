@@ -142,10 +142,12 @@ class ButtonManager:
             "scene.zaxis.showbackground": toggle
         }
 
-    def add_coordinate_system_toggle_button(self,
-                                          label: str = "Toggle Axes",
-                                          x: float = 0.08,
-                                          y: float = 1.02) -> None:
+    def add_coordinate_system_toggle_button(
+            self,
+            label: str = "Toggle Axes",
+            x: float = 0.08,
+            y: float = 1.02
+        ) -> None:
         """Add a button to toggle the coordinate system (axes, grid, labels) on/off.
 
         Parameters
@@ -166,19 +168,18 @@ class ButtonManager:
             y=y
         )
 
-    def add_dropdown_menu(self,
-                         label: str,
-                         options: List[dict],
-                         x: float = 0.02,
-                         y: float = 1.02,
-                         xanchor: str = "left",
-                         yanchor: str = "bottom") -> None:
+    def add_dropdown_menu(
+            self,
+            options: List[dict],
+            x: float = 0.02,
+            y: float = 1.02,
+            xanchor: str = "left",
+            yanchor: str = "bottom"
+        ) -> None:
         """Add a dropdown menu to the Plotly figure.
 
         Parameters
         ----------
-        label : str
-            The label for the dropdown menu.
         options : List[dict]
             List of dropdown options, each containing 'label', 'method', and 'args'.
         x : float, optional
@@ -249,14 +250,15 @@ class ButtonManager:
 
         self._fig.update_layout(updatemenus=updatemenus)
 
-    def add_plane_view_buttons(self,
-                              xy_label: str = "XY View",
-                              xz_label: str = "XZ View",
-                              yz_label: str = "YZ View",
-                              iso_label: str = "ISO View",
-                              x: float = 0.02,
-                              y: float = 1.02,
-                              spacing: float = 0.12) -> None:
+    def add_plane_view_buttons(
+            self,
+            xy_label: str = "XY View",
+            xz_label: str = "XZ View",
+            yz_label: str = "YZ View",
+            iso_label: str = "ISO View",
+            x: float = 0.02,
+            y: float = 1.02,
+        ) -> None:
         """Add a dropdown menu for standard plane views (XY, XZ, YZ) and isometric view.
 
         Parameters
@@ -326,11 +328,13 @@ class ButtonManager:
         self._buttons.clear()
         self._fig.update_layout(updatemenus=[])
 
-    def add_visibility_toggle_button(self,
-                                    trace_indices: List[int],
-                                    label: str = "Toggle Visibility",
-                                    x: float = 0.02,
-                                    y: float = 0.95) -> None:
+    def add_visibility_toggle_button(
+            self,
+            trace_indices: List[int],
+            label: str = "Toggle Visibility",
+            x: float = 0.02,
+            y: float = 0.95
+        ) -> None:
         """Add a button to toggle visibility of specific traces.
 
         Parameters
@@ -357,10 +361,12 @@ class ButtonManager:
             y=y
         )
 
-    def add_reset_view_button(self,
-                             label: str = "Reset View",
-                             x: float = 0.02,
-                             y: float = 0.95) -> None:
+    def add_reset_view_button(
+            self,
+            label: str = "Reset View",
+            x: float = 0.02,
+            y: float = 0.95
+        ) -> None:
         """Add a button to reset the 3D view to default.
 
         Parameters
@@ -384,10 +390,12 @@ class ButtonManager:
             y=y
         )
 
-    def add_measurement_toggle_button(self,
-                                    label: str = "Toggle Measurement",
-                                    x: float = 0.02,
-                                    y: float = 0.87) -> None:
+    def add_measurement_toggle_button(
+            self,
+            label: str = "Toggle Measurement",
+            x: float = 0.02,
+            y: float = 0.87
+        ) -> None:
         """Add a button to toggle the measurement widget on/off.
 
         Parameters
@@ -424,118 +432,12 @@ class ButtonManager:
             y=y
         )
 
-    def add_xy_view_button(self,
-                          label: str = "XY View",
-                          x: float = 0.02,
-                          y: float = 0.79) -> None:
-        """Add a button for XY plane view (looking down the Z-axis).
-
-        Parameters
-        ----------
-        label : str, optional
-            The text to display on the button, by default "XY View".
-        x : float, optional
-            X position of the button (0-1), by default 0.02.
-        y : float, optional
-            Y position of the button (0-1), by default 0.79.
-        """
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[{
-                "scene.camera.eye": {"x": 0, "y": 0, "z": 2.5},
-                "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                "scene.camera.up": {"x": 0, "y": 1, "z": 0}
-            }],
-            x=x,
-            y=y
-        )
-
-    def add_xz_view_button(self,
-                          label: str = "XZ View",
-                          x: float = 0.02,
-                          y: float = 0.71) -> None:
-        """Add a button for XZ plane view (looking along the Y-axis).
-
-        Parameters
-        ----------
-        label : str, optional
-            The text to display on the button, by default "XZ View".
-        x : float, optional
-            X position of the button (0-1), by default 0.02.
-        y : float, optional
-            Y position of the button (0-1), by default 0.71.
-        """
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[{
-                "scene.camera.eye": {"x": 0, "y": -2.5, "z": 0},
-                "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                "scene.camera.up": {"x": 0, "y": 0, "z": 1}
-            }],
-            x=x,
-            y=y
-        )
-
-    def add_yz_view_button(self,
-                          label: str = "YZ View",
-                          x: float = 0.02,
-                          y: float = 0.63) -> None:
-        """Add a button for YZ plane view (looking along the X-axis).
-
-        Parameters
-        ----------
-        label : str, optional
-            The text to display on the button, by default "YZ View".
-        x : float, optional
-            X position of the button (0-1), by default 0.02.
-        y : float, optional
-            Y position of the button (0-1), by default 0.63.
-        """
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[{
-                "scene.camera.eye": {"x": 2.5, "y": 0, "z": 0},
-                "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                "scene.camera.up": {"x": 0, "y": 0, "z": 1}
-            }],
-            x=x,
-            y=y
-        )
-
-    def add_isometric_view_button(self,
-                                 label: str = "ISO View",
-                                 x: float = 0.02,
-                                 y: float = 0.55) -> None:
-        """Add a button for isometric view (diagonal 3D perspective).
-
-        Parameters
-        ----------
-        label : str, optional
-            The text to display on the button, by default "ISO View".
-        x : float, optional
-            X position of the button (0-1), by default 0.02.
-        y : float, optional
-            Y position of the button (0-1), by default 0.55.
-        """
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[{
-                "scene.camera.eye": {"x": 1.25, "y": 1.25, "z": 1.25},
-                "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                "scene.camera.up": {"x": 0, "y": 0, "z": 1}
-            }],
-            x=x,
-            y=y
-        )
-
-    def add_projection_toggle_button(self,
-                                    label: str = "Toggle Projection",
-                                    x: float = 0.14,
-                                    y: float = 1.02) -> None:
+    def add_projection_toggle_button(
+            self,
+            label: str = "Toggle Projection",
+            x: float = 0.14,
+            y: float = 1.02
+        ) -> None:
         """Add a button to toggle between perspective and orthographic projection.
 
         Parameters
