@@ -28,6 +28,7 @@ import pyvista as pv
 from pyvista import PolyData
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
+from ansys.tools.visualization_interface.backends.plotly.widgets.button_manager import ButtonManager
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 
 
@@ -37,6 +38,12 @@ class PlotlyBackend(BaseBackend):
     def __init__(self) -> None:
         """Initialize the Plotly backend."""
         self._fig = go.Figure()
+        self._button_manager = ButtonManager(self._fig)
+
+        # Stack buttons vertically on the left side
+        self._button_manager.add_plane_view_buttons()
+        self._button_manager.add_coordinate_system_toggle_button()
+        self._button_manager.add_projection_toggle_button()
 
     def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.MultiBlock]) -> Union[go.Mesh3d, list]:
         """Convert a PyVista PolyData or MultiBlock mesh to Plotly Mesh3d format.
@@ -100,6 +107,7 @@ class PlotlyBackend(BaseBackend):
         i, j, k = faces[:, 1], faces[:, 2], faces[:, 3]
 
         return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k)
+
 
     @property
     def layout(self) -> Any:

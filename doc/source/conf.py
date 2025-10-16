@@ -209,6 +209,16 @@ latex_additional_files = [watermark, ansys_logo_white, ansys_logo_white_cropped]
 latex_elements = {"preamble": latex.generate_preamble(html_title)}
 
 linkcheck_exclude_documents = ["index", "getting_started/local/index", "assets"]
+linkcheck_ignore = [
+    "https://docs.pyvista.org/api/core/_autosummary/pyvista.PolyData.html#pyvista.PolyData",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Plotter.add_mesh.html#pyvista.Plotter.add_mesh",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Plotter.show.html#pyvista.Plotter.show",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Plotter.html#pyvista.Plotter",
+    "https://docs.pyvista.org/api/core/_autosummary/pyvista.MultiBlock.html#pyvista.MultiBlock",
+    "https://docs.pyvista.org/api/core/_autosummary/pyvista.UnstructuredGrid.html#pyvista.UnstructuredGrid",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Actor.html#pyvista.Actor",
+]
+
 
 # -- Declare the Jinja context -----------------------------------------------
 exclude_patterns = [
