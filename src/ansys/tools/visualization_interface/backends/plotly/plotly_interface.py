@@ -33,7 +33,14 @@ from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjec
 
 
 class PlotlyBackend(BaseBackend):
-    """Plotly interface for visualization."""
+    """Plotly interface for visualization.
+
+    Parameters
+    ----------
+    theme : str, default: "plotly"
+        Theme for the Plotly figure. See available themes at
+        `Plotly Templates <https://plotly.com/python/templates/>`_.
+    """
 
     def __init__(self) -> None:
         """Initialize the Plotly backend."""
@@ -44,6 +51,7 @@ class PlotlyBackend(BaseBackend):
         self._button_manager.add_plane_view_buttons()
         self._button_manager.add_coordinate_system_toggle_button()
         self._button_manager.add_projection_toggle_button()
+        self._button_manager.add_theme_toggle_button()
 
     def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.MultiBlock]) -> Union[go.Mesh3d, list]:
         """Convert a PyVista PolyData or MultiBlock mesh to Plotly Mesh3d format.

@@ -127,4 +127,4 @@ pl.plot(scatter)
 #
 # code-block:: python
 #
-#   pl.show()
+pl.show()

@@ -23,6 +23,7 @@
 from typing import Any, List
 
 import plotly.graph_objects as go
+import plotly.io as pio
 
 
 class ButtonManager:
@@ -389,6 +390,52 @@ class ButtonManager:
             method="relayout",
             args=[orthographic_projection],
             args2=[perspective_projection],
+            x=x,
+            y=y
+        )
+
+    def add_theme_toggle_button(
+            self,
+            label: str = "Toggle Theme",
+            x: float = 0.2175,
+            y: float = 1.02
+        ) -> None:
+        """Add a button to toggle between light and dark themes.
+
+        Parameters
+        ----------
+        label : str, optional
+            The text to display on the button, by default "Toggle Theme".
+        x : float, optional
+            X position of the button (0-1), by default 0.22.
+        y : float, optional
+            Y position of the button (0-1), by default 1.02.
+        """
+        # Light theme with light button styling for all updatemenus
+        light_theme = {
+            "template": pio.templates["plotly"]
+        }
+
+        # Dark theme with dark button styling for all updatemenus
+        dark_theme = {
+            "template": pio.templates["plotly_dark"]
+        }
+
+        # Add styling updates for all existing updatemenus
+        for i in range(10):  # Support up to 10 button groups
+            light_theme[f"updatemenus[{i}].bgcolor"] = "rgba(255,255,255,0.95)"
+            light_theme[f"updatemenus[{i}].bordercolor"] = "rgba(0,0,0,0.3)"
+            light_theme[f"updatemenus[{i}].font.color"] = "black"
+
+            dark_theme[f"updatemenus[{i}].bgcolor"] = "rgba(50,50,50,0.95)"
+            dark_theme[f"updatemenus[{i}].bordercolor"] = "rgba(255,255,255,0.3)"
+            dark_theme[f"updatemenus[{i}].font.color"] = "grey"
+
+        self.add_button(
+            label=label,
+            method="relayout",
+            args=[light_theme],
+            args2=[dark_theme],
             x=x,
             y=y
         )
