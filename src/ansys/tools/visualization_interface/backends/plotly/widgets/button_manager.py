@@ -23,7 +23,6 @@
 from typing import Any, List
 
 import plotly.graph_objects as go
-import plotly.io as pio
 
 
 class ButtonManager:
@@ -411,14 +410,45 @@ class ButtonManager:
         y : float, optional
             Y position of the button (0-1), by default 1.02.
         """
-        # Light theme with light button styling for all updatemenus
+        # Define light theme properties manually to avoid JSON serialization issues
+        # Use dot notation to target specific properties without overriding the entire scene
+        # Colors extracted from official plotly template
         light_theme = {
-            "template": pio.templates["plotly"]
+            "paper_bgcolor": "white",
+            "plot_bgcolor": "#E5ECF6",
+            "font.color": "#2a3f5f",
+            "scene.xaxis.backgroundcolor": "#E5ECF6",
+            "scene.xaxis.gridcolor": "white",
+            "scene.xaxis.linecolor": "white",
+            "scene.xaxis.zerolinecolor": "white",
+            "scene.yaxis.backgroundcolor": "#E5ECF6",
+            "scene.yaxis.gridcolor": "white",
+            "scene.yaxis.linecolor": "white",
+            "scene.yaxis.zerolinecolor": "white",
+            "scene.zaxis.backgroundcolor": "#E5ECF6",
+            "scene.zaxis.gridcolor": "white",
+            "scene.zaxis.linecolor": "white",
+            "scene.zaxis.zerolinecolor": "white"
         }
 
-        # Dark theme with dark button styling for all updatemenus
+        # Define dark theme properties manually
+        # Colors extracted from official plotly_dark template
         dark_theme = {
-            "template": pio.templates["plotly_dark"]
+            "paper_bgcolor": "rgb(17,17,17)",
+            "plot_bgcolor": "rgb(17,17,17)",
+            "font.color": "#f2f5fa",
+            "scene.xaxis.backgroundcolor": "rgb(17,17,17)",
+            "scene.xaxis.gridcolor": "#506784",
+            "scene.xaxis.linecolor": "#506784",
+            "scene.xaxis.zerolinecolor": "#C8D4E3",
+            "scene.yaxis.backgroundcolor": "rgb(17,17,17)",
+            "scene.yaxis.gridcolor": "#506784",
+            "scene.yaxis.linecolor": "#506784",
+            "scene.yaxis.zerolinecolor": "#C8D4E3",
+            "scene.zaxis.backgroundcolor": "rgb(17,17,17)",
+            "scene.zaxis.gridcolor": "#506784",
+            "scene.zaxis.linecolor": "#506784",
+            "scene.zaxis.zerolinecolor": "#C8D4E3"
         }
 
         # Add styling updates for all existing updatemenus
