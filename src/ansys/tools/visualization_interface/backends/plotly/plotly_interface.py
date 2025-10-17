@@ -206,7 +206,7 @@ class PlotlyBackend(BaseBackend):
             The figure of the plot if in doc building environment. Else, None.
         """
         import os
-        if os.environ["PYANSYS_VISUALIZER_DOC_MODE"]:
+        if os.environ.get("PYANSYS_VISUALIZER_DOC_MODE"):
             return self._fig
 
         if plottable_object is not None:
