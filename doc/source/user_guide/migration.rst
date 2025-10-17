@@ -246,4 +246,4 @@ For Plotly, in ``conf.py``, do the following:
     }
 
 
-4. [IMPORTANT] The ``pl.show()`` MUST be the last line of code in the cell, or else it won't show.
+4. **[IMPORTANT]** The ``pl.show()`` must be the last line of code in the cell, or else it won't show.
