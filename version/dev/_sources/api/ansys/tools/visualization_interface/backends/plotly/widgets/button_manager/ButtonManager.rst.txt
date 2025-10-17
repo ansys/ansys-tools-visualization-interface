@@ -1,0 +1,390 @@
+
+
+
+
+
+
+:class:`ButtonManager`
+======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.plotly.widgets.button_manager.ButtonManager(fig: plotly.graph_objects.Figure)
+
+   
+   Class to manage buttons in a Plotly figure.
+
+   This class allows adding buttons to a Plotly figure for various functionalities
+   such as toggling visibility of traces, resetting the view, and custom actions.
+
+   :Parameters:
+
+       **fig** : :obj:`go.Figure`
+           The Plotly figure to which buttons will be added.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: ButtonManager
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~add_button`
+            - Add a button to the Plotly figure.
+          * - :py:attr:`~show_hide_bbox_dict`
+            - Generate dictionary for showing/hiding coordinate system elements.
+          * - :py:attr:`~add_coordinate_system_toggle_button`
+            - Add a button to toggle the coordinate system (axes, grid, labels) on/off.
+          * - :py:attr:`~add_dropdown_menu`
+            - Add a dropdown menu to the Plotly figure.
+          * - :py:attr:`~add_plane_view_buttons`
+            - Add a dropdown menu for standard plane views (XY, XZ, YZ) and isometric view.
+          * - :py:attr:`~add_measurement_toggle_button`
+            - Add a button to toggle the measurement widget on/off.
+          * - :py:attr:`~add_projection_toggle_button`
+            - Add a button to toggle between perspective and orthographic projection.
+          * - :py:attr:`~add_theme_toggle_button`
+            - Add a button to toggle between light and dark themes.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.plotly.widgets.button_manager import ButtonManager
+
+
+
+Method detail
+-------------
+
+.. py:method:: add_button(label: str, x: float, y: float, xanchor: str = 'left', yanchor: str = 'bottom', method: str = 'restyle', args: List[Any] = None, args2: List[Any] = None) -> None
+
+   
+   Add a button to the Plotly figure.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`
+           The text to display on the button.
+
+       **x** : :class:`python:float`
+           X position of the button (0-1).
+
+       **y** : :class:`python:float`
+           Y position of the button (0-1).
+
+       **xanchor** : :class:`python:str`, :obj:`optional`
+           X anchor point for the button, by default "left".
+
+       **yanchor** : :class:`python:str`, :obj:`optional`
+           Y anchor point for the button, by default "bottom".
+
+       **method** : :class:`python:str`, :obj:`optional`
+           The method to call when the button is clicked. Options include:
+           'restyle', 'relayout', 'update', 'animate', by default 'restyle'.
+
+       **args** : :obj:`List`\[:obj:`Any`], :obj:`optional`
+           Arguments to pass to the method when the button is clicked, by default None.
+
+       **args2** : :obj:`List`\[:obj:`Any`], :obj:`optional`
+           Secondary arguments for toggle functionality, by default None.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show_hide_bbox_dict(toggle: bool = True)
+
+   
+   Generate dictionary for showing/hiding coordinate system elements.
+
+
+   :Parameters:
+
+       **toggle** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to show (True) or hide (False) the coordinate system, by default True.
+
+
+
+   :Returns:
+
+       :class:`python:dict`
+           Dictionary with coordinate system visibility settings.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_coordinate_system_toggle_button(label: str = 'Toggle Axes', x: float = 0.08, y: float = 1.02) -> None
+
+   
+   Add a button to toggle the coordinate system (axes, grid, labels) on/off.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "Toggle Axes".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.08.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_dropdown_menu(options: List[dict], x: float = 0.02, y: float = 1.02, xanchor: str = 'left', yanchor: str = 'bottom') -> None
+
+   
+   Add a dropdown menu to the Plotly figure.
+
+
+   :Parameters:
+
+       **options** : :obj:`List`\[:class:`python:dict`]
+           List of dropdown options, each containing 'label', 'method', and 'args'.
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the dropdown (0-1), by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the dropdown (0-1), by default 1.02.
+
+       **xanchor** : :class:`python:str`, :obj:`optional`
+           X anchor point for the dropdown, by default "left".
+
+       **yanchor** : :class:`python:str`, :obj:`optional`
+           Y anchor point for the dropdown, by default "bottom".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_plane_view_buttons(xy_label: str = 'XY View', xz_label: str = 'XZ View', yz_label: str = 'YZ View', iso_label: str = 'ISO View', x: float = 0.02, y: float = 1.02) -> None
+
+   
+   Add a dropdown menu for standard plane views (XY, XZ, YZ) and isometric view.
+
+
+   :Parameters:
+
+       **xy_label** : :class:`python:str`, :obj:`optional`
+           Label for XY plane view button, by default "XY View".
+
+       **xz_label** : :class:`python:str`, :obj:`optional`
+           Label for XZ plane view button, by default "XZ View".
+
+       **yz_label** : :class:`python:str`, :obj:`optional`
+           Label for YZ plane view button, by default "YZ View".
+
+       **iso_label** : :class:`python:str`, :obj:`optional`
+           Label for isometric view button, by default "ISO View".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position for the dropdown, by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position for the dropdown, by default 1.02.
+
+       **spacing** : :class:`python:float`, :obj:`optional`
+           Not used in dropdown mode, kept for compatibility.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_measurement_toggle_button(label: str = 'Toggle Measurement', x: float = 0.02, y: float = 0.87) -> None
+
+   
+   Add a button to toggle the measurement widget on/off.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "Toggle Measurement".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 0.87.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_projection_toggle_button(label: str = 'Toggle Projection', x: float = 0.14, y: float = 1.02) -> None
+
+   
+   Add a button to toggle between perspective and orthographic projection.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "Toggle Projection".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.14.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_theme_toggle_button(label: str = 'Toggle Theme', x: float = 0.2175, y: float = 1.02) -> None
+
+   
+   Add a button to toggle between light and dark themes.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "Toggle Theme".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.22.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
