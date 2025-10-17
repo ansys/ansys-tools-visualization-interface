@@ -11,6 +11,8 @@ from ansys_sphinx_theme import (
     latex,
     watermark,
 )
+import plotly.io as pio
+from plotly.io._sg_scraper import plotly_sg_scraper
 import pyvista
 from pyvista.plotting.utilities.sphinx_gallery import DynamicScraper
 from sphinx.builders.latex import LaTeXBuilder
@@ -19,6 +21,9 @@ import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface import __version__
 
 ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
+
+pio.renderers.default = "sphinx_gallery"
+
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
@@ -107,7 +112,7 @@ sphinx_gallery_conf = {
     "backreferences_dir": None,
     # Modules for which function level galleries are created.  In
     "doc_module": "ansys-tools-visualization-interface",
-    "image_scrapers": (DynamicScraper(), "matplotlib"),
+    "image_scrapers": (DynamicScraper(), "matplotlib", plotly_sg_scraper),
     "ignore_pattern": "flycheck*",
     "thumbnail_size": (350, 350),
     "remove_config_comments": True,

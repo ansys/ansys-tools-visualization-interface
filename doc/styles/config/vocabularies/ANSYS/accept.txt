@@ -1,6 +1,8 @@
 (?i)Ansys
 pytest
 unhovered
+(?i)Plotly
+
 
 t.M
 a.P

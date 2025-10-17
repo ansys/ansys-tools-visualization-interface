@@ -186,7 +186,7 @@ class PlotlyBackend(BaseBackend):
             plottable_object=None,
             screenshot: str = None,
             name_filter=None,
-            **kwargs) -> None:
+            **kwargs) -> Union[go.Figure, None]:
         """Render the Plotly scene.
 
         Parameters
@@ -199,10 +199,18 @@ class PlotlyBackend(BaseBackend):
             Flag to filter the object, by default None.
         kwargs : dict
             Additional options the selected backend accepts.
+
+        Returns
+        -------
+        Union[go.Figure, None]
+            The figure of the plot if in doc building environment. Else, None.
         """
+        import os
+        if os.environ.get("PYANSYS_VISUALIZER_DOC_MODE"):
+            return self._fig
+
         if plottable_object is not None:
             self.plot(plottable_object)
-
 
         # Only show in browser if no screenshot is being taken
         if not screenshot:
