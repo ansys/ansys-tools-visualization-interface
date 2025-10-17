@@ -222,7 +222,7 @@ class ButtonManager:
                 # This is a dropdown menu
                 updatemenu = button_info["button"]
             else:
-                # This is a regular button
+                # This is a regular button - create individual updatemenu for each
                 updatemenu = {
                     "type": "buttons",
                     "buttons": [button_info["button"]],
@@ -231,7 +231,7 @@ class ButtonManager:
                     "xanchor": button_info["xanchor"],
                     "yanchor": button_info["yanchor"],
                     "showactive": False,
-                    "direction": "down",
+                    "direction": "left",
                     "bgcolor": "rgba(255,255,255,0.95)",
                     "bordercolor": "rgba(0,0,0,0.3)",
                     "borderwidth": 1,
