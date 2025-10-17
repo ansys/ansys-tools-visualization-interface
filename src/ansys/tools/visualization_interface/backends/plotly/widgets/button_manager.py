@@ -95,8 +95,6 @@ class ButtonManager:
                 "yanchor": yanchor
             })
 
-            self._update_buttons()
-
     def show_hide_bbox_dict(self, toggle: bool = True):
         """Generate dictionary for showing/hiding coordinate system elements.
 
@@ -137,7 +135,7 @@ class ButtonManager:
     def add_coordinate_system_toggle_button(
             self,
             label: str = "Toggle Axes",
-            x: float = 0.08,
+            x: float = 0.12,
             y: float = 1.02
         ) -> None:
         """Add a button to toggle the coordinate system (axes, grid, labels) on/off.
@@ -207,40 +205,62 @@ class ButtonManager:
             "yanchor": yanchor
         })
 
-        self._update_dropdowns()
+    def update_layout(self) -> None:
+        """Update the figure layout with all dropdowns and buttons.
 
-    def _update_dropdowns(self) -> None:
-        """Update the figure layout with all dropdowns and buttons."""
+        This should be called by the main interface class after all buttons have been added.
+        """
         if not self._buttons:
             return
+
+        # Separate regular buttons from dropdowns
+        regular_buttons = []
+        dropdowns = []
+
+        for button_info in self._buttons:
+            if button_info["button"].get("type") == "dropdown":
+                dropdowns.append(button_info)
+            else:
+                regular_buttons.append(button_info["button"])
 
         # Create updatemenus for the layout
         updatemenus = []
 
-        for button_info in self._buttons:
-            if button_info["button"].get("type") == "dropdown":
-                # This is a dropdown menu
-                updatemenu = button_info["button"]
-            else:
-                # This is a regular button - create individual updatemenu for each
-                updatemenu = {
-                    "type": "buttons",
-                    "buttons": [button_info["button"]],
-                    "x": button_info["x"],
-                    "y": button_info["y"],
-                    "xanchor": button_info["xanchor"],
-                    "yanchor": button_info["yanchor"],
-                    "showactive": False,
-                    "direction": "left",
-                    "bgcolor": "rgba(255,255,255,0.95)",
-                    "bordercolor": "rgba(0,0,0,0.3)",
-                    "borderwidth": 1,
-                    "font": {"size": 12},
-                    "pad": {"t": 5, "b": 5, "l": 10, "r": 10}
-                }
+        # Add all regular buttons as a single row with "left" direction
+        if regular_buttons:
+            updatemenu = {
+                "type": "buttons",
+                "buttons": regular_buttons,
+                "x": 0.02,
+                "y": 1.02,
+                "xanchor": "left",
+                "yanchor": "bottom",
+                "showactive": False,
+                "direction": "left",
+                "bgcolor": "rgba(255,255,255,0.95)",
+                "bordercolor": "rgba(0,0,0,0.3)",
+                "borderwidth": 1,
+                "font": {"size": 12},
+                "pad": {"t": 5, "b": 5, "l": 10, "r": 10}
+            }
             updatemenus.append(updatemenu)
 
+        # Add dropdowns separately (they need their own updatemenu entries)
+        for i, dropdown_info in enumerate(dropdowns):
+            dropdown_config = dropdown_info["button"].copy()
+            # Position dropdowns to the right of buttons
+            button_width = len(regular_buttons) * 0.08 if regular_buttons else 0
+            dropdown_config["x"] = 0.02 + button_width + (i * 0.12)
+            dropdown_config["y"] = 1.02
+            dropdown_config["xanchor"] = "left"
+            dropdown_config["yanchor"] = "bottom"
+            updatemenus.append(dropdown_config)
+
         self._fig.update_layout(updatemenus=updatemenus)
+
+    def _update_dropdowns(self) -> None:
+        """Deprecated: Use update_layout() instead."""
+        self.update_layout()
 
     def add_plane_view_buttons(
             self,
@@ -249,7 +269,7 @@ class ButtonManager:
             yz_label: str = "YZ View",
             iso_label: str = "ISO View",
             x: float = 0.02,
-            y: float = 1.02,
+            y: float = 1.00,
         ) -> None:
         """Add a dropdown menu for standard plane views (XY, XZ, YZ) and isometric view.
 
@@ -360,7 +380,7 @@ class ButtonManager:
     def add_projection_toggle_button(
             self,
             label: str = "Toggle Projection",
-            x: float = 0.14,
+            x: float = 0.22,
             y: float = 1.02
         ) -> None:
         """Add a button to toggle between perspective and orthographic projection.
@@ -396,7 +416,7 @@ class ButtonManager:
     def add_theme_toggle_button(
             self,
             label: str = "Toggle Theme",
-            x: float = 0.2175,
+            x: float = 0.32,
             y: float = 1.02
         ) -> None:
         """Add a button to toggle between light and dark themes.
