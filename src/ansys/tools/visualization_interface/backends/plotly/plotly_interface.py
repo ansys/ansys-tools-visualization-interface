@@ -33,14 +33,7 @@ from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjec
 
 
 class PlotlyBackend(BaseBackend):
-    """Plotly interface for visualization.
-
-    Parameters
-    ----------
-    theme : str, default: "plotly"
-        Theme for the Plotly figure. See available themes at
-        `Plotly Templates <https://plotly.com/python/templates/>`_.
-    """
+    """Plotly interface for visualization."""
 
     def __init__(self) -> None:
         """Initialize the Plotly backend."""

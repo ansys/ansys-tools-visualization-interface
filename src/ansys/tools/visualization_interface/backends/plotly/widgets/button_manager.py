@@ -387,8 +387,8 @@ class ButtonManager:
         self.add_button(
             label=label,
             method="relayout",
-            args=[orthographic_projection],
-            args2=[perspective_projection],
+            args=[perspective_projection],
+            args2=[orthographic_projection],
             x=x,
             y=y
         )
@@ -451,8 +451,11 @@ class ButtonManager:
             "scene.zaxis.zerolinecolor": "#C8D4E3"
         }
 
-        # Add styling updates for all existing updatemenus
-        for i in range(10):  # Support up to 10 button groups
+        # Add styling updates for all existing updatemenus + the theme button we're about to add
+        # Get the actual number of updatemenus in the figure
+        current_updatemenus = self._fig.layout.updatemenus or []
+        # Add 1 to include the theme button we're about to create
+        for i in range(len(current_updatemenus) + 1):
             light_theme[f"updatemenus[{i}].bgcolor"] = "rgba(255,255,255,0.95)"
             light_theme[f"updatemenus[{i}].bordercolor"] = "rgba(0,0,0,0.3)"
             light_theme[f"updatemenus[{i}].font.color"] = "black"
