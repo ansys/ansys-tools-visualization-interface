@@ -387,8 +387,88 @@ class ButtonManager:
         self.add_button(
             label=label,
             method="relayout",
-            args=[orthographic_projection],
-            args2=[perspective_projection],
+            args=[perspective_projection],
+            args2=[orthographic_projection],
+            x=x,
+            y=y
+        )
+
+    def add_theme_toggle_button(
+            self,
+            label: str = "Toggle Theme",
+            x: float = 0.2175,
+            y: float = 1.02
+        ) -> None:
+        """Add a button to toggle between light and dark themes.
+
+        Parameters
+        ----------
+        label : str, optional
+            The text to display on the button, by default "Toggle Theme".
+        x : float, optional
+            X position of the button (0-1), by default 0.22.
+        y : float, optional
+            Y position of the button (0-1), by default 1.02.
+        """
+        # Define light theme properties manually to avoid JSON serialization issues
+        # Use dot notation to target specific properties without overriding the entire scene
+        # Colors extracted from official plotly template
+        light_theme = {
+            "paper_bgcolor": "white",
+            "plot_bgcolor": "#E5ECF6",
+            "font.color": "#2a3f5f",
+            "scene.xaxis.backgroundcolor": "#E5ECF6",
+            "scene.xaxis.gridcolor": "white",
+            "scene.xaxis.linecolor": "white",
+            "scene.xaxis.zerolinecolor": "white",
+            "scene.yaxis.backgroundcolor": "#E5ECF6",
+            "scene.yaxis.gridcolor": "white",
+            "scene.yaxis.linecolor": "white",
+            "scene.yaxis.zerolinecolor": "white",
+            "scene.zaxis.backgroundcolor": "#E5ECF6",
+            "scene.zaxis.gridcolor": "white",
+            "scene.zaxis.linecolor": "white",
+            "scene.zaxis.zerolinecolor": "white"
+        }
+
+        # Define dark theme properties manually
+        # Colors extracted from official plotly_dark template
+        dark_theme = {
+            "paper_bgcolor": "rgb(17,17,17)",
+            "plot_bgcolor": "rgb(17,17,17)",
+            "font.color": "#f2f5fa",
+            "scene.xaxis.backgroundcolor": "rgb(17,17,17)",
+            "scene.xaxis.gridcolor": "#506784",
+            "scene.xaxis.linecolor": "#506784",
+            "scene.xaxis.zerolinecolor": "#C8D4E3",
+            "scene.yaxis.backgroundcolor": "rgb(17,17,17)",
+            "scene.yaxis.gridcolor": "#506784",
+            "scene.yaxis.linecolor": "#506784",
+            "scene.yaxis.zerolinecolor": "#C8D4E3",
+            "scene.zaxis.backgroundcolor": "rgb(17,17,17)",
+            "scene.zaxis.gridcolor": "#506784",
+            "scene.zaxis.linecolor": "#506784",
+            "scene.zaxis.zerolinecolor": "#C8D4E3"
+        }
+
+        # Add styling updates for all existing updatemenus + the theme button we're about to add
+        # Get the actual number of updatemenus in the figure
+        current_updatemenus = self._fig.layout.updatemenus or []
+        # Add 1 to include the theme button we're about to create
+        for i in range(len(current_updatemenus) + 1):
+            light_theme[f"updatemenus[{i}].bgcolor"] = "rgba(255,255,255,0.95)"
+            light_theme[f"updatemenus[{i}].bordercolor"] = "rgba(0,0,0,0.3)"
+            light_theme[f"updatemenus[{i}].font.color"] = "black"
+
+            dark_theme[f"updatemenus[{i}].bgcolor"] = "rgba(50,50,50,0.95)"
+            dark_theme[f"updatemenus[{i}].bordercolor"] = "rgba(255,255,255,0.3)"
+            dark_theme[f"updatemenus[{i}].font.color"] = "grey"
+
+        self.add_button(
+            label=label,
+            method="relayout",
+            args=[light_theme],
+            args2=[dark_theme],
             x=x,
             y=y
         )
