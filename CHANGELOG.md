@@ -1,3 +1,26 @@
+## [1.0.0-alpha](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v1.0.0-alpha) - October 20, 2025
+
+
+### Miscellaneous
+
+- Doc: Add extended migration guide [#363](https://github.com/ansys/ansys-tools-visualization-interface/pull/363)
+- Build(deps): bump pytest-pyvista from 0.2.0 to 0.3.0 in the test-dependencies group [#370](https://github.com/ansys/ansys-tools-visualization-interface/pull/370)
+- Chore: update CHANGELOG for v0.12.0 [#374](https://github.com/ansys/ansys-tools-visualization-interface/pull/374)
+- [pre-commit.ci] pre-commit autoupdate [#376](https://github.com/ansys/ansys-tools-visualization-interface/pull/376), [#391](https://github.com/ansys/ansys-tools-visualization-interface/pull/391)
+- Chore: update CHANGELOG for v0.12.1 [#377](https://github.com/ansys/ansys-tools-visualization-interface/pull/377)
+- Build(deps): bump pyside6 from 6.9.3 to 6.10.0 in the general-dependencies group [#389](https://github.com/ansys/ansys-tools-visualization-interface/pull/389)
+- Build(deps): bump ansys-sphinx-theme[autoapi] from 1.6.1 to 1.6.3 in the doc-dependencies group [#390](https://github.com/ansys/ansys-tools-visualization-interface/pull/390)
+- Feat(Plotly): Add view buttons, toggle bounding box axes and change between orthogonal and perspective projections [#392](https://github.com/ansys/ansys-tools-visualization-interface/pull/392)
+- Feat(plotly): Add night mode button [#394](https://github.com/ansys/ansys-tools-visualization-interface/pull/394)
+- Docs: Add support for plotly example rendering [#395](https://github.com/ansys/ansys-tools-visualization-interface/pull/395)
+- Build(deps): bump jupytext from 1.17.3 to 1.18.1 in the general-dependencies group [#397](https://github.com/ansys/ansys-tools-visualization-interface/pull/397)
+- Fix: Button positioning when resizing [#398](https://github.com/ansys/ansys-tools-visualization-interface/pull/398)
+
+
+### Maintenance
+
+- Feat: Add Plotly as backend [#378](https://github.com/ansys/ansys-tools-visualization-interface/pull/378)
+
 ## [0.12.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.12.1) - October 07, 2025
 
 
