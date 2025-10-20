@@ -61,7 +61,7 @@ doc = [
     "pyvista==0.46.3",
     "ansys-sphinx-theme[autoapi]==1.6.3",
     "jupyter_sphinx==0.5.3",
-    "jupytext==1.17.3",
+    "jupytext==1.18.1",
     "nbsphinx==0.9.6",
     "numpydoc==1.9.0",
     "sphinx==8.2.3",
