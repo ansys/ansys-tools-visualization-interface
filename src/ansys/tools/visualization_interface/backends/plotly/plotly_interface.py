@@ -41,10 +41,7 @@ class PlotlyBackend(BaseBackend):
         self._button_manager = ButtonManager(self._fig)
 
         # Stack buttons vertically on the left side
-        self._button_manager.add_plane_view_buttons()
-        self._button_manager.add_coordinate_system_toggle_button()
-        self._button_manager.add_projection_toggle_button()
-        self._button_manager.add_theme_toggle_button()
+        self._button_manager.update_layout()
 
     def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.MultiBlock]) -> Union[go.Mesh3d, list]:
         """Convert a PyVista PolyData or MultiBlock mesh to Plotly Mesh3d format.

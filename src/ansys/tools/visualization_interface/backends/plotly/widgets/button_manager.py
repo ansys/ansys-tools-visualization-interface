@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Module for button management."""
-from typing import Any, List
+from typing import Any, List, Tuple
 
 import plotly.graph_objects as go
 
@@ -95,8 +95,6 @@ class ButtonManager:
                 "yanchor": yanchor
             })
 
-            self._update_buttons()
-
     def show_hide_bbox_dict(self, toggle: bool = True):
         """Generate dictionary for showing/hiding coordinate system elements.
 
@@ -134,194 +132,217 @@ class ButtonManager:
             "scene.zaxis.showbackground": toggle
         }
 
-    def add_coordinate_system_toggle_button(
-            self,
-            label: str = "Toggle Axes",
-            x: float = 0.08,
-            y: float = 1.02
-        ) -> None:
-        """Add a button to toggle the coordinate system (axes, grid, labels) on/off.
+    def update_layout(self) -> None:
+        """Update the figure layout with all controls as buttons in a single row.
 
-        Parameters
-        ----------
-        label : str, optional
-            The text to display on the button, by default "Toggle Axes".
-        x : float, optional
-            X position of the button (0-1), by default 0.08.
-        y : float, optional
-            Y position of the button (0-1), by default 1.02.
+        This method builds buttons using the configuration methods and any additional
+        buttons that were added via add_button().
         """
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[self.show_hide_bbox_dict(True)],
-            args2=[self.show_hide_bbox_dict(False)],
-            x=x,
-            y=y
-        )
+        all_buttons = []
 
-    def add_dropdown_menu(
-            self,
-            options: List[dict],
-            x: float = 0.02,
-            y: float = 1.02,
-            xanchor: str = "left",
-            yanchor: str = "bottom"
-        ) -> None:
-        """Add a dropdown menu to the Plotly figure.
+        # Build standard view buttons using the configuration methods
+        all_buttons.extend([
+            {
+                "label": "XY View",
+                "method": "relayout",
+                "args": [self.args_xy_view_button()]
+            },
+            {
+                "label": "XZ View",
+                "method": "relayout",
+                "args": [self.args_xz_view_button()]
+            },
+            {
+                "label": "YZ View",
+                "method": "relayout",
+                "args": [self.args_yz_view_button()]
+            },
+            {
+                "label": "ISO View",
+                "method": "relayout",
+                "args": [self.args_iso_view_button()]
+            }
+        ])
 
-        Parameters
-        ----------
-        options : List[dict]
-            List of dropdown options, each containing 'label', 'method', and 'args'.
-        x : float, optional
-            X position of the dropdown (0-1), by default 0.02.
-        y : float, optional
-            Y position of the dropdown (0-1), by default 1.02.
-        xanchor : str, optional
-            X anchor point for the dropdown, by default "left".
-        yanchor : str, optional
-            Y anchor point for the dropdown, by default "bottom".
-        """
-        dropdown_config = {
-            "type": "dropdown",
-            "buttons": options,
-            "x": x,
-            "y": y,
-            "xanchor": xanchor,
-            "yanchor": yanchor,
-            "showactive": True,
-            "direction": "down",
-            "bgcolor": "rgba(255,255,255,0.95)",
-            "bordercolor": "rgba(0,0,0,0.3)",
-            "borderwidth": 1,
-            "font": {"size": 12},
-            "pad": {"t": 5, "b": 5, "l": 10, "r": 10}
-        }
-
-        self._buttons.append({
-            "button": dropdown_config,
-            "x": x,
-            "y": y,
-            "xanchor": xanchor,
-            "yanchor": yanchor
+        # Add projection toggle button using the configuration method
+        perspective_args, orthographic_args = self.args_projection_toggle_button()
+        all_buttons.append({
+            "label": "Toggle Projection",
+            "method": "relayout",
+            "args": [orthographic_args],
+            "args2": [perspective_args]
         })
 
-        self._update_dropdowns()
+        # Add theme toggle button using the configuration method
+        light_args, dark_args = self.args_theme_toggle_button()
+        all_buttons.append({
+            "label": "Toggle Theme",
+            "method": "relayout",
+            "args": [dark_args],
+            "args2": [light_args]
+        })
 
-    def _update_dropdowns(self) -> None:
-        """Update the figure layout with all dropdowns and buttons."""
-        if not self._buttons:
-            return
+        # Add axes toggle button using the configuration method
+        all_buttons.append({
+            "label": "Toggle Axes",
+            "method": "relayout",
+            "args": [self.show_hide_bbox_dict(False)],
+            "args2": [self.show_hide_bbox_dict(True)]
+        })
 
-        # Create updatemenus for the layout
-        updatemenus = []
-
+        # Add any additional buttons that were added via add_button()
         for button_info in self._buttons:
             if button_info["button"].get("type") == "dropdown":
-                # This is a dropdown menu
-                updatemenu = button_info["button"]
+                # Convert dropdown options to individual buttons
+                dropdown_buttons = button_info["button"].get("buttons", [])
+                for dropdown_button in dropdown_buttons:
+                    all_buttons.append(dropdown_button)
             else:
-                # This is a regular button
-                updatemenu = {
-                    "type": "buttons",
-                    "buttons": [button_info["button"]],
-                    "x": button_info["x"],
-                    "y": button_info["y"],
-                    "xanchor": button_info["xanchor"],
-                    "yanchor": button_info["yanchor"],
-                    "showactive": False,
-                    "direction": "down",
-                    "bgcolor": "rgba(255,255,255,0.95)",
-                    "bordercolor": "rgba(0,0,0,0.3)",
-                    "borderwidth": 1,
-                    "font": {"size": 12},
-                    "pad": {"t": 5, "b": 5, "l": 10, "r": 10}
-                }
+                # Add regular button
+                all_buttons.append(button_info["button"])
+
+        # Create a single updatemenu container with all buttons
+        updatemenus = []
+
+        if all_buttons:
+            updatemenu = {
+                "type": "buttons",
+                "buttons": all_buttons,
+                "x": 0.02,
+                "y": 1.02,
+                "xanchor": "left",
+                "yanchor": "bottom",
+                "showactive": False,
+                "direction": "left",
+                "bgcolor": "rgba(255,255,255,0.95)",
+                "bordercolor": "rgba(0,0,0,0.3)",
+                "borderwidth": 1,
+                "font": {"size": 12},
+                "pad": {"t": 5, "b": 5, "l": 10, "r": 10}
+            }
             updatemenus.append(updatemenu)
 
         self._fig.update_layout(updatemenus=updatemenus)
 
-    def add_plane_view_buttons(
+    def args_xy_view_button(
             self,
-            xy_label: str = "XY View",
-            xz_label: str = "XZ View",
-            yz_label: str = "YZ View",
-            iso_label: str = "ISO View",
+            label: str = "XY View",
             x: float = 0.02,
-            y: float = 1.02,
-        ) -> None:
-        """Add a dropdown menu for standard plane views (XY, XZ, YZ) and isometric view.
+            y: float = 1.02
+        ) -> dict:
+        """Get camera configuration for XY plane view (top-down view).
 
         Parameters
         ----------
-        xy_label : str, optional
-            Label for XY plane view button, by default "XY View".
-        xz_label : str, optional
-            Label for XZ plane view button, by default "XZ View".
-        yz_label : str, optional
-            Label for YZ plane view button, by default "YZ View".
-        iso_label : str, optional
-            Label for isometric view button, by default "ISO View".
+        label : str, optional
+            The text to display on the button, by default "XY View".
         x : float, optional
-            X position for the dropdown, by default 0.02.
+            X position of the button (0-1), by default 0.02.
         y : float, optional
-            Y position for the dropdown, by default 1.02.
-        spacing : float, optional
-            Not used in dropdown mode, kept for compatibility.
+            Y position of the button (0-1), by default 1.02.
+
+        Returns
+        -------
+        dict
+            Camera configuration for XY plane view.
         """
-        view_options = [
-            {
-                "label": xy_label,
-                "method": "relayout",
-                "args": [{
-                    "scene.camera.eye": {"x": 0, "y": 0, "z": 2.5},
-                    "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                    "scene.camera.up": {"x": 0, "y": 1, "z": 0}
-                }]
-            },
-            {
-                "label": xz_label,
-                "method": "relayout",
-                "args": [{
-                    "scene.camera.eye": {"x": 0, "y": -2.5, "z": 0},
-                    "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                    "scene.camera.up": {"x": 0, "y": 0, "z": 1}
-                }]
-            },
-            {
-                "label": yz_label,
-                "method": "relayout",
-                "args": [{
-                    "scene.camera.eye": {"x": 2.5, "y": 0, "z": 0},
-                    "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                    "scene.camera.up": {"x": 0, "y": 0, "z": 1}
-                }]
-            },
-            {
-                "label": iso_label,
-                "method": "relayout",
-                "args": [{
-                    "scene.camera.eye": {"x": 1.25, "y": 1.25, "z": 1.25},
-                    "scene.camera.center": {"x": 0, "y": 0, "z": 0},
-                    "scene.camera.up": {"x": 0, "y": 0, "z": 1}
-                }]
-            }
-        ]
+        return {
+            "scene.camera.eye": {"x": 0, "y": 0, "z": 2.5},
+            "scene.camera.center": {"x": 0, "y": 0, "z": 0},
+            "scene.camera.up": {"x": 0, "y": 1, "z": 0}
+        }
 
-        self.add_dropdown_menu(view_options, x=x, y=y)
+    def args_xz_view_button(
+            self,
+            label: str = "XZ View",
+            x: float = 0.02,
+            y: float = 1.02
+        ) -> dict:
+        """Get camera configuration for XZ plane view (front view).
 
-    def _update_buttons(self) -> None:
-        """Update the figure layout with all buttons."""
-        self._update_dropdowns()
+        Parameters
+        ----------
+        label : str, optional
+            The text to display on the button, by default "XZ View".
+        x : float, optional
+            X position of the button (0-1), by default 0.02.
+        y : float, optional
+            Y position of the button (0-1), by default 1.02.
+
+        Returns
+        -------
+        dict
+            Camera configuration for XZ plane view.
+        """
+        return {
+            "scene.camera.eye": {"x": 0, "y": -2.5, "z": 0},
+            "scene.camera.center": {"x": 0, "y": 0, "z": 0},
+            "scene.camera.up": {"x": 0, "y": 0, "z": 1}
+        }
+
+    def args_yz_view_button(
+            self,
+            label: str = "YZ View",
+            x: float = 0.02,
+            y: float = 1.02
+        ) -> dict:
+        """Get camera configuration for YZ plane view (side view).
+
+        Parameters
+        ----------
+        label : str, optional
+            The text to display on the button, by default "YZ View".
+        x : float, optional
+            X position of the button (0-1), by default 0.02.
+        y : float, optional
+            Y position of the button (0-1), by default 1.02.
+
+        Returns
+        -------
+        dict
+            Camera configuration for YZ plane view.
+        """
+        return {
+            "scene.camera.eye": {"x": 2.5, "y": 0, "z": 0},
+            "scene.camera.center": {"x": 0, "y": 0, "z": 0},
+            "scene.camera.up": {"x": 0, "y": 0, "z": 1}
+        }
+
+    def args_iso_view_button(
+            self,
+            label: str = "ISO View",
+            x: float = 0.02,
+            y: float = 1.02
+        ) -> dict:
+        """Get camera configuration for isometric view (3D perspective).
+
+        Parameters
+        ----------
+        label : str, optional
+            The text to display on the button, by default "ISO View".
+        x : float, optional
+            X position of the button (0-1), by default 0.02.
+        y : float, optional
+            Y position of the button (0-1), by default 1.02.
+
+        Returns
+        -------
+        dict
+            Camera configuration for isometric view.
+        """
+        return {
+            "scene.camera.eye": {"x": 1.25, "y": 1.25, "z": 1.25},
+            "scene.camera.center": {"x": 0, "y": 0, "z": 0},
+            "scene.camera.up": {"x": 0, "y": 0, "z": 1}
+        }
 
     def add_measurement_toggle_button(
             self,
             label: str = "Toggle Measurement",
             x: float = 0.02,
             y: float = 0.87
-        ) -> None:
-        """Add a button to toggle the measurement widget on/off.
+        ) -> Tuple[dict, dict]:
+        """Get configuration for measurement toggle button.
 
         Parameters
         ----------
@@ -331,6 +352,11 @@ class ButtonManager:
             X position of the button (0-1), by default 0.02.
         y : float, optional
             Y position of the button (0-1), by default 0.87.
+
+        Returns
+        -------
+        Tuple[dict, dict]
+            Tuple containing (enable_measurement_config, disable_measurement_config).
         """
         # Enable measurement tools in modebar
         enable_measurement = {
@@ -348,22 +374,12 @@ class ButtonManager:
             }
         }
 
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[enable_measurement],
-            args2=[disable_measurement],
-            x=x,
-            y=y
-        )
+        return enable_measurement, disable_measurement
 
-    def add_projection_toggle_button(
+    def args_projection_toggle_button(
             self,
-            label: str = "Toggle Projection",
-            x: float = 0.14,
-            y: float = 1.02
-        ) -> None:
-        """Add a button to toggle between perspective and orthographic projection.
+        ) -> Tuple[dict, dict]:
+        """Get configuration for projection toggle button.
 
         Parameters
         ----------
@@ -373,6 +389,11 @@ class ButtonManager:
             X position of the button (0-1), by default 0.14.
         y : float, optional
             Y position of the button (0-1), by default 1.02.
+
+        Returns
+        -------
+        Tuple[dict, dict]
+            Tuple containing (perspective_projection_config, orthographic_projection_config).
         """
         # Set to orthographic projection
         orthographic_projection = {
@@ -384,22 +405,15 @@ class ButtonManager:
             "scene.camera.projection.type": "perspective"
         }
 
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[perspective_projection],
-            args2=[orthographic_projection],
-            x=x,
-            y=y
-        )
+        return perspective_projection, orthographic_projection
 
-    def add_theme_toggle_button(
+    def args_theme_toggle_button(
             self,
             label: str = "Toggle Theme",
-            x: float = 0.2175,
+            x: float = 0.32,
             y: float = 1.02
-        ) -> None:
-        """Add a button to toggle between light and dark themes.
+        ) -> Tuple[dict, dict]:
+        """Get configuration for theme toggle button.
 
         Parameters
         ----------
@@ -409,6 +423,11 @@ class ButtonManager:
             X position of the button (0-1), by default 0.22.
         y : float, optional
             Y position of the button (0-1), by default 1.02.
+
+        Returns
+        -------
+        Tuple[dict, dict]
+            Tuple containing (light_theme_config, dark_theme_config).
         """
         # Define light theme properties manually to avoid JSON serialization issues
         # Use dot notation to target specific properties without overriding the entire scene
@@ -416,7 +435,7 @@ class ButtonManager:
         light_theme = {
             "paper_bgcolor": "white",
             "plot_bgcolor": "#E5ECF6",
-            "font.color": "#2a3f5f",
+            "font.color": "rgb(42, 63, 95)",  # Changed to match default light theme text color
             "scene.xaxis.backgroundcolor": "#E5ECF6",
             "scene.xaxis.gridcolor": "white",
             "scene.xaxis.linecolor": "white",
@@ -464,11 +483,4 @@ class ButtonManager:
             dark_theme[f"updatemenus[{i}].bordercolor"] = "rgba(255,255,255,0.3)"
             dark_theme[f"updatemenus[{i}].font.color"] = "grey"
 
-        self.add_button(
-            label=label,
-            method="relayout",
-            args=[light_theme],
-            args2=[dark_theme],
-            x=x,
-            y=y
-        )
+        return light_theme, dark_theme
