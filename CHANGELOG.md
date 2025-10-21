@@ -1,10 +1,5 @@
 ## [1.0.0a0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v1.0.0a0) - October 20, 2025
 
-No significant changes.
-
-
-## [1.0.0-alpha](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v1.0.0-alpha) - October 20, 2025
-
 
 ### Miscellaneous
 
