@@ -40,7 +40,7 @@ The Visualization Interface Tool offers these main features:
 - Provides out-of-the box picking, viewing, and measuring functionalities.
 - Supplies an extensible class for adding custom functionalities.
 
-Currently, the following libraries are supported.
+Currently, the following plotting libraries are supported.
 
 - `PyVista <https://docs.pyvista.org/index.html>`_.
 - `Trame <https://www.kitware.com/trame/>`_, a web view for PyVista.
