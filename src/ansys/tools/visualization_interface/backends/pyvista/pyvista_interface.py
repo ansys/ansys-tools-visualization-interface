@@ -186,13 +186,15 @@ class PyVistaInterface:
         return mesh.clip(normal=[elem for elem in plane.normal],
                          origin=plane.origin)
 
-    def plot_meshobject(self, custom_object: MeshObjectPlot, **plotting_options):
+    def plot_meshobject(self, custom_object: MeshObjectPlot, plot_children: bool = True, **plotting_options):
         """Plot a generic ``MeshObjectPlot`` object to the scene.
 
         Parameters
         ----------
         plottable_object : MeshObjectPlot
             Object to add to the scene.
+        plot_children : bool, default: True
+            Whether to plot the children of the object.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -205,6 +207,11 @@ class PyVistaInterface:
         actor = self.scene.add_mesh(dataset, **plotting_options)
         custom_object.actor = actor
         self._object_to_actors_map[actor] = custom_object
+
+        if plot_children:
+            for child in custom_object._children:
+                self.plot_meshobject(child, plot_children=plot_children, **plotting_options)
+
         return actor.name
 
     def plot_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
@@ -242,10 +249,40 @@ class PyVistaInterface:
         else:
             logger.warning("The object does not have edges.")
 
+
+    def hide_children(self, custom_object: MeshObjectPlot) -> None:
+        """Hide all the children of a given ``MeshObjectPlot`` object.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Custom object whose children will be hidden.
+
+        """
+        for child in custom_object._children:
+            if child.actor:
+                child.actor.SetVisibility(False)
+            self.hide_children(child)
+
+    def show_children(self, custom_object: MeshObjectPlot) -> None:
+        """Show all the children of a given ``MeshObjectPlot`` object.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Custom object whose children will be shown.
+
+        """
+        for child in custom_object._children:
+            if child.actor:
+                child.actor.SetVisibility(True)
+            self.show_children(child)
+
     def plot(
         self,
         plottable_object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid],
         name_filter: str = None,
+        plot_children: bool = False,
         **plotting_options,
     ) -> None:
         """Plot any type of object to the scene.
@@ -287,7 +324,7 @@ class PyVistaInterface:
             else:
                 self.scene.add_composite(plottable_object, **plotting_options)
         elif isinstance(plottable_object, MeshObjectPlot):
-            self.plot_meshobject(plottable_object, **plotting_options)
+            self.plot_meshobject(plottable_object, plot_children=plot_children, **plotting_options)
         else:
             logger.warning("The object type is not supported. ")
 
