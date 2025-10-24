@@ -160,7 +160,7 @@ class PlotlyBackend(BaseBackend):
         """
         if isinstance(plottable_object, MeshObjectPlot):
             mesh = plottable_object.mesh
-            name = plottable_object.name if name is None else name
+            name = name or plottable_object.name
         else:
             mesh = plottable_object
 
@@ -170,7 +170,7 @@ class PlotlyBackend(BaseBackend):
             if isinstance(mesh_result, list):
                 # MultiBlock case - add all meshes
                 for mesh_3d in mesh_result:
-                    mesh_3d.name = name if name is not None else mesh_3d.name
+                    mesh_3d.name = name or mesh_3d.name
                     self._fig.add_trace(mesh_3d)
             else:
                 mesh_result.name = name if name is not None else mesh_result.name
