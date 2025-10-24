@@ -144,6 +144,7 @@ class PlotlyBackend(BaseBackend):
     def plot(
             self,
             plottable_object: Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d],
+            name: str = None,
             **plotting_options
         ) -> None:
         """Plot a single object using Plotly.
@@ -154,27 +155,34 @@ class PlotlyBackend(BaseBackend):
             The object to plot. Can be a PyVista PolyData, MultiBlock, a MeshObjectPlot, or a Plotly Mesh3d.
         plotting_options : dict
             Additional plotting options.
+        name : str, optional
+            Name of the mesh for labeling in Plotly. Overrides the name from MeshObjectPlot if provided.
         """
         if isinstance(plottable_object, MeshObjectPlot):
             mesh = plottable_object.mesh
+            name = plottable_object.name if name is None else name
         else:
             mesh = plottable_object
 
         if isinstance(mesh, (PolyData, pv.MultiBlock)):
             mesh_result = self._pv_to_mesh3d(mesh)
-
             # Handle both single mesh and list of meshes
             if isinstance(mesh_result, list):
                 # MultiBlock case - add all meshes
                 for mesh_3d in mesh_result:
+                    mesh_3d.name = name if name is not None else mesh_3d.name
                     self._fig.add_trace(mesh_3d)
             else:
-                # Single PolyData case
+                mesh_result.name = name if name is not None else mesh_result.name
                 self._fig.add_trace(mesh_result)
         elif isinstance(plottable_object, go.Mesh3d):
+            if name is not None:
+                plottable_object.name = name
             self._fig.add_trace(plottable_object)
         else:
+            # Try in case there is a compatible Plotly object
             try:
+                plottable_object.name = name
                 self._fig.add_trace(plottable_object)
             except Exception:
                 raise TypeError("Unsupported plottable_object type for PlotlyInterface.")
