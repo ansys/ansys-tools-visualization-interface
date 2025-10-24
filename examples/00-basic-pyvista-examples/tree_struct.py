@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """
-.. _ref_plain_usage:
+.. _ref_tree_struct:
 
 =============================
 MeshObjectPlot tree structure
