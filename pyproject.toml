@@ -56,14 +56,14 @@ all = [
 
 tests = [
     "pytest==8.4.2",
-    "pyvista==0.46.3",
+    "pyvista==0.46.4",
     "pytest-pyvista==0.3.1",
     "pytest-cov==7.0.0",
     "pyside6==6.10.0",
 ]
 
 doc = [
-    "pyvista==0.46.3",
+    "pyvista==0.46.4",
     "ansys-sphinx-theme[autoapi]==1.6.3",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.18.1",
