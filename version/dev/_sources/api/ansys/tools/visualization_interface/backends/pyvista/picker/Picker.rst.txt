@@ -1,0 +1,242 @@
+
+
+
+
+
+
+:class:`Picker`
+===============
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.picker.Picker(plotter_backend: ansys.tools.visualization_interface.backends.pyvista.pyvista.Plotter, plot_picked_names: bool = True)
+
+   Bases: :py:obj:`AbstractPicker`
+
+
+   
+   Class to manage picking and hovering of objects in the plotter.
+
+   This class is responsible for managing the selection and deselection of objects
+   in the plotter, both through direct picking and hovering. It keeps track of the
+   currently selected and hovered objects, and provides methods to select and unselect
+   them.
+
+   :Parameters:
+
+       **plotter_backend** : :obj:`Plotter`
+           The plotter instance to which this picker is attached.
+
+       **plot_picked_names** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to display the names of picked objects in the plotter. Defaults to True.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Picker
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~pick_select_object`
+            - Add actor to picked list and add label if required.
+          * - :py:attr:`~pick_unselect_object`
+            - Remove actor from picked list and remove label if required.
+          * - :py:attr:`~hover_select_object`
+            - Add label to hovered object if required.
+          * - :py:attr:`~hover_unselect_object`
+            - Remove all hover labels from the scene.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~picked_dict`
+            - Return the dictionary of picked objects.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.picker import Picker
+
+Property detail
+---------------
+
+.. py:property:: picked_dict
+   :type: dict
+
+
+   
+   Return the dictionary of picked objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: pick_select_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot], pt: numpy.ndarray) -> None
+
+   
+   Add actor to picked list and add label if required.
+
+
+   :Parameters:
+
+       **custom_object** : :obj:`Union`\[:obj:`MeshObjectPlot`, :obj:`EdgePlot`]
+           The object to be selected.
+
+       **pt** : :obj:`np.ndarray <numpy.ndarray>`
+           The point where the object was picked.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: pick_unselect_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot]) -> None
+
+   
+   Remove actor from picked list and remove label if required.
+
+
+   :Parameters:
+
+       **custom_object** : :obj:`Union`\[:obj:`MeshObjectPlot`, :obj:`EdgePlot`]
+           The object to be unselected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: hover_select_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot], actor: pyvista.Actor) -> None
+
+   
+   Add label to hovered object if required.
+
+
+   :Parameters:
+
+       **custom_object** : :obj:`Union`\[:obj:`MeshObjectPlot`, :obj:`EdgePlot`]
+           The object to be hovered over.
+
+       **actor** : :obj:`vtkActor`
+           The actor corresponding to the hovered object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: hover_unselect_object()
+
+   
+   Remove all hover labels from the scene.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
