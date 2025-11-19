@@ -45,11 +45,14 @@ def test_pd_conversion(tmp_path):
     # Create temporary file path
     temp_file = tmp_path / "test_pd.vtkhdf"
 
-    # Convert to VTKHDF
-    pd_to_vtkhdf(original_sphere, str(temp_file))
+    # Convert to VTKHDF using Path object
+    saved_path = pd_to_vtkhdf(original_sphere, temp_file)
 
-    # Convert back
-    loaded_sphere = vtkhdf_to_pd(str(temp_file))
+    # Verify the returned path matches the input
+    assert saved_path == temp_file, "Returned path should match input path"
+
+    # Convert back using Path object
+    loaded_sphere = vtkhdf_to_pd(temp_file)
 
     # Verify they have the same number of points and cells
     assert original_sphere.n_points == loaded_sphere.n_points, "Point count mismatch"
@@ -63,11 +66,14 @@ def test_ug_conversion(tmp_path):
     # Create temporary file path
     temp_file = tmp_path / "test_ug.vtkhdf"
 
-    # Convert to VTKHDF
-    ug_to_vtkhdf(original_grid, str(temp_file))
+    # Convert to VTKHDF using Path object
+    saved_path = ug_to_vtkhdf(original_grid, temp_file)
 
-    # Convert back
-    loaded_grid = vtkhdf_to_ug(str(temp_file))
+    # Verify the returned path matches the input
+    assert saved_path == temp_file, "Returned path should match input path"
+
+    # Convert back using Path object
+    loaded_grid = vtkhdf_to_ug(temp_file)
 
     # Verify they have the same number of points and cells
     assert original_grid.n_points == loaded_grid.n_points, "Point count mismatch"

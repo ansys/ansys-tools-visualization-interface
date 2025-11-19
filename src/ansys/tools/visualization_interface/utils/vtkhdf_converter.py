@@ -21,33 +21,42 @@
 # SOFTWARE.
 
 """Utils module for VTKHDF management."""
+from pathlib import Path
+from typing import Union
+
 import pyvista as pv
 import vtk
 from vtkmodules.vtkIOHDF import vtkHDFWriter
 
 
-def pd_to_vtkhdf(pd: pv.PolyData, output_vtkhdf_file: str) -> None:
+def pd_to_vtkhdf(pd: pv.PolyData, output_vtkhdf_file: Union[str, Path]) -> Path:
     """Write the PyVista PolyData directly to a VTKHDF file.
 
     Parameters
     ----------
     pd : pv.PolyData
         The PyVista PolyData to be written.
-    output_vtkhdf_file : str
+    output_vtkhdf_file : Union[str, Path]
         The output VTKHDF file path.
+
+    Returns
+    -------
+    Path
+        The path to the saved VTKHDF file.
     """
     writer = vtkHDFWriter()
-    writer.SetFileName(output_vtkhdf_file)
+    writer.SetFileName(str(output_vtkhdf_file))
     writer.SetInputDataObject(pd)
     writer.Write()
+    return Path(output_vtkhdf_file)
 
 
-def vtkhdf_to_pd(input_vtkhdf_file: str) -> pv.PolyData:
+def vtkhdf_to_pd(input_vtkhdf_file: Union[str, Path]) -> pv.PolyData:
     """Read a VTKHDF file and convert it to PyVista PolyData.
 
     Parameters
     ----------
-    input_vtkhdf_file : str
+    input_vtkhdf_file : Union[str, Path]
         The input VTKHDF file path.
 
     Returns
@@ -56,7 +65,7 @@ def vtkhdf_to_pd(input_vtkhdf_file: str) -> pv.PolyData:
         The converted PyVista PolyData.
     """
     reader = vtk.vtkHDFReader()
-    reader.SetFileName(input_vtkhdf_file)
+    reader.SetFileName(str(input_vtkhdf_file))
     reader.Update()
     # Convert VTK object directly to PyVista PolyData
     pd = pv.wrap(reader.GetOutput())
@@ -64,28 +73,34 @@ def vtkhdf_to_pd(input_vtkhdf_file: str) -> pv.PolyData:
     return pd
 
 
-def ug_to_vtkhdf(ug: pv.UnstructuredGrid, output_vtkhdf_file: str) -> None:
+def ug_to_vtkhdf(ug: pv.UnstructuredGrid, output_vtkhdf_file: Union[str, Path]) -> Path:
     """Write the PyVista UnstructuredGrid directly to a VTKHDF file.
 
     Parameters
     ----------
     ug : pv.UnstructuredGrid
         The PyVista UnstructuredGrid to be written.
-    output_vtkhdf_file : str
+    output_vtkhdf_file : Union[str, Path]
         The output VTKHDF file path.
+
+    Returns
+    -------
+    Path
+        The path to the saved VTKHDF file.
     """
     writer = vtkHDFWriter()
-    writer.SetFileName(output_vtkhdf_file)
+    writer.SetFileName(str(output_vtkhdf_file))
     writer.SetInputDataObject(ug)
     writer.Write()
+    return Path(output_vtkhdf_file)
 
 
-def vtkhdf_to_ug(input_vtkhdf_file: str) -> pv.UnstructuredGrid:
+def vtkhdf_to_ug(input_vtkhdf_file: Union[str, Path]) -> pv.UnstructuredGrid:
     """Read a VTKHDF file and convert it to PyVista UnstructuredGrid.
 
     Parameters
     ----------
-    input_vtkhdf_file : str
+    input_vtkhdf_file : Union[str, Path]
         The input VTKHDF file path.
 
     Returns
@@ -94,7 +109,7 @@ def vtkhdf_to_ug(input_vtkhdf_file: str) -> pv.UnstructuredGrid:
         The converted PyVista UnstructuredGrid.
     """
     reader = vtk.vtkHDFReader()
-    reader.SetFileName(input_vtkhdf_file)
+    reader.SetFileName(str(input_vtkhdf_file))
     reader.Update()
     # Convert VTK object directly to PyVista UnstructuredGrid
     ug = pv.wrap(reader.GetOutput())
