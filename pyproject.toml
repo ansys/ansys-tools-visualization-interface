@@ -55,7 +55,7 @@ all = [
 ]
 
 tests = [
-    "pytest==9.0.0",
+    "pytest==9.0.1",
     "pyvista==0.46.4",
     "pytest-pyvista==0.3.1",
     "pytest-cov==7.0.0",
