@@ -9,6 +9,8 @@ The following contribution information is specific to *Ansys Tools Visualization
 
 [Contributing]: https://dev.docs.pyansys.com/how-to/contributing.html
 
+<!-- Begin content specific to your library here. -->
+
 ## Clone the repository
 
 To clone and install the latest *Ansys Tools Visualization Interface* release in development mode, run
