@@ -74,3 +74,5 @@ make html
 # On windows
 ./make.bat html
 ```
+
+The documentation is built in the `docs/_build/html` directory.
