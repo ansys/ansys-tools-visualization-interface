@@ -225,7 +225,8 @@ class PyVistaBackendInterface(BaseBackend):
         """
         if isinstance(widget, list):
             self._widgets.extend(widget)
-            widget.update()
+            for w in widget:
+                w.update()
         else:
             self._widgets.append(widget)
             widget.update()
