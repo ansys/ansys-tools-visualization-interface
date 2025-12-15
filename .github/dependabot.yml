@@ -4,8 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      cooldown:
-        days: 7
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 10
     labels:
       - "maintenance"
@@ -36,6 +36,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      cooldown:
-        days: 7
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 10
