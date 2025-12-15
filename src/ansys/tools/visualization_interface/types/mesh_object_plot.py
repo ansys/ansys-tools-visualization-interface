@@ -40,6 +40,8 @@ class MeshObjectPlot:
         mesh: Union[pv.PolyData, pv.MultiBlock, "Mesh3d"],
         actor: pv.Actor = None,
         edges: List[EdgePlot] = None,
+        children: List["MeshObjectPlot"] = None,
+        parent: "MeshObjectPlot" = None,
     ) -> None:
         """Relates a custom object with a mesh provided by the consumer library.
 
@@ -63,6 +65,51 @@ class MeshObjectPlot:
         self._mesh = mesh
         self._actor = actor
         self._edges = edges
+        self._children: List["MeshObjectPlot"] = children if children is not None else []
+        self._parent: "MeshObjectPlot" = parent
+
+    def add_child(self, child: "MeshObjectPlot"):
+        """Set a child MeshObjectPlot to the current object.
+
+        This method is used to set a child MeshObjectPlot to the current object.
+        It is useful when the custom object has a hierarchical structure, and
+        the consumer library wants to relate the child objects with their meshes.
+
+        Parameters
+        ----------
+        child : MeshObjectPlot
+            Child MeshObjectPlot to be set.
+
+        """
+        child.parent = self
+        self._children.append(child)
+
+    @property
+    def parent(self) -> "MeshObjectPlot":
+        """Get the parent MeshObjectPlot of the current object.
+
+        This method is used to set a parent MeshObjectPlot to the current object.
+        It is useful when the custom object has a hierarchical structure, and
+        the consumer library wants to relate the parent objects with their meshes.
+
+        Parameters
+        ----------
+        parent : MeshObjectPlot
+            Parent MeshObjectPlot to be set.
+
+        """
+        return self._parent
+
+    @parent.setter
+    def parent(self, parent: "MeshObjectPlot"):
+        """Set the parent MeshObjectPlot of the current object.
+
+        Parameters
+        ----------
+        parent : MeshObjectPlot
+            Parent MeshObjectPlot to be set.
+        """
+        self._parent = parent
 
     @property
     def mesh(self) -> Union[pv.PolyData, pv.MultiBlock, "Mesh3d"]:

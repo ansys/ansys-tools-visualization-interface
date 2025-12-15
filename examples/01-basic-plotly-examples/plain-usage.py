@@ -55,14 +55,14 @@ multi_block.append(pv.Cube(center=(-1, 1, 0)))
 # Plot the MultiBlock
 pl.plot(multi_block)
 
-#####################
 # Display the plotter
-#
-# code-block:: python
-#
-#   pl.show()
 
+pl.show()
+
+############################
 # Now create a custom object
+# ==========================
+
 class CustomObject:
     def __init__(self):
         self.name = "CustomObject"
@@ -89,12 +89,14 @@ pl.plot(mesh_object_cube)
 # Display the plotter again
 # =========================
 # Since Plotly is a web-based visualization, we can show the plot again to include the new object.
-#
-# code-block:: python
-#
-#   pl.show()
 
+pl.show()
+
+
+#####################################
 # Add a Plotly Mesh3d object directly
+# ===================================
+
 custom_mesh3d = Mesh3d(
     x=[0, 1, 2],
     y=[0, 1, 0],
@@ -105,7 +107,7 @@ custom_mesh3d = Mesh3d(
     color='lightblue',
     opacity=0.50
 )
-pl.plot(custom_mesh3d)
+pl.plot(custom_mesh3d, name="CustomMesh3d")
 
 # Show other plotly objects like Scatter3d
 from plotly.graph_objects import Scatter3d
@@ -117,14 +119,6 @@ scatter = Scatter3d(
     mode='markers',
     marker=dict(size=5, color='red')
 )
-pl.plot(scatter)
+pl.plot(scatter, name="CustomScatter3d")
 
-
-
-###########################
-# Display the plotter again
-# =========================
-#
-# code-block:: python
-#
-#   pl.show()
+pl.show()

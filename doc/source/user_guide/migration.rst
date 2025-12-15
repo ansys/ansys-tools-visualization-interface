@@ -215,3 +215,35 @@ This topic explains how to migrate from the PyVista documentation configuration 
 .. code-block:: python
 
     nbsphinx_execute = "always"
+
+
+For Plotly, in ``conf.py``, do the following:
+
+1. Add environment variables for documentation:
+
+.. code-block:: python
+
+    os.environ["PYANSYS_VISUALIZER_DOC_MODE"] = "true"
+
+
+2. Add plotly configuration
+
+.. code-block:: python
+
+    import plotly.io as pio
+
+    pio.renderers.default = "sphinx_gallery"
+
+
+3. Import and add scraper
+
+.. code-block:: python
+
+    from plotly.io._sg_scraper import plotly_sg_scraper
+
+    sphinx_gallery_conf = {
+        "image_scrapers": (DynamicScraper(), "matplotlib", plotly_sg_scraper),
+    }
+
+
+4. **[IMPORTANT]** The ``pl.show()`` must be the last line of code in the cell, or else it won't show.

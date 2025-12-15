@@ -11,6 +11,8 @@ from ansys_sphinx_theme import (
     latex,
     watermark,
 )
+import plotly.io as pio
+from plotly.io._sg_scraper import plotly_sg_scraper
 import pyvista
 from pyvista.plotting.utilities.sphinx_gallery import DynamicScraper
 from sphinx.builders.latex import LaTeXBuilder
@@ -19,6 +21,9 @@ import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface import __version__
 
 ansys.tools.visualization_interface.DOCUMENTATION_BUILD = True
+
+pio.renderers.default = "sphinx_gallery"
+
 
 LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
 
@@ -107,7 +112,7 @@ sphinx_gallery_conf = {
     "backreferences_dir": None,
     # Modules for which function level galleries are created.  In
     "doc_module": "ansys-tools-visualization-interface",
-    "image_scrapers": (DynamicScraper(), "matplotlib"),
+    "image_scrapers": (DynamicScraper(), "matplotlib", plotly_sg_scraper),
     "ignore_pattern": "flycheck*",
     "thumbnail_size": (350, 350),
     "remove_config_comments": True,
@@ -209,6 +214,16 @@ latex_additional_files = [watermark, ansys_logo_white, ansys_logo_white_cropped]
 latex_elements = {"preamble": latex.generate_preamble(html_title)}
 
 linkcheck_exclude_documents = ["index", "getting_started/local/index", "assets"]
+linkcheck_ignore = [
+    "https://docs.pyvista.org/api/core/_autosummary/pyvista.PolyData.html#pyvista.PolyData",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Plotter.add_mesh.html#pyvista.Plotter.add_mesh",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Plotter.show.html#pyvista.Plotter.show",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Plotter.html#pyvista.Plotter",
+    "https://docs.pyvista.org/api/core/_autosummary/pyvista.MultiBlock.html#pyvista.MultiBlock",
+    "https://docs.pyvista.org/api/core/_autosummary/pyvista.UnstructuredGrid.html#pyvista.UnstructuredGrid",
+    "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Actor.html#pyvista.Actor",
+]
+
 
 # -- Declare the Jinja context -----------------------------------------------
 exclude_patterns = [
