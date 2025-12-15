@@ -1,10 +1,11 @@
-
 version: 2
 updates:
-  - package-ecosystem: "pip" # See documentation for possible values
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
+      cooldown:
+        days: 7
     open-pull-requests-limit: 10
     labels:
       - "maintenance"
@@ -30,8 +31,11 @@ updates:
       pyvista:
         patterns:
           - "pyvista*"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+      cooldown:
+        days: 7
     open-pull-requests-limit: 10
