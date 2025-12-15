@@ -34,7 +34,7 @@ jobs:
         needs: [label-syncer]
         permissions:
           contents: read
-          pull-requests: write
+          pull-requests: write # required to write labels to pull requests
         runs-on: ubuntu-latest
         steps:
         # Label based on modified files
@@ -93,8 +93,8 @@ jobs:
         name: "Create changelog fragment"
         needs: [labeler]
         permissions:
-          contents: write
-          pull-requests: write
+          contents: write # required to push changes to repository
+          pull-requests: write # required to create pull requests
         runs-on: ubuntu-latest
         steps:
         - uses: ansys/actions/doc-changelog@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
