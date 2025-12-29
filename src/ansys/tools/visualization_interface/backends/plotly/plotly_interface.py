@@ -43,7 +43,7 @@ class PlotlyBackend(BaseBackend):
         # Stack buttons vertically on the left side
         self._button_manager.update_layout()
 
-    def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.MultiBlock]) -> Union[go.Mesh3d, list]:
+    def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.UnstructuredGrid, pv.MultiBlock]) -> Union[go.Mesh3d, list]:
         """Convert a PyVista PolyData or MultiBlock mesh to Plotly Mesh3d format.
 
         Parameters
@@ -64,7 +64,7 @@ class PlotlyBackend(BaseBackend):
                 if block is not None:
                     # Convert each block to PolyData if needed
                     if hasattr(block, 'extract_surface'):
-                        # For volume meshes, extract the surface
+                        # For volume meshes (e.g. pv.UnstructuredGrid), extract the surface
                         block = block.extract_surface()
                     elif not isinstance(block, PolyData):
                         # Try to convert to PolyData
@@ -77,6 +77,10 @@ class PlotlyBackend(BaseBackend):
                     mesh_3d = self._convert_polydata_to_mesh3d(block)
                     mesh_list.append(mesh_3d)
             return mesh_list
+        elif isinstance(pv_mesh, pv.UnstructuredGrid):
+            # Handle single pv.UnstructuredGrid
+            surface_mesh = pv_mesh.extract_surface()
+            return self._convert_polydata_to_mesh3d(surface_mesh)
         else:
             # Handle single PolyData
             return self._convert_polydata_to_mesh3d(pv_mesh)
@@ -104,7 +108,14 @@ class PlotlyBackend(BaseBackend):
         faces = triangulated_mesh.faces.reshape((-1, 4))  # Now we know all faces are triangular (3 vertices + count)
         i, j, k = faces[:, 1], faces[:, 2], faces[:, 3]
 
-        return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k)
+        # Check if there are any active scalars
+        scalar_array_list = triangulated_mesh.array_names
+
+        if scalar_array_list:
+            scalar_array_name = scalar_array_list[0]
+            scalar_array = triangulated_mesh.point_data[scalar_array_name]
+
+        return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k, intensity=scalar_array)
 
 
     @property
@@ -164,7 +175,7 @@ class PlotlyBackend(BaseBackend):
         else:
             mesh = plottable_object
 
-        if isinstance(mesh, (PolyData, pv.MultiBlock)):
+        if isinstance(mesh, (PolyData, pv.UnstructuredGrid, pv.MultiBlock)):
             mesh_result = self._pv_to_mesh3d(mesh)
             # Handle both single mesh and list of meshes
             if isinstance(mesh_result, list):
