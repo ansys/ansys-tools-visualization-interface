@@ -108,14 +108,7 @@ class PlotlyBackend(BaseBackend):
         faces = triangulated_mesh.faces.reshape((-1, 4))  # Now we know all faces are triangular (3 vertices + count)
         i, j, k = faces[:, 1], faces[:, 2], faces[:, 3]
 
-        # Check if there are any active scalars
-        scalar_array_list = triangulated_mesh.array_names
-
-        if scalar_array_list:
-            scalar_array_name = scalar_array_list[0]
-            scalar_array = triangulated_mesh.point_data[scalar_array_name]
-
-        return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k, intensity=scalar_array)
+        return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k)
 
 
     @property
