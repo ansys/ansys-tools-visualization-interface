@@ -43,7 +43,7 @@ class PlotlyBackend(BaseBackend):
         # Stack buttons vertically on the left side
         self._button_manager.update_layout()
 
-    def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.UnstructuredGrid, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.MultiBlock]) -> Union[go.Mesh3d, list]:
+    def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.UnstructuredGrid, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.MultiBlock]) -> Union[go.Mesh3d, list]:  # noqa: E501
         """Convert a PyVista PolyData or MultiBlock mesh to Plotly Mesh3d format.
 
         Parameters
@@ -168,7 +168,7 @@ class PlotlyBackend(BaseBackend):
         else:
             mesh = plottable_object
 
-        if isinstance(mesh, (PolyData, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.UnstructuredGrid, pv.MultiBlock)):
+        if isinstance(mesh, (PolyData, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.UnstructuredGrid, pv.MultiBlock)):  # noqa: E501
             mesh_result = self._pv_to_mesh3d(mesh)
             # Handle both single mesh and list of meshes
             if isinstance(mesh_result, list):
