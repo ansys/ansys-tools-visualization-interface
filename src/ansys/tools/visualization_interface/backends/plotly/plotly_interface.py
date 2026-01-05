@@ -168,7 +168,7 @@ class PlotlyBackend(BaseBackend):
         else:
             mesh = plottable_object
 
-        if isinstance(mesh, (PolyData, pv.StructuredGrid, pv.ExplicitStructureGrid, pv.UnstructuredGrid, pv.MultiBlock)):
+        if isinstance(mesh, (PolyData, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.UnstructuredGrid, pv.MultiBlock)):
             mesh_result = self._pv_to_mesh3d(mesh)
             # Handle both single mesh and list of meshes
             if isinstance(mesh_result, list):
