@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Test module for plotly backend."""
+import numpy as np
 from plotly.graph_objects import Mesh3d, Scatter3d
 import pyvista as pv
 
@@ -70,6 +71,28 @@ def test_plot_pyvista_mesh(tmp_path, image_compare):
     pl.show(screenshot=file)
     assert image_compare(file)
 
+def test_plot_structured_grid(tmp_path, image_compare):
+    """Adds structured grid to the plotter."""
+    pl = Plotter(backend=PlotlyBackend())
+    xrng = np.arange(-10, 10, 2, dtype=np.float32)
+    yrng = np.arange(-10, 10, 5, dtype=np.float32)
+    zrng = np.arange(-10, 10, 1, dtype=np.float32)
+    x, y, z = np.meshgrid(xrng, yrng, zrng, indexing='ij')
+    grid = pv.StructuredGrid(x, y, z)
+    pl.plot(grid)
+    file = tmp_path / "test_plot_structured_grid.png"
+    pl.show(screenshot=file)
+    assert image_compare(file)
+
+def test_plot_unstructured_grid(tmp_path, image_compare):
+    """Adds unstructured grid to the plotter."""
+    pl = Plotter(backend=PlotlyBackend())
+    sphere = pv.Sphere()
+    ug = pv.UnstructuredGrid(sphere)
+    pl.plot(ug)
+    file = tmp_path / "test_plot_unstructured_grid.png"
+    pl.show(screenshot=file)
+    assert image_compare(file)
 
 def test_plot_pyvista_multiblock(tmp_path, image_compare):
     """Test plotting a PyVista MultiBlock mesh."""
