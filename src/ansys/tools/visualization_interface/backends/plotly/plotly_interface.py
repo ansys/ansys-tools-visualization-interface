@@ -108,7 +108,17 @@ class PlotlyBackend(BaseBackend):
         faces = triangulated_mesh.faces.reshape((-1, 4))  # Now we know all faces are triangular (3 vertices + count)
         i, j, k = faces[:, 1], faces[:, 2], faces[:, 3]
 
-        return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k)
+        # Check if there is an active point dataset
+        array = None
+        if triangulated_mesh.point_data.active_scalars_name:
+            array_name = triangulated_mesh.point_data.active_scalars_name
+            array = triangulated_mesh.point_data[array_name]
+
+            # If each entry of the array is a vector, compute the norm
+            if array.ndim > 1:
+                array = ((array * array).sum(axis=1))**0.5
+
+        return go.Mesh3d(x=x, y=y, z=z, i=i, j=j, k=k, intensity=array)
 
 
     @property
