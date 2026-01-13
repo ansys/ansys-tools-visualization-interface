@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``dark_mode.py`` module
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: dark_mode
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode.DarkModeButton`
+            - Provides the dark mode widget for the Visualization Interface Tool ``Plotter`` class.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> DarkModeButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/dark_mode/DarkModeButton>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the dark mode button widget for the PyAnsys plotter.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
