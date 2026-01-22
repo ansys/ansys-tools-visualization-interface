@@ -74,7 +74,7 @@ doc = [
     "sphinx_design==0.6.1",
     "sphinx-gallery==0.20.0",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.37.1",
+    "ansys-fluent-core==0.37.0", # Hold until 37.2 or 38.0
 ]
 
 [project.urls]
