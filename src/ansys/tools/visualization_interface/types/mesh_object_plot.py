@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -67,6 +67,7 @@ class MeshObjectPlot:
         self._edges = edges
         self._children: List["MeshObjectPlot"] = children if children is not None else []
         self._parent: "MeshObjectPlot" = parent
+        self._visible: bool = True
 
     def add_child(self, child: "MeshObjectPlot"):
         """Set a child MeshObjectPlot to the current object.
@@ -235,3 +236,54 @@ class MeshObjectPlot:
 
         """
         return type(self._mesh)
+
+    @property
+    def visible(self) -> bool:
+        """Whether this object is currently visible.
+
+        This property reflects the visibility state of the object. If an actor
+        is assigned, it reads the visibility from the actor to stay synchronized.
+
+        Returns
+        -------
+        bool
+            True if the object is visible, False otherwise.
+
+        """
+        if self._actor:
+            return self._actor.GetVisibility()
+        return self._visible
+
+    @visible.setter
+    def visible(self, value: bool):
+        """Set the visibility of this object.
+
+        Parameters
+        ----------
+        value : bool
+            True to make the object visible, False to hide it.
+
+        """
+        self._visible = value
+        if self._actor:
+            self._actor.SetVisibility(value)
+            # Mark actor as modified to ensure visual update
+            self._actor.Modified()
+
+    def is_visible_in_tree(self) -> bool:
+        """Check if this object is visible considering parent visibility.
+
+        An object is only truly visible if both itself and all its ancestors
+        in the tree are visible.
+
+        Returns
+        -------
+        bool
+            True if object and all ancestors are visible, False otherwise.
+
+        """
+        if not self._visible:
+            return False
+        if self._parent:
+            return self._parent.is_visible_in_tree()
+        return True

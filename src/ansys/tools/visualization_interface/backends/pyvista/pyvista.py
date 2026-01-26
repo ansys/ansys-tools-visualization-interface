@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -44,6 +44,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider im
 from ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center import PickRotCenterButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
 from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
+from ansys.tools.visualization_interface.backends.pyvista.widgets.toggle_subtree import ToggleSubtreeButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
     ViewButton,
     ViewDirection,
@@ -213,6 +214,7 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(HideButton(self, dark_mode))
             self._widgets.append(PickRotCenterButton(self, dark_mode))
             self._widgets.append(DarkModeButton(self, dark_mode))
+            self._widgets.append(ToggleSubtreeButton(self, dark_mode, include_root=True))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
@@ -245,18 +247,20 @@ class PyVistaBackendInterface(BaseBackend):
         # if object is a body/component
         if actor in self._object_to_actors_map:
             body_plot = self._object_to_actors_map[actor]
-            if body_plot.name not in self._custom_picker.picked_dict:
+            if body_plot.actor.name not in self._custom_picker.picked_dict:
                 self._custom_picker.pick_select_object(body_plot, pt)
             else:
-                self._custom_picker.pick_unselect_object(body_plot)
+                # Toggle-clicking the same object - restore visibility
+                self._custom_picker.pick_unselect_object(body_plot, restore_visibility=True)
 
         # if object is an edge
         elif actor in self._edge_actors_map and actor.GetVisibility():
             edge = self._edge_actors_map[actor]
-            if edge.name not in self._custom_picker.picked_dict:
+            if edge.actor.name not in self._custom_picker.picked_dict:
                 self._custom_picker.pick_select_object(edge, pt)
             else:
-                self._custom_picker.pick_unselect_object(edge)
+                # Toggle-clicking the same edge - restore visibility
+                self._custom_picker.pick_unselect_object(edge, restore_visibility=True)
                 actor.prop.color = Color.EDGE.value
 
     def hover_callback(self, _widget, event_name) -> None:
@@ -354,7 +358,8 @@ class PyVistaBackendInterface(BaseBackend):
     def disable_center_focus(self):
         """Disable setting the focus of the camera to the picked point."""
         self._pl.scene.disable_picking()
-        self._picked_ball.SetVisibility(False)
+        if hasattr(self, '_picked_ball'):
+            self._picked_ball.SetVisibility(False)
 
     def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """Extracts the keyword arguments from a function signature and returns it as dict.

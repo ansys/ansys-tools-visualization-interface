@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -139,22 +139,32 @@ class Picker(AbstractPicker):
             )
             added_actors.append(label_actor)
 
-        if custom_object.name not in self._picked_dict:
-            self._picked_dict[custom_object.name] = custom_object
+        # Use actor name as key to ensure uniqueness (custom_object.name might not be unique)
+        if custom_object.actor.name not in self._picked_dict:
+            self._picked_dict[custom_object.actor.name] = custom_object
 
         self._picker_added_actors_map[custom_object.actor.name] = added_actors
 
-    def pick_unselect_object(self, custom_object: Union[MeshObjectPlot, EdgePlot]) -> None:
+    def pick_unselect_object(
+        self, custom_object: Union[MeshObjectPlot, EdgePlot], restore_visibility: bool = True
+    ) -> None:
         """Remove actor from picked list and remove label if required.
 
         Parameters
         ----------
         custom_object : Union[MeshObjectPlot, EdgePlot]
             The object to be unselected.
+        restore_visibility : bool, default: True
+            Whether to restore visibility when unpicking. Default is True which
+            restores visibility in all unpick scenarios (toggle-click, empty space, etc.).
         """
-        # remove actor from picked list and from scene
-        if custom_object.name in self._picked_dict:
-            self._picked_dict.pop(custom_object.name)
+        # Restore visibility of object and its subtree when unpicking (if requested)
+        if restore_visibility and isinstance(custom_object, MeshObjectPlot):
+            self._restore_subtree_visibility(custom_object)
+
+        # remove actor from picked list and from scene (use actor name as key)
+        if custom_object.actor.name in self._picked_dict:
+            self._picked_dict.pop(custom_object.actor.name)
 
         if isinstance(custom_object, MeshObjectPlot) and custom_object in self._origin_colors:
             custom_object.actor.prop.color = self._origin_colors[custom_object]
@@ -171,8 +181,23 @@ class Picker(AbstractPicker):
                         # hide edges in the scene
                         edge.actor.SetVisibility(False)
                         # recursion
-                        self.pick_unselect_object(edge)
+                        self.pick_unselect_object(edge, restore_visibility=restore_visibility)
             self._picker_added_actors_map.pop(custom_object.actor.name)
+
+    def _restore_subtree_visibility(self, custom_object: MeshObjectPlot) -> None:
+        """Restore visibility of an object and all its children.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            The object whose subtree visibility should be restored.
+        """
+        # Restore this object's visibility
+        custom_object.visible = True
+
+        # Recursively restore all children
+        for child in custom_object._children:
+            self._restore_subtree_visibility(child)
 
     def hover_select_object(self, custom_object: Union[MeshObjectPlot, EdgePlot], actor: "Actor") -> None:
         """Add label to hovered object if required.

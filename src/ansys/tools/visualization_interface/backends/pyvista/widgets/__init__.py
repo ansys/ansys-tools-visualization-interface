@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides widgets for the Visualization Interface Tool plotter."""
+from ansys.tools.visualization_interface.backends.pyvista.widgets.toggle_subtree import (  # noqa: F401
+    ToggleSubtreeButton,
+)
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import (  # noqa: F401
     PlotterWidget,
 )
