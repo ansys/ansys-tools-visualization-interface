@@ -62,10 +62,10 @@ class DynamicTreeMenuWidget(PlotterWidget):
     def __init__(
         self,
         plotter: Plotter,
-        position: tuple = (0.65, 0.95),
+        position: tuple = (0.82, 0.95),
         button_size: int = 20,
         spacing: int = 30,
-        font_size: int = 12,
+        font_size: int = 6,
         dark_mode: bool = False
     ) -> None:
         """Initialize the DynamicTreeMenuWidget."""

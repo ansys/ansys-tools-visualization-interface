@@ -215,12 +215,11 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(HideButton(self, dark_mode))
             self._widgets.append(PickRotCenterButton(self, dark_mode))
             self._widgets.append(DarkModeButton(self, dark_mode))
-            # Add dynamic tree menu widget if picking is enabled
-            if self._allow_picking:
-                tree_menu = DynamicTreeMenuWidget(self, dark_mode=dark_mode)
-                self._widgets.append(tree_menu)
-                # Add button to toggle menu visibility
-                self._widgets.append(TreeMenuToggleButton(self, dark_mode, tree_menu))
+            # Add dynamic tree menu widget (always available)
+            tree_menu = DynamicTreeMenuWidget(self, dark_mode=dark_mode)
+            self._widgets.append(tree_menu)
+            # Add button to toggle menu visibility
+            self._widgets.append(TreeMenuToggleButton(self, dark_mode, tree_menu))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
