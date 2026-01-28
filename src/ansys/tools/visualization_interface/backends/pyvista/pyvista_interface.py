@@ -260,8 +260,7 @@ class PyVistaInterface:
 
         """
         for child in custom_object._children:
-            if child.actor:
-                child.actor.SetVisibility(False)
+            child.visible = False
             self.hide_children(child)
 
     def show_children(self, custom_object: MeshObjectPlot) -> None:
@@ -274,9 +273,61 @@ class PyVistaInterface:
 
         """
         for child in custom_object._children:
-            if child.actor:
-                child.actor.SetVisibility(True)
+            child.visible = True
             self.show_children(child)
+
+    def toggle_subtree_visibility(self, custom_object: MeshObjectPlot, include_root: bool = True) -> None:
+        """Toggle visibility of an object and its entire subtree.
+
+        This method toggles the visibility state of the given object and all its
+        descendants. If the object is currently visible, it and all children will
+        be hidden. If hidden, they will all be shown.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Root object of the subtree to toggle.
+        include_root : bool, default: True
+            Whether to toggle the root object's visibility. If False, only
+            children are toggled.
+
+        Examples
+        --------
+        Toggle visibility of picked object and its children:
+
+        >>> picked = plotter.pick()
+        >>> if picked:
+        ...     backend.toggle_subtree_visibility(picked[0])
+
+        Toggle only children, keeping parent visible:
+
+        >>> backend.toggle_subtree_visibility(obj, include_root=False)
+
+        """
+        # Determine target state based on current visibility
+        target_state = not custom_object.visible
+
+        # Set root visibility if requested
+        if include_root:
+            custom_object.visible = target_state
+
+        # Recursively set children visibility
+        self._set_subtree_visibility_recursive(custom_object, target_state)
+
+    def _set_subtree_visibility_recursive(self, custom_object: MeshObjectPlot, visible: bool) -> None:
+        """Recursively set visibility for all children.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Object whose children will have visibility set.
+        visible : bool
+            Target visibility state.
+
+        """
+        for child in custom_object._children:
+            child.visible = visible
+            self._set_subtree_visibility_recursive(child, visible)
 
     def plot(
         self,

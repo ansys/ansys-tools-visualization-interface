@@ -68,11 +68,19 @@ class ScreenshotButton(PlotterWidget):
         It is called every time the screenshot widget is clicked.
         """
         for widget in self.plotter._widgets:
-            widget._button.GetRepresentation().SetVisibility(0)
+            # Handle widgets with multiple buttons (like DynamicTreeMenuWidget)
+            if hasattr(widget, 'hide_menu'):
+                widget.hide_menu()
+            elif hasattr(widget, '_button') and widget._button is not None:
+                widget._button.GetRepresentation().SetVisibility(0)
         self._plotter._pl.scene.render()
         self.plotter._pl.scene.screenshot("screenshot.png")
         for widget in self.plotter._widgets:
-            widget._button.GetRepresentation().SetVisibility(1)
+            # Handle widgets with multiple buttons (like DynamicTreeMenuWidget)
+            if hasattr(widget, 'show_menu'):
+                widget.show_menu()
+            elif hasattr(widget, '_button') and widget._button is not None:
+                widget._button.GetRepresentation().SetVisibility(1)
         self._plotter._pl.scene.render()
 
     def update(self) -> None:
