@@ -24,7 +24,7 @@ classifiers = [
 ]
 dependencies = [
     "pyvista >= 0.43.0,<1",
-    "websockets >= 12.0,< 16",
+    "websockets >= 12.0,< 17",
     "trame >= 3.6.0,<4",
     "trame-vtk >= 2.8.7,<3,!=2.8.16",
     "trame-vuetify >= 2.4.3,< 4",
@@ -66,7 +66,7 @@ doc = [
     "pyvista==0.46.5",
     "ansys-sphinx-theme[autoapi]==1.6.4",
     "jupyter_sphinx==0.5.3",
-    "jupytext==1.18.1",
+    "jupytext==1.19.0",
     "nbsphinx==0.9.6",
     "numpydoc==1.10.0",
     "sphinx==8.2.3",
