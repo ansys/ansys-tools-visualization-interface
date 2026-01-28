@@ -21,15 +21,17 @@
 # SOFTWARE.
 
 """
-Example: Encased Motor Block Assembly
+.. _ref_tree_menu:
 
-Demonstrates a hierarchical motor assembly with:
-- Outer housing/casing
-- Internal components (rotor, stator, shaft, bearings)
-- Mounting brackets
-- Tree menu to show/hide components interactively
+==============
+Tree view menu
+==============
+
+This example demonstrates the use of a tree view menu to manage the visibility
+of components in an encased motor block assembly. The tree menu allows users to
+interactively show or hide different parts of the assembly.
+
 """
-
 import pyvista as pv
 from ansys.tools.visualization_interface import Plotter, MeshObjectPlot
 from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
