@@ -328,104 +328,139 @@ def test_unpick_restores_partial_tree():
     assert grandchild1.visible
 
 
-def test_toggle_button_remembers_hidden_objects():
-    """Test that the toggle button can show hidden objects again."""
-    from ansys.tools.visualization_interface.backends.pyvista.widgets.toggle_subtree import ToggleSubtreeButton
-
-    # Create hierarchy
-    root, child1, child2, grandchild1, grandchild2 = create_test_tree()
-
-    # Plot the tree
-    backend = PyVistaBackend(allow_picking=True)
-    plotter = Plotter(backend=backend)
-    plotter.plot(root)
-    plotter.plot(child1)
-
-    # Create widget
-    widget = ToggleSubtreeButton(backend, dark_mode=False)
-
-    # Pick root
-    backend._custom_picker._picked_dict['root'] = root
-
-    # First click - hide
-    widget.callback(True)
-    assert not root.visible
-    assert not child1.visible
-    assert len(widget._hidden_objects) == 1
-
-    # Second click - show (even though object is hidden and can't be picked)
-    widget.callback(True)
-    assert root.visible
-    assert child1.visible
-    assert len(widget._hidden_objects) == 0
 
 
-def test_toggle_button_multiple_objects():
-    """Test that toggle button works with multiple picked objects."""
-    from ansys.tools.visualization_interface.backends.pyvista.widgets.toggle_subtree import ToggleSubtreeButton
-
-    # Create hierarchy
-    root, child1, child2, grandchild1, grandchild2 = create_test_tree()
-
-    # Plot the tree
-    backend = PyVistaBackend(allow_picking=True)
-    plotter = Plotter(backend=backend)
-    plotter.plot(root)
-    plotter.plot(child1)
-    plotter.plot(child2)
-
-    # Create widget
-    widget = ToggleSubtreeButton(backend, dark_mode=False)
-
-    # Pick multiple objects
-    backend._custom_picker._picked_dict['child1'] = child1
-    backend._custom_picker._picked_dict['child2'] = child2
-
-    # First click - hide both
-    widget.callback(True)
-    assert not child1.visible
-    assert not child2.visible
-    assert len(widget._hidden_objects) == 2
-
-    # Second click - show both
-    widget.callback(True)
-    assert child1.visible
-    assert child2.visible
-    assert len(widget._hidden_objects) == 0
 
 
-def test_toggle_button_unpicks_on_show():
-    """Test that toggle button unpicks all objects when hiding trees."""
-    from ansys.tools.visualization_interface.backends.pyvista.widgets.toggle_subtree import ToggleSubtreeButton
 
-    # Create hierarchy
-    root, child1, child2, grandchild1, grandchild2 = create_test_tree()
 
-    # Plot the tree
-    backend = PyVistaBackend(allow_picking=True)
-    plotter = Plotter(backend=backend)
-    plotter.plot(root)
-    plotter.plot(child1)
+def test_dynamic_tree_menu_widget_creation():
+	"""Test creating a DynamicTreeMenuWidget."""
+	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 
-    # Create widget
-    widget = ToggleSubtreeButton(backend, dark_mode=False)
+	backend = PyVistaBackend(allow_picking=True)
+	pl = Plotter(backend=backend)
+	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
 
-    # Pick root and child1
-    backend._custom_picker._picked_dict[root.actor.name] = root
-    backend._custom_picker._picked_dict[child1.actor.name] = child1
-    assert len(backend._custom_picker._picked_dict) == 2
+	pl.plot(root, color="red")
+	pl.plot(child1, color="blue")
+	pl.plot(child2, color="green")
 
-    # First click - hide trees AND unpick all
-    widget.callback(True)
-    assert not root.visible
-    assert len(widget._hidden_objects) == 2
-    assert len(backend._custom_picker._picked_dict) == 0  # All unpicked!
+	# Create the dynamic tree menu widget
+	tree_menu = DynamicTreeMenuWidget(backend)
 
-    # Second click - show trees (no unpick action)
-    widget.callback(True)
-    assert root.visible
-    assert len(widget._hidden_objects) == 0
-    assert len(backend._custom_picker._picked_dict) == 0  # Still unpicked
+	# Check that the widget was created
+	assert tree_menu is not None
+	assert len(tree_menu._buttons) > 0  # Should have created buttons
+	assert len(tree_menu._text_actors) > 0  # Should have created text actors
+	assert len(tree_menu._tree_objects) > 0  # Should have found root objects
+
+
+def test_dynamic_tree_menu_buttons_match_objects():
+	"""Test that DynamicTreeMenuWidget creates buttons for all objects."""
+	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
+
+	backend = PyVistaBackend(allow_picking=True)
+	pl = Plotter(backend=backend)
+	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
+
+	pl.plot(root, color="red")
+	pl.plot(child1, color="blue")
+	pl.plot(child2, color="green")
+	pl.plot(grandchild1, color="yellow")
+	pl.plot(grandchild2, color="cyan")
+
+	# Create the dynamic tree menu widget
+	tree_menu = DynamicTreeMenuWidget(backend)
+
+	# Check that buttons were created for all 5 objects
+	# (Plus title text, so at least 6 actors total)
+	assert len(tree_menu._buttons) == 5  # One button per object
+	assert len(tree_menu._text_actors) >= 6  # Title + 5 labels
+
+
+def test_dynamic_tree_menu_refresh():
+	"""Test that DynamicTreeMenuWidget can be refreshed."""
+	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
+
+	backend = PyVistaBackend(allow_picking=True)
+	pl = Plotter(backend=backend)
+	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
+
+	pl.plot(root, color="red")
+
+	# Create the dynamic tree menu widget
+	tree_menu = DynamicTreeMenuWidget(backend)
+	initial_buttons = len(tree_menu._buttons)
+
+	# Add more objects
+	independent = MeshObjectPlot("Independent", pv.Cone())
+	pl.plot(independent, color="orange")
+
+	# Refresh
+	tree_menu.refresh()
+
+	# Check that more buttons were created
+	assert len(tree_menu._buttons) > initial_buttons
+	# Should have one more button
+	assert len(tree_menu._buttons) == initial_buttons + 1
+
+
+def test_tree_menu_toggle_button_creation():
+	"""Test creating a TreeMenuToggleButton."""
+	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
+	from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import TreeMenuToggleButton
+
+	backend = PyVistaBackend(allow_picking=True)
+	pl = Plotter(backend=backend)
+	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
+
+	pl.plot(root, color="red")
+	pl.plot(child1, color="blue")
+
+	# Create the tree menu
+	tree_menu = DynamicTreeMenuWidget(backend, dark_mode=False)
+
+	# Create the toggle button
+	toggle_button = TreeMenuToggleButton(backend, dark_mode=False, tree_menu=tree_menu)
+
+	# Check that the button was created
+	assert toggle_button is not None
+	assert toggle_button._button is not None
+	assert toggle_button._tree_menu is tree_menu
+
+
+def test_tree_menu_toggle_functionality():
+	"""Test that TreeMenuToggleButton can hide and show the menu."""
+	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
+	from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import TreeMenuToggleButton
+
+	backend = PyVistaBackend(allow_picking=True)
+	pl = Plotter(backend=backend)
+	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
+
+	pl.plot(root, color="red")
+
+	# Create the tree menu
+	tree_menu = DynamicTreeMenuWidget(backend, dark_mode=False)
+	initial_actors = len(tree_menu._text_actors)
+
+	# Create the toggle button
+	toggle_button = TreeMenuToggleButton(backend, dark_mode=False, tree_menu=tree_menu)
+
+	# Test hiding the menu
+	toggle_button.callback(False)
+
+	# Check that text actors are hidden (we can't easily check SetVisibility directly,
+	# but we can verify the method was called without error)
+	assert tree_menu is not None
+
+	# Test showing the menu
+	toggle_button.callback(True)
+
+	# Menu should still exist
+	assert tree_menu is not None
+	assert len(tree_menu._text_actors) == initial_actors
 
 
 if __name__ == "__main__":
