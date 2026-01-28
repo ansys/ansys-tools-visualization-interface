@@ -48,12 +48,12 @@ class TreeMenuToggleButton(PlotterWidget):
         self._plotter = plotter  # Store the backend
         self._dark_mode = dark_mode
         self._tree_menu = tree_menu
-        self._menu_visible = True  # Menu starts visible
+        self._menu_visible = False  # Menu starts hidden
 
         # Create the checkbox button
         self._button: vtkButtonWidget = self._plotter._pl.scene.add_checkbox_button_widget(
             self.callback,
-            value=True,  # Start checked (menu visible)
+            value=False,  # Start unchecked (menu hidden)
             position=(101, 130),  # Next to screenshot button at (69, 130)
             size=30,
             border_size=3
@@ -73,7 +73,7 @@ class TreeMenuToggleButton(PlotterWidget):
 
         button_repr = self._button.GetRepresentation()
         button_icon_path = Path(
-            Path(__file__).parent / "_images", f"visibilityon{is_inv}.png"
+            Path(__file__).parent / "_images", f"tree{is_inv}.png"
         )
         button_icon = vtkPNGReader()
         button_icon.SetFileName(button_icon_path)

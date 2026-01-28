@@ -80,6 +80,7 @@ class DynamicTreeMenuWidget(PlotterWidget):
         self._text_actors = []  # List of text actors
         self._button_to_object: Dict = {}  # Maps button to object
         self._tree_objects: List[MeshObjectPlot] = []  # Root objects
+        self._menu_visible = True  # Track menu visibility state (starts True, will be hidden below)
 
         # Build initial menu
         self._rebuild_menu()
@@ -193,9 +194,9 @@ class DynamicTreeMenuWidget(PlotterWidget):
         self._buttons.append(button)
         self._button_to_object[id(button)] = obj
 
-        # Add text label next to button
-        label_x = (button_x + self._button_size + 10) / self.plotter._pl.scene.window_size[0]
-        label_y = y_position / self.plotter._pl.scene.window_size[1]
+        # Add text label next to button (use pixel positioning to match button)
+        label_x = button_x + self._button_size + 10
+        label_y = y_position
 
         # Set text color based on theme
         text_color = 'white' if self._dark_mode else 'black'
@@ -205,7 +206,7 @@ class DynamicTreeMenuWidget(PlotterWidget):
             position=(label_x, label_y),
             font_size=self._font_size,
             color=text_color,
-            viewport=True
+            viewport=False  # Use pixel positioning to match buttons
         )
         self._text_actors.append(text_actor)
 
@@ -267,12 +268,13 @@ class DynamicTreeMenuWidget(PlotterWidget):
         self._tree_objects = self._collect_root_objects()
 
         # Calculate starting position in pixels
+        window_width = self.plotter._pl.scene.window_size[0]
         window_height = self.plotter._pl.scene.window_size[1]
         y_position = self._start_position[1] * window_height
 
-        # Add title
-        title_x = self._start_position[0]
-        title_y = self._start_position[1]
+        # Add title (use pixel positioning)
+        title_x = self._start_position[0] * window_width
+        title_y = y_position
 
         # Set colors based on theme
         title_color = 'cyan' if self._dark_mode else 'blue'
@@ -282,7 +284,7 @@ class DynamicTreeMenuWidget(PlotterWidget):
             position=(title_x, title_y),
             font_size=self._font_size + 2,
             color=title_color,
-            viewport=True
+            viewport=False  # Use pixel positioning to match buttons
         )
         self._text_actors.append(title_actor)
 
@@ -293,13 +295,15 @@ class DynamicTreeMenuWidget(PlotterWidget):
             y_position = self._add_object_and_children(root, y_position, indent=0)
 
         if len(self._tree_objects) == 0:
-            # No objects message
+            # No objects message (use pixel positioning)
+            no_obj_x = self._start_position[0] * window_width
+            no_obj_y = title_y - (self._spacing * 2)
             no_obj_actor = self.plotter._pl.scene.add_text(
                 "(No objects)",
-                position=(self._start_position[0], title_y - 0.05),
+                position=(no_obj_x, no_obj_y),
                 font_size=self._font_size,
                 color='gray',
-                viewport=True
+                viewport=False  # Use pixel positioning to match buttons
             )
             self._text_actors.append(no_obj_actor)
 
@@ -308,12 +312,51 @@ class DynamicTreeMenuWidget(PlotterWidget):
         self._rebuild_menu()
 
     def update(self):
-        """Update the menu (called during initialization)."""
-        # Don't rebuild if menu already exists - this prevents orphaning buttons
-        # when update() is called after __init__ has already built the menu
-        if len(self._buttons) > 0:
+        """Update the widget's appearance for current dark mode setting."""
+        # If menu hasn't been built yet, skip
+        if not self._buttons:
             return
-        self._rebuild_menu()
+
+        # Update button textures for all existing buttons
+        from pathlib import Path
+
+        from vtk import vtkPNGReader
+
+        is_inv = "_inv" if self._dark_mode else ""
+
+        # Update each button's textures
+        for button in self._buttons:
+            button_repr = button.GetRepresentation()
+
+            # Load new textures
+            icon_on_file = Path(Path(__file__).parent / "_images" / f"visibilityon{is_inv}.png")
+            icon_off_file = Path(Path(__file__).parent / "_images" / f"visibilityoff{is_inv}.png")
+
+            reader_on = vtkPNGReader()
+            reader_on.SetFileName(str(icon_on_file))
+            reader_on.Update()
+
+            reader_off = vtkPNGReader()
+            reader_off.SetFileName(str(icon_off_file))
+            reader_off.Update()
+
+            button_repr.SetButtonTexture(1, reader_on.GetOutput())
+            button_repr.SetButtonTexture(0, reader_off.GetOutput())
+
+        # Update text colors
+        text_color = 'white' if self._dark_mode else 'black'
+        title_color = 'cyan' if self._dark_mode else 'blue'
+
+        for i, actor in enumerate(self._text_actors):
+            if i == 0:  # Title
+                actor.GetTextProperty().SetColor(
+                    1.0 if title_color == 'cyan' else 0.0,
+                    1.0 if title_color == 'cyan' else 0.0,
+                    1.0
+                )
+            else:  # Regular text
+                color_val = 1.0 if text_color == 'white' else 0.0
+                actor.GetTextProperty().SetColor(color_val, color_val, color_val)
 
     def show_menu(self):
         """Show the menu by enabling all text actors and buttons."""
@@ -325,6 +368,7 @@ class DynamicTreeMenuWidget(PlotterWidget):
             button.On()
             button.GetRepresentation().SetVisibility(1)
 
+        self._menu_visible = True
         self._plotter._pl.scene.render()
 
     def hide_menu(self):
@@ -336,6 +380,8 @@ class DynamicTreeMenuWidget(PlotterWidget):
             # Match exactly what hide_buttons.py does - just Off() and SetVisibility(0)
             button.Off()
             button.GetRepresentation().SetVisibility(0)
+
+        self._menu_visible = False
 
         self._plotter._pl.scene.render()
 
