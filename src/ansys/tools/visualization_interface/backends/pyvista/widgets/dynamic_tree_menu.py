@@ -84,6 +84,9 @@ class DynamicTreeMenuWidget(PlotterWidget):
         # Build initial menu
         self._rebuild_menu()
 
+        # Hide menu by default
+        self.hide_menu()
+
     def _collect_root_objects(self) -> List[MeshObjectPlot]:
         """Collect all root objects (objects without parents) from the plotter."""
         root_objects = []
