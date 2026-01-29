@@ -20,12 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides widgets for the Visualization Interface Tool plotter."""
-from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import (  # noqa: F401, E501
-    DynamicTreeMenuWidget,
-)
-from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import (  # noqa: F401, E501
-    TreeMenuToggleButton,
-)
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import (  # noqa: F401
     PlotterWidget,
 )

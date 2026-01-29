@@ -22,7 +22,6 @@
 
 """Tests for tree-based visibility functionality."""
 
-import pytest
 import pyvista as pv
 
 from ansys.tools.visualization_interface import MeshObjectPlot, Plotter
@@ -268,77 +267,11 @@ def test_multiple_toggle_cycles():
 		assert obj.visible == expected_state
 
 
-
-def test_unpick_restores_visibility():
-    """Test that unpicking an object restores its subtree visibility."""
-    # Create hierarchy
-    root, child1, child2, grandchild1, grandchild2 = create_test_tree()
-
-    # Plot the tree
-    backend = PyVistaBackend(allow_picking=True)
-    plotter = Plotter(backend=backend)
-    plotter.plot(root)
-    plotter.plot(child1)
-    plotter.plot(grandchild1)
-
-    # Pick the root
-    backend._custom_picker._picked_dict['root'] = root
-
-    # Toggle to hide
-    backend._pl.toggle_subtree_visibility(root, include_root=True)
-    assert not root.visible
-    assert not child1.visible
-    assert not grandchild1.visible
-
-    # Unpick the root - should restore visibility
-    backend._custom_picker.pick_unselect_object(root)
-    assert root.visible
-    assert child1.visible
-    assert grandchild1.visible
-
-
-def test_unpick_restores_partial_tree():
-    """Test that unpicking a child restores only that subtree."""
-    # Create hierarchy
-    root, child1, child2, grandchild1, grandchild2 = create_test_tree()
-
-    # Plot the tree
-    backend = PyVistaBackend(allow_picking=True)
-    plotter = Plotter(backend=backend)
-    plotter.plot(root)
-    plotter.plot(child1)
-    plotter.plot(child2)
-    plotter.plot(grandchild1)
-
-    # Pick child1
-    backend._custom_picker._picked_dict['child1'] = child1
-
-    # Toggle to hide child1 and its descendants
-    backend._pl.toggle_subtree_visibility(child1, include_root=True)
-    assert root.visible  # Parent unaffected
-    assert not child1.visible
-    assert child2.visible  # Sibling unaffected
-    assert not grandchild1.visible
-
-    # Unpick child1 - should restore child1 and grandchild1
-    backend._custom_picker.pick_unselect_object(child1)
-    assert root.visible
-    assert child1.visible
-    assert child2.visible
-    assert grandchild1.visible
-
-
-
-
-
-
-
-
 def test_dynamic_tree_menu_widget_creation():
 	"""Test creating a DynamicTreeMenuWidget."""
 	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 
-	backend = PyVistaBackend(allow_picking=True)
+	backend = PyVistaBackend()
 	pl = Plotter(backend=backend)
 	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
 
@@ -360,7 +293,7 @@ def test_dynamic_tree_menu_buttons_match_objects():
 	"""Test that DynamicTreeMenuWidget creates buttons for all objects."""
 	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 
-	backend = PyVistaBackend(allow_picking=True)
+	backend = PyVistaBackend()
 	pl = Plotter(backend=backend)
 	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
 
@@ -383,7 +316,7 @@ def test_dynamic_tree_menu_refresh():
 	"""Test that DynamicTreeMenuWidget can be refreshed."""
 	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 
-	backend = PyVistaBackend(allow_picking=True)
+	backend = PyVistaBackend()
 	pl = Plotter(backend=backend)
 	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
 
@@ -411,7 +344,7 @@ def test_tree_menu_toggle_button_creation():
 	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 	from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import TreeMenuToggleButton
 
-	backend = PyVistaBackend(allow_picking=True)
+	backend = PyVistaBackend()
 	pl = Plotter(backend=backend)
 	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
 
@@ -435,7 +368,7 @@ def test_tree_menu_toggle_functionality():
 	from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 	from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import TreeMenuToggleButton
 
-	backend = PyVistaBackend(allow_picking=True)
+	backend = PyVistaBackend()
 	pl = Plotter(backend=backend)
 	root, child1, child2, grandchild1, grandchild2 = create_test_tree()
 
@@ -461,7 +394,3 @@ def test_tree_menu_toggle_functionality():
 	# Menu should still exist
 	assert tree_menu is not None
 	assert len(tree_menu._text_actors) == initial_actors
-
-
-if __name__ == "__main__":
-	pytest.main([__file__, "-v"])

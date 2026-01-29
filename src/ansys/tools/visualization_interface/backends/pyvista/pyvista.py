@@ -252,20 +252,18 @@ class PyVistaBackendInterface(BaseBackend):
         # if object is a body/component
         if actor in self._object_to_actors_map:
             body_plot = self._object_to_actors_map[actor]
-            if body_plot.actor.name not in self._custom_picker.picked_dict:
+            if body_plot.name not in self._custom_picker.picked_dict:
                 self._custom_picker.pick_select_object(body_plot, pt)
             else:
-                # Toggle-clicking the same object - restore visibility
-                self._custom_picker.pick_unselect_object(body_plot, restore_visibility=True)
+                self._custom_picker.pick_unselect_object(body_plot)
 
         # if object is an edge
         elif actor in self._edge_actors_map and actor.GetVisibility():
             edge = self._edge_actors_map[actor]
-            if edge.actor.name not in self._custom_picker.picked_dict:
+            if edge.name not in self._custom_picker.picked_dict:
                 self._custom_picker.pick_select_object(edge, pt)
             else:
-                # Toggle-clicking the same edge - restore visibility
-                self._custom_picker.pick_unselect_object(edge, restore_visibility=True)
+                self._custom_picker.pick_unselect_object(edge)
                 actor.prop.color = Color.EDGE.value
 
     def hover_callback(self, _widget, event_name) -> None:
