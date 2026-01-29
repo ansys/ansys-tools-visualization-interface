@@ -361,8 +361,7 @@ class PyVistaBackendInterface(BaseBackend):
     def disable_center_focus(self):
         """Disable setting the focus of the camera to the picked point."""
         self._pl.scene.disable_picking()
-        if hasattr(self, '_picked_ball'):
-            self._picked_ball.SetVisibility(False)
+        self._picked_ball.SetVisibility(False)
 
     def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """Extracts the keyword arguments from a function signature and returns it as dict.
