@@ -32,7 +32,7 @@ jobs:
       contents: write # required to push changes to repository
       pull-requests: write # required to create pull requests
     steps:
-      - uses: ansys/actions/doc-deploy-changelog@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+      - uses: ansys/actions/doc-deploy-changelog@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
@@ -44,7 +44,7 @@ jobs:
     steps:
       - name: PyAnsys Vulnerability check (on main)
         if: github.ref == 'refs/heads/main'
-        uses: ansys/actions/check-vulnerabilities@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/check-vulnerabilities@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.PACKAGE_NAME }}
@@ -52,7 +52,7 @@ jobs:
 
       - name: PyAnsys Vulnerability check (on dev mode)
         if: github.ref != 'refs/heads/main'
-        uses: ansys/actions/check-vulnerabilities@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/check-vulnerabilities@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.PACKAGE_NAME }}
@@ -63,7 +63,7 @@ jobs:
     name: Actions Security
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-actions-security@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+      - uses: ansys/actions/check-actions-security@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           generate-summary: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PyAnsys documentation style checks
-        uses: ansys/actions/doc-style@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/doc-style@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -87,7 +87,7 @@ jobs:
       uses: pyvista/setup-headless-display-action@7d84ae825e6d9297a8e99bdbbae20d1b919a0b19 # v4.2
 
     - name: "Run Ansys documentation building action"
-      uses: ansys/actions/doc-build@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+      uses: ansys/actions/doc-build@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
       with:
         python-version: ${{ env.MAIN_PYTHON_VERSION }}
         add-pdf-html-docs-as-assets: true
@@ -108,7 +108,7 @@ jobs:
             os: macos-latest
     steps:
       - name: Build wheelhouse and perform smoke test
-        uses: ansys/actions/build-wheelhouse@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/build-wheelhouse@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           operating-system: ${{ matrix.os }}
@@ -129,7 +129,7 @@ jobs:
           lookup-only: false  # zizmor: ignore[cache-poisoning]
 
       - name: "Run pytest"
-        uses: ansys/actions/tests-pytest@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/tests-pytest@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           requires-xvfb: true
@@ -154,7 +154,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build library source and wheel artifacts
-        uses: ansys/actions/build-library@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/build-library@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
@@ -166,7 +166,7 @@ jobs:
     needs: [package]
     steps:
       - name: Deploy the latest documentation
-        uses: ansys/actions/doc-deploy-dev@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/doc-deploy-dev@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
@@ -198,7 +198,7 @@ jobs:
           skip-existing: false
 
       - name: Release to GitHub
-        uses: ansys/actions/release-github@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/release-github@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           library-name: ${{ env.PACKAGE_NAME }}
@@ -210,7 +210,7 @@ jobs:
     needs: [release]
     steps:
       - name: Deploy the stable documentation
-        uses: ansys/actions/doc-deploy-stable@41f86da4c9ead510db9135e428e33df9cc6f92e1 # v10.2.3
+        uses: ansys/actions/doc-deploy-stable@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
