@@ -251,14 +251,18 @@ class DynamicTreeMenuWidget(PlotterWidget):
             try:
                 button.Off()
                 button.SetEnabled(False)
-            except Exception:  # noqa: S110
-                pass
+            except Exception as e:
+                # Button may already be deleted, log but continue
+                from ansys.tools.visualization_interface.utils.logger import logger
+                logger.debug(f"Could not disable button: {e}")
 
         for actor in self._text_actors:
             try:
                 self.plotter._pl.scene.remove_actor(actor)
-            except Exception:  # noqa: S110
-                pass
+            except Exception as e:
+                # Actor may already be removed, log but continue
+                from ansys.tools.visualization_interface.utils.logger import logger
+                logger.debug(f"Could not remove text actor: {e}")
 
         self._buttons.clear()
         self._text_actors.clear()
