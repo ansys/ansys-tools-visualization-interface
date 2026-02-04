@@ -36,6 +36,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrow
     CameraPanDirection,
     DisplacementArrow,
 )
+from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 from ansys.tools.visualization_interface.backends.pyvista.widgets.hide_buttons import HideButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
 from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import (
@@ -44,6 +45,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider im
 from ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center import PickRotCenterButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
 from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
+from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import TreeMenuToggleButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
     ViewButton,
     ViewDirection,
@@ -213,6 +215,11 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(HideButton(self, dark_mode))
             self._widgets.append(PickRotCenterButton(self, dark_mode))
             self._widgets.append(DarkModeButton(self, dark_mode))
+            # Add dynamic tree menu widget (always available)
+            tree_menu = DynamicTreeMenuWidget(self, dark_mode=dark_mode)
+            self._widgets.append(tree_menu)
+            # Add button to toggle menu visibility
+            self._widgets.append(TreeMenuToggleButton(self, dark_mode, tree_menu))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
