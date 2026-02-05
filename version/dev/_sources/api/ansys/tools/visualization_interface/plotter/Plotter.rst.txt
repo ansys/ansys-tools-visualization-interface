@@ -1,0 +1,342 @@
+
+
+
+
+
+
+:class:`Plotter`
+================
+
+
+.. py:class:: ansys.tools.visualization_interface.plotter.Plotter(backend: ansys.tools.visualization_interface.backends._base.BaseBackend = None)
+
+   
+   Base plotting class containing common methods and attributes.
+
+   This class is responsible for plotting objects using the specified backend.
+
+   :Parameters:
+
+       **backend** : :obj:`BaseBackend`, :obj:`optional`
+           Plotting backend to use, by default PyVistaBackend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Plotter
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot_iter`
+            - Plots multiple objects using the specified backend.
+          * - :py:attr:`~plot`
+            - Plots an object using the specified backend.
+          * - :py:attr:`~show`
+            - Show the plotted objects.
+          * - :py:attr:`~animate`
+            - Create an animation from a sequence of frames.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~backend`
+            - Return the base plotter object.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.plotter import Plotter
+
+Property detail
+---------------
+
+.. py:property:: backend
+
+   
+   Return the base plotter object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: plot_iter(plotting_list: List, **plotting_options)
+
+   
+   Plots multiple objects using the specified backend.
+
+
+   :Parameters:
+
+       **plotting_list** : :obj:`List`
+           List of objects to plot.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot(plottable_object: Any, **plotting_options)
+
+   
+   Plots an object using the specified backend.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           Object to plot.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(plottable_object: Any = None, screenshot: str = None, name_filter: bool = None, **kwargs) -> List
+
+   
+   Show the plotted objects.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`, :obj:`optional`
+           Object to show, by default None.
+
+       **screenshot** : :class:`python:str`, :obj:`optional`
+           Path to save a screenshot, by default None.
+
+       **name_filter** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Flag to filter the object, by default None.
+
+       **kwargs** : :class:`python:dict`
+           Additional options the selected backend accepts.
+
+
+
+   :Returns:
+
+       :obj:`List`
+           List of picked objects.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: animate(frames: List[Any], fps: int = 30, loop: bool = False, scalar_bar_args: Optional[dict] = None, **plot_kwargs)
+
+   
+   Create an animation from a sequence of frames.
+
+   This method provides a convenient way to create animations from time-series
+   simulation results, transient analyses, and dynamic phenomena. It wraps the
+   backend's animation functionality in a simple, consistent API.
+
+   :Parameters:
+
+       **frames** : :obj:`List`\[:obj:`Any`]
+           Sequence of frame objects to animate. Can be PyVista meshes,
+           ``MeshObjectPlot`` objects, or any plottable objects.
+
+       **fps** : :class:`python:int`, :obj:`optional`
+           Frames per second for playback. Default is 30.
+
+       **loop** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to loop animation continuously. Default is False.
+
+       **scalar_bar_args** : :class:`python:dict`, :obj:`optional`
+           Scalar bar arguments to apply to all frames (e.g., ``clim`` for fixed
+           color scale). If not provided, a global color scale is calculated
+           automatically to ensure visual integrity across frames.
+
+       **\*\*plot_kwargs**
+           Additional keyword arguments passed to add_mesh for all frames
+           (e.g., ``cmap='viridis'``, ``opacity=0.8``).
+
+
+
+   :Returns:
+
+       :obj:`Animation`
+           Animation controller object with playback controls:
+           - ``play()``: Start animation
+           - ``pause()``: Pause animation
+           - ``stop()``: Stop and reset to first frame
+           - ``step_forward()``: Advance one frame
+           - ``step_backward()``: Rewind one frame
+           - ``seek(frame_index)``: Jump to specific frame
+           - ``save(filename)``: Export to video (MP4, GIF, AVI)
+           - ``show()``: Display with plotter
+
+
+
+
+   :Raises:
+
+       :obj:`ValueError`
+           If frames list is empty or fps is not positive.
+
+       :obj:`NotImplementedError`
+           If the backend does not support animations.
+
+
+
+   .. seealso::
+
+       
+       :obj:`Animation`
+           Animation controller class with detailed playback controls
+       
+       
+   .. rubric:: Notes
+
+   - Fixed color scales are recommended (and calculated by default) to ensure
+     visual integrity and prevent misleading animations where color meanings
+     change between frames.
+   - For large datasets (1000+ frames or >5M cells), consider implementing
+     a custom ``FrameSequence`` with lazy loading capabilities.
+   - The animation uses the backend's native capabilities. Currently, only
+     PyVista backend supports animations.
+
+
+   .. rubric:: Examples
+
+   Create and play a simple animation from transient simulation results:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> import pyvista as pv
+   >>> # Create example meshes representing time steps
+   >>> sphere = pv.Sphere()
+   >>> frames = []
+   >>> for i in range(20):
+   ...     mesh = sphere.copy()
+   ...     mesh["displacement"] = np.random.rand(mesh.n_points) * i * 0.1
+   ...     frames.append(mesh)
+   >>> plotter = Plotter()
+   >>> animation = plotter.animate(frames, fps=10, loop=True)
+   >>> animation.show()
+
+   Export animation to video:
+
+   >>> animation = plotter.animate(frames, fps=30)
+   >>> animation.save("simulation.mp4", quality=8)
+
+   Use fixed color scale for accurate comparison:
+
+   >>> animation = plotter.animate(
+   ...     frames,
+   ...     fps=30,
+   ...     scalar_bar_args={"clim": (0.0, 1.0), "title": "Displacement [m]"}
+   ... )
+   >>> animation.play()
+   >>> animation.show()
+
+   Control playback programmatically:
+
+   >>> animation = plotter.animate(frames)
+   >>> animation.play()  # Start animation
+   >>> # ... after some time ...
+   >>> animation.pause()  # Pause
+   >>> animation.step_forward()  # Advance one frame
+   >>> animation.seek(10)  # Jump to frame 10
+   >>> animation.stop()  # Reset to beginning
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
