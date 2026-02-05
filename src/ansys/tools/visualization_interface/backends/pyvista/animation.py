@@ -234,8 +234,8 @@ class Animation:
             bg_color = self._plotter.background_color
             if hasattr(bg_color, 'int_rgb'):
                 return all(c < DARK_MODE_THRESHOLD for c in bg_color.int_rgb)
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Could not detect dark mode from background color: {e}")
         return False
 
     @property
