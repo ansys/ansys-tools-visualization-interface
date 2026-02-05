@@ -686,6 +686,10 @@ class PyVistaBackend(PyVistaBackendInterface):
         Animation
             Animation controller object with playback controls.
 
+        See Also
+        --------
+        Animation : Animation controller class
+
         Examples
         --------
         Create and play an animation from transient simulation results:
@@ -708,10 +712,6 @@ class PyVistaBackend(PyVistaBackendInterface):
         ...     frames,
         ...     scalar_bar_args={"clim": (0.0, 1.0), "title": "Displacement [m]"}
         ... )
-
-        See Also
-        --------
-        Animation : Animation controller class
         """
         if not frames:
             raise ValueError("Frame list cannot be empty")

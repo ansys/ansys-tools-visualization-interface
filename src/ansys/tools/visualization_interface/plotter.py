@@ -156,6 +156,20 @@ class Plotter():
         NotImplementedError
             If the backend does not support animations.
 
+        See Also
+        --------
+        Animation : Animation controller class with detailed playback controls
+
+        Notes
+        -----
+        - Fixed color scales are recommended (and calculated by default) to ensure
+          visual integrity and prevent misleading animations where color meanings
+          change between frames.
+        - For large datasets (1000+ frames or >5M cells), consider implementing
+          a custom ``FrameSequence`` with lazy loading capabilities.
+        - The animation uses the backend's native capabilities. Currently, only
+          PyVista backend supports animations.
+
         Examples
         --------
         Create and play a simple animation from transient simulation results:
@@ -197,20 +211,6 @@ class Plotter():
         >>> animation.step_forward()  # Advance one frame
         >>> animation.seek(10)  # Jump to frame 10
         >>> animation.stop()  # Reset to beginning
-
-        Notes
-        -----
-        - Fixed color scales are recommended (and calculated by default) to ensure
-          visual integrity and prevent misleading animations where color meanings
-          change between frames.
-        - For large datasets (1000+ frames or >5M cells), consider implementing
-          a custom ``FrameSequence`` with lazy loading capabilities.
-        - The animation uses the backend's native capabilities. Currently, only
-          PyVista backend supports animations.
-
-        See Also
-        --------
-        Animation : Animation controller class with detailed playback controls
         """
         # Check if backend supports animations
         if not hasattr(self._backend, "create_animation"):
