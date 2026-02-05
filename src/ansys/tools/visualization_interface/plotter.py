@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Module for the Plotter class."""
-from typing import Any, List
+from typing import Any, List, Optional
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
@@ -103,4 +103,127 @@ class Plotter():
             screenshot=screenshot,
             name_filter=name_filter,
             **kwargs
+        )
+
+    def animate(
+        self,
+        frames: List[Any],
+        fps: int = 30,
+        loop: bool = False,
+        scalar_bar_args: Optional[dict] = None,
+        **plot_kwargs,
+    ):
+        """Create an animation from a sequence of frames.
+
+        This method provides a convenient way to create animations from time-series
+        simulation results, transient analyses, and dynamic phenomena. It wraps the
+        backend's animation functionality in a simple, consistent API.
+
+        Parameters
+        ----------
+        frames : List[Any]
+            Sequence of frame objects to animate. Can be PyVista meshes,
+            ``MeshObjectPlot`` objects, or any plottable objects.
+        fps : int, optional
+            Frames per second for playback. Default is 30.
+        loop : bool, optional
+            Whether to loop animation continuously. Default is False.
+        scalar_bar_args : dict, optional
+            Scalar bar arguments to apply to all frames (e.g., ``clim`` for fixed
+            color scale). If not provided, a global color scale is calculated
+            automatically to ensure visual integrity across frames.
+        **plot_kwargs
+            Additional keyword arguments passed to add_mesh for all frames
+            (e.g., ``cmap='viridis'``, ``opacity=0.8``).
+
+        Returns
+        -------
+        Animation
+            Animation controller object with playback controls:
+            - ``play()``: Start animation
+            - ``pause()``: Pause animation
+            - ``stop()``: Stop and reset to first frame
+            - ``step_forward()``: Advance one frame
+            - ``step_backward()``: Rewind one frame
+            - ``seek(frame_index)``: Jump to specific frame
+            - ``save(filename)``: Export to video (MP4, GIF, AVI)
+            - ``show()``: Display with plotter
+
+        Raises
+        ------
+        ValueError
+            If frames list is empty or fps is not positive.
+        NotImplementedError
+            If the backend does not support animations.
+
+        See Also
+        --------
+        Animation : Animation controller class with detailed playback controls
+
+        Notes
+        -----
+        - Fixed color scales are recommended (and calculated by default) to ensure
+          visual integrity and prevent misleading animations where color meanings
+          change between frames.
+        - For large datasets (1000+ frames or >5M cells), consider implementing
+          a custom ``FrameSequence`` with lazy loading capabilities.
+        - The animation uses the backend's native capabilities. Currently, only
+          PyVista backend supports animations.
+
+        Examples
+        --------
+        Create and play a simple animation from transient simulation results:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> import pyvista as pv
+        >>> # Create example meshes representing time steps
+        >>> sphere = pv.Sphere()
+        >>> frames = []
+        >>> for i in range(20):
+        ...     mesh = sphere.copy()
+        ...     mesh["displacement"] = np.random.rand(mesh.n_points) * i * 0.1
+        ...     frames.append(mesh)
+        >>> plotter = Plotter()
+        >>> animation = plotter.animate(frames, fps=10, loop=True)
+        >>> animation.show()
+
+        Export animation to video:
+
+        >>> animation = plotter.animate(frames, fps=30)
+        >>> animation.save("simulation.mp4", quality=8)
+
+        Use fixed color scale for accurate comparison:
+
+        >>> animation = plotter.animate(
+        ...     frames,
+        ...     fps=30,
+        ...     scalar_bar_args={"clim": (0.0, 1.0), "title": "Displacement [m]"}
+        ... )
+        >>> animation.play()
+        >>> animation.show()
+
+        Control playback programmatically:
+
+        >>> animation = plotter.animate(frames)
+        >>> animation.play()  # Start animation
+        >>> # ... after some time ...
+        >>> animation.pause()  # Pause
+        >>> animation.step_forward()  # Advance one frame
+        >>> animation.seek(10)  # Jump to frame 10
+        >>> animation.stop()  # Reset to beginning
+        """
+        # Check if backend supports animations
+        if not hasattr(self._backend, "create_animation"):
+            raise NotImplementedError(
+                f"Backend {type(self._backend).__name__} does not support animations. "
+                "Only PyVistaBackend currently supports animation creation."
+            )
+
+        # Delegate to backend's animation creation
+        return self._backend.create_animation(
+            frames=frames,
+            fps=fps,
+            loop=loop,
+            scalar_bar_args=scalar_bar_args,
+            **plot_kwargs,
         )

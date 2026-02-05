@@ -20,6 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides interfaces."""
+from ansys.tools.visualization_interface.backends.pyvista.animation import (  # noqa: F401
+    Animation,
+    AnimationState,
+    FrameSequence,
+    InMemoryFrameSequence,
+)
 from ansys.tools.visualization_interface.backends.pyvista.pyvista import (  # noqa: F401
     PyVistaBackend,
     PyVistaBackendInterface,

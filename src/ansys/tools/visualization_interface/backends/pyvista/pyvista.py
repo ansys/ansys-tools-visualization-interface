@@ -29,6 +29,11 @@ import pyvista as pv
 
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
+from ansys.tools.visualization_interface.backends.pyvista.animation import (
+    Animation,
+    FrameSequence,
+    InMemoryFrameSequence,
+)
 from ansys.tools.visualization_interface.backends.pyvista.picker import AbstractPicker, Picker
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
 from ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode import DarkModeButton
@@ -644,3 +649,91 @@ class PyVistaBackend(PyVistaBackendInterface):
         """Close the plotter for PyVistaQT."""
         if self._use_qt:
             self.pv_interface.scene.close()
+
+    def create_animation(
+        self,
+        frames: Union[List[Any], FrameSequence],
+        fps: int = 30,
+        loop: bool = False,
+        scalar_bar_args: Optional[dict] = None,
+        **plot_kwargs,
+    ) -> Animation:
+        """Create an animation from a sequence of frames.
+
+        This method creates an ``Animation`` object that can be used to visualize
+        time-series simulation results, transient analyses, and dynamic phenomena.
+
+        Parameters
+        ----------
+        frames : List[Any] or FrameSequence
+            Sequence of frame objects to animate. Can be a list of PyVista meshes,
+            ``MeshObjectPlot`` objects, or a custom ``FrameSequence`` implementation
+            for lazy loading.
+        fps : int, optional
+            Frames per second for playback. Default is 30.
+        loop : bool, optional
+            Whether to loop animation continuously. Default is False.
+        scalar_bar_args : dict, optional
+            Scalar bar arguments to apply to all frames (e.g., ``clim`` for fixed
+            color scale). If not provided, a global color scale is calculated
+            automatically.
+        **plot_kwargs
+            Additional keyword arguments passed to add_mesh for all frames
+            (e.g., ``cmap='viridis'``, ``opacity=0.8``).
+
+        Returns
+        -------
+        Animation
+            Animation controller object with playback controls.
+
+        See Also
+        --------
+        Animation : Animation controller class
+
+        Examples
+        --------
+        Create and play an animation from transient simulation results:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter(backend='pyvista')
+        >>> frames = [mesh1, mesh2, mesh3, mesh4]  # Time series data
+        >>> animation = plotter.backend.create_animation(frames, fps=30, loop=True)
+        >>> animation.play()
+        >>> animation.show()
+
+        Export animation to video:
+
+        >>> animation = plotter.backend.create_animation(frames)
+        >>> animation.save("output.mp4", quality=8)
+
+        Use fixed color scale for accurate comparison:
+
+        >>> animation = plotter.backend.create_animation(
+        ...     frames,
+        ...     scalar_bar_args={"clim": (0.0, 1.0), "title": "Displacement [m]"}
+        ... )
+        """
+        if not frames:
+            raise ValueError("Frame list cannot be empty")
+
+        # Convert list to FrameSequence if needed
+        if isinstance(frames, list):
+            frame_sequence = InMemoryFrameSequence(frames)
+        else:
+            frame_sequence = frames
+
+        # Create animation with the plotter's scene
+        animation = Animation(
+            plotter=self._pl.scene,
+            frames=frame_sequence,
+            fps=fps,
+            loop=loop,
+            scalar_bar_args=scalar_bar_args,
+            **plot_kwargs,
+        )
+
+        logger.info(
+            f"Created animation with {len(frame_sequence)} frames at {fps} FPS"
+        )
+
+        return animation
