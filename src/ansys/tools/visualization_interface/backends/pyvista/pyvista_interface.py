@@ -157,6 +157,14 @@ class PyVistaInterface:
         """View the scene from the ZY plane."""
         self.scene.view_zy()
 
+    def enable_parallel_projection(self) -> None:
+        """Enable parallel projection for the camera."""
+        self.scene.camera.enable_parallel_projection()
+
+    def disable_parallel_projection(self) -> None:
+        """Disable parallel projection for the camera."""
+        self.scene.camera.disable_parallel_projection()
+
     def clip(
         self, mesh: Union[pv.PolyData, pv.MultiBlock, pv.UnstructuredGrid], plane: ClipPlane
     ) -> Union[pv.PolyData, pv.MultiBlock]:
