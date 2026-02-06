@@ -946,14 +946,24 @@ class PyVistaBackend(PyVistaBackendInterface):
                 **kwargs
             )
         elif len(position) == 3:
-            # 3D world coordinates - use add_point_labels
-            import numpy as np
-            points = np.array([position])
-            actor = self._pl.scene.add_point_labels(
-                points,
-                [text],
-                font_size=font_size,
-                text_color=color,
+            # 3D world coordinates - create 3D text mesh
+            # We use Text3D instead of add_point_labels to avoid a bug in PyVista
+            # where it tries to access a non-existent _actors attribute
+
+            # Create 3D text object
+            text_mesh = pv.Text3D(text, depth=0.0)
+
+            # Scale text based on font_size (approximate scaling factor)
+            scale_factor = font_size / 100.0
+            text_mesh.points *= scale_factor
+
+            # Translate text to desired position
+            text_mesh.translate(position, inplace=True)
+
+            # Add text mesh to scene with specified color
+            actor = self._pl.scene.add_mesh(
+                text_mesh,
+                color=color,
                 **kwargs
             )
         else:
