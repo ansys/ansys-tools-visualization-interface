@@ -47,6 +47,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import
 from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import (
     MeshSliderWidget,
 )
+from ansys.tools.visualization_interface.backends.pyvista.widgets.parallel_projection import ParallelProjectionButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center import PickRotCenterButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
 from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
@@ -220,6 +221,7 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(HideButton(self, dark_mode))
             self._widgets.append(PickRotCenterButton(self, dark_mode))
             self._widgets.append(DarkModeButton(self, dark_mode))
+            self._widgets.append(ParallelProjectionButton(self, dark_mode))
             # Add dynamic tree menu widget (always available)
             tree_menu = DynamicTreeMenuWidget(self, dark_mode=dark_mode)
             self._widgets.append(tree_menu)

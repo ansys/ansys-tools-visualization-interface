@@ -59,6 +59,7 @@ class TrameVisualizer:
         self.state.measure_active = False
         self.state.mesh_slider_active = False
         self.state.ruler_active = False
+        self.state.parallel_projection = False
 
         # Store reference to plotter for controller methods
         self.plotter = None
@@ -196,6 +197,19 @@ class TrameVisualizer:
                 self.ctrl.view_update()
             except Exception as e:
                 print(f"Error toggling dark mode: {e}")
+
+        @self.ctrl.set("toggle_parallel_projection")
+        def toggle_parallel_projection():
+            """Toggle parallel projection for camera."""
+            try:
+                self.state.parallel_projection = not self.state.parallel_projection
+                if self.state.parallel_projection:
+                    self.plotter.scene.camera.enable_parallel_projection()
+                else:
+                    self.plotter.scene.camera.disable_parallel_projection()
+                self.ctrl.view_update()
+            except Exception as e:
+                print(f"Error toggling parallel projection: {e}")
 
         @self.ctrl.set("displace_camera_x_up")
         def displace_camera_x_up():
@@ -494,6 +508,12 @@ class TrameVisualizer:
                                 vue.VIcon("mdi-theme-light-dark")
                             with vue.VListItemContent():
                                 vue.VListItemTitle("Dark Mode")
+
+                        with vue.VListItem(click=self.ctrl.toggle_parallel_projection):
+                            with vue.VListItemIcon():
+                                vue.VIcon("mdi-projector")
+                            with vue.VListItemContent():
+                                vue.VListItemTitle("Parallel Projection")
 
             # Hide footer with trame watermark
             layout.footer.hide()
