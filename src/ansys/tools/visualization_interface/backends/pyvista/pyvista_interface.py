@@ -443,11 +443,19 @@ class PyVistaInterface:
             jupyter_backend = "html"
 
         # Enabling anti-aliasing by default on scene
-        self.scene.enable_anti_aliasing("ssaa")
+        # Only enable if render_window is available (not None)
+        if hasattr(self.scene, 'render_window') and self.scene.render_window is not None:
+            self.scene.enable_anti_aliasing("ssaa")
 
         # If screenshot is requested, set off_screen to True for the plotter
         if kwargs.get("screenshot") is not None:
             self.scene.off_screen = True
+
+        # In off-screen mode (e.g., sphinx-gallery), prevent auto-close
+        # so the plotter can be reused
+        if self.scene.off_screen and 'auto_close' not in kwargs:
+            kwargs['auto_close'] = False
+
         if jupyter_backend:
             # Remove jupyter_backend from show options since we pass it manually
             kwargs.pop("jupyter_backend", None)

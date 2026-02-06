@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Module for the Plotter class."""
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Tuple, Union
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
@@ -226,4 +226,233 @@ class Plotter():
             loop=loop,
             scalar_bar_args=scalar_bar_args,
             **plot_kwargs,
+        )
+
+    def add_points(
+        self,
+        points: Union[List, Any],
+        color: str = "red",
+        size: float = 10.0,
+        **kwargs
+    ) -> Any:
+        """Add point markers to the scene.
+
+        This method provides a backend-agnostic way to add point markers to the
+        visualization scene. The points will be rendered using the active backend's
+        native point rendering capabilities.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points to add. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        color : str, default: "red"
+            Color of the points. Can be a color name (e.g., 'red', 'blue')
+            or hex color code (e.g., '#FF0000').
+        size : float, default: 10.0
+            Size of the point markers in pixels or display units
+            (interpretation depends on backend).
+        **kwargs : dict
+            Additional backend-specific keyword arguments for advanced customization.
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added points.
+            Can be used for further manipulation or removal.
+
+        Examples
+        --------
+        Add simple point markers at three locations:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter()
+        >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
+        >>> plotter.add_points(points, color='blue', size=15)
+        >>> plotter.show()
+
+        Add points with custom styling:
+
+        >>> import numpy as np
+        >>> points = np.random.rand(100, 3)
+        >>> plotter.add_points(points, color='yellow', size=8)
+        >>> plotter.show()
+        """
+        return self._backend.add_points(points=points, color=color, size=size, **kwargs)
+
+    def add_lines(
+        self,
+        points: Union[List, Any],
+        connections: Optional[Union[List, Any]] = None,
+        color: str = "white",
+        width: float = 1.0,
+        **kwargs
+    ) -> Any:
+        """Add line segments to the scene.
+
+        This method provides a backend-agnostic way to add lines to the
+        visualization scene. Lines can connect points sequentially or based
+        on explicit connectivity information.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points defining the lines. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        connections : Optional[Union[List, Any]], default: None
+            Line connectivity. If None, connects points sequentially (0->1, 1->2, 2->3, ...).
+            If provided, should define line segments as pairs of point indices:
+            [[start_idx1, end_idx1], [start_idx2, end_idx2], ...] or Mx2 array
+            where M is the number of line segments.
+        color : str, default: "white"
+            Color of the lines. Can be a color name or hex color code.
+        width : float, default: 1.0
+            Width of the lines in pixels or display units (interpretation depends on backend).
+        **kwargs : dict
+            Additional backend-specific keyword arguments for advanced customization.
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added lines.
+            Can be used for further manipulation or removal.
+
+        Examples
+        --------
+        Add a line connecting points sequentially:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter()
+        >>> points = [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]]
+        >>> plotter.add_lines(points, color='green', width=2.0)
+        >>> plotter.show()
+
+        Add specific line segments with explicit connectivity:
+
+        >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0]]
+        >>> connections = [[0, 1], [2, 3], [0, 2]]  # Connect specific pairs
+        >>> plotter.add_lines(points, connections=connections, color='red', width=3.0)
+        >>> plotter.show()
+        """
+        return self._backend.add_lines(
+            points=points, connections=connections, color=color, width=width, **kwargs
+        )
+
+    def add_planes(
+        self,
+        center: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+        normal: Tuple[float, float, float] = (0.0, 0.0, 1.0),
+        i_size: float = 1.0,
+        j_size: float = 1.0,
+        **kwargs
+    ) -> Any:
+        """Add a plane to the scene.
+
+        This method provides a backend-agnostic way to add plane objects to the
+        visualization scene. Planes are useful for showing reference planes,
+        symmetry planes, or cutting planes.
+
+        Parameters
+        ----------
+        center : Tuple[float, float, float], default: (0.0, 0.0, 0.0)
+            Center point of the plane in 3D space (x, y, z).
+        normal : Tuple[float, float, float], default: (0.0, 0.0, 1.0)
+            Normal vector of the plane (x, y, z). The vector will be normalized
+            by the backend if needed.
+        i_size : float, default: 1.0
+            Size of the plane in the i direction (local coordinate system).
+        j_size : float, default: 1.0
+            Size of the plane in the j direction (local coordinate system).
+        **kwargs : dict
+            Additional backend-specific keyword arguments for advanced customization
+            (e.g., color, opacity, resolution).
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added plane.
+            Can be used for further manipulation or removal.
+
+        Examples
+        --------
+        Add a horizontal plane at z=0:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter()
+        >>> plotter.add_planes(center=(0, 0, 0), normal=(0, 0, 1), i_size=2.0, j_size=2.0)
+        >>> plotter.show()
+
+        Add a vertical plane with custom styling:
+
+        >>> plotter.add_planes(
+        ...     center=(1, 0, 0),
+        ...     normal=(1, 0, 0),
+        ...     i_size=3.0,
+        ...     j_size=3.0,
+        ...     color='lightblue',
+        ...     opacity=0.5
+        ... )
+        >>> plotter.show()
+        """
+        return self._backend.add_planes(
+            center=center, normal=normal, i_size=i_size, j_size=j_size, **kwargs
+        )
+
+    def add_text(
+        self,
+        text: str,
+        position: Union[Tuple[float, float], Tuple[float, float, float]],
+        font_size: int = 12,
+        color: str = "white",
+        **kwargs
+    ) -> Any:
+        """Add text to the scene.
+
+        This method provides a backend-agnostic way to add text labels to the
+        visualization scene. Text can be positioned in 2D screen coordinates or
+        3D world coordinates depending on the backend capabilities.
+
+        Parameters
+        ----------
+        text : str
+            Text string to display.
+        position : Union[Tuple[float, float], Tuple[float, float, float]]
+            Position for the text. Can be:
+            - 2D tuple (x, y) for screen/viewport coordinates (pixels from bottom-left)
+            - 3D tuple (x, y, z) for world coordinates (backend-dependent support)
+        font_size : int, default: 12
+            Font size for the text in points.
+        color : str, default: "white"
+            Color of the text. Can be a color name or hex color code.
+        **kwargs : dict
+            Additional backend-specific keyword arguments for advanced customization
+            (e.g., font_family, bold, italic, shadow).
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added text.
+            Can be used for further manipulation or removal.
+
+        Examples
+        --------
+        Add text at a screen position:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter()
+        >>> plotter.add_text("Title", position=(10, 10), font_size=18, color='yellow')
+        >>> plotter.show()
+
+        Add text at a 3D world coordinate:
+
+        >>> plotter.add_text(
+        ...     "Point A",
+        ...     position=(1.0, 2.0, 3.0),
+        ...     font_size=14,
+        ...     color='red'
+        ... )
+        >>> plotter.show()
+        """
+        return self._backend.add_text(
+            text=text, position=position, font_size=font_size, color=color, **kwargs
         )

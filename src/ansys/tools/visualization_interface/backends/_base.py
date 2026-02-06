@@ -22,7 +22,7 @@
 
 """Module for the backend base class."""
 from abc import ABC, abstractmethod
-from typing import Any, Iterable
+from typing import Any, Iterable, List, Optional, Tuple, Union
 
 
 class BaseBackend(ABC):
@@ -42,3 +42,129 @@ class BaseBackend(ABC):
     def show(self):
         """Show the plotted objects."""
         raise NotImplementedError("show method must be implemented")
+
+    @abstractmethod
+    def add_points(
+        self,
+        points: Union[List, Any],
+        color: str = "red",
+        size: float = 10.0,
+        **kwargs
+    ) -> Any:
+        """Add point markers to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points to add. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        color : str, default: "red"
+            Color of the points.
+        size : float, default: 10.0
+            Size of the point markers.
+        **kwargs : dict
+            Additional backend-specific keyword arguments.
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added points.
+        """
+        raise NotImplementedError("add_points method must be implemented")
+
+    @abstractmethod
+    def add_lines(
+        self,
+        points: Union[List, Any],
+        connections: Optional[Union[List, Any]] = None,
+        color: str = "white",
+        width: float = 1.0,
+        **kwargs
+    ) -> Any:
+        """Add line segments to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points defining the lines. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        connections : Optional[Union[List, Any]], default: None
+            Line connectivity. If None, connects points sequentially.
+            Expected format: [[start_idx1, end_idx1], [start_idx2, end_idx2], ...]
+            or Mx2 array where M is the number of lines.
+        color : str, default: "white"
+            Color of the lines.
+        width : float, default: 1.0
+            Width of the lines.
+        **kwargs : dict
+            Additional backend-specific keyword arguments.
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added lines.
+        """
+        raise NotImplementedError("add_lines method must be implemented")
+
+    @abstractmethod
+    def add_planes(
+        self,
+        center: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+        normal: Tuple[float, float, float] = (0.0, 0.0, 1.0),
+        i_size: float = 1.0,
+        j_size: float = 1.0,
+        **kwargs
+    ) -> Any:
+        """Add a plane to the scene.
+
+        Parameters
+        ----------
+        center : Tuple[float, float, float], default: (0.0, 0.0, 0.0)
+            Center point of the plane (x, y, z).
+        normal : Tuple[float, float, float], default: (0.0, 0.0, 1.0)
+            Normal vector of the plane (x, y, z).
+        i_size : float, default: 1.0
+            Size of the plane in the i direction.
+        j_size : float, default: 1.0
+            Size of the plane in the j direction.
+        **kwargs : dict
+            Additional backend-specific keyword arguments.
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added plane.
+        """
+        raise NotImplementedError("add_planes method must be implemented")
+
+    @abstractmethod
+    def add_text(
+        self,
+        text: str,
+        position: Union[Tuple[float, float], Tuple[float, float, float]],
+        font_size: int = 12,
+        color: str = "white",
+        **kwargs
+    ) -> Any:
+        """Add text to the scene.
+
+        Parameters
+        ----------
+        text : str
+            Text string to display.
+        position : Union[Tuple[float, float], Tuple[float, float, float]]
+            Position for the text. Can be 2D (x, y) for screen coordinates
+            or 3D (x, y, z) for world coordinates.
+        font_size : int, default: 12
+            Font size for the text.
+        color : str, default: "white"
+            Color of the text.
+        **kwargs : dict
+            Additional backend-specific keyword arguments.
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added text.
+        """
+        raise NotImplementedError("add_text method must be implemented")
