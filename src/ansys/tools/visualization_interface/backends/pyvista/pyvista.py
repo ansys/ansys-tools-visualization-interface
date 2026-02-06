@@ -737,3 +737,228 @@ class PyVistaBackend(PyVistaBackendInterface):
         )
 
         return animation
+
+    def add_points(
+        self,
+        points: Union[List, Any],
+        color: str = "red",
+        size: float = 10.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add point markers to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points to add. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        color : str, default: "red"
+            Color of the points.
+        size : float, default: 10.0
+            Size of the point markers.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_mesh method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added points.
+        """
+        import numpy as np
+
+        # Convert points to numpy array if needed
+        points_array = np.asarray(points)
+
+        # Ensure points are 2D with shape (N, 3)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create PyVista PolyData from points
+        point_cloud = pv.PolyData(points_array)
+
+        # Add points to the scene
+        actor = self._pl.scene.add_mesh(
+            point_cloud,
+            color=color,
+            point_size=size,
+            render_points_as_spheres=True,
+            **kwargs
+        )
+
+        return actor
+
+    def add_lines(
+        self,
+        points: Union[List, Any],
+        connections: Optional[Union[List, Any]] = None,
+        color: str = "white",
+        width: float = 1.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add line segments to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points defining the lines. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        connections : Optional[Union[List, Any]], default: None
+            Line connectivity. If None, connects points sequentially.
+            Expected format: [[start_idx1, end_idx1], [start_idx2, end_idx2], ...]
+            or Mx2 array where M is the number of lines.
+        color : str, default: "white"
+            Color of the lines.
+        width : float, default: 1.0
+            Width of the lines.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_mesh method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added lines.
+        """
+        import numpy as np
+
+        # Convert points to numpy array
+        points_array = np.asarray(points)
+
+        # Ensure points are 2D with shape (N, 3)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create connectivity if not provided (sequential connections)
+        if connections is None:
+            n_points = len(points_array)
+            if n_points < 2:
+                raise ValueError("At least 2 points are required to create lines")
+            # Create sequential line segments
+            connections_array = np.array([[i, i + 1] for i in range(n_points - 1)])
+        else:
+            connections_array = np.asarray(connections)
+
+        # Ensure connections are 2D
+        if connections_array.ndim == 1:
+            connections_array = connections_array.reshape(-1, 2)
+
+        # Create PyVista PolyData with lines
+        lines = pv.PolyData()
+        lines.points = points_array
+
+        # Build the lines array for PyVista
+        # Format: [n_points_in_line, point_idx1, point_idx2, ...]
+        lines_array = []
+        for conn in connections_array:
+            lines_array.extend([2, conn[0], conn[1]])
+
+        lines.lines = np.array(lines_array, dtype=np.int64)
+
+        # Add lines to the scene
+        actor = self._pl.scene.add_mesh(
+            lines,
+            color=color,
+            line_width=width,
+            **kwargs
+        )
+
+        return actor
+
+    def add_planes(
+        self,
+        center: tuple[float, float, float] = (0.0, 0.0, 0.0),
+        normal: tuple[float, float, float] = (0.0, 0.0, 1.0),
+        i_size: float = 1.0,
+        j_size: float = 1.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add a plane to the scene.
+
+        Parameters
+        ----------
+        center : Tuple[float, float, float], default: (0.0, 0.0, 0.0)
+            Center point of the plane (x, y, z).
+        normal : Tuple[float, float, float], default: (0.0, 0.0, 1.0)
+            Normal vector of the plane (x, y, z).
+        i_size : float, default: 1.0
+            Size of the plane in the i direction.
+        j_size : float, default: 1.0
+            Size of the plane in the j direction.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_mesh method
+            (e.g., color, opacity).
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added plane.
+        """
+        # Create a PyVista plane
+        plane = pv.Plane(
+            center=center,
+            direction=normal,
+            i_size=i_size,
+            j_size=j_size,
+        )
+
+        # Add plane to the scene
+        actor = self._pl.scene.add_mesh(plane, **kwargs)
+
+        return actor
+
+    def add_text(
+        self,
+        text: str,
+        position: Union[tuple[float, float], tuple[float, float, float]],
+        font_size: int = 12,
+        color: str = "white",
+        **kwargs
+    ) -> "pv.Actor":
+        """Add text to the scene.
+
+        Parameters
+        ----------
+        text : str
+            Text string to display.
+        position : Union[Tuple[float, float], Tuple[float, float, float]]
+            Position for the text. Can be 2D (x, y) for screen coordinates
+            or 3D (x, y, z) for world coordinates.
+        font_size : int, default: 12
+            Font size for the text.
+        color : str, default: "white"
+            Color of the text.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_text or
+            add_point_labels method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added text.
+        """
+        # Determine if position is 2D or 3D
+        if len(position) == 2:
+            # 2D screen coordinates - use add_text
+            actor = self._pl.scene.add_text(
+                text,
+                position=position,
+                font_size=font_size,
+                color=color,
+                **kwargs
+            )
+        elif len(position) == 3:
+            # 3D world coordinates - use add_point_labels
+            import numpy as np
+            points = np.array([position])
+            actor = self._pl.scene.add_point_labels(
+                points,
+                [text],
+                font_size=font_size,
+                text_color=color,
+                **kwargs
+            )
+        else:
+            raise ValueError(
+                f"Position must be 2D (x, y) or 3D (x, y, z), got {len(position)} dimensions"
+            )
+
+        return actor

@@ -240,3 +240,247 @@ class PlotlyBackend(BaseBackend):
                 self._fig.write_html(screenshot_str)
             else:
                 self._fig.write_image(screenshot_str)
+
+    def add_points(self, points, color="red", size=10.0, **kwargs):
+        """Add point markers to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points to add. Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        color : str, default: "red"
+            Color of the points.
+        size : float, default: 10.0
+            Size of the point markers.
+        **kwargs : dict
+            Additional keyword arguments passed to Plotly's Scatter3d.
+
+        Returns
+        -------
+        go.Scatter3d
+            Plotly Scatter3d trace representing the added points.
+        """
+        import numpy as np
+
+        # Convert points to numpy array
+        points_array = np.asarray(points)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create Plotly scatter trace for points
+        scatter = go.Scatter3d(
+            x=points_array[:, 0],
+            y=points_array[:, 1],
+            z=points_array[:, 2],
+            mode='markers',
+            marker=dict(
+                size=size,
+                color=color,
+            ),
+            **kwargs
+        )
+
+        self._fig.add_trace(scatter)
+        return scatter
+
+    def add_lines(self, points, connections=None, color="white", width=1.0, **kwargs):
+        """Add line segments to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points defining the lines. Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        connections : Optional[Union[List, Any]], default: None
+            Line connectivity. If None, connects points sequentially.
+            Expected format: [[start_idx1, end_idx1], [start_idx2, end_idx2], ...] or Mx2 array.
+        color : str, default: "white"
+            Color of the lines.
+        width : float, default: 1.0
+            Width of the lines.
+        **kwargs : dict
+            Additional keyword arguments passed to Plotly's Scatter3d.
+
+        Returns
+        -------
+        Union[go.Scatter3d, List[go.Scatter3d]]
+            Plotly Scatter3d trace(s) representing the added lines.
+        """
+        import numpy as np
+
+        # Convert points to numpy array
+        points_array = np.asarray(points)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create connectivity if not provided (sequential connections)
+        if connections is None:
+            n_points = len(points_array)
+            if n_points < 2:
+                raise ValueError("At least 2 points are required to create lines")
+            connections_array = np.array([[i, i + 1] for i in range(n_points - 1)])
+        else:
+            connections_array = np.asarray(connections)
+            if connections_array.ndim == 1:
+                connections_array = connections_array.reshape(-1, 2)
+
+        # For Plotly, we need to create separate line traces or use None to break lines
+        # We'll create line coordinates with None separators for disconnected segments
+        x_coords = []
+        y_coords = []
+        z_coords = []
+
+        for conn in connections_array:
+            x_coords.extend([points_array[conn[0], 0], points_array[conn[1], 0], None])
+            y_coords.extend([points_array[conn[0], 1], points_array[conn[1], 1], None])
+            z_coords.extend([points_array[conn[0], 2], points_array[conn[1], 2], None])
+
+        # Create Plotly scatter trace for lines
+        line_trace = go.Scatter3d(
+            x=x_coords,
+            y=y_coords,
+            z=z_coords,
+            mode='lines',
+            line=dict(
+                color=color,
+                width=width,
+            ),
+            **kwargs
+        )
+
+        self._fig.add_trace(line_trace)
+        return line_trace
+
+    def add_planes(self, center=(0.0, 0.0, 0.0), normal=(0.0, 0.0, 1.0), i_size=1.0, j_size=1.0, **kwargs):
+        """Add a plane to the scene.
+
+        Parameters
+        ----------
+        center : Tuple[float, float, float], default: (0.0, 0.0, 0.0)
+            Center point of the plane (x, y, z).
+        normal : Tuple[float, float, float], default: (0.0, 0.0, 1.0)
+            Normal vector of the plane (x, y, z).
+        i_size : float, default: 1.0
+            Size of the plane in the i direction.
+        j_size : float, default: 1.0
+            Size of the plane in the j direction.
+        **kwargs : dict
+            Additional keyword arguments passed to Plotly's Mesh3d (e.g., color, opacity).
+
+        Returns
+        -------
+        go.Mesh3d
+            Plotly Mesh3d trace representing the added plane.
+        """
+        import numpy as np
+
+        # Normalize the normal vector
+        normal_array = np.array(normal)
+        normal_array = normal_array / np.linalg.norm(normal_array)
+
+        # Create two perpendicular vectors to the normal for the plane
+        # Choose an arbitrary vector not parallel to normal
+        if abs(normal_array[0]) < 0.9:
+            v1 = np.cross(normal_array, [1, 0, 0])
+        else:
+            v1 = np.cross(normal_array, [0, 1, 0])
+        v1 = v1 / np.linalg.norm(v1) * i_size / 2
+
+        v2 = np.cross(normal_array, v1)
+        v2 = v2 / np.linalg.norm(v2) * j_size / 2
+
+        # Create plane corners
+        center_array = np.array(center)
+        corners = [
+            center_array - v1 - v2,
+            center_array + v1 - v2,
+            center_array + v1 + v2,
+            center_array - v1 + v2,
+        ]
+
+        # Extract coordinates
+        x = [c[0] for c in corners]
+        y = [c[1] for c in corners]
+        z = [c[2] for c in corners]
+
+        # Create two triangles to form the plane
+        # Triangle indices: 0-1-2 and 0-2-3
+        i_indices = [0, 0]
+        j_indices = [1, 2]
+        k_indices = [2, 3]
+
+        # Set default styling if not provided
+        if 'color' not in kwargs:
+            kwargs['color'] = 'lightblue'
+        if 'opacity' not in kwargs:
+            kwargs['opacity'] = 0.5
+
+        # Create Plotly mesh trace for plane
+        plane_trace = go.Mesh3d(
+            x=x,
+            y=y,
+            z=z,
+            i=i_indices,
+            j=j_indices,
+            k=k_indices,
+            **kwargs
+        )
+
+        self._fig.add_trace(plane_trace)
+        return plane_trace
+
+    def add_text(self, text, position, font_size=12, color="white", **kwargs):
+        """Add text to the scene.
+
+        Parameters
+        ----------
+        text : str
+            Text string to display.
+        position : Union[Tuple[float, float], Tuple[float, float, float]]
+            Position for the text. For 3D, provide (x, y, z) coordinates.
+            For 2D annotations, this will be interpreted as 3D coordinates.
+        font_size : int, default: 12
+            Font size for the text.
+        color : str, default: "white"
+            Color of the text.
+        **kwargs : dict
+            Additional keyword arguments passed to Plotly's Scatter3d or annotation.
+
+        Returns
+        -------
+        Union[go.Scatter3d, dict]
+            Plotly trace or annotation representing the added text.
+        """
+        # For Plotly, we'll use Scatter3d with text mode for 3D text
+        if len(position) == 3:
+            # 3D text using scatter points with text
+            text_trace = go.Scatter3d(
+                x=[position[0]],
+                y=[position[1]],
+                z=[position[2]],
+                mode='text',
+                text=[text],
+                textfont=dict(
+                    size=font_size,
+                    color=color,
+                ),
+                **kwargs
+            )
+            self._fig.add_trace(text_trace)
+            return text_trace
+        else:
+            # 2D annotation
+            annotation = dict(
+                x=position[0] if len(position) > 0 else 0,
+                y=position[1] if len(position) > 1 else 0,
+                text=text,
+                font=dict(
+                    size=font_size,
+                    color=color,
+                ),
+                showarrow=False,
+                xref="paper",
+                yref="paper",
+                **kwargs
+            )
+            self._fig.add_annotation(annotation)
+            return annotation
