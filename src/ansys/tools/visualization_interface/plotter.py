@@ -401,7 +401,7 @@ class Plotter():
     def add_text(
         self,
         text: str,
-        position: Union[Tuple[float, float], Tuple[float, float, float]],
+        position: Union[Tuple[float, float], Tuple[float, float, float], str],
         font_size: int = 12,
         color: str = "white",
         **kwargs
@@ -416,10 +416,12 @@ class Plotter():
         ----------
         text : str
             Text string to display.
-        position : Union[Tuple[float, float], Tuple[float, float, float]]
+        position : Union[Tuple[float, float], Tuple[float, float, float], str]
             Position for the text. Can be:
             - 2D tuple (x, y) for screen/viewport coordinates (pixels from bottom-left)
             - 3D tuple (x, y, z) for world coordinates (backend-dependent support)
+            - String position like 'upper_left', 'upper_right', 'lower_left',
+              'lower_right', 'upper_edge', 'lower_edge' (backend-dependent support)
         font_size : int, default: 12
             Font size for the text in points.
         color : str, default: "white"
@@ -456,3 +458,157 @@ class Plotter():
         return self._backend.add_text(
             text=text, position=position, font_size=font_size, color=color, **kwargs
         )
+
+    def add_mesh(
+        self,
+        mesh: Any,
+        scalars: Optional[Union[str, Any]] = None,
+        scalar_bar_args: Optional[dict] = None,
+        show_edges: bool = False,
+        nan_color: str = "grey",
+        **kwargs
+    ) -> Any:
+        """Add a mesh to the scene.
+
+        This method provides a backend-agnostic way to add mesh objects to the
+        visualization scene. Meshes can be colored by scalar values with
+        customizable color bars.
+
+        Parameters
+        ----------
+        mesh : Any
+            Mesh object to add. Can be a PyVista mesh (UnstructuredGrid, PolyData,
+            MultiBlock) or other backend-specific mesh type.
+        scalars : Optional[Union[str, Any]], default: None
+            Scalars to use for coloring. Can be a string name of an array in
+            the mesh, or an array-like object with scalar values.
+        scalar_bar_args : Optional[dict], default: None
+            Arguments for the scalar bar (colorbar). Common keys include:
+            - 'title': Title for the scalar bar
+            - 'vertical': Whether to orient vertically (default False)
+        show_edges : bool, default: False
+            Whether to show mesh edges.
+        nan_color : str, default: "grey"
+            Color to use for NaN values in scalars.
+        **kwargs : dict
+            Additional backend-specific keyword arguments for advanced customization
+            (e.g., cmap, opacity, lighting).
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added mesh.
+            Can be used for further manipulation or removal.
+
+        Examples
+        --------
+        Add a simple mesh:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> import pyvista as pv
+        >>> plotter = Plotter()
+        >>> mesh = pv.Sphere()
+        >>> plotter.add_mesh(mesh, show_edges=True)
+        >>> plotter.show()
+
+        Add a mesh with scalar coloring:
+
+        >>> mesh = pv.Sphere()
+        >>> mesh['elevation'] = mesh.points[:, 2]
+        >>> plotter.add_mesh(
+        ...     mesh,
+        ...     scalars='elevation',
+        ...     scalar_bar_args={'title': 'Elevation (m)'},
+        ...     cmap='viridis'
+        ... )
+        >>> plotter.show()
+        """
+        return self._backend.add_mesh(
+            mesh=mesh,
+            scalars=scalars,
+            scalar_bar_args=scalar_bar_args,
+            show_edges=show_edges,
+            nan_color=nan_color,
+            **kwargs
+        )
+
+    def add_point_labels(
+        self,
+        points: Union[List, Any],
+        labels: List[str],
+        font_size: int = 12,
+        point_size: float = 5.0,
+        **kwargs
+    ) -> Any:
+        """Add labels at 3D point locations.
+
+        This method provides a backend-agnostic way to add text labels at
+        specific 3D coordinates in the visualization scene. Labels are
+        displayed next to marker points.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points where labels should be placed. Can be a list of coordinates
+            or array-like object. Expected format: [[x1, y1, z1], ...] or Nx3 array.
+        labels : List[str]
+            List of label strings to display at each point. Must have the same
+            length as points.
+        font_size : int, default: 12
+            Font size for the labels.
+        point_size : float, default: 5.0
+            Size of the point markers shown with labels.
+        **kwargs : dict
+            Additional backend-specific keyword arguments for advanced customization
+            (e.g., text_color, shape, fill_shape).
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added labels.
+            Can be used for further manipulation or removal.
+
+        Examples
+        --------
+        Add labels at specific locations:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter()
+        >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
+        >>> labels = ['Origin', 'X-axis', 'Y-axis']
+        >>> plotter.add_point_labels(points, labels, font_size=14)
+        >>> plotter.show()
+
+        Add labels with custom styling:
+
+        >>> plotter.add_point_labels(
+        ...     points,
+        ...     labels,
+        ...     font_size=16,
+        ...     point_size=10,
+        ...     text_color='yellow',
+        ...     shape='rounded_rect'
+        ... )
+        >>> plotter.show()
+        """
+        return self._backend.add_point_labels(
+            points=points, labels=labels, font_size=font_size, point_size=point_size, **kwargs
+        )
+
+    def clear(self) -> None:
+        """Clear all actors from the scene.
+
+        This method removes all previously added objects (meshes, points, lines,
+        text, etc.) from the visualization scene.
+
+        Examples
+        --------
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> import pyvista as pv
+        >>> plotter = Plotter()
+        >>> plotter.add_mesh(pv.Sphere())
+        >>> plotter.clear()  # Remove all objects
+        >>> plotter.add_mesh(pv.Cube())  # Add different object
+        >>> plotter.show()
+        """
+        self._backend.clear()
