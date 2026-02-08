@@ -923,13 +923,12 @@ class PyVistaBackend(PyVistaBackendInterface):
         ----------
         text : str
             Text string to display.
-        position : Union[Tuple[float, float], str]
+        position : Union[Tuple[float, float], Tuple[float, float, float], str]
             Position for the text. Can be:
-
-            - 2D tuple (x, y) for screen coordinates (pixels from bottom-left)
+            - 2D tuple (x, y) for screen coordinates
+            - 3D tuple (x, y, z) for world coordinates
             - String position like 'upper_left', 'upper_right', 'lower_left',
               'lower_right', 'upper_edge', 'lower_edge' (PyVista-specific)
-
         font_size : int, default: 12
             Font size for the text.
         color : str, default: "white"
@@ -942,13 +941,166 @@ class PyVistaBackend(PyVistaBackendInterface):
         pv.Actor
             PyVista actor representing the added text.
         """
-        # Handle string positions or 2D coordinates
-        actor = self._pl.scene.add_text(
-            text,
-            position=position,
+        # Handle string positions (PyVista-specific)
+        if isinstance(position, str):
+            actor = self._pl.scene.add_text(
+                text,
+                position=position,
+                font_size=font_size,
+                color=color,
+                **kwargs
+            )
+            return actor
+
+        # Determine if position is 2D or 3D
+        if len(position) == 2:
+            # 2D screen coordinates - use add_text
+            actor = self._pl.scene.add_text(
+                text,
+                position=position,
+                font_size=font_size,
+                color=color,
+                **kwargs
+            )
+        elif len(position) == 3:
+            # 3D world coordinates - create 3D text mesh
+            # We use Text3D instead of add_point_labels to avoid a bug in PyVista
+            # where it tries to access a non-existent _actors attribute
+
+            # Create 3D text object
+            text_mesh = pv.Text3D(text, depth=0.0)
+
+            # Scale text based on font_size (approximate scaling factor)
+            scale_factor = font_size / 100.0
+            text_mesh.points *= scale_factor
+
+            # Translate text to desired position
+            text_mesh.translate(position, inplace=True)
+
+            # Add text mesh to scene with specified color
+            actor = self._pl.scene.add_mesh(
+                text_mesh,
+                color=color,
+                **kwargs
+            )
+        else:
+            raise ValueError(
+                f"Position must be 2D (x, y) or 3D (x, y, z), got {len(position)} dimensions"
+            )
+
+        return actor
+
+    def add_mesh(
+        self,
+        mesh: Any,
+        scalars: Optional[Union[str, Any]] = None,
+        scalar_bar_args: Optional[dict] = None,
+        show_edges: bool = False,
+        nan_color: str = "grey",
+        **kwargs
+    ) -> "pv.Actor":
+        """Add a mesh to the scene.
+
+        Parameters
+        ----------
+        mesh : Any
+            Mesh object to add. Accepts PyVista mesh types including
+            UnstructuredGrid, PolyData, and MultiBlock.
+        scalars : Optional[Union[str, Any]], default: None
+            Scalars to use for coloring. Can be a string name of an array in
+            the mesh, or an array-like object with scalar values.
+        scalar_bar_args : Optional[dict], default: None
+            Arguments for the scalar bar (colorbar). Common keys include:
+            - 'title': Title for the scalar bar
+            - 'vertical': Whether to orient vertically
+        show_edges : bool, default: False
+            Whether to show mesh edges.
+        nan_color : str, default: "grey"
+            Color to use for NaN values in scalars.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_mesh method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added mesh.
+        """
+        # Build kwargs for PyVista add_mesh
+        add_mesh_kwargs = {
+            "show_edges": show_edges,
+            "nan_color": nan_color,
+            **kwargs
+        }
+
+        # Add scalars if provided
+        if scalars is not None:
+            add_mesh_kwargs["scalars"] = scalars
+
+        # Add scalar bar args if provided
+        if scalar_bar_args is not None:
+            add_mesh_kwargs["scalar_bar_args"] = scalar_bar_args
+
+        # Add mesh to the scene
+        actor = self._pl.scene.add_mesh(mesh, **add_mesh_kwargs)
+
+        return actor
+
+    def add_point_labels(
+        self,
+        points: Union[List, Any],
+        labels: List[str],
+        font_size: int = 12,
+        point_size: float = 5.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add labels at 3D point locations.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points where labels should be placed. Can be a list of coordinates
+            or array-like object. Expected format: [[x1, y1, z1], ...] or Nx3 array.
+        labels : List[str]
+            List of label strings to display at each point.
+        font_size : int, default: 12
+            Font size for the labels.
+        point_size : float, default: 5.0
+            Size of the point markers shown with labels.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_point_labels method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added labels.
+        """
+        import numpy as np
+
+        # Convert points to numpy array if needed
+        points_array = np.asarray(points)
+
+        # Ensure points are 2D with shape (N, 3)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create PyVista PolyData from points
+        point_cloud = pv.PolyData(points_array)
+
+        # Add point labels to the scene
+        actor = self._pl.scene.add_point_labels(
+            point_cloud,
+            labels,
             font_size=font_size,
-            color=color,
+            point_size=point_size,
             **kwargs
         )
 
         return actor
+
+    def clear(self) -> None:
+        """Clear all actors from the scene.
+
+        This method removes all previously added objects (meshes, points, lines,
+        text, etc.) from the visualization scene.
+        """
+        self._pl.scene.clear()
