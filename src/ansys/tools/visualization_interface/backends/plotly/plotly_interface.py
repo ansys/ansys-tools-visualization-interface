@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Plotly backend interface for visualization."""
-from typing import Any, Iterable, List, Optional, Tuple, Union
+from typing import Any, Iterable, List, Optional, Union
 
 import plotly.graph_objects as go
 import pyvista as pv
