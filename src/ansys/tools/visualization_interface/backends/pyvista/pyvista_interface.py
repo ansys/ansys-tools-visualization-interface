@@ -25,6 +25,7 @@ import re
 from typing import Any, Dict, List, Optional, Union
 
 import pyvista as pv
+from pyvista.plotting import plotter
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
 import ansys.tools.visualization_interface as viz_interface
@@ -92,11 +93,11 @@ class PyVistaInterface:
                         logger.warning(message)
                     # Avoiding having duplicated argument
                     plotter_kwargs.pop("off_screen", None)
-                    scene = pv.Plotter(off_screen=True, **filtered_kwargs)
+                    scene = pv.Plotter(off_screen=True, **plotter_kwargs)
             elif use_qt:
                 scene = pyvistaqt.BackgroundPlotter(show=show_qt)
             else:
-                scene = pv.Plotter(**filtered_kwargs)
+                scene = pv.Plotter(**plotter_kwargs)
 
         self._use_qt = use_qt
         # If required, use a white background with no gradient
