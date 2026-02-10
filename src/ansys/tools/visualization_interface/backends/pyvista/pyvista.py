@@ -34,7 +34,6 @@ from ansys.tools.visualization_interface.backends.pyvista.animation import (
     InMemoryFrameSequence,
 )
 from ansys.tools.visualization_interface.backends.pyvista.picker import AbstractPicker, Picker
-from ansys.tools.visualization_interface.utils.helpers import extract_kwargs
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
 from ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode import DarkModeButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import (
@@ -59,6 +58,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button im
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.utils.color import Color
+from ansys.tools.visualization_interface.utils.helpers import extract_kwargs
 from ansys.tools.visualization_interface.utils.logger import logger
 
 _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
