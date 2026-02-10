@@ -30,7 +30,6 @@ from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 import ansys.tools.visualization_interface as viz_interface
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
-from ansys.tools.visualization_interface.utils.helpers import extract_kwargs
 from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
@@ -93,12 +92,10 @@ class PyVistaInterface:
                         logger.warning(message)
                     # Avoiding having duplicated argument
                     plotter_kwargs.pop("off_screen", None)
-                    filtered_kwargs = extract_kwargs(pv.Plotter, plotter_kwargs)
                     scene = pv.Plotter(off_screen=True, **filtered_kwargs)
             elif use_qt:
                 scene = pyvistaqt.BackgroundPlotter(show=show_qt)
             else:
-                filtered_kwargs = extract_kwargs(pv.Plotter, plotter_kwargs)
                 scene = pv.Plotter(**filtered_kwargs)
 
         self._use_qt = use_qt
