@@ -21,7 +21,6 @@
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
-from collections.abc import Callable
 import importlib.util
 from typing import Any, Dict, List, Optional, Union
 
@@ -35,6 +34,7 @@ from ansys.tools.visualization_interface.backends.pyvista.animation import (
     InMemoryFrameSequence,
 )
 from ansys.tools.visualization_interface.backends.pyvista.picker import AbstractPicker, Picker
+from ansys.tools.visualization_interface.utils.helpers import extract_kwargs
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
 from ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode import DarkModeButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import (
@@ -370,31 +370,6 @@ class PyVistaBackendInterface(BaseBackend):
         self._pl.scene.disable_picking()
         self._picked_ball.SetVisibility(False)
 
-    def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
-        """Extracts the keyword arguments from a function signature and returns it as dict.
-
-        Parameters
-        ----------
-        func_name : Callable
-            Function to extract the keyword arguments from. It should be a callable function
-        input_kwargs : Dict[str, Any]
-            Dictionary with the keyword arguments to update the extracted ones.
-
-        Returns
-        -------
-        Dict[str, Any]
-            Dictionary with the keyword arguments extracted from the function signature and
-            updated with the input kwargs.
-        """
-        import inspect
-        signature = inspect.signature(func_name)
-        kwargs = {}
-        for k, v in signature.parameters.items():
-            # We are ignoring positional arguments, and passing everything as kwarg
-            if v.default is not inspect.Parameter.empty:
-                kwargs[k] = input_kwargs[k] if k in input_kwargs else v.default
-        return kwargs
-
     def show(
         self,
         plottable_object: Any = None,
@@ -430,11 +405,11 @@ class PyVistaBackendInterface(BaseBackend):
             List with the picked bodies in the picked order.
 
         """
-        plotting_options = self.__extract_kwargs(
+        plotting_options = extract_kwargs(
             self._pl._scene.add_mesh,
             kwargs,
         )
-        show_options = self.__extract_kwargs(
+        show_options = extract_kwargs(
             self._pl.scene.show,
             kwargs,
         )
@@ -987,61 +962,6 @@ class PyVistaBackend(PyVistaBackendInterface):
             raise ValueError(
                 f"Position must be 2D (x, y) or 3D (x, y, z), got {len(position)} dimensions"
             )
-
-        return actor
-
-    def add_mesh(
-        self,
-        mesh: Any,
-        scalars: Optional[Union[str, Any]] = None,
-        scalar_bar_args: Optional[dict] = None,
-        show_edges: bool = False,
-        nan_color: str = "grey",
-        **kwargs
-    ) -> "pv.Actor":
-        """Add a mesh to the scene.
-
-        Parameters
-        ----------
-        mesh : Any
-            Mesh object to add. Accepts PyVista mesh types including
-            UnstructuredGrid, PolyData, and MultiBlock.
-        scalars : Optional[Union[str, Any]], default: None
-            Scalars to use for coloring. Can be a string name of an array in
-            the mesh, or an array-like object with scalar values.
-        scalar_bar_args : Optional[dict], default: None
-            Arguments for the scalar bar (colorbar). Common keys include:
-            - 'title': Title for the scalar bar
-            - 'vertical': Whether to orient vertically
-        show_edges : bool, default: False
-            Whether to show mesh edges.
-        nan_color : str, default: "grey"
-            Color to use for NaN values in scalars.
-        **kwargs : dict
-            Additional keyword arguments passed to PyVista's add_mesh method.
-
-        Returns
-        -------
-        pv.Actor
-            PyVista actor representing the added mesh.
-        """
-        # Build kwargs for PyVista add_mesh
-        add_mesh_kwargs = {
-            "show_edges": show_edges,
-            "nan_color": nan_color,
-            **kwargs
-        }
-
-        # Add scalars if provided
-        if scalars is not None:
-            add_mesh_kwargs["scalars"] = scalars
-
-        # Add scalar bar args if provided
-        if scalar_bar_args is not None:
-            add_mesh_kwargs["scalar_bar_args"] = scalar_bar_args
-
-        # Add mesh to the scene
-        actor = self._pl.scene.add_mesh(mesh, **add_mesh_kwargs)
 
         return actor
 

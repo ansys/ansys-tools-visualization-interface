@@ -513,52 +513,6 @@ class PlotlyBackend(BaseBackend):
             self._fig.add_annotation(annotation)
             return annotation
 
-    def add_mesh(
-        self,
-        mesh: Any,
-        scalars: Optional[Union[str, Any]] = None,
-        scalar_bar_args: Optional[dict] = None,
-        show_edges: bool = False,
-        nan_color: str = "grey",
-        **kwargs
-    ) -> Any:
-        """Add a mesh to the scene.
-
-        Note: This is a simplified implementation. For full mesh rendering
-        in Plotly, see the plot() method which converts meshes to Mesh3d.
-
-        Parameters
-        ----------
-        mesh : Any
-            Mesh object to add.
-        scalars : Optional[Union[str, Any]], default: None
-            Scalars to use for coloring.
-        scalar_bar_args : Optional[dict], default: None
-            Arguments for the scalar bar.
-        show_edges : bool, default: False
-            Whether to show mesh edges.
-        nan_color : str, default: "grey"
-            Color to use for NaN values.
-        **kwargs : dict
-            Additional keyword arguments.
-
-        Returns
-        -------
-        Any
-            Plotly trace representing the mesh.
-        """
-        # Use the existing conversion method to convert the mesh
-        mesh3d = self._pv_to_mesh3d(mesh)
-
-        if isinstance(mesh3d, list):
-            # MultiBlock case - add all traces
-            for trace in mesh3d:
-                self._fig.add_trace(trace)
-            return mesh3d
-        else:
-            self._fig.add_trace(mesh3d)
-            return mesh3d
-
     def add_point_labels(
         self,
         points: Union[List, Any],

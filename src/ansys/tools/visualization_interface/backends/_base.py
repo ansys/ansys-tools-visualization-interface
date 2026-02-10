@@ -172,44 +172,6 @@ class BaseBackend(ABC):
         raise NotImplementedError("add_text method must be implemented")
 
     @abstractmethod
-    def add_mesh(
-        self,
-        mesh: Any,
-        scalars: Optional[Union[str, Any]] = None,
-        scalar_bar_args: Optional[dict] = None,
-        show_edges: bool = False,
-        nan_color: str = "grey",
-        **kwargs
-    ) -> Any:
-        """Add a mesh to the scene.
-
-        Parameters
-        ----------
-        mesh : Any
-            Mesh object to add. Can be a PyVista mesh (UnstructuredGrid, PolyData,
-            MultiBlock) or other backend-specific mesh type.
-        scalars : Optional[Union[str, Any]], default: None
-            Scalars to use for coloring. Can be a string name of an array in
-            the mesh, or an array-like object with scalar values.
-        scalar_bar_args : Optional[dict], default: None
-            Arguments for the scalar bar (colorbar). Common keys include:
-            - 'title': Title for the scalar bar
-            - 'vertical': Whether to orient vertically (default False)
-        show_edges : bool, default: False
-            Whether to show mesh edges.
-        nan_color : str, default: "grey"
-            Color to use for NaN values in scalars.
-        **kwargs : dict
-            Additional backend-specific keyword arguments.
-
-        Returns
-        -------
-        Any
-            Backend-specific actor or object representing the added mesh.
-        """
-        raise NotImplementedError("add_mesh method must be implemented")
-
-    @abstractmethod
     def add_point_labels(
         self,
         points: Union[List, Any],
