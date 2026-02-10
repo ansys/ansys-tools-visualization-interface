@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Plotly backend interface for visualization."""
-from typing import Any, Iterable, List, Optional, Union
+from typing import Any, Iterable, Union
 
 import plotly.graph_objects as go
 import pyvista as pv
@@ -484,101 +484,3 @@ class PlotlyBackend(BaseBackend):
             )
             self._fig.add_annotation(annotation)
             return annotation
-
-    def add_mesh(
-        self,
-        mesh: Any,
-        scalars: Optional[Union[str, Any]] = None,
-        scalar_bar_args: Optional[dict] = None,
-        show_edges: bool = False,
-        nan_color: str = "grey",
-        **kwargs
-    ) -> Any:
-        """Add a mesh to the scene.
-
-        Note: This is a simplified implementation. For full mesh rendering
-        in Plotly, see the plot() method which converts meshes to Mesh3d.
-
-        Parameters
-        ----------
-        mesh : Any
-            Mesh object to add.
-        scalars : Optional[Union[str, Any]], default: None
-            Scalars to use for coloring.
-        scalar_bar_args : Optional[dict], default: None
-            Arguments for the scalar bar.
-        show_edges : bool, default: False
-            Whether to show mesh edges.
-        nan_color : str, default: "grey"
-            Color to use for NaN values.
-        **kwargs : dict
-            Additional keyword arguments.
-
-        Returns
-        -------
-        Any
-            Plotly trace representing the mesh.
-        """
-        # Use the existing conversion method to convert the mesh
-        mesh3d = self._pv_to_mesh3d(mesh)
-
-        if isinstance(mesh3d, list):
-            # MultiBlock case - add all traces
-            for trace in mesh3d:
-                self._fig.add_trace(trace)
-            return mesh3d
-        else:
-            self._fig.add_trace(mesh3d)
-            return mesh3d
-
-    def add_point_labels(
-        self,
-        points: Union[List, Any],
-        labels: List[str],
-        font_size: int = 12,
-        point_size: float = 5.0,
-        **kwargs
-    ) -> Any:
-        """Add labels at 3D point locations.
-
-        Parameters
-        ----------
-        points : Union[List, Any]
-            Points where labels should be placed.
-        labels : List[str]
-            List of label strings to display at each point.
-        font_size : int, default: 12
-            Font size for the labels.
-        point_size : float, default: 5.0
-            Size of the point markers shown with labels.
-        **kwargs : dict
-            Additional keyword arguments.
-
-        Returns
-        -------
-        Any
-            Plotly trace representing the labels.
-        """
-        import numpy as np
-
-        points_array = np.asarray(points)
-        if points_array.ndim == 1:
-            points_array = points_array.reshape(-1, 3)
-
-        # Create a scatter trace with both markers and text
-        trace = go.Scatter3d(
-            x=points_array[:, 0],
-            y=points_array[:, 1],
-            z=points_array[:, 2],
-            mode='markers+text',
-            text=labels,
-            textfont=dict(size=font_size),
-            marker=dict(size=point_size),
-            **kwargs
-        )
-        self._fig.add_trace(trace)
-        return trace
-
-    def clear(self) -> None:
-        """Clear all traces from the figure."""
-        self._fig.data = []
