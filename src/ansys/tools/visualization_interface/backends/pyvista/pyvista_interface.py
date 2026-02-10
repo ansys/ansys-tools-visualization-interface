@@ -25,7 +25,6 @@ import re
 from typing import Any, Dict, List, Optional, Union
 
 import pyvista as pv
-from pyvista.plotting import plotter
 from pyvista.plotting.plotter import Plotter as PyVistaPlotter
 
 import ansys.tools.visualization_interface as viz_interface
