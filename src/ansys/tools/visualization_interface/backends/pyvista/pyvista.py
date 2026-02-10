@@ -760,7 +760,6 @@ class PyVistaBackend(PyVistaBackendInterface):
             point_cloud,
             color=color,
             point_size=size,
-            render_points_as_spheres=True,
             **kwargs
         )
 
