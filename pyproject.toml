@@ -43,7 +43,7 @@ plotly = [
 ]
 
 dash = [
-    "dash >= 3.2.0,<4"
+    "dash >= 3.2.0,< 5"
 ]
 
 all = [
@@ -51,7 +51,7 @@ all = [
     "pyvistaqt >= 0.11.1,<1",
     "plotly >= 6.3.1,<7",
     "kaleido >= 1.1.0,<2",
-    "dash >= 3.2.0,<4",
+    "dash >= 3.2.0,< 5",
     "imageio[ffmpeg] >= 2.37.2"
 ]
 
@@ -60,7 +60,7 @@ tests = [
     "pyvista==0.46.5",
     "pytest-pyvista==0.3.2",
     "pytest-cov==7.0.0",
-    "pyside6==6.10.1",
+    "pyside6==6.10.2",
 ]
 
 doc = [
