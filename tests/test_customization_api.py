@@ -108,15 +108,23 @@ def test_add_planes_plotly():
 
 
 def test_add_text_pyvista():
-    """Test add_text API with PyVista backend."""
+    """Test add_text API with PyVista backend using 2D screen coordinates."""
     pl = Plotter()
     actor = pl.add_text("Test Label", position=(10, 10), font_size=14, color="yellow")
     assert actor is not None
     pl.show()
 
 
+def test_add_text_pyvista_string_position():
+    """Test add_text API with PyVista backend using string position."""
+    pl = Plotter()
+    actor = pl.add_text("Test Label", position='upper_left', font_size=14, color="yellow")
+    assert actor is not None
+    pl.show()
+
+
 def test_add_text_plotly():
-    """Test add_text API with Plotly backend."""
+    """Test add_text API with Plotly backend using 2D normalized coordinates."""
     pl = Plotter(backend=PlotlyBackend())
-    annotation = pl.add_text("Test Label", position=(0, 0, 1), font_size=14, color="yellow")
+    annotation = pl.add_text("Test Label", position=(0.5, 0.9), font_size=14, color="yellow")
     assert annotation is not None

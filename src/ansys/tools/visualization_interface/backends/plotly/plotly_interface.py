@@ -435,52 +435,35 @@ class PlotlyBackend(BaseBackend):
         ----------
         text : str
             Text string to display.
-        position : Union[Tuple[float, float], Tuple[float, float, float]]
-            Position for the text. For 3D, provide (x, y, z) coordinates.
-            For 2D annotations, this will be interpreted as 3D coordinates.
+        position : Tuple[float, float]
+            Position for the text as 2D screen coordinates (x, y).
+            Values should be between 0 and 1 for normalized coordinates,
+            or pixel values for absolute positioning.
         font_size : int, default: 12
             Font size for the text.
         color : str, default: "white"
             Color of the text.
         **kwargs : dict
-            Additional keyword arguments passed to Plotly's Scatter3d or annotation.
+            Additional keyword arguments passed to Plotly's annotation.
 
         Returns
         -------
-        Union[go.Scatter3d, dict]
-            Plotly trace or annotation representing the added text.
+        dict
+            Plotly annotation representing the added text.
         """
-        # For Plotly, we'll use Scatter3d with text mode for 3D text
-        if len(position) == 3:
-            # 3D text using scatter points with text
-            text_trace = go.Scatter3d(
-                x=[position[0]],
-                y=[position[1]],
-                z=[position[2]],
-                mode='text',
-                text=[text],
-                textfont=dict(
-                    size=font_size,
-                    color=color,
-                ),
-                **kwargs
-            )
-            self._fig.add_trace(text_trace)
-            return text_trace
-        else:
-            # 2D annotation
-            annotation = dict(
-                x=position[0] if len(position) > 0 else 0,
-                y=position[1] if len(position) > 1 else 0,
-                text=text,
-                font=dict(
-                    size=font_size,
-                    color=color,
-                ),
-                showarrow=False,
-                xref="paper",
-                yref="paper",
-                **kwargs
-            )
-            self._fig.add_annotation(annotation)
-            return annotation
+        # 2D annotation with normalized coordinates
+        annotation = dict(
+            x=position[0] if len(position) > 0 else 0,
+            y=position[1] if len(position) > 1 else 0,
+            text=text,
+            font=dict(
+                size=font_size,
+                color=color,
+            ),
+            showarrow=False,
+            xref="paper",
+            yref="paper",
+            **kwargs
+        )
+        self._fig.add_annotation(annotation)
+        return annotation

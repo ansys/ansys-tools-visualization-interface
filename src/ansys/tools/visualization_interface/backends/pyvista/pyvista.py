@@ -912,7 +912,7 @@ class PyVistaBackend(PyVistaBackendInterface):
     def add_text(
         self,
         text: str,
-        position: Union[tuple[float, float], tuple[float, float, float]],
+        position: Union[tuple[float, float], str],
         font_size: int = 12,
         color: str = "white",
         **kwargs
@@ -923,70 +923,32 @@ class PyVistaBackend(PyVistaBackendInterface):
         ----------
         text : str
             Text string to display.
-        position : Union[Tuple[float, float], Tuple[float, float, float], str]
+        position : Union[Tuple[float, float], str]
             Position for the text. Can be:
-            - 2D tuple (x, y) for screen coordinates
-            - 3D tuple (x, y, z) for world coordinates
+
+            - 2D tuple (x, y) for screen coordinates (pixels from bottom-left)
             - String position like 'upper_left', 'upper_right', 'lower_left',
               'lower_right', 'upper_edge', 'lower_edge' (PyVista-specific)
+
         font_size : int, default: 12
             Font size for the text.
         color : str, default: "white"
             Color of the text.
         **kwargs : dict
-            Additional keyword arguments passed to PyVista's add_text or
-            add_point_labels method.
+            Additional keyword arguments passed to PyVista's add_text method.
 
         Returns
         -------
         pv.Actor
             PyVista actor representing the added text.
         """
-        # Handle string positions (PyVista-specific)
-        if isinstance(position, str):
-            actor = self._pl.scene.add_text(
-                text,
-                position=position,
-                font_size=font_size,
-                color=color,
-                **kwargs
-            )
-            return actor
-
-        # Determine if position is 2D or 3D
-        if len(position) == 2:
-            # 2D screen coordinates - use add_text
-            actor = self._pl.scene.add_text(
-                text,
-                position=position,
-                font_size=font_size,
-                color=color,
-                **kwargs
-            )
-        elif len(position) == 3:
-            # 3D world coordinates - create 3D text mesh
-            # We use Text3D instead of add_point_labels to avoid a bug in PyVista
-            # where it tries to access a non-existent _actors attribute
-
-            # Create 3D text object
-            text_mesh = pv.Text3D(text, depth=0.0)
-
-            # Scale text based on font_size (approximate scaling factor)
-            scale_factor = font_size / 100.0
-            text_mesh.points *= scale_factor
-
-            # Translate text to desired position
-            text_mesh.translate(position, inplace=True)
-
-            # Add text mesh to scene with specified color
-            actor = self._pl.scene.add_mesh(
-                text_mesh,
-                color=color,
-                **kwargs
-            )
-        else:
-            raise ValueError(
-                f"Position must be 2D (x, y) or 3D (x, y, z), got {len(position)} dimensions"
-            )
+        # Handle string positions or 2D coordinates
+        actor = self._pl.scene.add_text(
+            text,
+            position=position,
+            font_size=font_size,
+            color=color,
+            **kwargs
+        )
 
         return actor

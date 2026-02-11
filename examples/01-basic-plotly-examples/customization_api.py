@@ -48,7 +48,6 @@ plotter = Plotter(backend=PlotlyBackend())
 sphere = pv.Sphere(radius=1.0, center=(0, 0, 0))
 plotter.plot(sphere)
 
-print("✓ Basic geometry added successfully with Plotly backend")
 
 ###############################################################################
 # Add points
@@ -62,7 +61,6 @@ key_points = [
 ]
 
 plotter.add_points(key_points, color='red', size=10)
-print("✓ Points added successfully")
 
 ###############################################################################
 # Add lines
@@ -81,7 +79,6 @@ plotter.add_lines(y_axis, color='green', width=4.0)
 z_axis = [[0, 0, 0], [0, 0, 1.5]]
 plotter.add_lines(z_axis, color='blue', width=4.0)
 
-print("✓ Lines added successfully")
 
 ###############################################################################
 # Add a reference plane
@@ -96,29 +93,24 @@ plotter.add_planes(
     color='lightblue',
     opacity=0.2
 )
-print("✓ Plane added successfully")
 
 ###############################################################################
 # Add text labels
 # ~~~~~~~~~~~~~~~
-# Add text annotations to label features.
+# Add text annotations using 2D normalized coordinates (0-1 range).
 
-# Axis labels (3D world coordinates)
-plotter.add_text("X", position=(1.6, 0, 0), font_size=14, color='red')
-plotter.add_text("Y", position=(0, 1.6, 0), font_size=14, color='green')
-plotter.add_text("Z", position=(0, 0, 1.6), font_size=14, color='blue')
-print("✓ Text labels added successfully")
+# Scene title at the top center
+plotter.add_text("Customization API Example", position=(0.5, 0.95), font_size=18, color='white')
+
+# Additional labels at the top corners
+plotter.add_text("Plotly Backend", position=(0.05, 0.95), font_size=12, color='lightblue')
+plotter.add_text("3D Visualization", position=(0.95, 0.95), font_size=12, color='lightgreen')
 
 ###############################################################################
 # Show the result
 # ~~~~~~~~~~~~~~~
 # Display the visualization with all customizations.
 
-print("\n" + "="*70)
-print("Summary:")
-print("  ✓ All customization APIs work with Plotly backend!")
-print("  ✓ Same API calls as PyVista - truly backend-agnostic")
-print("="*70)
 
 # Uncomment to show in browser:
-plotter.show()
+# plotter.show()

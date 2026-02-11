@@ -95,15 +95,14 @@ plotter.add_planes(
 ###############################################################################
 # Add text labels
 # ~~~~~~~~~~~~~~~
-# Add text annotations to label features.
+# Add text annotations to label features using 2D screen coordinates.
 
-# Axis labels (3D world coordinates)
-plotter.add_text("X", position=(1.6, 0, 0), font_size=14, color='red')
-plotter.add_text("Y", position=(0, 1.6, 0), font_size=14, color='green')
-plotter.add_text("Z", position=(0, 0, 1.6), font_size=14, color='blue')
+# Scene title at the top center
+plotter.add_text("Customization API Example", position='upper_edge', font_size=18, color='white')
 
-# Title (2D screen coordinates)
-plotter.add_text("Customization API Example", position=(10, 10), font_size=18, color='white')
+# Additional labels at the top corners
+plotter.add_text("PyVista Backend", position='upper_left', font_size=12, color='lightblue')
+plotter.add_text("3D Visualization", position='upper_right', font_size=12, color='lightgreen')
 
 ###############################################################################
 # Show the result

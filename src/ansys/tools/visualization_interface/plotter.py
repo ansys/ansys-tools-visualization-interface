@@ -401,7 +401,7 @@ class Plotter():
     def add_text(
         self,
         text: str,
-        position: Union[Tuple[float, float], Tuple[float, float, float], str],
+        position: Union[Tuple[float, float], str],
         font_size: int = 12,
         color: str = "white",
         **kwargs
@@ -409,19 +409,19 @@ class Plotter():
         """Add text to the scene.
 
         This method provides a backend-agnostic way to add text labels to the
-        visualization scene. Text can be positioned in 2D screen coordinates or
-        3D world coordinates depending on the backend capabilities.
+        visualization scene. Text is positioned using 2D screen coordinates.
 
         Parameters
         ----------
         text : str
             Text string to display.
-        position : Union[Tuple[float, float], Tuple[float, float, float], str]
+        position : Union[Tuple[float, float], str]
             Position for the text. Can be:
+
             - 2D tuple (x, y) for screen/viewport coordinates (pixels from bottom-left)
-            - 3D tuple (x, y, z) for world coordinates (backend-dependent support)
             - String position like 'upper_left', 'upper_right', 'lower_left',
               'lower_right', 'upper_edge', 'lower_edge' (backend-dependent support)
+
         font_size : int, default: 12
             Font size for the text in points.
         color : str, default: "white"
@@ -445,11 +445,11 @@ class Plotter():
         >>> plotter.add_text("Title", position=(10, 10), font_size=18, color='yellow')
         >>> plotter.show()
 
-        Add text at a 3D world coordinate:
+        Add text using a named position:
 
         >>> plotter.add_text(
-        ...     "Point A",
-        ...     position=(1.0, 2.0, 3.0),
+        ...     "Corner Label",
+        ...     position='upper_right',
         ...     font_size=14,
         ...     color='red'
         ... )
