@@ -43,21 +43,19 @@ class CustomTestClass:
 
 
 @pytest.fixture(autouse=True)
-def skip_image_cache(verify_image_cache):
-    """Configure verify_image_cache to allow high variance tests.
+def wrapped_verify_image_cache(verify_image_cache):
+    """Wraps the verify_image_cache fixture to ensure that the image cache is verified.
 
     Parameters
     ----------
     verify_image_cache : fixture
-        Fixture from pytest-pyvista for image verification.
+        Fixture to wrap.
 
     Returns
     -------
     fixture
-        Configured fixture.
+        Wrapped fixture.
     """
-    verify_image_cache.high_variance_test = True
-    verify_image_cache.windows_skip_image_cache = True
     return verify_image_cache
 
 
