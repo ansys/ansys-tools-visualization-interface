@@ -101,8 +101,8 @@ plotter.add_planes(
 plotter.add_text("Customization API Example", position=(400, 550), font_size=18, color='white')
 
 # Additional labels at corners (pixel coordinates)
-plotter.add_text("PyVista Backend", position=(10, 550), font_size=12, color='lightblue')
-plotter.add_text("3D Visualization", position=(800, 550), font_size=12, color='lightgreen')
+plotter.add_text("PyVista Backend", position=(1, 1), font_size=12, color='lightblue')
+plotter.add_text("3D Visualization", position=(1, 10), font_size=12, color='lightgreen')
 
 ###############################################################################
 # Show the result
