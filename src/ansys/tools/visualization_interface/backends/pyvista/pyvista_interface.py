@@ -459,12 +459,6 @@ class PyVistaInterface:
         if kwargs.get("screenshot") is not None:
             self.scene.off_screen = True
 
-        # In off-screen mode (e.g., sphinx-gallery), prevent auto-close
-        # so the plotter can be reused. However, in test mode, we need
-        # to allow auto-close so pytest-pyvista can capture images properly
-        if self.scene.off_screen and 'auto_close' not in kwargs and not viz_interface.TESTING_MODE:
-            kwargs['auto_close'] = False
-
         if jupyter_backend:
             # Remove jupyter_backend from show options since we pass it manually
             kwargs.pop("jupyter_backend", None)
