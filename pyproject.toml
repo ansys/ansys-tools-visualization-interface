@@ -65,14 +65,12 @@ tests = [
 
 doc = [
     "pyvista==0.46.5",
-    "ansys-sphinx-theme[autoapi]==1.6.4",
+    "ansys-sphinx-theme[autoapi]==1.7.0",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.19.1",
     "nbsphinx==0.9.6",
     "numpydoc==1.10.0",
-    "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
-    "sphinx_design==0.6.1",
     "sphinx-gallery==0.20.0",
     "sphinx-jinja==2.0.2",
     "ansys-fluent-core==0.37.1",
