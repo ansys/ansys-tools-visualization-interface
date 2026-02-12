@@ -44,65 +44,65 @@ from ansys.tools.visualization_interface import Plotter
 
 plotter = Plotter()
 
-# Add a sphere as our main geometry
-sphere = pv.Sphere(radius=1.0, center=(0, 0, 0))
-plotter.plot(sphere, color='lightblue', opacity=0.6)
+# # Add a sphere as our main geometry
+# sphere = pv.Sphere(radius=1.0, center=(0, 0, 0))
+# plotter.plot(sphere, color='lightblue', opacity=0.6)
 
-###############################################################################
-# Add points
-# ~~~~~~~~~~
-# Add point markers to highlight specific locations.
+# ###############################################################################
+# # Add points
+# # ~~~~~~~~~~
+# # Add point markers to highlight specific locations.
 
-key_points = [
-    [1, 0, 0],   # Point on X axis
-    [0, 1, 0],   # Point on Y axis
-    [0, 0, 1],   # Point on Z axis
-]
+# key_points = [
+#     [1, 0, 0],   # Point on X axis
+#     [0, 1, 0],   # Point on Y axis
+#     [0, 0, 1],   # Point on Z axis
+# ]
 
-plotter.add_points(key_points, color='red', size=20)
+# plotter.add_points(key_points, color='red', size=20)
 
-###############################################################################
-# Add lines
-# ~~~~~~~~~
-# Add line segments to show coordinate axes or connections.
+# ###############################################################################
+# # Add lines
+# # ~~~~~~~~~
+# # Add line segments to show coordinate axes or connections.
 
-# X axis
-x_axis = [[0, 0, 0], [1.5, 0, 0]]
-plotter.add_lines(x_axis, color='red', width=4.0)
+# # X axis
+# x_axis = [[0, 0, 0], [1.5, 0, 0]]
+# plotter.add_lines(x_axis, color='red', width=4.0)
 
-# Y axis
-y_axis = [[0, 0, 0], [0, 1.5, 0]]
-plotter.add_lines(y_axis, color='green', width=4.0)
+# # Y axis
+# y_axis = [[0, 0, 0], [0, 1.5, 0]]
+# plotter.add_lines(y_axis, color='green', width=4.0)
 
-# Z axis
-z_axis = [[0, 0, 0], [0, 0, 1.5]]
-plotter.add_lines(z_axis, color='blue', width=4.0)
+# # Z axis
+# z_axis = [[0, 0, 0], [0, 0, 1.5]]
+# plotter.add_lines(z_axis, color='blue', width=4.0)
 
-###############################################################################
-# Add a reference plane
-# ~~~~~~~~~~~~~~~~~~~~~
-# Add a plane to show a reference surface.
+# ###############################################################################
+# # Add a reference plane
+# # ~~~~~~~~~~~~~~~~~~~~~
+# # Add a plane to show a reference surface.
 
-plotter.add_planes(
-    center=(0, 0, 0),
-    normal=(0, 0, 1),
-    i_size=2.5,
-    j_size=2.5,
-    color='white',
-    opacity=0.2
-)
+# plotter.add_planes(
+#     center=(0, 0, 0),
+#     normal=(0, 0, 1),
+#     i_size=2.5,
+#     j_size=2.5,
+#     color='white',
+#     opacity=0.2
+# )
 
-###############################################################################
-# Add text labels
-# ~~~~~~~~~~~~~~~
-# Add text annotations to label features using 2D screen coordinates.
+# ###############################################################################
+# # Add text labels
+# # ~~~~~~~~~~~~~~~
+# # Add text annotations to label features using 2D screen coordinates.
 
-# Scene title at the top (pixel coordinates)
-plotter.add_text("Customization API Example", position=(400, 550), font_size=18, color='white')
+# # Scene title at the top (pixel coordinates)
+# plotter.add_text("Customization API Example", position=(400, 550), font_size=18, color='white')
 
-# Additional labels at corners (pixel coordinates)
-plotter.add_text("PyVista Backend", position=(1, 1), font_size=12, color='lightblue')
-plotter.add_text("3D Visualization", position=(1, 10), font_size=12, color='lightgreen')
+# # Additional labels at corners (pixel coordinates)
+# plotter.add_text("PyVista Backend", position=(1, 1), font_size=12, color='lightblue')
+# plotter.add_text("3D Visualization", position=(1, 10), font_size=12, color='lightgreen')
 
 ###############################################################################
 # Show the result
