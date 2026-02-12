@@ -28,12 +28,10 @@ Customization API example
 
 This example demonstrates how to use the customization API of the visualization interface
 to add various elements to a PyVista scene, such as points, lines, planes, and text annotations.
+The example also shows how to plot a simple sphere mesh and customize its appearance.
 
 """
 
-###############################################################################
-# Create the base plotter and mesh
-# =================================
 
 from ansys.tools.visualization_interface import Plotter
 import pyvista as pv
@@ -41,38 +39,19 @@ import pyvista as pv
 sphere = pv.Sphere()
 pl = Plotter()
 
-###############################################################################
-# Add points to mark specific locations
-# ======================================
-# Use add_points to add colored markers at specific 3D coordinates
-
+# Add points at specific locations
 points = [[0, 0, 0], [1, 1, 1], [2, 2, 2]]
 pl.add_points(points, color="yellow", size=15)
 
-###############################################################################
-# Add lines connecting points
-# ===========================
-# Use add_lines to draw line segments connecting points
-
+# Add lines connecting the points
 lines = [[0, 1], [1, 2]]
 pl.add_lines(points, lines, color="red", width=5)
 
-###############################################################################
-# Add a reference plane
-# =====================
-# Use add_planes to add a semi-transparent plane for reference
-
+# Add a plane - note: add_planes takes a single center and normal, not lists
 pl.add_planes(center=(0, 0, 0), normal=(0, 0, 1), i_size=2.0, j_size=2.0, color="blue", opacity=0.5)
 
-###############################################################################
-# Plot the main geometry
-# ======================
-# Add the sphere mesh with custom appearance
-
+# Plot the sphere mesh
 pl.plot(sphere, color="lightblue", opacity=0.8)
 
-###############################################################################
-# Display the complete visualization
-# ===================================
-
+# Show the complete visualization
 pl.show()
