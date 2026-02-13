@@ -37,9 +37,6 @@ import pyvista as pv
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
 
-######################################
-# Create a plotter with Plotly backend
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Create a plotter using the Plotly backend and add basic geometry.
 
 plotter = Plotter(backend=PlotlyBackend())
@@ -48,10 +45,6 @@ plotter = Plotter(backend=PlotlyBackend())
 sphere = pv.Sphere(radius=1.0, center=(0, 0, 0))
 plotter.plot(sphere)
 
-
-############
-# Add points
-# ~~~~~~~~~~
 # Add point markers to highlight specific locations.
 
 key_points = [
@@ -62,9 +55,6 @@ key_points = [
 
 plotter.add_points(key_points, color='red', size=10)
 
-###########
-# Add lines
-# ~~~~~~~~~
 # Add line segments to show coordinate axes.
 
 # X axis
@@ -80,9 +70,7 @@ z_axis = [[0, 0, 0], [0, 0, 1.5]]
 plotter.add_lines(z_axis, color='blue', width=4.0)
 
 
-#######################
-# Add a reference plane
-# ~~~~~~~~~~~~~~~~~~~~~
+
 # Add a plane to show a reference surface.
 
 plotter.add_planes(
@@ -94,9 +82,7 @@ plotter.add_planes(
     opacity=0.2
 )
 
-#################
-# Add text labels
-# ~~~~~~~~~~~~~~~
+
 # Add text annotations using 2D normalized coordinates (0-1 range).
 
 # Scene title at the top center
@@ -106,9 +92,7 @@ plotter.add_text("Customization API Example", position=(0.5, 0.95), font_size=18
 plotter.add_text("Plotly Backend", position=(0.05, 0.95), font_size=12, color='lightblue')
 plotter.add_text("3D Visualization", position=(0.95, 0.95), font_size=12, color='lightgreen')
 
-#################
-# Show the result
-# ~~~~~~~~~~~~~~~
+
 # Display the visualization with all customizations.
 
 
