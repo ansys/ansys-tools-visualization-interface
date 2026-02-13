@@ -97,4 +97,4 @@ plotter.add_text("3D Visualization", position=(0.95, 0.95), font_size=12, color=
 
 
 # Uncomment to show in browser:
-# plotter.show()
+plotter.show()

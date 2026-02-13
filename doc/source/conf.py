@@ -117,8 +117,6 @@ sphinx_gallery_conf = {
     "thumbnail_size": (350, 350),
     "remove_config_comments": True,
     "show_signature": False,
-    # Prevent module resets which can close plotters between code blocks
-    "reset_modules": (),
 }
 
 
