@@ -451,9 +451,7 @@ class PyVistaInterface:
             jupyter_backend = "html"
 
         # Enabling anti-aliasing by default on scene
-        # Only enable if render_window is available (not None)
-        if hasattr(self.scene, 'render_window') and self.scene.render_window is not None:
-            self.scene.enable_anti_aliasing("ssaa")
+        self.scene.enable_anti_aliasing("ssaa")
 
         # If screenshot is requested, set off_screen to True for the plotter
         if kwargs.get("screenshot") is not None:
