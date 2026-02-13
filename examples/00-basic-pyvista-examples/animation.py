@@ -36,9 +36,9 @@ import pyvista as pv
 
 from ansys.tools.visualization_interface import Plotter
 
-###############################################################################
+##############################
 # Create sample animation data
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Generate a series of meshes representing a wave propagation over time.
 
 def create_wave_mesh(time_step, n_points=50):
@@ -62,7 +62,7 @@ def create_wave_mesh(time_step, n_points=50):
 # Create 30 frames
 frames = [create_wave_mesh(i) for i in range(30)]
 
-###############################################################################
+##############################################
 # Display animation with interactive controls
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Create and show an animation with play/pause, stop, and frame navigation.
@@ -78,7 +78,7 @@ animation = plotter.animate(
 # Display with interactive controls
 animation.show()
 
-###############################################################################
+######################
 # Interactive Controls
 # ~~~~~~~~~~~~~~~~~~~~
 # The animation window includes the following controls:
