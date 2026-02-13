@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Plotly backend interface for visualization."""
-from typing import Any, Iterable, Union
+from typing import Any, Iterable, List, Optional, Tuple, Union
 
 import plotly.graph_objects as go
 import pyvista as pv
@@ -241,7 +241,13 @@ class PlotlyBackend(BaseBackend):
             else:
                 self._fig.write_image(screenshot_str)
 
-    def add_points(self, points, color="red", size=10.0, **kwargs):
+    def add_points(
+        self,
+        points: Union[List, Any],
+        color: str = "red",
+        size: float = 10.0,
+        **kwargs
+    ) -> Any:
         """Add point markers to the scene.
 
         Parameters
@@ -283,7 +289,14 @@ class PlotlyBackend(BaseBackend):
         self._fig.add_trace(scatter)
         return scatter
 
-    def add_lines(self, points, connections=None, color="white", width=1.0, **kwargs):
+    def add_lines(
+        self,
+        points: Union[List, Any],
+        connections: Optional[Union[List, Any]] = None,
+        color: str = "white",
+        width: float = 1.0,
+        **kwargs
+    ) -> Any:
         """Add line segments to the scene.
 
         Parameters
@@ -350,7 +363,14 @@ class PlotlyBackend(BaseBackend):
         self._fig.add_trace(line_trace)
         return line_trace
 
-    def add_planes(self, center=(0.0, 0.0, 0.0), normal=(0.0, 0.0, 1.0), i_size=1.0, j_size=1.0, **kwargs):
+    def add_planes(
+        self,
+        center: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+        normal: Tuple[float, float, float] = (0.0, 0.0, 1.0),
+        i_size: float = 1.0,
+        j_size: float = 1.0,
+        **kwargs
+    ) -> Any:
         """Add a plane to the scene.
 
         Parameters
@@ -428,14 +448,21 @@ class PlotlyBackend(BaseBackend):
         self._fig.add_trace(plane_trace)
         return plane_trace
 
-    def add_text(self, text, position, font_size=12, color="white", **kwargs):
+    def add_text(
+        self,
+        text: str,
+        position: Union[Tuple[float, float], Tuple[float, float, float], str],
+        font_size: int = 12,
+        color: str = "white",
+        **kwargs
+    ) -> Any:
         """Add text to the scene.
 
         Parameters
         ----------
         text : str
             Text string to display.
-        position : Tuple[float, float]
+        position : Union[Tuple[float, float], Tuple[float, float, float], str]
             Position for the text as 2D screen coordinates (x, y).
             Values should be between 0 and 1 for normalized coordinates,
             or pixel values for absolute positioning.
