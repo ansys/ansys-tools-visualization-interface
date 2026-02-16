@@ -83,11 +83,34 @@ plotter.add_planes(
 
 
 # Scene title at the top center
-plotter.add_text("Customization API Example", position=(0.5, 0.95), font_size=18, color='white')
+plotter.add_text("Customization API Example", position="upper_edge", font_size=18, color='white')
 
 # Additional labels at the top corners
-plotter.add_text("Plotly Backend", position=(0.05, 0.95), font_size=12, color='lightblue')
-plotter.add_text("3D Visualization", position=(0.95, 0.95), font_size=12, color='lightgreen')
+plotter.add_text("PyVista Backend", position="upper_left", font_size=12, color='lightblue')
+plotter.add_text("3D Visualization", position="upper_right", font_size=12, color='lightgreen')
+
+
+# Add labels at specific 3D points to annotate key locations in space.
+
+label_points = [
+    [1, 0, 0],   # X axis endpoint
+    [0, 1, 0],   # Y axis endpoint
+    [0, 0, 1],   # Z axis endpoint
+]
+
+labels = ['X-axis', 'Y-axis', 'Z-axis']
+
+plotter.add_point_labels(label_points, labels, font_size=16, point_size=8.0)
+
+
+# Note: In PyVista, clear() must be called BEFORE show(). Once show() is called,
+# the plotter cannot be reused. Typical workflow: build scene -> clear -> rebuild -> show().
+# Therefore, clear() method is mainly useful for resetting the scene during interactive work.
+
+# Uncomment to clear everything added above and start fresh:
+# plotter.clear()
+# plotter.plot(pv.Cube())  # Would show only a cube instead
+
 
 # Display the visualization with all customizations.
 

@@ -984,5 +984,21 @@ class PyVistaBackend(PyVistaBackendInterface):
 
         This method removes all previously added objects (meshes, points, lines,
         text, etc.) from the visualization scene.
+
+        Notes
+        -----
+        This method must be called BEFORE ``show()``. PyVista plotters cannot
+        be reused after ``show()`` has been called. Calling this method after
+        ``show()`` will have no effect as the plotter is no longer usable.
+        This method is primarily useful in interactive sessions where you want
+        to modify the scene before displaying it. Typical workflow:
+
+        1. Add objects to the scene
+        2. Optionally call ``clear()`` to reset
+        3. Add different objects
+        4. Call ``show()`` once to display
+
+        Do not use a pattern like: add objects -> show() -> clear() -> add objects.
+        This will not work with PyVista backend.
         """
         self._pl.scene.clear()

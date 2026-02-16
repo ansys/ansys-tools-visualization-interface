@@ -209,5 +209,16 @@ class BaseBackend(ABC):
 
         This method removes all previously added objects (meshes, points, lines,
         text, etc.) from the visualization scene.
+
+        Notes
+        -----
+        Backend-specific behavior:
+
+        - **PyVista backend**: This method must be called BEFORE ``show()``.
+          Once ``show()`` is called, the PyVista plotter becomes unusable and
+          cannot be reused. This is primarily useful in interactive sessions
+          where you build a scene, clear it, rebuild it differently, then show.
+        - **Plotly backend**: No such restriction exists. The plotter can be
+          cleared and reused even after calling ``show()``.
         """
         raise NotImplementedError("clear method must be implemented")

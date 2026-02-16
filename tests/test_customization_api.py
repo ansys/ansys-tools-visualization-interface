@@ -21,6 +21,8 @@
 # SOFTWARE.
 """Test module for the customization API methods."""
 
+import pyvista as pv
+
 from ansys.tools.visualization_interface import Plotter
 from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
 
@@ -128,3 +130,55 @@ def test_add_text_plotly():
     pl = Plotter(backend=PlotlyBackend())
     annotation = pl.add_text("Test Label", position=(0.5, 0.9), font_size=14, color="yellow")
     assert annotation is not None
+
+
+def test_add_point_labels_pyvista():
+    """Test add_point_labels API with PyVista backend."""
+    pl = Plotter()
+    points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
+    labels = ['Point A', 'Point B', 'Point C']
+    actor = pl.add_point_labels(points, labels, font_size=14, point_size=8.0)
+    assert actor is not None
+    pl.show()
+
+
+def test_add_point_labels_plotly():
+    """Test add_point_labels API with Plotly backend."""
+    pl = Plotter(backend=PlotlyBackend())
+    points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
+    labels = ['Point A', 'Point B', 'Point C']
+    trace = pl.add_point_labels(points, labels, font_size=14, point_size=8.0)
+    assert trace is not None
+
+
+def test_clear_pyvista():
+    """Test clear API with PyVista backend."""
+    pl = Plotter()
+    # Add multiple objects
+    sphere = pv.Sphere()
+    pl.plot(sphere)
+    pl.add_points([[0, 0, 0], [1, 0, 0]], color='red', size=10)
+    pl.add_lines([[0, 0, 0], [1, 1, 1]], color='blue', width=2.0)
+    # Clear before show (required for PyVista)
+    pl.clear()
+    # Add new object to verify plotter still works
+    cube = pv.Cube()
+    pl.plot(cube)
+    pl.show()
+
+
+def test_clear_plotly():
+    """Test clear API with Plotly backend."""
+    pl = Plotter(backend=PlotlyBackend())
+    # Add multiple objects
+    sphere = pv.Sphere()
+    pl.plot(sphere)
+    pl.add_points([[0, 0, 0], [1, 0, 0]], color='red', size=10)
+    pl.add_lines([[0, 0, 0], [1, 1, 1]], color='blue', width=2.0)
+    # Clear the scene
+    pl.clear()
+    # Verify all traces removed
+    assert len(pl._backend._fig.data) == 0
+    # Add new object to verify plotter still works
+    cube = pv.Cube()
+    pl.plot(cube)

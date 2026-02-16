@@ -527,14 +527,34 @@ class Plotter():
         This method removes all previously added objects (meshes, points, lines,
         text, etc.) from the visualization scene.
 
+        Notes
+        -----
+        Backend-specific behavior:
+
+        - **PyVista**: Plotter becomes unusable after ``show()`` is called.
+          Use ``clear()`` only before showing to modify the scene.
+        - **Plotly**: No restrictions. Plotter can be cleared and reused after
+          ``show()``.
+
         Examples
         --------
+        Correct usage - clear before show:
+
         >>> from ansys.tools.visualization_interface import Plotter
         >>> import pyvista as pv
         >>> plotter = Plotter()
         >>> plotter.add_mesh(pv.Sphere())
-        >>> plotter.clear()  # Remove all objects
-        >>> plotter.add_mesh(pv.Cube())  # Add different object
-        >>> plotter.show()
+        >>> plotter.clear()  # Changed mind before showing, remove sphere
+        >>> plotter.add_mesh(pv.Cube())  # Add cube instead
+        >>> plotter.show()  # Display cube only
+
+        Interactive session workflow:
+
+        >>> plotter = Plotter()
+        >>> plotter.plot(pv.Sphere())  # Try sphere
+        >>> plotter.show()  # Show it
+        >>> plotter.clear()  # Can be cleared after showing
+        >>> plotter.plot(pv.Cube())  # Use cube instead
+        >>> plotter.show()  # Display cube
         """
         self._backend.clear()
