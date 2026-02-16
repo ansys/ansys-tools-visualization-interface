@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """Plotly backend interface for visualization."""
-from typing import Any, Iterable, List, Union
+from typing import Any, Iterable, List, Optional, Tuple, Union
 
 import plotly.graph_objects as go
 import pyvista as pv
@@ -478,40 +478,22 @@ class PlotlyBackend(BaseBackend):
         dict
             Plotly annotation representing the added text.
         """
-        # For Plotly, we'll use Scatter3d with text mode for 3D text
-        if len(position) == 3:
-            # 3D text using scatter points with text
-            text_trace = go.Scatter3d(
-                x=[position[0]],
-                y=[position[1]],
-                z=[position[2]],
-                mode='text',
-                text=[text],
-                textfont=dict(
-                    size=font_size,
-                    color=color,
-                ),
-                **kwargs
-            )
-            self._fig.add_trace(text_trace)
-            return text_trace
-        else:
-            # 2D annotation
-            annotation = dict(
-                x=position[0] if len(position) > 0 else 0,
-                y=position[1] if len(position) > 1 else 0,
-                text=text,
-                font=dict(
-                    size=font_size,
-                    color=color,
-                ),
-                showarrow=False,
-                xref="paper",
-                yref="paper",
-                **kwargs
-            )
-            self._fig.add_annotation(annotation)
-            return annotation
+        # 2D annotation with normalized coordinates
+        annotation = dict(
+            x=position[0] if len(position) > 0 else 0,
+            y=position[1] if len(position) > 1 else 0,
+            text=text,
+            font=dict(
+                size=font_size,
+                color=color,
+            ),
+            showarrow=False,
+            xref="paper",
+            yref="paper",
+            **kwargs
+        )
+        self._fig.add_annotation(annotation)
+        return annotation
 
     def add_point_labels(
         self,

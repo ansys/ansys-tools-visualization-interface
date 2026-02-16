@@ -401,7 +401,7 @@ class Plotter():
     def add_text(
         self,
         text: str,
-        position: Union[Tuple[float, float], Tuple[float, float, float], str],
+        position: Union[Tuple[float, float], str],
         font_size: int = 12,
         color: str = "white",
         **kwargs
@@ -415,11 +415,10 @@ class Plotter():
         ----------
         text : str
             Text string to display.
-        position : Union[Tuple[float, float], Tuple[float, float, float], str]
+        position : Union[Tuple[float, float], str]
             Position for the text. Can be:
 
             - 2D tuple (x, y) for screen/viewport coordinates (pixels from bottom-left)
-            - 3D tuple (x, y, z) for world coordinates (backend-dependent support)
             - String position like 'upper_left', 'upper_right', 'lower_left',
               'lower_right', 'upper_edge', 'lower_edge' (backend-dependent support)
         font_size : int, default: 12
