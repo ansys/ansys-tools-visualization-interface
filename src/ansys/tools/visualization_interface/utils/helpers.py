@@ -45,18 +45,18 @@ def extract_kwargs(func: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, An
         Dictionary containing only the keyword arguments that match the
         function's signature, with values from ``input_kwargs`` or defaults.
 
+    Notes
+    -----
+    - Only parameters with default values are included in the output.
+    - Positional-only parameters without defaults are ignored.
+    - This is useful for filtering kwargs before passing to PyVista functions.
+
     Examples
     --------
     >>> def my_func(a, b=1, c=2):
     ...     pass
     >>> extract_kwargs(my_func, {"b": 10, "d": 20})
     {"b": 10, "c": 2}
-
-    Notes
-    -----
-    - Only parameters with default values are included in the output.
-    - Positional-only parameters without defaults are ignored.
-    - This is useful for filtering kwargs before passing to PyVista functions.
     """
     signature = inspect.signature(func)
     kwargs = {}

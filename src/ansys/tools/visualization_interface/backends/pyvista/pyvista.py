@@ -899,9 +899,11 @@ class PyVistaBackend(PyVistaBackendInterface):
             Text string to display.
         position : Union[Tuple[float, float], str]
             Position for the text. Can be:
+
             - 2D tuple (x, y) for screen coordinates (pixels from bottom-left)
             - String position like 'upper_left', 'upper_right', 'lower_left',
               'lower_right', 'upper_edge', 'lower_edge' (PyVista-specific)
+
         font_size : int, default: 12
             Font size for the text.
         color : str, default: "white"
