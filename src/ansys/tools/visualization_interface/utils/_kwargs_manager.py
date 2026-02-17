@@ -21,7 +21,7 @@
 # SOFTWARE.
 """Utilities for filtering and extracting keyword arguments."""
 import inspect
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, List, Optional
 
 
 def _extract_kwargs(func: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
@@ -65,3 +65,82 @@ def _extract_kwargs(func: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, A
         if v.default is not inspect.Parameter.empty:
             kwargs[k] = input_kwargs[k] if k in input_kwargs else v.default
     return kwargs
+
+
+def _capture_init_params(
+    func_or_method: Callable,
+    locals_dict: Dict[str, Any],
+    exclude: Optional[List[str]] = None,
+) -> Dict[str, Any]:
+    """Capture initialization parameters from a function's locals for reinitialization.
+
+    This function dynamically extracts all parameters passed to an ``__init__`` method
+    by inspecting its signature and reading values from the ``locals()`` dictionary.
+    This is particularly useful for implementing reinitialization patterns where the
+    exact initialization parameters need to be saved and replayed later.
+
+    Parameters
+    ----------
+    func_or_method : Callable
+        The function or method whose parameters should be captured. Typically
+        ``self.__init__`` or the class's ``__init__`` method.
+    locals_dict : Dict[str, Any]
+        The ``locals()`` dictionary from inside the ``__init__`` method. This
+        contains the actual values of all parameters at the point of capture.
+    exclude : Optional[List[str]], default: None
+        List of parameter names to exclude from the result. Common exclusions
+        are ``'self'`` and ``'cls'``, though ``'self'`` is automatically excluded.
+
+    Returns
+    -------
+    Dict[str, Any]
+        Dictionary mapping parameter names to their values, suitable for unpacking
+        with ``**`` when calling the function. If the signature includes ``**kwargs``,
+        those are flattened into the result dictionary.
+
+    Examples
+    --------
+    Using in a child class after super():
+
+    >>> class Parent:
+    ...     def __init__(self, x, y):
+    ...         self.x = x
+    ...         self.y = y
+    ...
+    >>> class Child(Parent):
+    ...     def __init__(self, x, y, z):
+    ...         super().__init__(x, y)
+    ...         # Capture after super() to avoid interference
+    ...         self._init_params = _capture_init_params(
+    ...             self.__init__,
+    ...             locals()
+    ...         )
+    ...
+    >>> obj = Child(1, 2, 3)
+    >>> obj._init_params
+    {'x': 1, 'y': 2, 'z': 3}
+    """
+    if exclude is None:
+        exclude = []
+
+    exclude_set = set(exclude) | {'self', 'cls'}
+    sig = inspect.signature(func_or_method)
+    result = {}
+
+    for param_name, param in sig.parameters.items():
+        if param_name in exclude_set:
+            continue
+        if param_name not in locals_dict:
+            continue
+
+        # Handle VAR_KEYWORD (**kwargs) parameters
+        if param.kind == inspect.Parameter.VAR_KEYWORD:
+            # Flatten the kwargs into the result
+            kwargs_value = locals_dict[param_name]
+            if isinstance(kwargs_value, dict):
+                result.update(kwargs_value)
+        else:
+            # Regular parameter - add directly
+            result[param_name] = locals_dict[param_name]
+
+    return result

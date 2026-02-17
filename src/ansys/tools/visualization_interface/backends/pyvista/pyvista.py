@@ -57,7 +57,10 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button im
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
-from ansys.tools.visualization_interface.utils._kwargs_manager import _extract_kwargs
+from ansys.tools.visualization_interface.utils._kwargs_manager import (
+    _capture_init_params,
+    _extract_kwargs,
+)
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
 
@@ -123,18 +126,7 @@ class PyVistaBackendInterface(BaseBackend):
         from vtkmodules.vtkRenderingCore import vtkPointPicker
 
         # Save initialization parameters for potential reinitialization via clear()
-        self._init_params = {
-            'use_trame': use_trame,
-            'allow_picking': allow_picking,
-            'allow_hovering': allow_hovering,
-            'plot_picked_names': plot_picked_names,
-            'show_plane': show_plane,
-            'use_qt': use_qt,
-            'show_qt': show_qt,
-            'custom_picker': custom_picker,
-            'custom_picker_kwargs': custom_picker_kwargs,
-            **plotter_kwargs,
-        }
+        self._init_params = _capture_init_params(self.__init__, locals())
 
         # Check if the use of trame was requested
         if use_trame is None:
@@ -611,18 +603,6 @@ class PyVistaBackend(PyVistaBackendInterface):
         **plotter_kwargs,
     ) -> None:
         """Initialize the generic plotter."""
-        # Save initialization parameters for reinitialization via clear()
-        self._init_params = {
-            'use_trame': use_trame,
-            'allow_picking': allow_picking,
-            'allow_hovering': allow_hovering,
-            'plot_picked_names': plot_picked_names,
-            'use_qt': use_qt,
-            'show_qt': show_qt,
-            'custom_picker': custom_picker,
-            **plotter_kwargs,
-        }
-
         super().__init__(
             use_trame,
             allow_picking,
@@ -633,6 +613,9 @@ class PyVistaBackend(PyVistaBackendInterface):
             custom_picker=custom_picker,
             **plotter_kwargs,
         )
+
+        # Save initialization parameters for reinitialization via clear()
+        self._init_params = _capture_init_params(self.__init__, locals())
 
     @property
     def base_plotter(self):
