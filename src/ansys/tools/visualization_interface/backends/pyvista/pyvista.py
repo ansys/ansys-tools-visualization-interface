@@ -57,7 +57,7 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button im
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
-from ansys.tools.visualization_interface.utils._helpers import _extract_kwargs
+from ansys.tools.visualization_interface.utils._kwargs_manager import _extract_kwargs
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
 
