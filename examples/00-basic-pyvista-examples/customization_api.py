@@ -100,14 +100,14 @@ label_points = [
 
 labels = ['X-axis', 'Y-axis', 'Z-axis']
 
-plotter.add_point_labels(label_points, labels, font_size=16, point_size=8.0)
+plotter.add_labels(label_points, labels, font_size=16, point_size=8.0)
 
 
-# Note: In PyVista, clear() must be called BEFORE show(). Once show() is called,
-# the plotter cannot be reused. Typical workflow: build scene -> clear -> rebuild -> show().
-# Therefore, clear() method is mainly useful for resetting the scene during interactive work.
+# The clear() method resets the plotter and can be called even after show().
+# This allows reusing the same plotter for multiple visualizations.
 
 # Uncomment to clear everything added above and start fresh:
+# plotter.show()
 # plotter.clear()
 # plotter.plot(pv.Cube())  # Would show only a cube instead
 

@@ -103,11 +103,11 @@ label_points = [
 
 labels = ['X-axis', 'Y-axis', 'Z-axis']
 
-plotter.add_point_labels(label_points, labels, font_size=16, point_size=8.0)
+plotter.add_labels(label_points, labels, font_size=16, point_size=8.0)
 
 
-# Note: Unlike PyVista, Plotly allows reuse after show(). Therefore, the
-# clear method can be used for resetting the scene at any point.
+# The clear() method resets the plotter and can be called even after show().
+# This allows reusing the same plotter for multiple visualizations.
 
 # Uncomment to clear everything added above and start fresh:
 # plotter.show()

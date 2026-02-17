@@ -122,6 +122,20 @@ class PyVistaBackendInterface(BaseBackend):
         from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
         from vtkmodules.vtkRenderingCore import vtkPointPicker
 
+        # Save initialization parameters for potential reinitialization via clear()
+        self._init_params = {
+            'use_trame': use_trame,
+            'allow_picking': allow_picking,
+            'allow_hovering': allow_hovering,
+            'plot_picked_names': plot_picked_names,
+            'show_plane': show_plane,
+            'use_qt': use_qt,
+            'show_qt': show_qt,
+            'custom_picker': custom_picker,
+            'custom_picker_kwargs': custom_picker_kwargs,
+            **plotter_kwargs,
+        }
+
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = ansys.tools.visualization_interface.USE_TRAME
@@ -183,6 +197,40 @@ class PyVistaBackendInterface(BaseBackend):
                 self._custom_picker = custom_picker(self)
         else:
             raise TypeError("custom_picker must be an instance of AbstractPicker.")
+
+    def _cleanup(self) -> None:
+        """Clean up resources before reinitialization.
+
+        This method releases VTK resources, disables widgets and observers,
+        and closes the existing plotter.
+        """
+        # Disable hover widget if active
+        if self._hover_widget is not None:
+            try:
+                self._hover_widget.EnabledOff()
+            except Exception:
+                pass  # Widget may already be disabled
+
+        # Disable picking if it was enabled
+        if self._allow_picking and self._pl is not None:
+            try:
+                self._pl.scene.disable_picking()
+            except Exception:
+                pass  # Picking may not be active
+
+        # Clear widgets list
+        self._widgets.clear()
+
+        # Clear object-to-actor maps
+        self._object_to_actors_map.clear()
+        self._edge_actors_map.clear()
+
+        # Close the existing PyVista plotter to release VTK resources
+        if self._pl is not None:
+            try:
+                self._pl.scene.close()
+            except Exception:
+                pass  # Plotter may already be closed
 
     @property
     def pv_interface(self) -> PyVistaInterface:
@@ -563,6 +611,18 @@ class PyVistaBackend(PyVistaBackendInterface):
         **plotter_kwargs,
     ) -> None:
         """Initialize the generic plotter."""
+        # Save initialization parameters for reinitialization via clear()
+        self._init_params = {
+            'use_trame': use_trame,
+            'allow_picking': allow_picking,
+            'allow_hovering': allow_hovering,
+            'plot_picked_names': plot_picked_names,
+            'use_qt': use_qt,
+            'show_qt': show_qt,
+            'custom_picker': custom_picker,
+            **plotter_kwargs,
+        }
+
         super().__init__(
             use_trame,
             allow_picking,
@@ -927,7 +987,7 @@ class PyVistaBackend(PyVistaBackendInterface):
 
         return actor
 
-    def add_point_labels(
+    def add_labels(
         self,
         points: Union[List, Any],
         labels: List[str],
@@ -980,25 +1040,13 @@ class PyVistaBackend(PyVistaBackendInterface):
         return actor
 
     def clear(self) -> None:
-        """Clear all actors from the scene.
+        """Clear all actors from the scene and reset the plotter.
 
         This method removes all previously added objects (meshes, points, lines,
-        text, etc.) from the visualization scene.
-
-        Notes
-        -----
-        This method must be called BEFORE ``show()``. PyVista plotters cannot
-        be reused after ``show()`` has been called. Calling this method after
-        ``show()`` will have no effect as the plotter is no longer usable.
-        This method is primarily useful in interactive sessions where you want
-        to modify the scene before displaying it. Typical workflow:
-
-        1. Add objects to the scene
-        2. Optionally call ``clear()`` to reset
-        3. Add different objects
-        4. Call ``show()`` once to display
-
-        Do not use a pattern like: add objects -> show() -> clear() -> add objects.
-        This will not work with PyVista backend.
+        text, etc.) from the visualization scene by fully reinitializing the
+        plotter.
         """
-        self._pl.scene.clear()
+        # Clean up existing resources
+        self._cleanup()
+        # Reinitialize with saved parameters
+        self.__init__(**self._init_params)

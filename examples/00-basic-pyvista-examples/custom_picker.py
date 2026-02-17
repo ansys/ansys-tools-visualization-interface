@@ -105,7 +105,7 @@ class CustomPicker(AbstractPicker):
 
         # If picking names is enabled, add a label to the picked object
         if self._plot_picked_names:
-            label_actor = self._plotter_backend.pv_interface.scene.add_point_labels(
+            label_actor = self._plotter_backend.pv_interface.scene.add_labels(
                 [pt],
                 [self._label + text],
                 always_visible=True,
@@ -155,7 +155,7 @@ class CustomPicker(AbstractPicker):
         """
         for label in self._added_hover_labels:
             self._plotter_backend._pl.scene.remove_actor(label)
-        label_actor = self._plotter_backend._pl.scene.add_point_labels(
+        label_actor = self._plotter_backend._pl.scene.add_labels(
             [actor.GetCenter()],
             [custom_object.name],
             always_visible=True,

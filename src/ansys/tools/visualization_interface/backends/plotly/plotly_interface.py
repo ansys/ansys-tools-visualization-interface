@@ -495,7 +495,7 @@ class PlotlyBackend(BaseBackend):
         self._fig.add_annotation(annotation)
         return annotation
 
-    def add_point_labels(
+    def add_labels(
         self,
         points: Union[List, Any],
         labels: List[str],

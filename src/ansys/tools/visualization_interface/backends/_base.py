@@ -172,7 +172,7 @@ class BaseBackend(ABC):
         raise NotImplementedError("add_text method must be implemented")
 
     @abstractmethod
-    def add_point_labels(
+    def add_labels(
         self,
         points: Union[List, Any],
         labels: List[str],
@@ -201,24 +201,23 @@ class BaseBackend(ABC):
         Any
             Backend-specific actor or object representing the added labels.
         """
-        raise NotImplementedError("add_point_labels method must be implemented")
+        raise NotImplementedError("add_labels method must be implemented")
 
     @abstractmethod
     def clear(self) -> None:
         """Clear all actors from the scene.
 
         This method removes all previously added objects (meshes, points, lines,
-        text, etc.) from the visualization scene.
+        text, etc.) from the visualization scene, therefore allowing
+        the plotter to be reused after ``show()`` has been called.
 
         Notes
         -----
-        Backend-specific behavior:
+        Both PyVista and Plotly backends support clearing and reusing the
+        plotter after ``show()`` has been called. This enables workflows like:
 
-        - **PyVista backend**: This method must be called BEFORE ``show()``.
-          Once ``show()`` is called, the PyVista plotter becomes unusable and
-          cannot be reused. This is primarily useful in interactive sessions
-          where you build a scene, clear it, rebuild it differently, then show.
-        - **Plotly backend**: No such restriction exists. The plotter can be
-          cleared and reused even after calling ``show()``.
+        1. Add objects and call ``show()``
+        2. Call ``clear()`` to reset
+        3. Add new objects and call ``show()`` again
         """
         raise NotImplementedError("clear method must be implemented")

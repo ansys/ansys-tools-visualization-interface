@@ -458,7 +458,7 @@ class Plotter():
             text=text, position=position, font_size=font_size, color=color, **kwargs
         )
 
-    def add_point_labels(
+    def add_labels(
         self,
         points: Union[List, Any],
         labels: List[str],
@@ -502,12 +502,12 @@ class Plotter():
         >>> plotter = Plotter()
         >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
         >>> labels = ['Origin', 'X-axis', 'Y-axis']
-        >>> plotter.add_point_labels(points, labels, font_size=14)
+        >>> plotter.add_labels(points, labels, font_size=14)
         >>> plotter.show()
 
         Add labels with custom styling:
 
-        >>> plotter.add_point_labels(
+        >>> plotter.add_labels(
         ...     points,
         ...     labels,
         ...     font_size=16,
@@ -517,7 +517,7 @@ class Plotter():
         ... )
         >>> plotter.show()
         """
-        return self._backend.add_point_labels(
+        return self._backend.add_labels(
             points=points, labels=labels, font_size=font_size, point_size=point_size, **kwargs
         )
 
@@ -525,36 +525,28 @@ class Plotter():
         """Clear all actors from the scene.
 
         This method removes all previously added objects (meshes, points, lines,
-        text, etc.) from the visualization scene.
-
-        Notes
-        -----
-        Backend-specific behavior:
-
-        - **PyVista**: Plotter becomes unusable after ``show()`` is called.
-          Use ``clear()`` only before showing to modify the scene.
-        - **Plotly**: No restrictions. Plotter can be cleared and reused after
-          ``show()``.
+        text, etc.) from the visualization scene, therefore allowing
+        the plotter to be reused after ``show()`` has been called.
 
         Examples
         --------
-        Correct usage - clear before show:
+        Clear before showing:
 
         >>> from ansys.tools.visualization_interface import Plotter
         >>> import pyvista as pv
         >>> plotter = Plotter()
-        >>> plotter.add_mesh(pv.Sphere())
-        >>> plotter.clear()  # Changed mind before showing, remove sphere
-        >>> plotter.add_mesh(pv.Cube())  # Add cube instead
-        >>> plotter.show()  # Display cube only
+        >>> plotter.plot(pv.Sphere())
+        >>> plotter.clear()  # Changed mind, remove sphere
+        >>> plotter.plot(pv.Cube())
+        >>> plotter.show()
 
-        Interactive session workflow:
+        Clear after showing
 
         >>> plotter = Plotter()
-        >>> plotter.plot(pv.Sphere())  # Try sphere
-        >>> plotter.show()  # Show it
-        >>> plotter.clear()  # Can be cleared after showing
-        >>> plotter.plot(pv.Cube())  # Use cube instead
-        >>> plotter.show()  # Display cube
+        >>> plotter.plot(pv.Sphere())
+        >>> plotter.show()
+        >>> plotter.clear()  # Reset the plotter to reuse it
+        >>> plotter.plot(pv.Cube())
+        >>> plotter.show()
         """
         self._backend.clear()
