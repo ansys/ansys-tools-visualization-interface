@@ -21,7 +21,6 @@
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
-from collections.abc import Callable
 import importlib.util
 from typing import Any, Dict, List, Optional, Union
 
@@ -58,6 +57,10 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button im
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+from ansys.tools.visualization_interface.utils._kwargs_manager import (
+    _capture_init_params,
+    _extract_kwargs,
+)
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
 
@@ -122,6 +125,9 @@ class PyVistaBackendInterface(BaseBackend):
         from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
         from vtkmodules.vtkRenderingCore import vtkPointPicker
 
+        # Save initialization parameters for potential reinitialization via clear()
+        self._init_params = _capture_init_params(self.__init__, locals())
+
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = ansys.tools.visualization_interface.USE_TRAME
@@ -183,6 +189,40 @@ class PyVistaBackendInterface(BaseBackend):
                 self._custom_picker = custom_picker(self)
         else:
             raise TypeError("custom_picker must be an instance of AbstractPicker.")
+
+    def _cleanup(self) -> None:
+        """Clean up resources before reinitialization.
+
+        This method releases VTK resources, disables widgets and observers,
+        and closes the existing plotter.
+        """
+        # Disable hover widget if active
+        if self._hover_widget is not None:
+            try:
+                self._hover_widget.EnabledOff()
+            except Exception:
+                logger.warning("Failed to disable hover widget. It may not be active.")
+
+        # Disable picking if it was enabled
+        if self._allow_picking and self._pl is not None:
+            try:
+                self._pl.scene.disable_picking()
+            except Exception:
+                logger.warning("Failed to disable picking. It may not be active.")
+
+        # Clear widgets list
+        self._widgets.clear()
+
+        # Clear object-to-actor maps
+        self._object_to_actors_map.clear()
+        self._edge_actors_map.clear()
+
+        # Close the existing PyVista plotter to release VTK resources
+        if self._pl is not None:
+            try:
+                self._pl.scene.close()
+            except Exception:
+                logger.warning("Failed to close the plotter. It may already be closed.")
 
     @property
     def pv_interface(self) -> PyVistaInterface:
@@ -370,31 +410,6 @@ class PyVistaBackendInterface(BaseBackend):
         self._pl.scene.disable_picking()
         self._picked_ball.SetVisibility(False)
 
-    def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
-        """Extracts the keyword arguments from a function signature and returns it as dict.
-
-        Parameters
-        ----------
-        func_name : Callable
-            Function to extract the keyword arguments from. It should be a callable function
-        input_kwargs : Dict[str, Any]
-            Dictionary with the keyword arguments to update the extracted ones.
-
-        Returns
-        -------
-        Dict[str, Any]
-            Dictionary with the keyword arguments extracted from the function signature and
-            updated with the input kwargs.
-        """
-        import inspect
-        signature = inspect.signature(func_name)
-        kwargs = {}
-        for k, v in signature.parameters.items():
-            # We are ignoring positional arguments, and passing everything as kwarg
-            if v.default is not inspect.Parameter.empty:
-                kwargs[k] = input_kwargs[k] if k in input_kwargs else v.default
-        return kwargs
-
     def show(
         self,
         plottable_object: Any = None,
@@ -430,11 +445,11 @@ class PyVistaBackendInterface(BaseBackend):
             List with the picked bodies in the picked order.
 
         """
-        plotting_options = self.__extract_kwargs(
+        plotting_options = _extract_kwargs(
             self._pl._scene.add_mesh,
             kwargs,
         )
-        show_options = self.__extract_kwargs(
+        show_options = _extract_kwargs(
             self._pl.scene.show,
             kwargs,
         )
@@ -598,6 +613,9 @@ class PyVistaBackend(PyVistaBackendInterface):
             custom_picker=custom_picker,
             **plotter_kwargs,
         )
+
+        # Save initialization parameters for reinitialization via clear()
+        self._init_params = _capture_init_params(self.__init__, locals())
 
     @property
     def base_plotter(self):
@@ -785,7 +803,6 @@ class PyVistaBackend(PyVistaBackendInterface):
             point_cloud,
             color=color,
             point_size=size,
-            render_points_as_spheres=True,
             **kwargs
         )
 
@@ -952,3 +969,67 @@ class PyVistaBackend(PyVistaBackendInterface):
         )
 
         return actor
+
+    def add_labels(
+        self,
+        points: Union[List, Any],
+        labels: List[str],
+        font_size: int = 12,
+        point_size: float = 5.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add labels at 3D point locations.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points where labels should be placed. Can be a list of coordinates
+            or array-like object. Expected format: [[x1, y1, z1], ...] or Nx3 array.
+        labels : List[str]
+            List of label strings to display at each point.
+        font_size : int, default: 12
+            Font size for the labels.
+        point_size : float, default: 5.0
+            Size of the point markers shown with labels.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_point_labels method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added labels.
+        """
+        import numpy as np
+
+        # Convert points to numpy array if needed
+        points_array = np.asarray(points)
+
+        # Ensure points are 2D with shape (N, 3)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create PyVista PolyData from points
+        point_cloud = pv.PolyData(points_array)
+
+        # Add point labels to the scene
+        actor = self._pl.scene.add_point_labels(
+            point_cloud,
+            labels,
+            font_size=font_size,
+            point_size=point_size,
+            **kwargs
+        )
+
+        return actor
+
+    def clear(self) -> None:
+        """Clear all actors from the scene and reset the plotter.
+
+        This method removes all previously added objects (meshes, points, lines,
+        text, etc.) from the visualization scene by fully reinitializing the
+        plotter.
+        """
+        # Clean up existing resources
+        self._cleanup()
+        # Reinitialize with saved parameters
+        self.__init__(**self._init_params)

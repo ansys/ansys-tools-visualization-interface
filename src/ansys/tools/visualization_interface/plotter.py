@@ -421,7 +421,6 @@ class Plotter():
             - 2D tuple (x, y) for screen/viewport coordinates (pixels from bottom-left)
             - String position like 'upper_left', 'upper_right', 'lower_left',
               'lower_right', 'upper_edge', 'lower_edge' (backend-dependent support)
-
         font_size : int, default: 12
             Font size for the text in points.
         color : str, default: "white"
@@ -458,3 +457,96 @@ class Plotter():
         return self._backend.add_text(
             text=text, position=position, font_size=font_size, color=color, **kwargs
         )
+
+    def add_labels(
+        self,
+        points: Union[List, Any],
+        labels: List[str],
+        font_size: int = 12,
+        point_size: float = 5.0,
+        **kwargs
+    ) -> Any:
+        """Add labels at 3D point locations.
+
+        This method provides a backend-agnostic way to add text labels at
+        specific 3D coordinates in the visualization scene. Labels are
+        displayed next to marker points.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points where labels should be placed. Can be a list of coordinates
+            or array-like object. Expected format: [[x1, y1, z1], ...] or Nx3 array.
+        labels : List[str]
+            List of label strings to display at each point. Must have the same
+            length as points.
+        font_size : int, default: 12
+            Font size for the labels.
+        point_size : float, default: 5.0
+            Size of the point markers shown with labels.
+        **kwargs : dict
+            Additional backend-specific keyword arguments for advanced customization
+            (e.g., text_color, shape, fill_shape).
+
+        Returns
+        -------
+        Any
+            Backend-specific actor or object representing the added labels.
+            Can be used for further manipulation or removal.
+
+        Examples
+        --------
+        Add labels at specific locations:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter()
+        >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
+        >>> labels = ['Origin', 'X-axis', 'Y-axis']
+        >>> plotter.add_labels(points, labels, font_size=14)
+        >>> plotter.show()
+
+        Add labels with custom styling:
+
+        >>> plotter.add_labels(
+        ...     points,
+        ...     labels,
+        ...     font_size=16,
+        ...     point_size=10,
+        ...     text_color='yellow',
+        ...     shape='rounded_rect'
+        ... )
+        >>> plotter.show()
+        """
+        return self._backend.add_labels(
+            points=points, labels=labels, font_size=font_size, point_size=point_size, **kwargs
+        )
+
+    def clear(self) -> None:
+        """Clear all actors from the scene.
+
+        This method removes all previously added objects (meshes, points, lines,
+        text, etc.) from the visualization scene, therefore allowing
+        the plotter to be reused after ``show()`` has been called.
+
+        Examples
+        --------
+        Clear before showing:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> import pyvista as pv
+        >>> plotter = Plotter()
+        >>> plotter.plot(pv.Sphere())
+        >>> plotter.clear()  # Changed mind, remove sphere
+        >>> plotter.plot(pv.Cube())
+        >>> plotter.show()
+
+        Clear after showing
+
+        >>> plotter = Plotter()
+        >>> plotter.plot(pv.Sphere())
+        >>> plotter.show()
+        >>> plotter.clear()  # Reset the plotter to reuse it
+        >>> plotter.plot(pv.Cube())
+        >>> plotter.show()
+        """
+        self._backend.clear()

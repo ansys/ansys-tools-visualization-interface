@@ -86,11 +86,33 @@ plotter.add_planes(
 # Add text annotations using 2D normalized coordinates (0-1 range).
 
 # Scene title at the top center
-plotter.add_text("Customization API Example", position=(0.5, 0.95), font_size=18, color='white')
+plotter.add_text("Customization API Example", position=(0.5, 0.95), font_size=18, color='black')
 
 # Additional labels at the top corners
 plotter.add_text("Plotly Backend", position=(0.05, 0.95), font_size=12, color='lightblue')
 plotter.add_text("3D Visualization", position=(0.95, 0.95), font_size=12, color='lightgreen')
+
+
+# Add labels at specific 3D points to annotate key locations in space.
+
+label_points = [
+    [1, 0, 0],   # X axis endpoint
+    [0, 1, 0],   # Y axis endpoint
+    [0, 0, 1],   # Z axis endpoint
+]
+
+labels = ['X-axis', 'Y-axis', 'Z-axis']
+
+plotter.add_labels(label_points, labels, font_size=16, point_size=8.0)
+
+
+# The clear() method resets the plotter and can be called even after show().
+# This allows reusing the same plotter for multiple visualizations.
+
+# Uncomment to clear everything added above and start fresh:
+# plotter.show()
+# plotter.clear()
+# plotter.plot(pv.Cube())  # Would show only a cube instead
 
 
 # Display the visualization with all customizations.
