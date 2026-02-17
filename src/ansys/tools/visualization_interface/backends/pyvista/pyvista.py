@@ -153,6 +153,11 @@ class PyVistaBackendInterface(BaseBackend):
         # List of widgets added to the plotter.
         self._widgets = []
 
+        # List to store PolyData references for labels to prevent garbage collection.
+        # PyVista uses memory addresses in actor names, so if PolyData is garbage collected
+        # and the memory reused, actors can get overwritten in the actors dict.
+        self._label_point_clouds = []
+
         # Enable the use of trame if requested and available
         if self._use_trame and _HAS_TRAME:
             # avoids GUI window popping up
@@ -212,6 +217,9 @@ class PyVistaBackendInterface(BaseBackend):
 
         # Clear widgets list
         self._widgets.clear()
+
+        # Clear label point cloud references
+        self._label_point_clouds.clear()
 
         # Clear object-to-actor maps
         self._object_to_actors_map.clear()
@@ -1010,6 +1018,10 @@ class PyVistaBackend(PyVistaBackendInterface):
 
         # Create PyVista PolyData from points
         point_cloud = pv.PolyData(points_array)
+
+        # Store reference to prevent garbage collection - PyVista uses memory addresses
+        # in actor names, so if PolyData is collected and memory reused, actors get overwritten
+        self._label_point_clouds.append(point_cloud)
 
         # Add point labels to the scene
         actor = self._pl.scene.add_point_labels(
