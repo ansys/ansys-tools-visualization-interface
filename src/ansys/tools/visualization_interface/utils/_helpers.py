@@ -24,7 +24,7 @@ import inspect
 from typing import Any, Callable, Dict
 
 
-def extract_kwargs(func: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
+def _extract_kwargs(func: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
     """Extract keyword arguments that match a function's signature.
 
     This function inspects the signature of a callable and returns a dictionary
@@ -55,7 +55,7 @@ def extract_kwargs(func: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, An
     --------
     >>> def my_func(a, b=1, c=2):
     ...     pass
-    >>> extract_kwargs(my_func, {"b": 10, "d": 20})
+    >>> _extract_kwargs(my_func, {"b": 10, "d": 20})
     {"b": 10, "c": 2}
     """
     signature = inspect.signature(func)

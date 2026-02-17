@@ -86,7 +86,7 @@ plotter.add_planes(
 # Add text annotations using 2D normalized coordinates (0-1 range).
 
 # Scene title at the top center
-plotter.add_text("Customization API Example", position=(0.5, 0.95), font_size=18, color='white')
+plotter.add_text("Customization API Example", position=(0.5, 0.95), font_size=18, color='black')
 
 # Additional labels at the top corners
 plotter.add_text("Plotly Backend", position=(0.05, 0.95), font_size=12, color='lightblue')

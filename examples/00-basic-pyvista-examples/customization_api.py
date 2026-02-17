@@ -83,11 +83,12 @@ plotter.add_planes(
 
 
 # Scene title at the top center
-plotter.add_text("Customization API Example", position="upper_edge", font_size=18, color='white')
+plotter.add_text("Customization API Example", position="upper_edge", font_size=18, color='black')
 
-# Additional labels at the top corners
+# Additional labels at the top left corner using a string for the position as before
 plotter.add_text("PyVista Backend", position="upper_left", font_size=12, color='lightblue')
-plotter.add_text("3D Visualization", position="upper_right", font_size=12, color='lightgreen')
+# Additional labels at the bottom left corner using pixel coordinates
+plotter.add_text("3D Visualization", position=(0.95, 0.95), font_size=12, color='lightgreen')
 
 
 # Add labels at specific 3D points to annotate key locations in space.

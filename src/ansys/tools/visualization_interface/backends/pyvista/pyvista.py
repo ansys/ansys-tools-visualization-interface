@@ -57,8 +57,8 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button im
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+from ansys.tools.visualization_interface.utils._helpers import _extract_kwargs
 from ansys.tools.visualization_interface.utils.color import Color
-from ansys.tools.visualization_interface.utils.helpers import extract_kwargs
 from ansys.tools.visualization_interface.utils.logger import logger
 
 _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
@@ -209,14 +209,14 @@ class PyVistaBackendInterface(BaseBackend):
             try:
                 self._hover_widget.EnabledOff()
             except Exception:
-                pass  # Widget may already be disabled
+                logger.warning("Failed to disable hover widget. It may not be active.")
 
         # Disable picking if it was enabled
         if self._allow_picking and self._pl is not None:
             try:
                 self._pl.scene.disable_picking()
             except Exception:
-                pass  # Picking may not be active
+                logger.warning("Failed to disable picking. It may not be active.")
 
         # Clear widgets list
         self._widgets.clear()
@@ -230,7 +230,7 @@ class PyVistaBackendInterface(BaseBackend):
             try:
                 self._pl.scene.close()
             except Exception:
-                pass  # Plotter may already be closed
+                logger.warning("Failed to close the plotter. It may already be closed.")
 
     @property
     def pv_interface(self) -> PyVistaInterface:
@@ -453,11 +453,11 @@ class PyVistaBackendInterface(BaseBackend):
             List with the picked bodies in the picked order.
 
         """
-        plotting_options = extract_kwargs(
+        plotting_options = _extract_kwargs(
             self._pl._scene.add_mesh,
             kwargs,
         )
-        show_options = extract_kwargs(
+        show_options = _extract_kwargs(
             self._pl.scene.show,
             kwargs,
         )
