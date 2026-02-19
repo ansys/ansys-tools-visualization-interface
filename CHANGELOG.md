@@ -1,3 +1,67 @@
+## [1.0.0a1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v1.0.0a1) - February 19, 2026
+
+
+### Miscellaneous
+
+- Chore: update CHANGELOG for v1.0.0a0 [#400](https://github.com/ansys/ansys-tools-visualization-interface/pull/400)
+- [pre-commit.ci] pre-commit autoupdate [#401](https://github.com/ansys/ansys-tools-visualization-interface/pull/401), [#412](https://github.com/ansys/ansys-tools-visualization-interface/pull/412), [#415](https://github.com/ansys/ansys-tools-visualization-interface/pull/415), [#417](https://github.com/ansys/ansys-tools-visualization-interface/pull/417), [#418](https://github.com/ansys/ansys-tools-visualization-interface/pull/418), [#423](https://github.com/ansys/ansys-tools-visualization-interface/pull/423), [#426](https://github.com/ansys/ansys-tools-visualization-interface/pull/426), [#431](https://github.com/ansys/ansys-tools-visualization-interface/pull/431), [#443](https://github.com/ansys/ansys-tools-visualization-interface/pull/443), [#444](https://github.com/ansys/ansys-tools-visualization-interface/pull/444), [#451](https://github.com/ansys/ansys-tools-visualization-interface/pull/451), [#453](https://github.com/ansys/ansys-tools-visualization-interface/pull/453), [#467](https://github.com/ansys/ansys-tools-visualization-interface/pull/467), [#473](https://github.com/ansys/ansys-tools-visualization-interface/pull/473)
+- Docs: Update README.txt [#403](https://github.com/ansys/ansys-tools-visualization-interface/pull/403)
+- Doc: Update backends in readme [#404](https://github.com/ansys/ansys-tools-visualization-interface/pull/404)
+- Feat: Add optional tree structure to MeshObjectPlot class [#405](https://github.com/ansys/ansys-tools-visualization-interface/pull/405)
+- Fix: Example doc reference [#406](https://github.com/ansys/ansys-tools-visualization-interface/pull/406)
+- Feat(plotly): Link names to hover info [#407](https://github.com/ansys/ansys-tools-visualization-interface/pull/407)
+- Feat(plotly): Add plotly dash as backend [#411](https://github.com/ansys/ansys-tools-visualization-interface/pull/411)
+- Build(deps): bump pyvista from 0.46.3 to 0.46.4 in the pyvista group [#414](https://github.com/ansys/ansys-tools-visualization-interface/pull/414)
+- Build(deps-dev): bump pytest from 8.4.2 to 9.0.0 in the test-dependencies group [#416](https://github.com/ansys/ansys-tools-visualization-interface/pull/416)
+- Feat: Add VTKHDF files management [#419](https://github.com/ansys/ansys-tools-visualization-interface/pull/419)
+- Build(deps-dev): bump pyside6 from 6.10.0 to 6.10.1 in the general-dependencies group [#420](https://github.com/ansys/ansys-tools-visualization-interface/pull/420)
+- Build(deps-dev): bump pytest from 9.0.0 to 9.0.1 in the test-dependencies group [#421](https://github.com/ansys/ansys-tools-visualization-interface/pull/421)
+- Build(deps-dev): bump ansys-fluent-core from 0.35.0 to 0.37.0 in the general-dependencies group [#424](https://github.com/ansys/ansys-tools-visualization-interface/pull/424)
+- Chore: Update missing or outdated files [#425](https://github.com/ansys/ansys-tools-visualization-interface/pull/425)
+- Build(deps-dev): bump the test-dependencies group with 2 updates [#429](https://github.com/ansys/ansys-tools-visualization-interface/pull/429)
+- Build(deps-dev): bump the doc-dependencies group with 2 updates [#430](https://github.com/ansys/ansys-tools-visualization-interface/pull/430)
+- Fix: potential bug related to widgets in \`PyVistaBackendInterface\` class [#433](https://github.com/ansys/ansys-tools-visualization-interface/pull/433)
+- Docs: Update \`\`CONTRIBUTORS.md\`\` with the latest contributors [#434](https://github.com/ansys/ansys-tools-visualization-interface/pull/434)
+- Build(deps-dev): bump ansys-sphinx-theme[autoapi] from 1.6.3 to 1.6.4 in the doc-dependencies group [#438](https://github.com/ansys/ansys-tools-visualization-interface/pull/438)
+- Build(deps-dev): bump ansys-fluent-core from 0.37.0 to 0.37.1 in the general-dependencies group [#445](https://github.com/ansys/ansys-tools-visualization-interface/pull/445)
+- Fix: logic for converting pyvista volumetric meshes to plotly mesh3d [#446](https://github.com/ansys/ansys-tools-visualization-interface/pull/446)
+- Test: add plotly tests for volumetric meshes [#449](https://github.com/ansys/ansys-tools-visualization-interface/pull/449)
+- Feat: process and plot contour over a mesh during pv to mesh3d conversion [#450](https://github.com/ansys/ansys-tools-visualization-interface/pull/450)
+- Build(deps): bump pyvista from 0.46.4 to 0.46.5 in the pyvista group [#458](https://github.com/ansys/ansys-tools-visualization-interface/pull/458)
+- Build(deps): bump the general-dependencies group across 1 directory with 2 updates [#459](https://github.com/ansys/ansys-tools-visualization-interface/pull/459)
+- Build(deps-dev): bump jupytext from 1.19.0 to 1.19.1 in the general-dependencies group [#460](https://github.com/ansys/ansys-tools-visualization-interface/pull/460)
+- Fix: Except pass issue [#463](https://github.com/ansys/ansys-tools-visualization-interface/pull/463)
+- Feat: Add parallel projection button [#464](https://github.com/ansys/ansys-tools-visualization-interface/pull/464)
+- Feat: more customization APIs [#466](https://github.com/ansys/ansys-tools-visualization-interface/pull/466)
+- Build(deps-dev): bump the general-dependencies group with 2 updates [#469](https://github.com/ansys/ansys-tools-visualization-interface/pull/469)
+- Build(deps-dev): bump ansys-sphinx-theme[autoapi] from 1.6.4 to 1.7.0 in the doc-dependencies group [#470](https://github.com/ansys/ansys-tools-visualization-interface/pull/470)
+- Fix: limit \`trame-vtk\` version [#471](https://github.com/ansys/ansys-tools-visualization-interface/pull/471)
+- Fix: labels visibility issue [#474](https://github.com/ansys/ansys-tools-visualization-interface/pull/474)
+- Build(deps): bump the general-dependencies group with 2 updates [#475](https://github.com/ansys/ansys-tools-visualization-interface/pull/475)
+- Build(deps): bump pyvista from 0.46.5 to 0.47.0 in the pyvista group [#476](https://github.com/ansys/ansys-tools-visualization-interface/pull/476)
+
+
+### Maintenance
+
+- Build(deps): bump actions/download-artifact from 5.0.0 to 6.0.0 [#408](https://github.com/ansys/ansys-tools-visualization-interface/pull/408)
+- Build(deps): bump ansys/actions from 10.1.4 to 10.1.5 [#413](https://github.com/ansys/ansys-tools-visualization-interface/pull/413)
+- Build(deps): bump actions/checkout from 5.0.0 to 6.0.0 [#422](https://github.com/ansys/ansys-tools-visualization-interface/pull/422)
+- Build(deps): bump ansys/actions from 10.1.5 to 10.2.2 [#427](https://github.com/ansys/ansys-tools-visualization-interface/pull/427)
+- Build(deps): bump actions/checkout from 6.0.0 to 6.0.1 [#428](https://github.com/ansys/ansys-tools-visualization-interface/pull/428)
+- Build(deps): bump actions/cache from 4.3.0 to 5.0.1 [#435](https://github.com/ansys/ansys-tools-visualization-interface/pull/435)
+- Build(deps): bump ansys/actions from 10.2.2 to 10.2.3 [#437](https://github.com/ansys/ansys-tools-visualization-interface/pull/437)
+- Build(deps): bump actions/download-artifact from 6.0.0 to 7.0.0 [#439](https://github.com/ansys/ansys-tools-visualization-interface/pull/439)
+- Build(deps): bump codecov/codecov-action from 5.5.1 to 5.5.2 [#440](https://github.com/ansys/ansys-tools-visualization-interface/pull/440)
+- Build(deps): bump actions/upload-artifact from 4.6.2 to 6.0.0 [#441](https://github.com/ansys/ansys-tools-visualization-interface/pull/441)
+- Feat: Tree show/hide [#455](https://github.com/ansys/ansys-tools-visualization-interface/pull/455)
+- Build(deps): bump actions/cache from 5.0.1 to 5.0.2 [#456](https://github.com/ansys/ansys-tools-visualization-interface/pull/456)
+- Build(deps): bump actions/checkout from 6.0.1 to 6.0.2 [#457](https://github.com/ansys/ansys-tools-visualization-interface/pull/457)
+- Build(deps): bump ansys/actions from 10.2.3 to 10.2.4 [#461](https://github.com/ansys/ansys-tools-visualization-interface/pull/461)
+- Feat: Add PyVista animations [#462](https://github.com/ansys/ansys-tools-visualization-interface/pull/462)
+- Feat: Add customization APIs [#465](https://github.com/ansys/ansys-tools-visualization-interface/pull/465)
+- Build(deps): bump actions/cache from 5.0.2 to 5.0.3 [#468](https://github.com/ansys/ansys-tools-visualization-interface/pull/468)
+- Build(deps): bump ansys/actions from 10.2.4 to 10.2.5 [#477](https://github.com/ansys/ansys-tools-visualization-interface/pull/477)
+
 ## [1.0.0a0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v1.0.0a0) - October 20, 2025
 
 
