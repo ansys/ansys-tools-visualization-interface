@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -20,6 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides interfaces."""
+from ansys.tools.visualization_interface.backends.pyvista.animation import (  # noqa: F401
+    Animation,
+    AnimationState,
+    FrameSequence,
+    InMemoryFrameSequence,
+)
 from ansys.tools.visualization_interface.backends.pyvista.pyvista import (  # noqa: F401
     PyVistaBackend,
     PyVistaBackendInterface,

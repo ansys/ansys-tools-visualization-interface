@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -21,7 +21,6 @@
 # SOFTWARE.
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
-from collections.abc import Callable
 import importlib.util
 from typing import Any, Dict, List, Optional, Union
 
@@ -29,6 +28,11 @@ import pyvista as pv
 
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
+from ansys.tools.visualization_interface.backends.pyvista.animation import (
+    Animation,
+    FrameSequence,
+    InMemoryFrameSequence,
+)
 from ansys.tools.visualization_interface.backends.pyvista.picker import AbstractPicker, Picker
 from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
 from ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode import DarkModeButton
@@ -36,20 +40,27 @@ from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrow
     CameraPanDirection,
     DisplacementArrow,
 )
+from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
 from ansys.tools.visualization_interface.backends.pyvista.widgets.hide_buttons import HideButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
 from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import (
     MeshSliderWidget,
 )
+from ansys.tools.visualization_interface.backends.pyvista.widgets.parallel_projection import ParallelProjectionButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center import PickRotCenterButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
 from ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot import ScreenshotButton
+from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import TreeMenuToggleButton
 from ansys.tools.visualization_interface.backends.pyvista.widgets.view_button import (
     ViewButton,
     ViewDirection,
 )
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+from ansys.tools.visualization_interface.utils._kwargs_manager import (
+    _capture_init_params,
+    _extract_kwargs,
+)
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
 
@@ -114,6 +125,9 @@ class PyVistaBackendInterface(BaseBackend):
         from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
         from vtkmodules.vtkRenderingCore import vtkPointPicker
 
+        # Save initialization parameters for potential reinitialization via clear()
+        self._init_params = _capture_init_params(self.__init__, locals())
+
         # Check if the use of trame was requested
         if use_trame is None:
             use_trame = ansys.tools.visualization_interface.USE_TRAME
@@ -138,6 +152,11 @@ class PyVistaBackendInterface(BaseBackend):
 
         # List of widgets added to the plotter.
         self._widgets = []
+
+        # List to store PolyData references for labels to prevent garbage collection.
+        # PyVista uses memory addresses in actor names, so if PolyData is garbage collected
+        # and the memory reused, actors can get overwritten in the actors dict.
+        self._label_point_clouds = []
 
         # Enable the use of trame if requested and available
         if self._use_trame and _HAS_TRAME:
@@ -176,6 +195,43 @@ class PyVistaBackendInterface(BaseBackend):
         else:
             raise TypeError("custom_picker must be an instance of AbstractPicker.")
 
+    def _cleanup(self) -> None:
+        """Clean up resources before reinitialization.
+
+        This method releases VTK resources, disables widgets and observers,
+        and closes the existing plotter.
+        """
+        # Disable hover widget if active
+        if self._hover_widget is not None:
+            try:
+                self._hover_widget.EnabledOff()
+            except Exception:
+                logger.warning("Failed to disable hover widget. It may not be active.")
+
+        # Disable picking if it was enabled
+        if self._allow_picking and self._pl is not None:
+            try:
+                self._pl.scene.disable_picking()
+            except Exception:
+                logger.warning("Failed to disable picking. It may not be active.")
+
+        # Clear widgets list
+        self._widgets.clear()
+
+        # Clear label point cloud references
+        self._label_point_clouds.clear()
+
+        # Clear object-to-actor maps
+        self._object_to_actors_map.clear()
+        self._edge_actors_map.clear()
+
+        # Close the existing PyVista plotter to release VTK resources
+        if self._pl is not None:
+            try:
+                self._pl.scene.close()
+            except Exception:
+                logger.warning("Failed to close the plotter. It may already be closed.")
+
     @property
     def pv_interface(self) -> PyVistaInterface:
         """PyVista interface."""
@@ -213,6 +269,12 @@ class PyVistaBackendInterface(BaseBackend):
             self._widgets.append(HideButton(self, dark_mode))
             self._widgets.append(PickRotCenterButton(self, dark_mode))
             self._widgets.append(DarkModeButton(self, dark_mode))
+            self._widgets.append(ParallelProjectionButton(self, dark_mode))
+            # Add dynamic tree menu widget (always available)
+            tree_menu = DynamicTreeMenuWidget(self, dark_mode=dark_mode)
+            self._widgets.append(tree_menu)
+            # Add button to toggle menu visibility
+            self._widgets.append(TreeMenuToggleButton(self, dark_mode, tree_menu))
 
     def add_widget(self, widget: Union[PlotterWidget, List[PlotterWidget]]):
         """Add one or more custom widgets to the plotter.
@@ -225,7 +287,8 @@ class PyVistaBackendInterface(BaseBackend):
         """
         if isinstance(widget, list):
             self._widgets.extend(widget)
-            widget.update()
+            for w in widget:
+                w.update()
         else:
             self._widgets.append(widget)
             widget.update()
@@ -355,31 +418,6 @@ class PyVistaBackendInterface(BaseBackend):
         self._pl.scene.disable_picking()
         self._picked_ball.SetVisibility(False)
 
-    def __extract_kwargs(self, func_name: Callable, input_kwargs: Dict[str, Any]) -> Dict[str, Any]:
-        """Extracts the keyword arguments from a function signature and returns it as dict.
-
-        Parameters
-        ----------
-        func_name : Callable
-            Function to extract the keyword arguments from. It should be a callable function
-        input_kwargs : Dict[str, Any]
-            Dictionary with the keyword arguments to update the extracted ones.
-
-        Returns
-        -------
-        Dict[str, Any]
-            Dictionary with the keyword arguments extracted from the function signature and
-            updated with the input kwargs.
-        """
-        import inspect
-        signature = inspect.signature(func_name)
-        kwargs = {}
-        for k, v in signature.parameters.items():
-            # We are ignoring positional arguments, and passing everything as kwarg
-            if v.default is not inspect.Parameter.empty:
-                kwargs[k] = input_kwargs[k] if k in input_kwargs else v.default
-        return kwargs
-
     def show(
         self,
         plottable_object: Any = None,
@@ -415,11 +453,11 @@ class PyVistaBackendInterface(BaseBackend):
             List with the picked bodies in the picked order.
 
         """
-        plotting_options = self.__extract_kwargs(
+        plotting_options = _extract_kwargs(
             self._pl._scene.add_mesh,
             kwargs,
         )
-        show_options = self.__extract_kwargs(
+        show_options = _extract_kwargs(
             self._pl.scene.show,
             kwargs,
         )
@@ -570,6 +608,7 @@ class PyVistaBackend(PyVistaBackendInterface):
         use_qt: Optional[bool] = False,
         show_qt: Optional[bool] = False,
         custom_picker: AbstractPicker = None,
+        **plotter_kwargs,
     ) -> None:
         """Initialize the generic plotter."""
         super().__init__(
@@ -579,8 +618,12 @@ class PyVistaBackend(PyVistaBackendInterface):
             plot_picked_names,
             use_qt=use_qt,
             show_qt=show_qt,
-            custom_picker=custom_picker
+            custom_picker=custom_picker,
+            **plotter_kwargs,
         )
+
+        # Save initialization parameters for reinitialization via clear()
+        self._init_params = _capture_init_params(self.__init__, locals())
 
     @property
     def base_plotter(self):
@@ -636,3 +679,369 @@ class PyVistaBackend(PyVistaBackendInterface):
         """Close the plotter for PyVistaQT."""
         if self._use_qt:
             self.pv_interface.scene.close()
+
+    def create_animation(
+        self,
+        frames: Union[List[Any], FrameSequence],
+        fps: int = 30,
+        loop: bool = False,
+        scalar_bar_args: Optional[dict] = None,
+        **plot_kwargs,
+    ) -> Animation:
+        """Create an animation from a sequence of frames.
+
+        This method creates an ``Animation`` object that can be used to visualize
+        time-series simulation results, transient analyses, and dynamic phenomena.
+
+        Parameters
+        ----------
+        frames : List[Any] or FrameSequence
+            Sequence of frame objects to animate. Can be a list of PyVista meshes,
+            ``MeshObjectPlot`` objects, or a custom ``FrameSequence`` implementation
+            for lazy loading.
+        fps : int, optional
+            Frames per second for playback. Default is 30.
+        loop : bool, optional
+            Whether to loop animation continuously. Default is False.
+        scalar_bar_args : dict, optional
+            Scalar bar arguments to apply to all frames (e.g., ``clim`` for fixed
+            color scale). If not provided, a global color scale is calculated
+            automatically.
+        **plot_kwargs
+            Additional keyword arguments passed to add_mesh for all frames
+            (e.g., ``cmap='viridis'``, ``opacity=0.8``).
+
+        Returns
+        -------
+        Animation
+            Animation controller object with playback controls.
+
+        See Also
+        --------
+        Animation : Animation controller class
+
+        Examples
+        --------
+        Create and play an animation from transient simulation results:
+
+        >>> from ansys.tools.visualization_interface import Plotter
+        >>> plotter = Plotter(backend='pyvista')
+        >>> frames = [mesh1, mesh2, mesh3, mesh4]  # Time series data
+        >>> animation = plotter.backend.create_animation(frames, fps=30, loop=True)
+        >>> animation.play()
+        >>> animation.show()
+
+        Export animation to video:
+
+        >>> animation = plotter.backend.create_animation(frames)
+        >>> animation.save("output.mp4", quality=8)
+
+        Use fixed color scale for accurate comparison:
+
+        >>> animation = plotter.backend.create_animation(
+        ...     frames,
+        ...     scalar_bar_args={"clim": (0.0, 1.0), "title": "Displacement [m]"}
+        ... )
+        """
+        if not frames:
+            raise ValueError("Frame list cannot be empty")
+
+        # Convert list to FrameSequence if needed
+        if isinstance(frames, list):
+            frame_sequence = InMemoryFrameSequence(frames)
+        else:
+            frame_sequence = frames
+
+        # Create animation with the plotter's scene
+        animation = Animation(
+            plotter=self._pl.scene,
+            frames=frame_sequence,
+            fps=fps,
+            loop=loop,
+            scalar_bar_args=scalar_bar_args,
+            **plot_kwargs,
+        )
+
+        logger.info(
+            f"Created animation with {len(frame_sequence)} frames at {fps} FPS"
+        )
+
+        return animation
+
+    def add_points(
+        self,
+        points: Union[List, Any],
+        color: str = "red",
+        size: float = 10.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add point markers to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points to add. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        color : str, default: "red"
+            Color of the points.
+        size : float, default: 10.0
+            Size of the point markers.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_mesh method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added points.
+        """
+        import numpy as np
+
+        # Convert points to numpy array if needed
+        points_array = np.asarray(points)
+
+        # Ensure points are 2D with shape (N, 3)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create PyVista PolyData from points
+        point_cloud = pv.PolyData(points_array)
+
+        # Add points to the scene
+        actor = self._pl.scene.add_mesh(
+            point_cloud,
+            color=color,
+            point_size=size,
+            **kwargs
+        )
+
+        return actor
+
+    def add_lines(
+        self,
+        points: Union[List, Any],
+        connections: Optional[Union[List, Any]] = None,
+        color: str = "white",
+        width: float = 1.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add line segments to the scene.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points defining the lines. Can be a list of coordinates or array-like object.
+            Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+        connections : Optional[Union[List, Any]], default: None
+            Line connectivity. If None, connects points sequentially.
+            Expected format: [[start_idx1, end_idx1], [start_idx2, end_idx2], ...]
+            or Mx2 array where M is the number of lines.
+        color : str, default: "white"
+            Color of the lines.
+        width : float, default: 1.0
+            Width of the lines.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_mesh method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added lines.
+        """
+        import numpy as np
+
+        # Convert points to numpy array
+        points_array = np.asarray(points)
+
+        # Ensure points are 2D with shape (N, 3)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create connectivity if not provided (sequential connections)
+        if connections is None:
+            n_points = len(points_array)
+            if n_points < 2:
+                raise ValueError("At least 2 points are required to create lines")
+            # Create sequential line segments
+            connections_array = np.array([[i, i + 1] for i in range(n_points - 1)])
+        else:
+            connections_array = np.asarray(connections)
+
+        # Ensure connections are 2D
+        if connections_array.ndim == 1:
+            connections_array = connections_array.reshape(-1, 2)
+
+        # Create PyVista PolyData with lines
+        lines = pv.PolyData()
+        lines.points = points_array
+
+        # Build the lines array for PyVista
+        # Format: [n_points_in_line, point_idx1, point_idx2, ...]
+        lines_array = []
+        for conn in connections_array:
+            lines_array.extend([2, conn[0], conn[1]])
+
+        lines.lines = np.array(lines_array, dtype=np.int64)
+
+        # Add lines to the scene
+        actor = self._pl.scene.add_mesh(
+            lines,
+            color=color,
+            line_width=width,
+            **kwargs
+        )
+
+        return actor
+
+    def add_planes(
+        self,
+        center: tuple[float, float, float] = (0.0, 0.0, 0.0),
+        normal: tuple[float, float, float] = (0.0, 0.0, 1.0),
+        i_size: float = 1.0,
+        j_size: float = 1.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add a plane to the scene.
+
+        Parameters
+        ----------
+        center : Tuple[float, float, float], default: (0.0, 0.0, 0.0)
+            Center point of the plane (x, y, z).
+        normal : Tuple[float, float, float], default: (0.0, 0.0, 1.0)
+            Normal vector of the plane (x, y, z).
+        i_size : float, default: 1.0
+            Size of the plane in the i direction.
+        j_size : float, default: 1.0
+            Size of the plane in the j direction.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_mesh method
+            (e.g., color, opacity).
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added plane.
+        """
+        # Create a PyVista plane
+        plane = pv.Plane(
+            center=center,
+            direction=normal,
+            i_size=i_size,
+            j_size=j_size,
+        )
+
+        # Add plane to the scene
+        actor = self._pl.scene.add_mesh(plane, **kwargs)
+
+        return actor
+
+    def add_text(
+        self,
+        text: str,
+        position: Union[tuple[float, float], str],
+        font_size: int = 12,
+        color: str = "white",
+        **kwargs
+    ) -> "pv.Actor":
+        """Add text to the scene.
+
+        Parameters
+        ----------
+        text : str
+            Text string to display.
+        position : Union[Tuple[float, float], str]
+            Position for the text. Can be:
+
+            - 2D tuple (x, y) for screen coordinates (pixels from bottom-left)
+            - String position like 'upper_left', 'upper_right', 'lower_left',
+              'lower_right', 'upper_edge', 'lower_edge' (PyVista-specific)
+
+        font_size : int, default: 12
+            Font size for the text.
+        color : str, default: "white"
+            Color of the text.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_text method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added text.
+        """
+        # Handle string positions or 2D coordinates
+        actor = self._pl.scene.add_text(
+            text,
+            position=position,
+            font_size=font_size,
+            color=color,
+            **kwargs
+        )
+
+        return actor
+
+    def add_labels(
+        self,
+        points: Union[List, Any],
+        labels: List[str],
+        font_size: int = 12,
+        point_size: float = 5.0,
+        **kwargs
+    ) -> "pv.Actor":
+        """Add labels at 3D point locations.
+
+        Parameters
+        ----------
+        points : Union[List, Any]
+            Points where labels should be placed. Can be a list of coordinates
+            or array-like object. Expected format: [[x1, y1, z1], ...] or Nx3 array.
+        labels : List[str]
+            List of label strings to display at each point.
+        font_size : int, default: 12
+            Font size for the labels.
+        point_size : float, default: 5.0
+            Size of the point markers shown with labels.
+        **kwargs : dict
+            Additional keyword arguments passed to PyVista's add_point_labels method.
+
+        Returns
+        -------
+        pv.Actor
+            PyVista actor representing the added labels.
+        """
+        import numpy as np
+
+        # Convert points to numpy array if needed
+        points_array = np.asarray(points)
+
+        # Ensure points are 2D with shape (N, 3)
+        if points_array.ndim == 1:
+            points_array = points_array.reshape(-1, 3)
+
+        # Create PyVista PolyData from points
+        point_cloud = pv.PolyData(points_array)
+
+        # Store reference to prevent garbage collection - PyVista uses memory addresses
+        # in actor names, so if PolyData is collected and memory reused, actors get overwritten
+        self._label_point_clouds.append(point_cloud)
+
+        # Add point labels to the scene
+        actor = self._pl.scene.add_point_labels(
+            point_cloud,
+            labels,
+            font_size=font_size,
+            point_size=point_size,
+            **kwargs
+        )
+
+        return actor
+
+    def clear(self) -> None:
+        """Clear all actors from the scene and reset the plotter.
+
+        This method removes all previously added objects (meshes, points, lines,
+        text, etc.) from the visualization scene by fully reinitializing the
+        plotter.
+        """
+        # Clean up existing resources
+        self._cleanup()
+        # Reinitialize with saved parameters
+        self.__init__(**self._init_params)

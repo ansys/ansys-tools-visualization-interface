@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "ansys-tools-visualization-interface"
-version = "1.0.0a0"
+version = "1.0.0a1"
 description = "A Python visualization interface for PyAnsys libraries"
 readme = "README.rst"
 requires-python = ">=3.10,<4"
@@ -24,9 +24,9 @@ classifiers = [
 ]
 dependencies = [
     "pyvista >= 0.43.0,<1",
-    "websockets >= 12.0,< 16",
+    "websockets >= 12.0,< 17",
     "trame >= 3.6.0,<4",
-    "trame-vtk >= 2.8.7,<3,!=2.8.16",
+    "trame-vtk >= 2.8.7,!= 2.8.16,< 2.11.2",
     "trame-vuetify >= 2.4.3,< 4",
     "trame-router >= 2.3.0,<3",
 ]
@@ -42,34 +42,38 @@ plotly = [
     "kaleido >= 1.1.0,<2",
 ]
 
+dash = [
+    "dash >= 3.2.0,< 5"
+]
+
 all = [
     "pyside6 >= 6.8.0,<7",
     "pyvistaqt >= 0.11.1,<1",
     "plotly >= 6.3.1,<7",
     "kaleido >= 1.1.0,<2",
+    "dash >= 3.2.0,< 5",
+    "imageio[ffmpeg] >= 2.37.2"
 ]
 
 tests = [
-    "pytest==8.4.2",
-    "pyvista==0.46.3",
-    "pytest-pyvista==0.3.1",
+    "pytest==9.0.2",
+    "pyvista==0.47.0",
+    "pytest-pyvista==0.3.2",
     "pytest-cov==7.0.0",
-    "pyside6==6.10.0",
+    "pyside6==6.10.2",
 ]
 
 doc = [
-    "pyvista==0.46.3",
-    "ansys-sphinx-theme[autoapi]==1.6.3",
+    "pyvista==0.47.0",
+    "ansys-sphinx-theme[autoapi]==1.7.0",
     "jupyter_sphinx==0.5.3",
-    "jupytext==1.18.1",
+    "jupytext==1.19.1",
     "nbsphinx==0.9.6",
-    "numpydoc==1.9.0",
-    "sphinx==8.2.3",
+    "numpydoc==1.10.0",
     "sphinx-copybutton==0.5.2",
-    "sphinx_design==0.6.1",
-    "sphinx-gallery==0.19.0",
+    "sphinx-gallery==0.20.0",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.35.0",
+    "ansys-fluent-core==0.37.2",
 ]
 
 [project.urls]

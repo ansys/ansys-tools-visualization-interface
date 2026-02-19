@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -157,6 +157,14 @@ class PyVistaInterface:
         """View the scene from the ZY plane."""
         self.scene.view_zy()
 
+    def enable_parallel_projection(self) -> None:
+        """Enable parallel projection for the camera."""
+        self.scene.camera.enable_parallel_projection()
+
+    def disable_parallel_projection(self) -> None:
+        """Disable parallel projection for the camera."""
+        self.scene.camera.disable_parallel_projection()
+
     def clip(
         self, mesh: Union[pv.PolyData, pv.MultiBlock, pv.UnstructuredGrid], plane: ClipPlane
     ) -> Union[pv.PolyData, pv.MultiBlock]:
@@ -186,13 +194,15 @@ class PyVistaInterface:
         return mesh.clip(normal=[elem for elem in plane.normal],
                          origin=plane.origin)
 
-    def plot_meshobject(self, custom_object: MeshObjectPlot, **plotting_options):
+    def plot_meshobject(self, custom_object: MeshObjectPlot, plot_children: bool = True, **plotting_options):
         """Plot a generic ``MeshObjectPlot`` object to the scene.
 
         Parameters
         ----------
         plottable_object : MeshObjectPlot
             Object to add to the scene.
+        plot_children : bool, default: True
+            Whether to plot the children of the object.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -205,6 +215,11 @@ class PyVistaInterface:
         actor = self.scene.add_mesh(dataset, **plotting_options)
         custom_object.actor = actor
         self._object_to_actors_map[actor] = custom_object
+
+        if plot_children:
+            for child in custom_object._children:
+                self.plot_meshobject(child, plot_children=plot_children, **plotting_options)
+
         return actor.name
 
     def plot_edges(self, custom_object: MeshObjectPlot, **plotting_options) -> None:
@@ -242,10 +257,91 @@ class PyVistaInterface:
         else:
             logger.warning("The object does not have edges.")
 
+
+    def hide_children(self, custom_object: MeshObjectPlot) -> None:
+        """Hide all the children of a given ``MeshObjectPlot`` object.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Custom object whose children will be hidden.
+
+        """
+        for child in custom_object._children:
+            child.visible = False
+            self.hide_children(child)
+
+    def show_children(self, custom_object: MeshObjectPlot) -> None:
+        """Show all the children of a given ``MeshObjectPlot`` object.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Custom object whose children will be shown.
+
+        """
+        for child in custom_object._children:
+            child.visible = True
+            self.show_children(child)
+
+    def toggle_subtree_visibility(self, custom_object: MeshObjectPlot, include_root: bool = True) -> None:
+        """Toggle visibility of an object and its entire subtree.
+
+        This method toggles the visibility state of the given object and all its
+        descendants. If the object is currently visible, it and all children will
+        be hidden. If hidden, they will all be shown.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Root object of the subtree to toggle.
+        include_root : bool, default: True
+            Whether to toggle the root object's visibility. If False, only
+            children are toggled.
+
+        Examples
+        --------
+        Toggle visibility of picked object and its children:
+
+        >>> picked = plotter.pick()
+        >>> if picked:
+        ...     backend.toggle_subtree_visibility(picked[0])
+
+        Toggle only children, keeping parent visible:
+
+        >>> backend.toggle_subtree_visibility(obj, include_root=False)
+
+        """
+        # Determine target state based on current visibility
+        target_state = not custom_object.visible
+
+        # Set root visibility if requested
+        if include_root:
+            custom_object.visible = target_state
+
+        # Recursively set children visibility
+        self._set_subtree_visibility_recursive(custom_object, target_state)
+
+    def _set_subtree_visibility_recursive(self, custom_object: MeshObjectPlot, visible: bool) -> None:
+        """Recursively set visibility for all children.
+
+        Parameters
+        ----------
+        custom_object : MeshObjectPlot
+            Object whose children will have visibility set.
+        visible : bool
+            Target visibility state.
+
+        """
+        for child in custom_object._children:
+            child.visible = visible
+            self._set_subtree_visibility_recursive(child, visible)
+
     def plot(
         self,
         plottable_object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid],
         name_filter: str = None,
+        plot_children: bool = False,
         **plotting_options,
     ) -> None:
         """Plot any type of object to the scene.
@@ -287,7 +383,7 @@ class PyVistaInterface:
             else:
                 self.scene.add_composite(plottable_object, **plotting_options)
         elif isinstance(plottable_object, MeshObjectPlot):
-            self.plot_meshobject(plottable_object, **plotting_options)
+            self.plot_meshobject(plottable_object, plot_children=plot_children, **plotting_options)
         else:
             logger.warning("The object type is not supported. ")
 
@@ -360,6 +456,7 @@ class PyVistaInterface:
         # If screenshot is requested, set off_screen to True for the plotter
         if kwargs.get("screenshot") is not None:
             self.scene.off_screen = True
+
         if jupyter_backend:
             # Remove jupyter_backend from show options since we pass it manually
             kwargs.pop("jupyter_backend", None)

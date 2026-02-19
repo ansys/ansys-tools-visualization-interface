@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -69,12 +69,20 @@ class HideButton(PlotterWidget):
         if state:
             for widget in self.plotter._widgets:
                 if widget is not self:
-                    widget._button.Off()
-                    widget._button.GetRepresentation().SetVisibility(0)
+                    # Check if widget has hide_menu method (for DynamicTreeMenuWidget)
+                    if hasattr(widget, 'hide_menu'):
+                        widget.hide_menu()
+                    elif hasattr(widget, '_button') and widget._button is not None:
+                        widget._button.Off()
+                        widget._button.GetRepresentation().SetVisibility(0)
         else:
             for widget in self.plotter._widgets:
-                widget._button.On()
-                widget._button.GetRepresentation().SetVisibility(1)
+                # Check if widget has show_menu method (for DynamicTreeMenuWidget)
+                if hasattr(widget, 'show_menu'):
+                    widget.show_menu()
+                elif hasattr(widget, '_button') and widget._button is not None:
+                    widget._button.On()
+                    widget._button.GetRepresentation().SetVisibility(1)
 
     def update(self) -> None:
         """Define the hide widget button parameters."""

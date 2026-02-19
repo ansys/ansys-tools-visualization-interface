@@ -1,4 +1,4 @@
-# Copyright (C) 2024 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2024 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -107,7 +107,7 @@ custom_mesh3d = Mesh3d(
     color='lightblue',
     opacity=0.50
 )
-pl.plot(custom_mesh3d)
+pl.plot(custom_mesh3d, name="CustomMesh3d")
 
 # Show other plotly objects like Scatter3d
 from plotly.graph_objects import Scatter3d
@@ -119,6 +119,6 @@ scatter = Scatter3d(
     mode='markers',
     marker=dict(size=5, color='red')
 )
-pl.plot(scatter)
+pl.plot(scatter, name="CustomScatter3d")
 
 pl.show()
