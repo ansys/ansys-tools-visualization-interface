@@ -1,0 +1,446 @@
+
+
+
+
+
+
+:class:`Animation`
+==================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.animation.Animation(plotter: pyvista.Plotter, frames: Union[FrameSequence, List[Any]], fps: int = 30, loop: bool = False, scalar_bar_args: Optional[dict] = None, **plot_kwargs)
+
+   
+   Animation controller for PyVista visualizations.
+
+   This class manages animation playback, providing play/pause/stop controls,
+   frame stepping, timeline scrubbing, and export capabilities.
+
+   :Parameters:
+
+       **plotter** : :obj:`pv.Plotter`
+           PyVista plotter instance to animate.
+
+       **frames** : :obj:`FrameSequence` or :obj:`List`\[:obj:`Any`]
+           Frame sequence or list of frame objects to animate.
+
+       **fps** : :class:`python:int`, :obj:`optional`
+           Frames per second for playback (default: 30).
+
+       **loop** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to loop animation continuously (default: False).
+
+       **scalar_bar_args** : :class:`python:dict`, :obj:`optional`
+           Scalar bar and rendering arguments to apply. Supports:
+           - ``clim`` : tuple - Fixed color scale (min, max) for all frames
+           - ``title`` : str - Scalar bar title
+           - ``color`` : str - Scalar bar text color
+           - Other parameters accepted by PyVista's ``add_mesh`` method
+
+
+
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Create and play a simple animation:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> plotter = Plotter(backend='pyvista')
+   >>> frames = [mesh1, mesh2, mesh3]
+   >>> animation = plotter.animate(frames, fps=30, loop=True)
+   >>> animation.play()
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Animation
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~play`
+            - Start or resume animation playback.
+          * - :py:attr:`~pause`
+            - Pause animation playback.
+          * - :py:attr:`~stop`
+            - Stop animation and reset to first frame.
+          * - :py:attr:`~step_forward`
+            - Advance one frame forward.
+          * - :py:attr:`~step_backward`
+            - Rewind one frame backward.
+          * - :py:attr:`~seek`
+            - Jump to specific frame.
+          * - :py:attr:`~save`
+            - Export animation to video file.
+          * - :py:attr:`~show`
+            - Display animation with the plotter.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~state`
+            - Current animation state.
+          * - :py:attr:`~current_frame`
+            - Current frame index.
+          * - :py:attr:`~total_frames`
+            - Total number of frames.
+          * - :py:attr:`~fps`
+            - Frames per second.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.animation import Animation
+
+Property detail
+---------------
+
+.. py:property:: state
+   :type: AnimationState
+
+
+   
+   Current animation state.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: current_frame
+   :type: int
+
+
+   
+   Current frame index.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: total_frames
+   :type: int
+
+
+   
+   Total number of frames.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: fps
+   :type: int
+
+
+   
+   Frames per second.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: play()
+
+   
+   Start or resume animation playback.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: pause()
+
+   
+   Pause animation playback.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: stop()
+
+   
+   Stop animation and reset to first frame.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: step_forward()
+
+   
+   Advance one frame forward.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: step_backward()
+
+   
+   Rewind one frame backward.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: seek(frame_index: int)
+
+   
+   Jump to specific frame.
+
+
+   :Parameters:
+
+       **frame_index** : :class:`python:int`
+           Target frame index.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: save(filename: Union[str, pathlib.Path], quality: int = 5, framerate: Optional[int] = None, close_plotter: bool = False)
+
+   
+   Export animation to video file.
+
+
+   :Parameters:
+
+       **filename** : :class:`python:str` or :obj:`Path`
+           Output filename (.mp4, .gif, .avi).
+
+       **quality** : :class:`python:int`, :obj:`optional`
+           Video quality (1-10, higher is better). Default is 5.
+
+       **framerate** : :class:`python:int`, :obj:`optional`
+           Output framerate. If None, uses animation fps.
+
+       **close_plotter** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           If True, closes plotter after saving. Default is False.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(show_controls: bool = True, **kwargs)
+
+   
+   Display animation with the plotter.
+
+
+   :Parameters:
+
+       **show_controls** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           If True, shows interactive controls. Default is True.
+
+       **\*\*kwargs**
+           Additional arguments passed to plotter.show().
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

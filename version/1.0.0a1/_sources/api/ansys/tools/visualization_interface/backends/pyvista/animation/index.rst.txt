@@ -1,0 +1,133 @@
+
+
+
+
+
+
+The ``animation.py`` module
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.animation
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: animation
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.animation.FrameSequence`
+            - Abstract interface for frame data sources.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.animation.InMemoryFrameSequence`
+            - Frame sequence with all frames pre-loaded in memory.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.animation.Animation`
+            - Animation controller for PyVista visualizations.
+
+
+
+    .. tab-item:: Enums
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.animation.AnimationState`
+            - Animation playback states.
+
+
+
+
+
+
+    .. tab-item:: Constants
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~DARK_MODE_THRESHOLD`
+            - 
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> FrameSequence</api/ansys/tools/visualization_interface/backends/pyvista/animation/FrameSequence>
+    <span class="nf nf-cod-symbol_class"></span> InMemoryFrameSequence</api/ansys/tools/visualization_interface/backends/pyvista/animation/InMemoryFrameSequence>
+    <span class="nf nf-cod-symbol_class"></span> Animation</api/ansys/tools/visualization_interface/backends/pyvista/animation/Animation>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_enum"></span> AnimationState</api/ansys/tools/visualization_interface/backends/pyvista/animation/AnimationState>
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Animation support for PyVista backend.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:data:: DARK_MODE_THRESHOLD
+   :value: 120
+
+
+
+

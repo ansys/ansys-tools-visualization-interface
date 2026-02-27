@@ -1,0 +1,79 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**00:08.881** total execution time for 15 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_qt_backend.py` (``../../examples/00-basic-pyvista-examples/qt_backend.py``)
+     - 00:02.468
+     - 0.0
+   * - :ref:`sphx_glr_examples_99-advanced-pyansys-examples_using_meshobject_with_field_data.py` (``../../examples/99-advanced-pyansys-examples/using_meshobject_with_field_data.py``)
+     - 00:02.149
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_animation.py` (``../../examples/00-basic-pyvista-examples/animation.py``)
+     - 00:00.820
+     - 0.0
+   * - :ref:`sphx_glr_examples_01-basic-plotly-examples_dash-usage.py` (``../../examples/01-basic-plotly-examples/dash-usage.py``)
+     - 00:00.818
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_plain_usage.py` (``../../examples/00-basic-pyvista-examples/plain_usage.py``)
+     - 00:00.538
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_picker.py` (``../../examples/00-basic-pyvista-examples/picker.py``)
+     - 00:00.510
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_customization_api.py` (``../../examples/00-basic-pyvista-examples/customization_api.py``)
+     - 00:00.401
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_tree_menu.py` (``../../examples/00-basic-pyvista-examples/tree_menu.py``)
+     - 00:00.308
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_tree_struct.py` (``../../examples/00-basic-pyvista-examples/tree_struct.py``)
+     - 00:00.208
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_clipping_plane.py` (``../../examples/00-basic-pyvista-examples/clipping_plane.py``)
+     - 00:00.191
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_using_meshobject.py` (``../../examples/00-basic-pyvista-examples/using_meshobject.py``)
+     - 00:00.188
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_custom_picker.py` (``../../examples/00-basic-pyvista-examples/custom_picker.py``)
+     - 00:00.125
+     - 0.0
+   * - :ref:`sphx_glr_examples_01-basic-plotly-examples_customization_api.py` (``../../examples/01-basic-plotly-examples/customization_api.py``)
+     - 00:00.079
+     - 0.0
+   * - :ref:`sphx_glr_examples_01-basic-plotly-examples_plain-usage.py` (``../../examples/01-basic-plotly-examples/plain-usage.py``)
+     - 00:00.079
+     - 0.0
+   * - :ref:`sphx_glr_examples_00-basic-pyvista-examples_remote_trame_view.py` (``../../examples/00-basic-pyvista-examples/remote_trame_view.py``)
+     - 00:00.000
+     - 0.0

@@ -1,0 +1,104 @@
+
+
+
+
+
+
+The ``logger.py`` module
+========================
+
+.. py:module:: ansys.tools.visualization_interface.utils.logger
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: logger
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.utils.logger.SingletonType`
+            - Provides the singleton helper class for the logger.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.utils.logger.VizLogger`
+            - Provides the singleton logger for the visualizer.
+
+
+
+
+
+
+    .. tab-item:: Attributes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~logger`
+            - 
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    🝆 SingletonType</api/ansys/tools/visualization_interface/utils/logger/SingletonType>
+    🝆 VizLogger</api/ansys/tools/visualization_interface/utils/logger/VizLogger>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the singleton helper class for the logger.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:data:: logger
+
+
+

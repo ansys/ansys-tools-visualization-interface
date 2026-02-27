@@ -1,0 +1,110 @@
+
+
+
+
+
+
+The ``plotly`` package
+==========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.plotly
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: plotly
+.. tab-set::
+
+    .. tab-item:: Subpackages
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.plotly.widgets`
+            - Widgets module init.
+
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.plotly.plotly_interface`
+            - Plotly backend interface for visualization.
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-md-package"></span> widgets</api/ansys/tools/visualization_interface/backends/plotly/widgets/index>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> plotly_interface</api/ansys/tools/visualization_interface/backends/plotly/plotly_interface/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+Plotly initialization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+

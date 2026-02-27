@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``trame_local.py`` module
+=============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.trame_local
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: trame_local
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.trame_local.TrameVisualizer`
+            - Defines the trame layout view.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    🝆 TrameVisualizer</api/ansys/tools/visualization_interface/backends/pyvista/trame_local/TrameVisualizer>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides `trame <https://kitware.github.io/trame/index.html>`_ visualizer interface for visualization.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
