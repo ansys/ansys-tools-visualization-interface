@@ -1,0 +1,182 @@
+
+
+
+
+
+
+:class:`Color`
+==============
+
+.. py:class:: ansys.tools.visualization_interface.utils.color.Color(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   
+   Provides an enum with the color to use for the plotter actors.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Color
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~DEFAULT`
+            - Default color for the plotter actors.
+          * - :py:attr:`~PICKED`
+            - Color for the actors that are currently picked.
+          * - :py:attr:`~EDGE`
+            - Default color for the edges.
+          * - :py:attr:`~PICKED_EDGE`
+            - Color for the edges that are currently picked.
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.utils.color import Color
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: DEFAULT
+   :value: '#D6F7D1'
+
+
+   
+   Default color for the plotter actors.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:attribute:: PICKED
+   :value: '#BB6EEE'
+
+
+   
+   Color for the actors that are currently picked.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:attribute:: EDGE
+   :value: '#000000'
+
+
+   
+   Default color for the edges.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:attribute:: PICKED_EDGE
+   :value: '#9C9C9C'
+
+
+   
+   Color for the edges that are currently picked.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
