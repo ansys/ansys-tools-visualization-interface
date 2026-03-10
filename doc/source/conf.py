@@ -122,7 +122,7 @@ sphinx_gallery_conf = {
 
 # Intersphinx mapping
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3.13", None),
+    "python": ("https://docs.python.org/3.14", None),
     "numpy": ("https://numpy.org/doc/stable", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
     "pyvista": ("https://docs.pyvista.org/version/stable", None),
