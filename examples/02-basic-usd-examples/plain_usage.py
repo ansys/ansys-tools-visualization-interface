@@ -35,43 +35,47 @@ to display meshes using the OpenUSD-based viewer from the ``python-usd-viewer`` 
 # Plot a single mesh
 # ==================
 # This code shows how to plot a single PyVista mesh with the USD backend.
-
-import pyvista as pv
-
-from ansys.tools.visualization_interface import Plotter
-from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
-
-mesh = pv.Sphere()
-
-# Create a plotter with the USD backend
-pl = Plotter(backend=USDInterface())
-
-# Add the mesh to the plotter
-pl.plot(mesh)
-
-# Show the plotter — opens a Qt window and blocks until it is closed
-pl.show()
+#
+# .. code-block:: python
+#
+#   import pyvista as pv
+#
+#   from ansys.tools.visualization_interface import Plotter
+#   from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
+#
+#   mesh = pv.Sphere()
+#
+#   # Create a plotter with the USD backend
+#   pl = Plotter(backend=USDInterface())
+#
+#   # Add the mesh to the plotter
+#   pl.plot(mesh)
+#
+#   # Show the plotter — opens a Qt window and blocks until it is closed
+#   pl.show()
 
 
 ######################
 # Plot multiple meshes
 # ====================
 # Use :meth:`plot_iter` to add several meshes at once before showing the viewer.
-
-import pyvista as pv
-
-from ansys.tools.visualization_interface import Plotter
-from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
-
-meshes = [
-    pv.Sphere(center=(0, 0, 0)),
-    pv.Cube(center=(2, 0, 0)),
-    pv.Cylinder(center=(-2, 0, 0)),
-]
-
-pl = Plotter(backend=USDInterface())
-pl.plot_iter(meshes)
-pl.show()
+#
+# .. code-block:: python
+#
+#   import pyvista as pv
+#
+#   from ansys.tools.visualization_interface import Plotter
+#   from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
+#
+#   meshes = [
+#       pv.Sphere(center=(0, 0, 0)),
+#       pv.Cube(center=(2, 0, 0)),
+#       pv.Cylinder(center=(-2, 0, 0)),
+#   ]
+#
+#   pl = Plotter(backend=USDInterface())
+#   pl.plot_iter(meshes)
+#   pl.show()
 
 
 #############################
@@ -80,28 +84,30 @@ pl.show()
 # If you already have a ``.usd`` / ``.usda`` / ``.usdc`` file on disk, pass
 # its path directly to :meth:`plot`.  The file is opened as a
 # :class:`pxr.Usd.Stage` and displayed in the viewer.
-
-import pyvista as pv
-import tempfile, os
-
-from ansys.tools.visualization_interface import Plotter
-from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
-
-# Write a simple USD file to a temporary location for demonstration purposes
-usd_content = """\
-#usda 1.0
-
-def Sphere "Ball"
-{
-    double radius = 1
-}
-"""
-tmp = tempfile.NamedTemporaryFile(suffix=".usda", mode="w", delete=False)
-tmp.write(usd_content)
-tmp.close()
-
-pl = Plotter(backend=USDInterface())
-pl.plot(tmp.name)
-pl.show()
-
-os.unlink(tmp.name)
+#
+# .. code-block:: python
+#
+#   import pyvista as pv
+#   import tempfile, os
+#
+#   from ansys.tools.visualization_interface import Plotter
+#   from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
+#
+#   # Write a simple USD file to a temporary location for demonstration purposes
+#   usd_content = """\
+#   #usda 1.0
+#
+#   def Sphere "Ball"
+#   {
+#       double radius = 1
+#   }
+#   """
+#   tmp = tempfile.NamedTemporaryFile(suffix=".usda", mode="w", delete=False)
+#   tmp.write(usd_content)
+#   tmp.close()
+#
+#   pl = Plotter(backend=USDInterface())
+#   pl.plot(tmp.name)
+#   pl.show()
+#
+#   os.unlink(tmp.name)
