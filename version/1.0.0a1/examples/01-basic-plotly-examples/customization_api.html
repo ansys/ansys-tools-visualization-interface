@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Backend-Agnostic Customization APIs (Plotly) &#8212; Visualization Interface Tool</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/ansys-sphinx-theme.css?v=a23b20f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/ansys-sphinx-theme.css?v=a23b20f3" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../../_static/documentation_options.js?v=41a1115f"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/01-basic-plotly-examples/customization_api';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://visualization-interface.tools.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Advanced usage examples" href="../99-advanced-pyansys-examples/index.html" />
+    <link rel="prev" title="Plain usage of the plotly backend" href="plain-usage.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.0.0a1" />
+  <link rel="canonical" href="https://visualization-interface.tools.docs.pyansys.com/version/stable/examples/01-basic-plotly-examples/customization_api.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="Visualization Interface Tool - Home"/>
+    <img src="../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="Visualization Interface Tool - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="Visualization Interface Tool home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/migration.html">
+    Migration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API reference
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="../index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/ansys-tools-visualization-interface" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/ansys-tools-visualization-interface/discussions" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://visualization-interface.tools.docs.pyansys.com/version/1.0/_static/assets/download/ansys-tools-visualization-interface.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    
+<!--
+  Announcement Version Loader
+  Dynamically loads the announcement.html content into the announcement_msg div.
+-->
+<div id="announcement_msg" aria-live="polite"></div>
+<script>
+  // Fetch and inject the announcement HTML content
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status} Announcement.html file not found, Please ignore this, if you are in dev/stable documentation`);
+      }
+      return response.text();
+    })
+    .then((text) => {
+      var msgDiv = document.getElementById("announcement_msg");
+      if (msgDiv) {
+        msgDiv.innerHTML = text;
+      }
+    })
+    .catch((error) => {
+      // Log only unexpected fetch errors
+      if (!(error.message && error.message.startsWith("HTTP error: 404"))) {
+        console.error(`Fetch problem: ${error.message} Announcement.html could not be loaded.`);
+      }
+    });
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="Visualization Interface Tool home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/migration.html">
+    Migration
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/ansys-tools-visualization-interface" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/ansys-tools-visualization-interface/discussions" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://visualization-interface.tools.docs.pyansys.com/version/1.0/_static/assets/download/ansys-tools-visualization-interface.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00-basic-pyvista-examples/index.html">Basic usage examples</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Basic Plotly usage examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dash-usage.html">Plain usage of the plotly dash backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plain-usage.html">Plain usage of the plotly backend</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Backend-Agnostic Customization APIs (Plotly)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../99-advanced-pyansys-examples/index.html">Advanced usage examples</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../index.html" class="nav-link">Examples</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="index.html" class="nav-link">Basic Plotly usage examples</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Backend-Agnostic Customization APIs (Plotly)</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-examples-01-basic-plotly-examples-customization-api-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="backend-agnostic-customization-apis-plotly">
+<span id="plotly-customization-api-example"></span><span id="sphx-glr-examples-01-basic-plotly-examples-customization-api-py"></span><h1>Backend-Agnostic Customization APIs (Plotly)<a class="headerlink" href="#backend-agnostic-customization-apis-plotly" title="Link to this heading">#</a></h1>
+<p>This example demonstrates the backend-agnostic customization APIs with
+the Plotly backend.</p>
+<p>The same API calls work with both PyVista and Plotly backends, demonstrating
+the true backend-agnostic nature of these methods.</p>
+<div class="output_subarea output_html rendered_html output_result">
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="2d5fc664-53c7-4601-8cc5-39af7faa23dc" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("2d5fc664-53c7-4601-8cc5-39af7faa23dc")) {                    Plotly.newPlot(                        "2d5fc664-53c7-4601-8cc5-39af7faa23dc",                        [{"i":{"dtype":"i2","bdata":"AgAeADoAVgByAI4AqgDGAOIA\u002fgAaATYBUgFuAYoBpgHCAd4B+gEWAjICTgJqAoYCogK+AtoC9gISAy4DHQA5AFUAcQCNAKkAxQDhAP0AGQE1AVEBbQGJAaUBwQHdAfkBFQIxAk0CaQKFAqECvQLZAvUCEQMtA0kDAgACAAMAAwAEAAQABQAFAAYABgAHAAcACAAIAAkACQAKAAoACwALAAwADAANAA0ADgAOAA8ADwAQABAAEQARABIAEgATABMAFAAUABUAFQAWABYAFwAXABgAGAAZABkAGgAaABsAGwAcABwAHgAeAB8AHwAgACAAIQAhACIAIgAjACMAJAAkACUAJQAmACYAJwAnACgAKAApACkAKgAqACsAKwAsACwALQAtAC4ALgAvAC8AMAAwADEAMQAyADIAMwAzADQANAA1ADUANgA2ADcANwA4ADgAOgA6ADsAOwA8ADwAPQA9AD4APgA\u002fAD8AQABAAEEAQQBCAEIAQwBDAEQARABFAEUARgBGAEcARwBIAEgASQBJAEoASgBLAEsATABMAE0ATQBOAE4ATwBPAFAAUABRAFEAUgBSAFMAUwBUAFQAVgBWAFcAVwBYAFgAWQBZAFoAWgBbAFsAXABcAF0AXQBeAF4AXwBfAGAAYABhAGEAYgBiAGMAYwBkAGQAZQBlAGYAZgBnAGcAaABoAGkAaQBqAGoAawBrAGwAbABtAG0AbgBuAG8AbwBwAHAAcgByAHMAcwB0AHQAdQB1AHYAdgB3AHcAeAB4AHkAeQB6AHoAewB7AHwAfAB9AH0AfgB+AH8AfwCAAIAAgQCBAIIAggCDAIMAhACEAIUAhQCGAIYAhwCHAIgAiACJAIkAigCKAIsAiwCMAIwAjgCOAI8AjwCQAJAAkQCRAJIAkgCTAJMAlACUAJUAlQCWAJYAlwCXAJgAmACZAJkAmgCaAJsAmwCcAJwAnQCdAJ4AngCfAJ8AoACgAKEAoQCiAKIAowCjAKQApAClAKUApgCmAKcApwCoAKgAqgCqAKsAqwCsAKwArQCtAK4ArgCvAK8AsACwALEAsQCyALIAswCzALQAtAC1ALUAtgC2ALcAtwC4ALgAuQC5ALoAugC7ALsAvAC8AL0AvQC+AL4AvwC\u002fAMAAwADBAMEAwgDCAMMAwwDEAMQAxgDGAMcAxwDIAMgAyQDJAMoAygDLAMsAzADMAM0AzQDOAM4AzwDPANAA0ADRANEA0gDSANMA0wDUANQA1QDVANYA1gDXANcA2ADYANkA2QDaANoA2wDbANwA3ADdAN0A3gDeAN8A3wDgAOAA4gDiAOMA4wDkAOQA5QDlAOYA5gDnAOcA6ADoAOkA6QDqAOoA6wDrAOwA7ADtAO0A7gDuAO8A7wDwAPAA8QDxAPIA8gDzAPMA9AD0APUA9QD2APYA9wD3APgA+AD5APkA+gD6APsA+wD8APwA\u002fgD+AP8A\u002fwAAAQABAQEBAQIBAgEDAQMBBAEEAQUBBQEGAQYBBwEHAQgBCAEJAQkBCgEKAQsBCwEMAQwBDQENAQ4BDgEPAQ8BEAEQAREBEQESARIBEwETARQBFAEVARUBFgEWARcBFwEYARgBGgEaARsBGwEcARwBHQEdAR4BHgEfAR8BIAEgASEBIQEiASIBIwEjASQBJAElASUBJgEmAScBJwEoASgBKQEpASoBKgErASsBLAEsAS0BLQEuAS4BLwEvATABMAExATEBMgEyATMBMwE0ATQBNgE2ATcBNwE4ATgBOQE5AToBOgE7ATsBPAE8AT0BPQE+AT4BPwE\u002fAUABQAFBAUEBQgFCAUMBQwFEAUQBRQFFAUYBRgFHAUcBSAFIAUkBSQFKAUoBSwFLAUwBTAFNAU0BTgFOAU8BTwFQAVABUgFSAVMBUwFUAVQBVQFVAVYBVgFXAVcBWAFYAVkBWQFaAVoBWwFbAVwBXAFdAV0BXgFeAV8BXwFgAWABYQFhAWIBYgFjAWMBZAFkAWUBZQFmAWYBZwFnAWgBaAFpAWkBagFqAWsBawFsAWwBbgFuAW8BbwFwAXABcQFxAXIBcgFzAXMBdAF0AXUBdQF2AXYBdwF3AXgBeAF5AXkBegF6AXsBewF8AXwBfQF9AX4BfgF\u002fAX8BgAGAAYEBgQGCAYIBgwGDAYQBhAGFAYUBhgGGAYcBhwGIAYgBigGKAYsBiwGMAYwBjQGNAY4BjgGPAY8BkAGQAZEBkQGSAZIBkwGTAZQBlAGVAZUBlgGWAZcBlwGYAZgBmQGZAZoBmgGbAZsBnAGcAZ0BnQGeAZ4BnwGfAaABoAGhAaEBogGiAaMBowGkAaQBpgGmAacBpwGoAagBqQGpAaoBqgGrAasBrAGsAa0BrQGuAa4BrwGvAbABsAGxAbEBsgGyAbMBswG0AbQBtQG1AbYBtgG3AbcBuAG4AbkBuQG6AboBuwG7AbwBvAG9Ab0BvgG+Ab8BvwHAAcABwgHCAcMBwwHEAcQBxQHFAcYBxgHHAccByAHIAckByQHKAcoBywHLAcwBzAHNAc0BzgHOAc8BzwHQAdAB0QHRAdIB0gHTAdMB1AHUAdUB1QHWAdYB1wHXAdgB2AHZAdkB2gHaAdsB2wHcAdwB3gHeAd8B3wHgAeAB4QHhAeIB4gHjAeMB5AHkAeUB5QHmAeYB5wHnAegB6AHpAekB6gHqAesB6wHsAewB7QHtAe4B7gHvAe8B8AHwAfEB8QHyAfIB8wHzAfQB9AH1AfUB9gH2AfcB9wH4AfgB+gH6AfsB+wH8AfwB\u002fQH9Af4B\u002fgH\u002fAf8BAAIAAgECAQICAgICAwIDAgQCBAIFAgUCBgIGAgcCBwIIAggCCQIJAgoCCgILAgsCDAIMAg0CDQIOAg4CDwIPAhACEAIRAhECEgISAhMCEwIUAhQCFgIWAhcCFwIYAhgCGQIZAhoCGgIbAhsCHAIcAh0CHQIeAh4CHwIfAiACIAIhAiECIgIiAiMCIwIkAiQCJQIlAiYCJgInAicCKAIoAikCKQIqAioCKwIrAiwCLAItAi0CLgIuAi8CLwIwAjACMgIyAjMCMwI0AjQCNQI1AjYCNgI3AjcCOAI4AjkCOQI6AjoCOwI7AjwCPAI9Aj0CPgI+Aj8CPwJAAkACQQJBAkICQgJDAkMCRAJEAkUCRQJGAkYCRwJHAkgCSAJJAkkCSgJKAksCSwJMAkwCTgJOAk8CTwJQAlACUQJRAlICUgJTAlMCVAJUAlUCVQJWAlYCVwJXAlgCWAJZAlkCWgJaAlsCWwJcAlwCXQJdAl4CXgJfAl8CYAJgAmECYQJiAmICYwJjAmQCZAJlAmUCZgJmAmcCZwJoAmgCagJqAmsCawJsAmwCbQJtAm4CbgJvAm8CcAJwAnECcQJyAnICcwJzAnQCdAJ1AnUCdgJ2AncCdwJ4AngCeQJ5AnoCegJ7AnsCfAJ8An0CfQJ+An4CfwJ\u002fAoACgAKBAoECggKCAoMCgwKEAoQChgKGAocChwKIAogCiQKJAooCigKLAosCjAKMAo0CjQKOAo4CjwKPApACkAKRApECkgKSApMCkwKUApQClQKVApYClgKXApcCmAKYApkCmQKaApoCmwKbApwCnAKdAp0CngKeAp8CnwKgAqACogKiAqMCowKkAqQCpQKlAqYCpgKnAqcCqAKoAqkCqQKqAqoCqwKrAqwCrAKtAq0CrgKuAq8CrwKwArACsQKxArICsgKzArMCtAK0ArUCtQK2ArYCtwK3ArgCuAK5ArkCugK6ArsCuwK8ArwCvgK+Ar8CvwLAAsACwQLBAsICwgLDAsMCxALEAsUCxQLGAsYCxwLHAsgCyALJAskCygLKAssCywLMAswCzQLNAs4CzgLPAs8C0ALQAtEC0QLSAtIC0wLTAtQC1ALVAtUC1gLWAtcC1wLYAtgC2gLaAtsC2wLcAtwC3QLdAt4C3gLfAt8C4ALgAuEC4QLiAuIC4wLjAuQC5ALlAuUC5gLmAucC5wLoAugC6QLpAuoC6gLrAusC7ALsAu0C7QLuAu4C7wLvAvAC8ALxAvEC8gLyAvMC8wL0AvQC9gL2AvcC9wL4AvgC+QL5AvoC+gL7AvsC\u002fAL8Av0C\u002fQL+Av4C\u002fwL\u002fAgADAAMBAwEDAgMCAwMDAwMEAwQDBQMFAwYDBgMHAwcDCAMIAwkDCQMKAwoDCwMLAwwDDAMNAw0DDgMOAw8DDwMQAxADEgMSAxMDEwMUAxQDFQMVAxYDFgMXAxcDGAMYAxkDGQMaAxoDGwMbAxwDHAMdAx0DHgMeAx8DHwMgAyADIQMhAyIDIgMjAyMDJAMkAyUDJQMmAyYDJwMnAygDKAMpAykDKgMqAysDKwMsAywDLgMuAy8DLwMwAzADMQMxAzIDMgMzAzMDNAM0AzUDNQM2AzYDNwM3AzgDOAM5AzkDOgM6AzsDOwM8AzwDPQM9Az4DPgM\u002fAz8DQANAA0EDQQNCA0IDQwNDA0QDRANFA0UDRgNGA0cDRwNIA0gD"},"j":{"dtype":"i2","bdata":"HgA6AFYAcgCOAKoAxgDiAP4AGgE2AVIBbgGKAaYBwgHeAfoBFgIyAk4CagKGAqICvgLaAvYCEgMuAwIAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAwAfAAQAIAAFACEABgAiAAcAIwAIACQACQAlAAoAJgALACcADAAoAA0AKQAOACoADwArABAALAARAC0AEgAuABMALwAUADAAFQAxABYAMgAXADMAGAA0ABkANQAaADYAGwA3ABwAOAAdADkAHwA7ACAAPAAhAD0AIgA+ACMAPwAkAEAAJQBBACYAQgAnAEMAKABEACkARQAqAEYAKwBHACwASAAtAEkALgBKAC8ASwAwAEwAMQBNADIATgAzAE8ANABQADUAUQA2AFIANwBTADgAVAA5AFUAOwBXADwAWAA9AFkAPgBaAD8AWwBAAFwAQQBdAEIAXgBDAF8ARABgAEUAYQBGAGIARwBjAEgAZABJAGUASgBmAEsAZwBMAGgATQBpAE4AagBPAGsAUABsAFEAbQBSAG4AUwBvAFQAcABVAHEAVwBzAFgAdABZAHUAWgB2AFsAdwBcAHgAXQB5AF4AegBfAHsAYAB8AGEAfQBiAH4AYwB\u002fAGQAgABlAIEAZgCCAGcAgwBoAIQAaQCFAGoAhgBrAIcAbACIAG0AiQBuAIoAbwCLAHAAjABxAI0AcwCPAHQAkAB1AJEAdgCSAHcAkwB4AJQAeQCVAHoAlgB7AJcAfACYAH0AmQB+AJoAfwCbAIAAnACBAJ0AggCeAIMAnwCEAKAAhQChAIYAogCHAKMAiACkAIkApQCKAKYAiwCnAIwAqACNAKkAjwCrAJAArACRAK0AkgCuAJMArwCUALAAlQCxAJYAsgCXALMAmAC0AJkAtQCaALYAmwC3AJwAuACdALkAngC6AJ8AuwCgALwAoQC9AKIAvgCjAL8ApADAAKUAwQCmAMIApwDDAKgAxACpAMUAqwDHAKwAyACtAMkArgDKAK8AywCwAMwAsQDNALIAzgCzAM8AtADQALUA0QC2ANIAtwDTALgA1AC5ANUAugDWALsA1wC8ANgAvQDZAL4A2gC\u002fANsAwADcAMEA3QDCAN4AwwDfAMQA4ADFAOEAxwDjAMgA5ADJAOUAygDmAMsA5wDMAOgAzQDpAM4A6gDPAOsA0ADsANEA7QDSAO4A0wDvANQA8ADVAPEA1gDyANcA8wDYAPQA2QD1ANoA9gDbAPcA3AD4AN0A+QDeAPoA3wD7AOAA\u002fADhAP0A4wD\u002fAOQAAAHlAAEB5gACAecAAwHoAAQB6QAFAeoABgHrAAcB7AAIAe0ACQHuAAoB7wALAfAADAHxAA0B8gAOAfMADwH0ABAB9QARAfYAEgH3ABMB+AAUAfkAFQH6ABYB+wAXAfwAGAH9ABkB\u002fwAbAQABHAEBAR0BAgEeAQMBHwEEASABBQEhAQYBIgEHASMBCAEkAQkBJQEKASYBCwEnAQwBKAENASkBDgEqAQ8BKwEQASwBEQEtARIBLgETAS8BFAEwARUBMQEWATIBFwEzARgBNAEZATUBGwE3ARwBOAEdATkBHgE6AR8BOwEgATwBIQE9ASIBPgEjAT8BJAFAASUBQQEmAUIBJwFDASgBRAEpAUUBKgFGASsBRwEsAUgBLQFJAS4BSgEvAUsBMAFMATEBTQEyAU4BMwFPATQBUAE1AVEBNwFTATgBVAE5AVUBOgFWATsBVwE8AVgBPQFZAT4BWgE\u002fAVsBQAFcAUEBXQFCAV4BQwFfAUQBYAFFAWEBRgFiAUcBYwFIAWQBSQFlAUoBZgFLAWcBTAFoAU0BaQFOAWoBTwFrAVABbAFRAW0BUwFvAVQBcAFVAXEBVgFyAVcBcwFYAXQBWQF1AVoBdgFbAXcBXAF4AV0BeQFeAXoBXwF7AWABfAFhAX0BYgF+AWMBfwFkAYABZQGBAWYBggFnAYMBaAGEAWkBhQFqAYYBawGHAWwBiAFtAYkBbwGLAXABjAFxAY0BcgGOAXMBjwF0AZABdQGRAXYBkgF3AZMBeAGUAXkBlQF6AZYBewGXAXwBmAF9AZkBfgGaAX8BmwGAAZwBgQGdAYIBngGDAZ8BhAGgAYUBoQGGAaIBhwGjAYgBpAGJAaUBiwGnAYwBqAGNAakBjgGqAY8BqwGQAawBkQGtAZIBrgGTAa8BlAGwAZUBsQGWAbIBlwGzAZgBtAGZAbUBmgG2AZsBtwGcAbgBnQG5AZ4BugGfAbsBoAG8AaEBvQGiAb4BowG\u002fAaQBwAGlAcEBpwHDAagBxAGpAcUBqgHGAasBxwGsAcgBrQHJAa4BygGvAcsBsAHMAbEBzQGyAc4BswHPAbQB0AG1AdEBtgHSAbcB0wG4AdQBuQHVAboB1gG7AdcBvAHYAb0B2QG+AdoBvwHbAcAB3AHBAd0BwwHfAcQB4AHFAeEBxgHiAccB4wHIAeQByQHlAcoB5gHLAecBzAHoAc0B6QHOAeoBzwHrAdAB7AHRAe0B0gHuAdMB7wHUAfAB1QHxAdYB8gHXAfMB2AH0AdkB9QHaAfYB2wH3AdwB+AHdAfkB3wH7AeAB\u002fAHhAf0B4gH+AeMB\u002fwHkAQAC5QEBAuYBAgLnAQMC6AEEAukBBQLqAQYC6wEHAuwBCALtAQkC7gEKAu8BCwLwAQwC8QENAvIBDgLzAQ8C9AEQAvUBEQL2ARIC9wETAvgBFAL5ARUC+wEXAvwBGAL9ARkC\u002fgEaAv8BGwIAAhwCAQIdAgICHgIDAh8CBAIgAgUCIQIGAiICBwIjAggCJAIJAiUCCgImAgsCJwIMAigCDQIpAg4CKgIPAisCEAIsAhECLQISAi4CEwIvAhQCMAIVAjECFwIzAhgCNAIZAjUCGgI2AhsCNwIcAjgCHQI5Ah4COgIfAjsCIAI8AiECPQIiAj4CIwI\u002fAiQCQAIlAkECJgJCAicCQwIoAkQCKQJFAioCRgIrAkcCLAJIAi0CSQIuAkoCLwJLAjACTAIxAk0CMwJPAjQCUAI1AlECNgJSAjcCUwI4AlQCOQJVAjoCVgI7AlcCPAJYAj0CWQI+AloCPwJbAkACXAJBAl0CQgJeAkMCXwJEAmACRQJhAkYCYgJHAmMCSAJkAkkCZQJKAmYCSwJnAkwCaAJNAmkCTwJrAlACbAJRAm0CUgJuAlMCbwJUAnACVQJxAlYCcgJXAnMCWAJ0AlkCdQJaAnYCWwJ3AlwCeAJdAnkCXgJ6Al8CewJgAnwCYQJ9AmICfgJjAn8CZAKAAmUCgQJmAoICZwKDAmgChAJpAoUCawKHAmwCiAJtAokCbgKKAm8CiwJwAowCcQKNAnICjgJzAo8CdAKQAnUCkQJ2ApICdwKTAngClAJ5ApUCegKWAnsClwJ8ApgCfQKZAn4CmgJ\u002fApsCgAKcAoECnQKCAp4CgwKfAoQCoAKFAqEChwKjAogCpAKJAqUCigKmAosCpwKMAqgCjQKpAo4CqgKPAqsCkAKsApECrQKSAq4CkwKvApQCsAKVArEClgKyApcCswKYArQCmQK1ApoCtgKbArcCnAK4Ap0CuQKeAroCnwK7AqACvAKhAr0CowK\u002fAqQCwAKlAsECpgLCAqcCwwKoAsQCqQLFAqoCxgKrAscCrALIAq0CyQKuAsoCrwLLArACzAKxAs0CsgLOArMCzwK0AtACtQLRArYC0gK3AtMCuALUArkC1QK6AtYCuwLXArwC2AK9AtkCvwLbAsAC3ALBAt0CwgLeAsMC3wLEAuACxQLhAsYC4gLHAuMCyALkAskC5QLKAuYCywLnAswC6ALNAukCzgLqAs8C6wLQAuwC0QLtAtIC7gLTAu8C1ALwAtUC8QLWAvIC1wLzAtgC9ALZAvUC2wL3AtwC+ALdAvkC3gL6At8C+wLgAvwC4QL9AuIC\u002fgLjAv8C5AIAA+UCAQPmAgID5wIDA+gCBAPpAgUD6gIGA+sCBwPsAggD7QIJA+4CCgPvAgsD8AIMA\u002fECDQPyAg4D8wIPA\u002fQCEAP1AhED9wITA\u002fgCFAP5AhUD+gIWA\u002fsCFwP8AhgD\u002fQIZA\u002f4CGgP\u002fAhsDAAMcAwEDHQMCAx4DAwMfAwQDIAMFAyEDBgMiAwcDIwMIAyQDCQMlAwoDJgMLAycDDAMoAw0DKQMOAyoDDwMrAxADLAMRAy0DEwMvAxQDMAMVAzEDFgMyAxcDMwMYAzQDGQM1AxoDNgMbAzcDHAM4Ax0DOQMeAzoDHwM7AyADPAMhAz0DIgM+AyMDPwMkA0ADJQNBAyYDQgMnA0MDKANEAykDRQMqA0YDKwNHAywDSAMtA0kDLwMDADADBAAxAwUAMgMGADMDBwA0AwgANQMJADYDCgA3AwsAOAMMADkDDQA6Aw4AOwMPADwDEAA9AxEAPgMSAD8DEwBAAxQAQQMVAEIDFgBDAxcARAMYAEUDGQBGAxoARwMbAEgDHABJAx0A"},"k":{"dtype":"i2","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOQBVAHEAjQCpAMUA4QD9ABkBNQFRAW0BiQGlAcEB3QH5ARUCMQJNAmkChQKhAr0C2QL1AhEDLQNJAx0AHwAeACAAHwAhACAAIgAhACMAIgAkACMAJQAkACYAJQAnACYAKAAnACkAKAAqACkAKwAqACwAKwAtACwALgAtAC8ALgAwAC8AMQAwADIAMQAzADIANAAzADUANAA2ADUANwA2ADgANwA5ADgAOwA6ADwAOwA9ADwAPgA9AD8APgBAAD8AQQBAAEIAQQBDAEIARABDAEUARABGAEUARwBGAEgARwBJAEgASgBJAEsASgBMAEsATQBMAE4ATQBPAE4AUABPAFEAUABSAFEAUwBSAFQAUwBVAFQAVwBWAFgAVwBZAFgAWgBZAFsAWgBcAFsAXQBcAF4AXQBfAF4AYABfAGEAYABiAGEAYwBiAGQAYwBlAGQAZgBlAGcAZgBoAGcAaQBoAGoAaQBrAGoAbABrAG0AbABuAG0AbwBuAHAAbwBxAHAAcwByAHQAcwB1AHQAdgB1AHcAdgB4AHcAeQB4AHoAeQB7AHoAfAB7AH0AfAB+AH0AfwB+AIAAfwCBAIAAggCBAIMAggCEAIMAhQCEAIYAhQCHAIYAiACHAIkAiACKAIkAiwCKAIwAiwCNAIwAjwCOAJAAjwCRAJAAkgCRAJMAkgCUAJMAlQCUAJYAlQCXAJYAmACXAJkAmACaAJkAmwCaAJwAmwCdAJwAngCdAJ8AngCgAJ8AoQCgAKIAoQCjAKIApACjAKUApACmAKUApwCmAKgApwCpAKgAqwCqAKwAqwCtAKwArgCtAK8ArgCwAK8AsQCwALIAsQCzALIAtACzALUAtAC2ALUAtwC2ALgAtwC5ALgAugC5ALsAugC8ALsAvQC8AL4AvQC\u002fAL4AwAC\u002fAMEAwADCAMEAwwDCAMQAwwDFAMQAxwDGAMgAxwDJAMgAygDJAMsAygDMAMsAzQDMAM4AzQDPAM4A0ADPANEA0ADSANEA0wDSANQA0wDVANQA1gDVANcA1gDYANcA2QDYANoA2QDbANoA3ADbAN0A3ADeAN0A3wDeAOAA3wDhAOAA4wDiAOQA4wDlAOQA5gDlAOcA5gDoAOcA6QDoAOoA6QDrAOoA7ADrAO0A7ADuAO0A7wDuAPAA7wDxAPAA8gDxAPMA8gD0APMA9QD0APYA9QD3APYA+AD3APkA+AD6APkA+wD6APwA+wD9APwA\u002fwD+AAAB\u002fwABAQABAgEBAQMBAgEEAQMBBQEEAQYBBQEHAQYBCAEHAQkBCAEKAQkBCwEKAQwBCwENAQwBDgENAQ8BDgEQAQ8BEQEQARIBEQETARIBFAETARUBFAEWARUBFwEWARgBFwEZARgBGwEaARwBGwEdARwBHgEdAR8BHgEgAR8BIQEgASIBIQEjASIBJAEjASUBJAEmASUBJwEmASgBJwEpASgBKgEpASsBKgEsASsBLQEsAS4BLQEvAS4BMAEvATEBMAEyATEBMwEyATQBMwE1ATQBNwE2ATgBNwE5ATgBOgE5ATsBOgE8ATsBPQE8AT4BPQE\u002fAT4BQAE\u002fAUEBQAFCAUEBQwFCAUQBQwFFAUQBRgFFAUcBRgFIAUcBSQFIAUoBSQFLAUoBTAFLAU0BTAFOAU0BTwFOAVABTwFRAVABUwFSAVQBUwFVAVQBVgFVAVcBVgFYAVcBWQFYAVoBWQFbAVoBXAFbAV0BXAFeAV0BXwFeAWABXwFhAWABYgFhAWMBYgFkAWMBZQFkAWYBZQFnAWYBaAFnAWkBaAFqAWkBawFqAWwBawFtAWwBbwFuAXABbwFxAXABcgFxAXMBcgF0AXMBdQF0AXYBdQF3AXYBeAF3AXkBeAF6AXkBewF6AXwBewF9AXwBfgF9AX8BfgGAAX8BgQGAAYIBgQGDAYIBhAGDAYUBhAGGAYUBhwGGAYgBhwGJAYgBiwGKAYwBiwGNAYwBjgGNAY8BjgGQAY8BkQGQAZIBkQGTAZIBlAGTAZUBlAGWAZUBlwGWAZgBlwGZAZgBmgGZAZsBmgGcAZsBnQGcAZ4BnQGfAZ4BoAGfAaEBoAGiAaEBowGiAaQBowGlAaQBpwGmAagBpwGpAagBqgGpAasBqgGsAasBrQGsAa4BrQGvAa4BsAGvAbEBsAGyAbEBswGyAbQBswG1AbQBtgG1AbcBtgG4AbcBuQG4AboBuQG7AboBvAG7Ab0BvAG+Ab0BvwG+AcABvwHBAcABwwHCAcQBwwHFAcQBxgHFAccBxgHIAccByQHIAcoByQHLAcoBzAHLAc0BzAHOAc0BzwHOAdABzwHRAdAB0gHRAdMB0gHUAdMB1QHUAdYB1QHXAdYB2AHXAdkB2AHaAdkB2wHaAdwB2wHdAdwB3wHeAeAB3wHhAeAB4gHhAeMB4gHkAeMB5QHkAeYB5QHnAeYB6AHnAekB6AHqAekB6wHqAewB6wHtAewB7gHtAe8B7gHwAe8B8QHwAfIB8QHzAfIB9AHzAfUB9AH2AfUB9wH2AfgB9wH5AfgB+wH6AfwB+wH9AfwB\u002fgH9Af8B\u002fgEAAv8BAQIAAgICAQIDAgICBAIDAgUCBAIGAgUCBwIGAggCBwIJAggCCgIJAgsCCgIMAgsCDQIMAg4CDQIPAg4CEAIPAhECEAISAhECEwISAhQCEwIVAhQCFwIWAhgCFwIZAhgCGgIZAhsCGgIcAhsCHQIcAh4CHQIfAh4CIAIfAiECIAIiAiECIwIiAiQCIwIlAiQCJgIlAicCJgIoAicCKQIoAioCKQIrAioCLAIrAi0CLAIuAi0CLwIuAjACLwIxAjACMwIyAjQCMwI1AjQCNgI1AjcCNgI4AjcCOQI4AjoCOQI7AjoCPAI7Aj0CPAI+Aj0CPwI+AkACPwJBAkACQgJBAkMCQgJEAkMCRQJEAkYCRQJHAkYCSAJHAkkCSAJKAkkCSwJKAkwCSwJNAkwCTwJOAlACTwJRAlACUgJRAlMCUgJUAlMCVQJUAlYCVQJXAlYCWAJXAlkCWAJaAlkCWwJaAlwCWwJdAlwCXgJdAl8CXgJgAl8CYQJgAmICYQJjAmICZAJjAmUCZAJmAmUCZwJmAmgCZwJpAmgCawJqAmwCawJtAmwCbgJtAm8CbgJwAm8CcQJwAnICcQJzAnICdAJzAnUCdAJ2AnUCdwJ2AngCdwJ5AngCegJ5AnsCegJ8AnsCfQJ8An4CfQJ\u002fAn4CgAJ\u002fAoECgAKCAoECgwKCAoQCgwKFAoQChwKGAogChwKJAogCigKJAosCigKMAosCjQKMAo4CjQKPAo4CkAKPApECkAKSApECkwKSApQCkwKVApQClgKVApcClgKYApcCmQKYApoCmQKbApoCnAKbAp0CnAKeAp0CnwKeAqACnwKhAqACowKiAqQCowKlAqQCpgKlAqcCpgKoAqcCqQKoAqoCqQKrAqoCrAKrAq0CrAKuAq0CrwKuArACrwKxArACsgKxArMCsgK0ArMCtQK0ArYCtQK3ArYCuAK3ArkCuAK6ArkCuwK6ArwCuwK9ArwCvwK+AsACvwLBAsACwgLBAsMCwgLEAsMCxQLEAsYCxQLHAsYCyALHAskCyALKAskCywLKAswCywLNAswCzgLNAs8CzgLQAs8C0QLQAtIC0QLTAtIC1ALTAtUC1ALWAtUC1wLWAtgC1wLZAtgC2wLaAtwC2wLdAtwC3gLdAt8C3gLgAt8C4QLgAuIC4QLjAuIC5ALjAuUC5ALmAuUC5wLmAugC5wLpAugC6gLpAusC6gLsAusC7QLsAu4C7QLvAu4C8ALvAvEC8ALyAvEC8wLyAvQC8wL1AvQC9wL2AvgC9wL5AvgC+gL5AvsC+gL8AvsC\u002fQL8Av4C\u002fQL\u002fAv4CAAP\u002fAgEDAAMCAwEDAwMCAwQDAwMFAwQDBgMFAwcDBgMIAwcDCQMIAwoDCQMLAwoDDAMLAw0DDAMOAw0DDwMOAxADDwMRAxADEwMSAxQDEwMVAxQDFgMVAxcDFgMYAxcDGQMYAxoDGQMbAxoDHAMbAx0DHAMeAx0DHwMeAyADHwMhAyADIgMhAyMDIgMkAyMDJQMkAyYDJQMnAyYDKAMnAykDKAMqAykDKwMqAywDKwMtAywDLwMuAzADLwMxAzADMgMxAzMDMgM0AzMDNQM0AzYDNQM3AzYDOAM3AzkDOAM6AzkDOwM6AzwDOwM9AzwDPgM9Az8DPgNAAz8DQQNAA0IDQQNDA0IDRANDA0UDRANGA0UDRwNGA0gDRwNJA0gDAwACAAQAAwAFAAQABgAFAAcABgAIAAcACQAIAAoACQALAAoADAALAA0ADAAOAA0ADwAOABAADwARABAAEgARABMAEgAUABMAFQAUABYAFQAXABYAGAAXABkAGAAaABkAGwAaABwAGwAdABwA"},"x":{"dtype":"f4","bdata":"AAAAAAAAAACBbd09NiFcPn17oz60+9Y+VvsDP7PsGj8SDTA\u002fDR1DP23jUz\u002fYLWI\u002fa9FtPzardj+qoHw\u002f459\u002fP+Offz+qoHw\u002fNqt2P2vRbT\u002fYLWI\u002fbeNTPw0dQz8SDTA\u002fs+waP1b7Az+0+9Y+fXujPjYhXD6Bbd09ypbYPcJRVz7v6J8+C0nSPgEZAT8Eihc\u002fNDQsP4zZPj8UQk8\u002fjTxdPwOfaD9LR3E\u002faRt3P94Jej\u002feCXo\u002faRt3P0tHcT8Dn2g\u002fjTxdPxRCTz+M2T4\u002fNDQsPwSKFz8BGQE\u002fC0nSPu\u002fonz7CUVc+ypbYPclIyj04GUk+PVmVPp5lxD6KJPE+2ocNP6XUID+7PjI\u002f1pFBP\u002fifTj\u002fxQVk\u002f2VdhP2vJZj9Phmk\u002fT4ZpP2vJZj\u002fZV2E\u002f8UFZP\u002fifTj\u002fWkUE\u002fuz4yP6XUID\u002fahw0\u002fiiTxPp5lxD49WZU+OBlJPslIyj2JI7M9tRYyPpFChD7S7K0+EI3VPlus+j6lbQ4\u002fotkdP9trKz+U+zY\u002fGmZAPyuPRz9JYUw\u002f+81OP\u002fvNTj9JYUw\u002fK49HPxpmQD+U+zY\u002f22srP6LZHT+lbQ4\u002fW6z6PhCN1T7S7K0+kUKEPrUWMj6JI7M9ASqUPalLEz46yFo+E9qPPkmgsD5fVM8+MZrrPnGOAj\u002fwxw0\u002f5lcXP58hHz+8DSU\u002fdQopP9ULKz\u002fVCys\u002fdQopP7wNJT+fIR8\u002f5lcXP\u002fDHDT9xjgI\u002fMZrrPl9Uzz5JoLA+E9qPPjrIWj6pSxM+ASqUPYFtXT02Idw9fXsjPrT7Vj5W+4M+s+yaPhINsD4NHcM+bePTPtgt4j5r0e0+Nqv2Pqqg\u002fD7jn\u002f8+45\u002f\u002fPqqg\u002fD42q\u002fY+a9HtPtgt4j5t49M+DR3DPhINsD6z7Jo+VvuDPrT7Vj59eyM+NiHcPYFtXT2R2Qg9MwyIPUkTyj3w3QQ+ciMjPlF\u002fPz5wnFk+bSxxPkj0gj5PyYs+yfqSPiBzmD7nIZw+E\u002fydPhP8nT7nIZw+IHOYPsn6kj5PyYs+SPSCPm0scT5wnFk+UX8\u002fPnIjIz7w3QQ+SRPKPTMMiD2R2Qg9\u002fSk5PB4UuDxgtQg9YcYzPdG7XD1gjYE9AjiTPcgooz3bL7E9ISO9Pbvexj1zRc49E0HTPaXC1T2lwtU9E0HTPXNFzj273sY9ISO9PdsvsT3IKKM9AjiTPWCNgT3Ru1w9YcYzPWC1CD0eFLg8\u002fSk5PP0pObweFLi8YLUIvWHGM73Ru1y9YI2BvQI4k73IKKO92y+xvSEjvb273sa9c0XOvRNB072lwtW9pcLVvRNB071zRc69u97GvSEjvb3bL7G9yCijvQI4k71gjYG90btcvWHGM71gtQi9HhS4vP0pObyR2Qi9MwyIvUkTyr3w3QS+ciMjvlF\u002fP75wnFm+bSxxvkj0gr5PyYu+yfqSviBzmL7nIZy+E\u002fydvhP8nb7nIZy+IHOYvsn6kr5PyYu+SPSCvm0scb5wnFm+UX8\u002fvnIjI77w3QS+SRPKvTMMiL2R2Qi9gW1dvTYh3L19eyO+tPtWvlb7g76z7Jq+Eg2wvg0dw75t49O+2C3ivmvR7b42q\u002fa+qqD8vuOf\u002f77jn\u002f++qqD8vjar9r5r0e2+2C3ivm3j074NHcO+Eg2wvrPsmr5W+4O+tPtWvn17I742Idy9gW1dvQEqlL2pSxO+OshavhPaj75JoLC+X1TPvjGa675xjgK\u002f8McNv+ZXF7+fIR+\u002fvA0lv3UKKb\u002fVCyu\u002f1Qsrv3UKKb+8DSW\u002fnyEfv+ZXF7\u002fwxw2\u002fcY4CvzGa675fVM++SaCwvhPaj746yFq+qUsTvgEqlL2JI7O9tRYyvpFChL7S7K2+EI3Vvlus+r6lbQ6\u002fotkdv9trK7+U+za\u002fGmZAvyuPR79JYUy\u002f+81Ov\u002fvNTr9JYUy\u002fK49HvxpmQL+U+za\u002f22srv6LZHb+lbQ6\u002fW6z6vhCN1b7S7K2+kUKEvrUWMr6JI7O9yUjKvTgZSb49WZW+nmXEvook8b7ahw2\u002fpdQgv7s+Mr\u002fWkUG\u002f+J9Ov\u002fFBWb\u002fZV2G\u002fa8lmv0+Gab9Phmm\u002fa8lmv9lXYb\u002fxQVm\u002f+J9Ov9aRQb+7PjK\u002fpdQgv9qHDb+KJPG+nmXEvj1Zlb44GUm+yUjKvcqW2L3CUVe+7+ifvgtJ0r4BGQG\u002fBIoXvzQ0LL+M2T6\u002fFEJPv408Xb8Dn2i\u002fS0dxv2kbd7\u002feCXq\u002f3gl6v2kbd79LR3G\u002fA59ov408Xb8UQk+\u002fjNk+vzQ0LL8Eihe\u002fARkBvwtJ0r7v6J++wlFXvsqW2L2Bbd29NiFcvn17o760+9a+VvsDv7PsGr8SDTC\u002fDR1Dv23jU7\u002fYLWK\u002fa9Ftvzardr+qoHy\u002f459\u002fv+Off7+qoHy\u002fNqt2v2vRbb\u002fYLWK\u002fbeNTvw0dQ78SDTC\u002fs+wav1b7A7+0+9a+fXujvjYhXL6Bbd29ypbYvcJRV77v6J++C0nSvgEZAb8Eihe\u002fNDQsv4zZPr8UQk+\u002fjTxdvwOfaL9LR3G\u002faRt3v94Jer\u002feCXq\u002faRt3v0tHcb8Dn2i\u002fjTxdvxRCT7+M2T6\u002fNDQsvwSKF78BGQG\u002fC0nSvu\u002fon77CUVe+ypbYvclIyr04GUm+PVmVvp5lxL6KJPG+2ocNv6XUIL+7PjK\u002f1pFBv\u002fifTr\u002fxQVm\u002f2Vdhv2vJZr9Phmm\u002fT4Zpv2vJZr\u002fZV2G\u002f8UFZv\u002fifTr\u002fWkUG\u002fuz4yv6XUIL\u002fahw2\u002fiiTxvp5lxL49WZW+OBlJvslIyr2JI7O9tRYyvpFChL7S7K2+EI3Vvlus+r6lbQ6\u002fotkdv9trK7+U+za\u002fGmZAvyuPR79JYUy\u002f+81Ov\u002fvNTr9JYUy\u002fK49HvxpmQL+U+za\u002f22srv6LZHb+lbQ6\u002fW6z6vhCN1b7S7K2+kUKEvrUWMr6JI7O9ASqUvalLE746yFq+E9qPvkmgsL5fVM++MZrrvnGOAr\u002fwxw2\u002f5lcXv58hH7+8DSW\u002fdQopv9ULK7\u002fVCyu\u002fdQopv7wNJb+fIR+\u002f5lcXv\u002fDHDb9xjgK\u002fMZrrvl9Uz75JoLC+E9qPvjrIWr6pSxO+ASqUvYFtXb02Idy9fXsjvrT7Vr5W+4O+s+yavhINsL4NHcO+bePTvtgt4r5r0e2+Nqv2vqqg\u002fL7jn\u002f++45\u002f\u002fvqqg\u002fL42q\u002fa+a9Htvtgt4r5t49O+DR3DvhINsL6z7Jq+VvuDvrT7Vr59eyO+NiHcvYFtXb2R2Qi9MwyIvUkTyr3w3QS+ciMjvlF\u002fP75wnFm+bSxxvkj0gr5PyYu+yfqSviBzmL7nIZy+E\u002fydvhP8nb7nIZy+IHOYvsn6kr5PyYu+SPSCvm0scb5wnFm+UX8\u002fvnIjI77w3QS+SRPKvTMMiL2R2Qi9\u002fSk5vB4UuLxgtQi9YcYzvdG7XL1gjYG9AjiTvcgoo73bL7G9ISO9vbvexr1zRc69E0HTvaXC1b2lwtW9E0HTvXNFzr273sa9ISO9vdsvsb3IKKO9AjiTvWCNgb3Ru1y9YcYzvWC1CL0eFLi8\u002fSk5vP0pOTweFLg8YLUIPWHGMz3Ru1w9YI2BPQI4kz3IKKM92y+xPSEjvT273sY9c0XOPRNB0z2lwtU9pcLVPRNB0z1zRc49u97GPSEjvT3bL7E9yCijPQI4kz1gjYE90btcPWHGMz1gtQg9HhS4PP0pOTyR2Qg9MwyIPUkTyj3w3QQ+ciMjPlF\u002fPz5wnFk+bSxxPkj0gj5PyYs+yfqSPiBzmD7nIZw+E\u002fydPhP8nT7nIZw+IHOYPsn6kj5PyYs+SPSCPm0scT5wnFk+UX8\u002fPnIjIz7w3QQ+SRPKPTMMiD2R2Qg9gW1dPTYh3D19eyM+tPtWPlb7gz6z7Jo+Eg2wPg0dwz5t49M+2C3iPmvR7T42q\u002fY+qqD8PuOf\u002fz7jn\u002f8+qqD8Pjar9j5r0e0+2C3iPm3j0z4NHcM+Eg2wPrPsmj5W+4M+tPtWPn17Iz42Idw9gW1dPQEqlD2pSxM+OshaPhPajz5JoLA+X1TPPjGa6z5xjgI\u002f8McNP+ZXFz+fIR8\u002fvA0lP3UKKT\u002fVCys\u002f1QsrP3UKKT+8DSU\u002fnyEfP+ZXFz\u002fwxw0\u002fcY4CPzGa6z5fVM8+SaCwPhPajz46yFo+qUsTPgEqlD2JI7M9tRYyPpFChD7S7K0+EI3VPlus+j6lbQ4\u002fotkdP9trKz+U+zY\u002fGmZAPyuPRz9JYUw\u002f+81OP\u002fvNTj9JYUw\u002fK49HPxpmQD+U+zY\u002f22srP6LZHT+lbQ4\u002fW6z6PhCN1T7S7K0+kUKEPrUWMj6JI7M9yUjKPTgZST49WZU+nmXEPook8T7ahw0\u002fpdQgP7s+Mj\u002fWkUE\u002f+J9OP\u002fFBWT\u002fZV2E\u002fa8lmP0+GaT9Phmk\u002fa8lmP9lXYT\u002fxQVk\u002f+J9OP9aRQT+7PjI\u002fpdQgP9qHDT+KJPE+nmXEPj1ZlT44GUk+yUjKPcqW2D3CUVc+7+ifPgtJ0j4BGQE\u002fBIoXPzQ0LD+M2T4\u002fFEJPP408XT8Dn2g\u002fS0dxP2kbdz\u002feCXo\u002f3gl6P2kbdz9LR3E\u002fA59oP408XT8UQk8\u002fjNk+PzQ0LD8Eihc\u002fARkBPwtJ0j7v6J8+wlFXPsqW2D0="},"y":{"dtype":"f4","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUSa4PPcRNz2o9Yc9RMqyPUOG2z2x1wA+jGkSPvhDIj5fNzA+4hk8PtbHRT4tJE0+0BhSPt+WVD7fllQ+0BhSPi0kTT7Wx0U+4hk8Pl83MD74QyI+jGkSPrHXAD5Dhts9RMqyPaj1hz33ETc9USa4PCUgND3VEbM9Ev0EPhPiLj4xulY+1g18Pnw2jz44uJ4+lF2sPpv9tz5odcE+kqjIPnyBzT6Z8c8+mfHPPnyBzT6SqMg+aHXBPpv9tz6UXaw+OLiePnw2jz7WDXw+MbpWPhPiLj4S\u002fQQ+1RGzPSUgND3nJoI9lmMBPmEvQD5aunw+ZiebPvIftj7f9c4+ol7lPvkW+T7a8QQ\u002fM8kLPwD9ED+jfRQ\u002fmkAWP5pAFj+jfRQ\u002fAP0QPzPJCz\u002fa8QQ\u002f+Rb5PqJe5T7f9c4+8h+2PmYnmz5aunw+YS9APpZjAT7nJoI9io2kPZmWIz5w+3I+gMOfPsUpxD5JQ+Y+2dQCP2H\u002fED+5dh0\u002fdRUoP7a7MD+GTzc\u002fKL07P1D3PT9Q9z0\u002fKL07P4ZPNz+2uzA\u002fdRUoP7l2HT9h\u002fxA\u002f2dQCP0lD5j7FKcQ+gMOfPnD7cj6ZliM+io2kPRbDvz1Qoz4+dJSNPlEuuj5jmeQ+LCsGP\u002fZ2GD8m+Sg\u002fL4A3P3jgQz\u002fb9E0\u002fF59VPyvIWj+bYF0\u002fm2BdPyvIWj8Xn1U\u002f2\u002fRNP3jgQz8vgDc\u002fJvkoP\u002fZ2GD8sKwY\u002fY5nkPlEuuj50lI0+UKM+PhbDvz0el9I9F1tRPiJ7mz4Rdsw+Vgv7PpFXEz88byc\u002fX5A5P5CEST\u002ftG1c\u002fqy1iP5GYaj9cQ3A\u002fCB1zPwgdcz9cQ3A\u002fkZhqP6stYj\u002ftG1c\u002fkIRJP1+QOT88byc\u002fkVcTP1YL+z4Rdsw+InubPhdbUT4el9I9+jbcPYHsWj45lqI+N87VPj9CAz9vExo\u002fLhYvP20LQj9GulI\u002fp\u002fBgP+eDbD9JUXU\u002fYT57P2Y5fj9mOX4\u002fYT57P0lRdT\u002fng2w\u002fp\u002fBgP0a6Uj9tC0I\u002fLhYvP28TGj8\u002fQgM\u002fN87VPjmWoj6B7Fo++jbcPfo23D2B7Fo+OZaiPjfO1T4\u002fQgM\u002fbxMaPy4WLz9tC0I\u002fRrpSP6fwYD\u002fng2w\u002fSVF1P2E+ez9mOX4\u002fZjl+P2E+ez9JUXU\u002f54NsP6fwYD9GulI\u002fbQtCPy4WLz9vExo\u002fP0IDPzfO1T45lqI+gexaPvo23D0el9I9F1tRPiJ7mz4Rdsw+Vgv7PpFXEz88byc\u002fX5A5P5CEST\u002ftG1c\u002fqy1iP5GYaj9cQ3A\u002fCB1zPwgdcz9cQ3A\u002fkZhqP6stYj\u002ftG1c\u002fkIRJP1+QOT88byc\u002fkVcTP1YL+z4Rdsw+InubPhdbUT4el9I9FsO\u002fPVCjPj50lI0+US66PmOZ5D4sKwY\u002f9nYYPyb5KD8vgDc\u002feOBDP9v0TT8Xn1U\u002fK8haP5tgXT+bYF0\u002fK8haPxefVT\u002fb9E0\u002feOBDPy+ANz8m+Sg\u002f9nYYPywrBj9jmeQ+US66PnSUjT5Qoz4+FsO\u002fPYqNpD2ZliM+cPtyPoDDnz7FKcQ+SUPmPtnUAj9h\u002fxA\u002fuXYdP3UVKD+2uzA\u002fhk83Pyi9Oz9Q9z0\u002fUPc9Pyi9Oz+GTzc\u002ftrswP3UVKD+5dh0\u002fYf8QP9nUAj9JQ+Y+xSnEPoDDnz5w+3I+mZYjPoqNpD3nJoI9lmMBPmEvQD5aunw+ZiebPvIftj7f9c4+ol7lPvkW+T7a8QQ\u002fM8kLPwD9ED+jfRQ\u002fmkAWP5pAFj+jfRQ\u002fAP0QPzPJCz\u002fa8QQ\u002f+Rb5PqJe5T7f9c4+8h+2PmYnmz5aunw+YS9APpZjAT7nJoI9JSA0PdURsz0S\u002fQQ+E+IuPjG6Vj7WDXw+fDaPPji4nj6UXaw+m\u002f23Pmh1wT6SqMg+fIHNPpnxzz6Z8c8+fIHNPpKoyD5odcE+m\u002f23PpRdrD44uJ4+fDaPPtYNfD4xulY+E+IuPhL9BD7VEbM9JSA0PVEmuDz3ETc9qPWHPUTKsj1Dhts9sdcAPoxpEj74QyI+XzcwPuIZPD7Wx0U+LSRNPtAYUj7fllQ+35ZUPtAYUj4tJE0+1sdFPuIZPD5fNzA++EMiPoxpEj6x1wA+Q4bbPUTKsj2o9Yc99xE3PVEmuDy6P3QjMNHyI91UNCTkI20kl5WRJEfkqiQPMsIk\u002fjjXJPW56SRuffkkCyoDJbMLCCUJVQslL\u002fwMJS\u002f8DCUJVQslswsIJQsqAyVuffkk9bnpJP441yQPMsIkR+SqJJeVkSTkI20k3VQ0JDDR8iO6P3QjUSa4vPcRN72o9Ye9RMqyvUOG272x1wC+jGkSvvhDIr5fNzC+4hk8vtbHRb4tJE2+0BhSvt+WVL7fllS+0BhSvi0kTb7Wx0W+4hk8vl83ML74QyK+jGkSvrHXAL5Dhtu9RMqyvaj1h733ETe9USa4vCUgNL3VEbO9Ev0EvhPiLr4xula+1g18vnw2j744uJ6+lF2svpv9t75odcG+kqjIvnyBzb6Z8c++mfHPvnyBzb6SqMi+aHXBvpv9t76UXay+OLievnw2j77WDXy+MbpWvhPiLr4S\u002fQS+1RGzvSUgNL3nJoK9lmMBvmEvQL5auny+ZiebvvIftr7f9c6+ol7lvvkW+b7a8QS\u002fM8kLvwD9EL+jfRS\u002fmkAWv5pAFr+jfRS\u002fAP0QvzPJC7\u002fa8QS\u002f+Rb5vqJe5b7f9c6+8h+2vmYnm75auny+YS9AvpZjAb7nJoK9io2kvZmWI75w+3K+gMOfvsUpxL5JQ+a+2dQCv2H\u002fEL+5dh2\u002fdRUov7a7ML+GTze\u002fKL07v1D3Pb9Q9z2\u002fKL07v4ZPN7+2uzC\u002fdRUov7l2Hb9h\u002fxC\u002f2dQCv0lD5r7FKcS+gMOfvnD7cr6ZliO+io2kvRbDv71Qoz6+dJSNvlEuur5jmeS+LCsGv\u002fZ2GL8m+Si\u002fL4A3v3jgQ7\u002fb9E2\u002fF59VvyvIWr+bYF2\u002fm2BdvyvIWr8Xn1W\u002f2\u002fRNv3jgQ78vgDe\u002fJvkov\u002fZ2GL8sKwa\u002fY5nkvlEuur50lI2+UKM+vhbDv70el9K9F1tRviJ7m74Rdsy+Vgv7vpFXE788bye\u002fX5A5v5CESb\u002ftG1e\u002fqy1iv5GYar9cQ3C\u002fCB1zvwgdc79cQ3C\u002fkZhqv6stYr\u002ftG1e\u002fkIRJv1+QOb88bye\u002fkVcTv1YL+74Rdsy+InubvhdbUb4el9K9+jbcvYHsWr45lqK+N87Vvj9CA79vExq\u002fLhYvv20LQr9GulK\u002fp\u002fBgv+eDbL9JUXW\u002fYT57v2Y5fr9mOX6\u002fYT57v0lRdb\u002fng2y\u002fp\u002fBgv0a6Ur9tC0K\u002fLhYvv28TGr8\u002fQgO\u002fN87VvjmWor6B7Fq++jbcvfo23L2B7Fq+OZaivjfO1b4\u002fQgO\u002fbxMavy4WL79tC0K\u002fRrpSv6fwYL\u002fng2y\u002fSVF1v2E+e79mOX6\u002fZjl+v2E+e79JUXW\u002f54Nsv6fwYL9GulK\u002fbQtCvy4WL79vExq\u002fP0IDvzfO1b45lqK+gexavvo23L0el9K9F1tRviJ7m74Rdsy+Vgv7vpFXE788bye\u002fX5A5v5CESb\u002ftG1e\u002fqy1iv5GYar9cQ3C\u002fCB1zvwgdc79cQ3C\u002fkZhqv6stYr\u002ftG1e\u002fkIRJv1+QOb88bye\u002fkVcTv1YL+74Rdsy+InubvhdbUb4el9K9FsO\u002fvVCjPr50lI2+US66vmOZ5L4sKwa\u002f9nYYvyb5KL8vgDe\u002feOBDv9v0Tb8Xn1W\u002fK8hav5tgXb+bYF2\u002fK8havxefVb\u002fb9E2\u002feOBDvy+AN78m+Si\u002f9nYYvywrBr9jmeS+US66vnSUjb5Qoz6+FsO\u002fvYqNpL2ZliO+cPtyvoDDn77FKcS+SUPmvtnUAr9h\u002fxC\u002fuXYdv3UVKL+2uzC\u002fhk83vyi9O79Q9z2\u002fUPc9vyi9O7+GTze\u002ftrswv3UVKL+5dh2\u002fYf8Qv9nUAr9JQ+a+xSnEvoDDn75w+3K+mZYjvoqNpL3nJoK9lmMBvmEvQL5auny+ZiebvvIftr7f9c6+ol7lvvkW+b7a8QS\u002fM8kLvwD9EL+jfRS\u002fmkAWv5pAFr+jfRS\u002fAP0QvzPJC7\u002fa8QS\u002f+Rb5vqJe5b7f9c6+8h+2vmYnm75auny+YS9AvpZjAb7nJoK9JSA0vdURs70S\u002fQS+E+IuvjG6Vr7WDXy+fDaPvji4nr6UXay+m\u002f23vmh1wb6SqMi+fIHNvpnxz76Z8c++fIHNvpKoyL5odcG+m\u002f23vpRdrL44uJ6+fDaPvtYNfL4xula+E+IuvhL9BL7VEbO9JSA0vVEmuLz3ETe9qPWHvUTKsr1Dhtu9sdcAvoxpEr74QyK+XzcwvuIZPL7Wx0W+LSRNvtAYUr7fllS+35ZUvtAYUr4tJE2+1sdFvuIZPL5fNzC++EMivoxpEr6x1wC+Q4bbvUTKsr2o9Ye99xE3vVEmuLw="},"z":{"dtype":"f4","bdata":"AACAPwAAgL\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr\u002fTf34\u002fzgN6P2aZcj\u002fdVmg\u002f\u002flpbP8HMSz\u002fX2jk\u002fHLslP\u002fWpDz870+8+wIK9Pnn5iD4uqiU+w8BdPcPAXb0uqiW+efmIvsCCvb470+++9akPvxy7Jb\u002fX2jm\u002fwcxLv\u002f5aW7\u002fdVmi\u002fZplyv84Der\u002fTf36\u002f039+P84Dej9mmXI\u002f3VZoP\u002f5aWz\u002fBzEs\u002f19o5Pxy7JT\u002f1qQ8\u002fO9PvPsCCvT55+Yg+LqolPsPAXT3DwF29Lqolvnn5iL7Agr2+O9PvvvWpD78cuyW\u002f19o5v8HMS7\u002f+Wlu\u002f3VZov2aZcr\u002fOA3q\u002f039+v9N\u002ffj\u002fOA3o\u002fZplyP91WaD\u002f+Wls\u002fwcxLP9faOT8cuyU\u002f9akPPzvT7z7Agr0+efmIPi6qJT7DwF09w8BdvS6qJb55+Yi+wIK9vjvT7771qQ+\u002fHLslv9faOb\u002fBzEu\u002f\u002flpbv91WaL9mmXK\u002fzgN6v9N\u002ffr8="},"type":"mesh3d"},{"marker":{"color":"red","size":10},"mode":"markers","x":{"dtype":"i1","bdata":"AQAA"},"y":{"dtype":"i1","bdata":"AAEA"},"z":{"dtype":"i1","bdata":"AAAB"},"type":"scatter3d"},{"line":{"color":"red","width":4.0},"mode":"lines","x":[0.0,1.5,null],"y":[0.0,0.0,null],"z":[0.0,0.0,null],"type":"scatter3d"},{"line":{"color":"green","width":4.0},"mode":"lines","x":[0.0,0.0,null],"y":[0.0,1.5,null],"z":[0.0,0.0,null],"type":"scatter3d"},{"line":{"color":"blue","width":4.0},"mode":"lines","x":[0.0,0.0,null],"y":[0.0,0.0,null],"z":[0.0,1.5,null],"type":"scatter3d"},{"color":"lightblue","i":[0,0],"j":[1,2],"k":[2,3],"opacity":0.2,"x":[1.25,1.25,-1.25,-1.25],"y":[-1.25,1.25,1.25,-1.25],"z":[0.0,0.0,0.0,0.0],"type":"mesh3d"},{"marker":{"size":8.0},"mode":"markers+text","text":["X-axis","Y-axis","Z-axis"],"textfont":{"size":16},"x":{"dtype":"i1","bdata":"AQAA"},"y":{"dtype":"i1","bdata":"AAEA"},"z":{"dtype":"i1","bdata":"AAAB"},"type":"scatter3d"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"updatemenus":[{"bgcolor":"rgba(255,255,255,0.95)","bordercolor":"rgba(0,0,0,0.3)","borderwidth":1,"buttons":[{"args":[{"scene.camera.eye":{"x":0,"y":0,"z":2.5},"scene.camera.center":{"x":0,"y":0,"z":0},"scene.camera.up":{"x":0,"y":1,"z":0}}],"label":"XY View","method":"relayout"},{"args":[{"scene.camera.eye":{"x":0,"y":-2.5,"z":0},"scene.camera.center":{"x":0,"y":0,"z":0},"scene.camera.up":{"x":0,"y":0,"z":1}}],"label":"XZ View","method":"relayout"},{"args":[{"scene.camera.eye":{"x":2.5,"y":0,"z":0},"scene.camera.center":{"x":0,"y":0,"z":0},"scene.camera.up":{"x":0,"y":0,"z":1}}],"label":"YZ View","method":"relayout"},{"args":[{"scene.camera.eye":{"x":1.25,"y":1.25,"z":1.25},"scene.camera.center":{"x":0,"y":0,"z":0},"scene.camera.up":{"x":0,"y":0,"z":1}}],"label":"ISO View","method":"relayout"},{"args":[{"scene.camera.projection.type":"orthographic"}],"args2":[{"scene.camera.projection.type":"perspective"}],"label":"Toggle Projection","method":"relayout"},{"args":[{"paper_bgcolor":"rgb(17,17,17)","plot_bgcolor":"rgb(17,17,17)","font.color":"#f2f5fa","scene.xaxis.backgroundcolor":"rgb(17,17,17)","scene.xaxis.gridcolor":"#506784","scene.xaxis.linecolor":"#506784","scene.xaxis.zerolinecolor":"#C8D4E3","scene.yaxis.backgroundcolor":"rgb(17,17,17)","scene.yaxis.gridcolor":"#506784","scene.yaxis.linecolor":"#506784","scene.yaxis.zerolinecolor":"#C8D4E3","scene.zaxis.backgroundcolor":"rgb(17,17,17)","scene.zaxis.gridcolor":"#506784","scene.zaxis.linecolor":"#506784","scene.zaxis.zerolinecolor":"#C8D4E3","updatemenus[0].bgcolor":"rgba(50,50,50,0.95)","updatemenus[0].bordercolor":"rgba(255,255,255,0.3)","updatemenus[0].font.color":"grey"}],"args2":[{"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","font.color":"rgb(42, 63, 95)","scene.xaxis.backgroundcolor":"#E5ECF6","scene.xaxis.gridcolor":"white","scene.xaxis.linecolor":"white","scene.xaxis.zerolinecolor":"white","scene.yaxis.backgroundcolor":"#E5ECF6","scene.yaxis.gridcolor":"white","scene.yaxis.linecolor":"white","scene.yaxis.zerolinecolor":"white","scene.zaxis.backgroundcolor":"#E5ECF6","scene.zaxis.gridcolor":"white","scene.zaxis.linecolor":"white","scene.zaxis.zerolinecolor":"white","updatemenus[0].bgcolor":"rgba(255,255,255,0.95)","updatemenus[0].bordercolor":"rgba(0,0,0,0.3)","updatemenus[0].font.color":"black"}],"label":"Toggle Theme","method":"relayout"},{"args":[{"scene.xaxis.showgrid":false,"scene.xaxis.showline":false,"scene.xaxis.zeroline":false,"scene.xaxis.showticklabels":false,"scene.xaxis.title":"","scene.xaxis.visible":false,"scene.xaxis.showbackground":false,"scene.yaxis.showgrid":false,"scene.yaxis.showline":false,"scene.yaxis.zeroline":false,"scene.yaxis.showticklabels":false,"scene.yaxis.title":"","scene.yaxis.visible":false,"scene.yaxis.showbackground":false,"scene.zaxis.showgrid":false,"scene.zaxis.showline":false,"scene.zaxis.zeroline":false,"scene.zaxis.showticklabels":false,"scene.zaxis.title":"","scene.zaxis.visible":false,"scene.zaxis.showbackground":false}],"args2":[{"scene.xaxis.showgrid":true,"scene.xaxis.showline":true,"scene.xaxis.zeroline":true,"scene.xaxis.showticklabels":true,"scene.xaxis.title":"X","scene.xaxis.visible":true,"scene.xaxis.showbackground":true,"scene.yaxis.showgrid":true,"scene.yaxis.showline":true,"scene.yaxis.zeroline":true,"scene.yaxis.showticklabels":true,"scene.yaxis.title":"Y","scene.yaxis.visible":true,"scene.yaxis.showbackground":true,"scene.zaxis.showgrid":true,"scene.zaxis.showline":true,"scene.zaxis.zeroline":true,"scene.zaxis.showticklabels":true,"scene.zaxis.title":"Z","scene.zaxis.visible":true,"scene.zaxis.showbackground":true}],"label":"Toggle Axes","method":"relayout"}],"direction":"left","font":{"size":12},"pad":{"b":5,"l":10,"r":10,"t":5},"showactive":false,"type":"buttons","x":0.02,"xanchor":"left","y":1.02,"yanchor":"bottom"}],"annotations":[{"font":{"color":"black","size":18},"showarrow":false,"text":"Customization API Example","x":0.5,"xref":"paper","y":0.95,"yref":"paper"},{"font":{"color":"lightblue","size":12},"showarrow":false,"text":"Plotly Backend","x":0.05,"xref":"paper","y":0.95,"yref":"paper"},{"font":{"color":"lightgreen","size":12},"showarrow":false,"text":"3D Visualization","x":0.95,"xref":"paper","y":0.95,"yref":"paper"}]},                        {"responsive": true}                    )                };            </script>        </div>
+</div>
+<br />
+<br /><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pyvista</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.tools.visualization_interface</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plotter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.tools.visualization_interface.backends.plotly.plotly_interface</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3.13/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">PlotlyBackend</span></a>
+
+<span class="c1"># Create a plotter using the Plotly backend and add basic geometry.</span>
+
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><a href="https://docs.python.org/3.13/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">PlotlyBackend</span></a><span class="p">())</span>
+
+<span class="c1"># Add a sphere - this works fine</span>
+<a href="https://docs.pyvista.org/api/core/_autosummary/pyvista.PolyData.html#pyvista.PolyData" title="pyvista.PolyData" class="sphx-glr-backref-module-pyvista sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sphere</span></a> <span class="o">=</span> <a href="https://docs.pyvista.org/api/utilities/_autosummary/pyvista.Sphere.html#pyvista.Sphere" title="pyvista.Sphere" class="sphx-glr-backref-module-pyvista sphx-glr-backref-type-py-function"><span class="n">pv</span><span class="o">.</span><span class="n">Sphere</span></a><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><a href="https://docs.pyvista.org/api/core/_autosummary/pyvista.PolyData.html#pyvista.PolyData" title="pyvista.PolyData" class="sphx-glr-backref-module-pyvista sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sphere</span></a><span class="p">)</span>
+
+<span class="c1"># Add point markers to highlight specific locations.</span>
+
+<a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key_points</span></a> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>   <span class="c1"># Point on X axis</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>   <span class="c1"># Point on Y axis</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>   <span class="c1"># Point on Z axis</span>
+<span class="p">]</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">key_points</span></a><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Add line segments to show coordinate axes.</span>
+
+<span class="c1"># X axis</span>
+<a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x_axis</span></a> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x_axis</span></a><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+
+<span class="c1"># Y axis</span>
+<a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_axis</span></a> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_axis</span></a><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+
+<span class="c1"># Z axis</span>
+<a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">z_axis</span></a> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]]</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">z_axis</span></a><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+
+
+
+<span class="c1"># Add a plane to show a reference surface.</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_planes</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">i_size</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">j_size</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="p">)</span>
+
+
+<span class="c1"># Add text annotations using 2D normalized coordinates (0-1 range).</span>
+
+<span class="c1"># Scene title at the top center</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="s2">&quot;Customization API Example&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="c1"># Additional labels at the top corners</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="s2">&quot;Plotly Backend&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_text</span><span class="p">(</span><span class="s2">&quot;3D Visualization&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">),</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Add labels at specific 3D points to annotate key locations in space.</span>
+
+<a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_points</span></a> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>   <span class="c1"># X axis endpoint</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>   <span class="c1"># Y axis endpoint</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>   <span class="c1"># Z axis endpoint</span>
+<span class="p">]</span>
+
+<a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">labels</span></a> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;X-axis&#39;</span><span class="p">,</span> <span class="s1">&#39;Y-axis&#39;</span><span class="p">,</span> <span class="s1">&#39;Z-axis&#39;</span><span class="p">]</span>
+
+<span class="n">plotter</span><span class="o">.</span><span class="n">add_labels</span><span class="p">(</span><a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">label_points</span></a><span class="p">,</span> <a href="https://docs.python.org/3.13/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">labels</span></a><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+
+
+<span class="c1"># The clear() method resets the plotter and can be called even after show().</span>
+<span class="c1"># This allows reusing the same plotter for multiple visualizations.</span>
+
+<span class="c1"># Uncomment to clear everything added above and start fresh:</span>
+<span class="c1"># plotter.show()</span>
+<span class="c1"># plotter.clear()</span>
+<span class="c1"># plotter.plot(pv.Cube())  # Would show only a cube instead</span>
+
+
+<span class="c1"># Display the visualization with all customizations.</span>
+
+
+<span class="c1"># Uncomment to show in browser:</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.042 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-01-basic-plotly-examples-customization-api-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/3a7d825c54164065f340d30746778748/customization_api.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">customization_api.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/3a39f54c8b1107e587f4dded3984a7a9/customization_api.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">customization_api.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/6468e4d9100a83ce966c9f707ae15a26/customization_api.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">customization_api.zip</span></code></a></p>
+</div>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+
+
+  
+  <nav class="tocsection editthispage" aria-label="Edit this page">
+    <a href="None" rel="noopener noreferrer">
+      <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </nav>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/examples/01-basic-plotly-examples/customization_api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2026 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<!--
+  Theme Version Footer
+  Displays the Sphinx theme version and the last updated date.
+  Accessibility and semantic improvements included.
+-->
+<footer class="theme-version" aria-label="Theme version and last update">
+  <span>
+    
+      Built with the
+      <a href="https://sphinxdocs.ansys.com/version/stable/index.html" target="_blank" rel="noopener noreferrer">
+        Ansys Sphinx Theme
+      </a>
+      1.7.0.
+    
+  </span>
+  <br />
+  <span>Last updated on <time id="ast_build_date"></time></span>
+</footer>
+<script>
+  // Set the last updated date in a readable format
+  (function() {
+    var options = { day: "numeric", month: "long", year: "numeric" };
+    var ast_lastModifiedDate = new Date(document.lastModified);
+    var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+    var dateElem = document.getElementById("ast_build_date");
+    if (dateElem) {
+      dateElem.textContent = ast_build_date;
+    }
+  })();
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+[
+  {
+    "name": "dev",
+    "version": "dev",
+    "url": "https://visualization-interface.tools.docs.pyansys.com/version/dev/"
+  },
+  {
+    "name": "1.0.0a1",
+    "version": "1.0.0a1",
+    "url": "https://visualization-interface.tools.docs.pyansys.com/version/1.0.0a1/"
+  },
+  {
+    "name": "1.0.0a0",
+    "version": "1.0.0a0",
+    "url": "https://visualization-interface.tools.docs.pyansys.com/version/1.0.0a0/"
+  },
+  {
+    "name": "0.12 (stable)",
+    "version": "0.12",
+    "url": "https://visualization-interface.tools.docs.pyansys.com/version/stable/"
+  },
+  {
+    "name": "Older version",
+    "version": "N/A",
+    "url": "https://visualization-interface.tools.docs.pyansys.com/version/"
+  }
+]

@@ -1,0 +1,81 @@
+
+
+
+
+
+
+:class:`StopButtonConfig`
+=========================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button.StopButtonConfig
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   
+   Provides configuration for the stop button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: StopButtonConfig
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~STOP`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button import StopButtonConfig
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: STOP
+   :value: (0, 'stop', (60, 10))
+
+
+
+
+
+
