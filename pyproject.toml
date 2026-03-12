@@ -21,6 +21,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
     "pyvista >= 0.43.0,<1",
@@ -57,15 +58,15 @@ all = [
 
 tests = [
     "pytest==9.0.2",
-    "pyvista==0.47.0",
+    "pyvista==0.47.1",
     "pytest-pyvista==0.3.2",
     "pytest-cov==7.0.0",
     "pyside6==6.10.2",
 ]
 
 doc = [
-    "pyvista==0.47.0",
-    "ansys-sphinx-theme[autoapi]==1.7.0",
+    "pyvista==0.47.1",
+    "ansys-sphinx-theme[autoapi]==1.7.2",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.19.1",
     "nbsphinx==0.9.6",
