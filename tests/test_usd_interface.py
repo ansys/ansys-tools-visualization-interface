@@ -27,9 +27,21 @@ from unittest.mock import MagicMock, patch
 import pytest
 import pyvista as pv
 
-#  mock pxr to avoid dependency on OpenUSD in tests
-sys.modules['pxr'] = MagicMock()
-sys.modules['pxr.Usd'] = MagicMock()
+# Always mock pxr to avoid dependency on OpenUSD in tests
+# Create a proper mock class for Usd.Stage that can be used with isinstance()
+mock_stage_class = type('Stage', (), {})
+
+# Create the mock Usd module with the Stage class
+mock_usd_module = MagicMock()
+mock_usd_module.Stage = mock_stage_class
+
+# Set up the pxr module mock
+mock_pxr = MagicMock()
+mock_pxr.Usd = mock_usd_module
+mock_pxr.UsdGeom = MagicMock()
+
+sys.modules['pxr'] = mock_pxr
+sys.modules['pxr.Usd'] = mock_usd_module
 sys.modules['pxr.UsdGeom'] = MagicMock()
 
 # Mock ansys-tools-usdviewer
@@ -52,29 +64,33 @@ def mock_usd_viewer():
 
 
 @pytest.fixture
-def mock_usd_stage():
-    """Create a mock USD Stage."""
-    stage = MagicMock()
-    stage.Traverse.return_value = []
-    stage.GetPrimAtPath.return_value = MagicMock()
-    return stage
-
-
-@pytest.fixture
-def iface(mock_usd_viewer, mock_usd_stage):
+def iface(mock_usd_viewer):
     """Return a USDInterface with mocked dependencies."""
-    with patch("ansys.tools.visualization_interface.backends.usd.usd_interface.Usd") as mock_usd, \
-         patch("ansys.tools.visualization_interface.backends.usd.usd_interface.VTKConverter") as mock_converter:
+    def mock_convert_vtk_to_usd_side_effect(mesh, stage, prim_path):
+        """Mock convert_vtk_to_usd that adds a fake prim to the stage's Traverse list."""
+        # Simulate adding a prim by modifying the mock stage's Traverse return value
+        current_prims = list(stage.Traverse())
+        fake_prim = MagicMock()
+        fake_prim.GetPath.return_value = MagicMock(__str__=lambda self: f"/{prim_path}")
+        stage.Traverse.return_value = current_prims + [fake_prim]
+        return fake_prim
 
-        # Mock Usd.Stage methods
-        mock_usd.Stage.CreateInMemory.return_value = mock_usd_stage
-        mock_usd.Stage.Open.return_value = mock_usd_stage
-        mock_usd.Stage.CreateNew.return_value = mock_usd_stage
+    with patch("ansys.tools.visualization_interface.backends.usd.usd_interface.VTKConverter") as mock_converter:
+        # Create a fresh mock stage for each test
+        fresh_stage = mock_stage_class()
+        fresh_stage.Traverse = MagicMock(return_value=[])
+        fresh_stage.GetPrimAtPath = MagicMock(return_value=MagicMock())
+        fresh_stage.Save = MagicMock()
 
-        # Mock VTKConverter
+        # Mock Usd.Stage methods to return our mock stage
+        mock_usd_module.Stage.CreateInMemory = MagicMock(return_value=fresh_stage)
+        mock_usd_module.Stage.Open = MagicMock(return_value=fresh_stage)
+        mock_usd_module.Stage.CreateNew = MagicMock(return_value=fresh_stage)
+
+        # Mock VTKConverter with side effect that simulates adding prims
         mock_converter_instance = MagicMock()
         mock_converter.return_value = mock_converter_instance
-        mock_converter_instance.convert.return_value = MagicMock()
+        mock_converter_instance.convert_vtk_to_usd.side_effect = mock_convert_vtk_to_usd_side_effect
 
         interface = USDInterface()
         yield interface
@@ -111,15 +127,22 @@ def test_multiple_instances_do_not_raise(mock_usd_viewer):
 
 def test_plot_usd_stage(iface):
     """Passing a Usd.Stage replaces the internal stage."""
-    # Create a new mock stage
-    new_stage = MagicMock()
-    new_stage.Traverse.return_value = [MagicMock()]  # Has some content
+    # Create a new mock stage instance
+    new_stage = mock_stage_class()
+    new_stage.Traverse = MagicMock(return_value=[MagicMock()])  # Has some content
     iface.plot(new_stage)
     assert iface._stage is new_stage
 
 
 def test_plot_usd_file_path(iface, usd_file):
     """Passing a USD file path opens and sets the stage."""
+    # Mock the stage returned by Open to have a Sphere prim
+    mock_file_stage = mock_stage_class()
+    sphere_prim = MagicMock()
+    sphere_prim.GetPath.return_value = MagicMock(__str__=lambda self: "/Sphere")
+    mock_file_stage.Traverse = MagicMock(return_value=[sphere_prim])
+    mock_usd_module.Stage.Open = MagicMock(return_value=mock_file_stage)
+
     iface.plot(str(usd_file))
     assert iface._stage is not None
     paths = [str(p.GetPath()) for p in iface._stage.Traverse()]
@@ -128,6 +151,13 @@ def test_plot_usd_file_path(iface, usd_file):
 
 def test_plot_usd_file_pathlib(iface, usd_file):
     """Passing a pathlib.Path to a USD file works the same as a str path."""
+    # Mock the stage returned by Open to have a Sphere prim
+    mock_file_stage = mock_stage_class()
+    sphere_prim = MagicMock()
+    sphere_prim.GetPath.return_value = MagicMock(__str__=lambda self: "/Sphere")
+    mock_file_stage.Traverse = MagicMock(return_value=[sphere_prim])
+    mock_usd_module.Stage.Open = MagicMock(return_value=mock_file_stage)
+
     iface.plot(usd_file)
     paths = [str(p.GetPath()) for p in iface._stage.Traverse()]
     assert "/Sphere" in paths
