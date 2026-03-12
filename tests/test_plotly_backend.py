@@ -182,3 +182,130 @@ def test_plot_iter(tmp_path, image_compare):
     file = tmp_path / "test_plot_iter.png"
     pl.show(screenshot=file)
     assert image_compare(file)
+
+
+# --- Label and filtering tests ---
+
+class _NamedObject:
+    """Helper: simple object with a name attribute."""
+    def __init__(self, name):
+        self.name = name
+
+
+def test_mesh_object_plot_label_on_trace():
+    """Trace name and hovertemplate are set from MeshObjectPlot.name."""
+    backend = PlotlyBackend()
+    obj = _NamedObject("MySphere")
+    mesh_obj = MeshObjectPlot(obj, pv.Sphere())
+    backend.plot(mesh_obj)
+
+    assert len(backend._fig.data) == 1
+    trace = backend._fig.data[0]
+    assert trace.name == "MySphere"
+    assert trace.hovertemplate is not None
+    assert "fullData.name" in trace.hovertemplate
+
+
+def test_mesh_object_plot_visible_propagates_to_trace():
+    """When MeshObjectPlot.visible is False, the trace is added with visible=False."""
+    backend = PlotlyBackend()
+    obj = _NamedObject("HiddenCube")
+    mesh_obj = MeshObjectPlot(obj, pv.Cube())
+    mesh_obj.visible = False
+    backend.plot(mesh_obj)
+
+    assert len(backend._fig.data) == 1
+    assert backend._fig.data[0].visible is False
+
+
+def test_set_trace_visibility():
+    """set_trace_visibility toggles visibility for traces matching the given name."""
+    backend = PlotlyBackend()
+
+    obj_a = _NamedObject("Alpha")
+    obj_b = _NamedObject("Beta")
+    backend.plot(MeshObjectPlot(obj_a, pv.Sphere()))
+    backend.plot(MeshObjectPlot(obj_b, pv.Cube()))
+
+    # Hide "Alpha"
+    backend.set_trace_visibility("Alpha", False)
+    alpha_traces = [t for t in backend._fig.data if t.name == "Alpha"]
+    beta_traces = [t for t in backend._fig.data if t.name == "Beta"]
+    assert all(t.visible is False for t in alpha_traces)
+    assert all(t.visible is True for t in beta_traces)
+
+    # Show "Alpha" again
+    backend.set_trace_visibility("Alpha", True)
+    assert all(t.visible is True for t in backend._fig.data if t.name == "Alpha")
+
+
+def test_filter_traces():
+    """filter_traces shows only traces whose names are in the provided list."""
+    backend = PlotlyBackend()
+
+    for name, mesh in [("A", pv.Sphere()), ("B", pv.Cube()), ("C", pv.Cylinder())]:
+        backend.plot(MeshObjectPlot(_NamedObject(name), mesh))
+
+    backend.filter_traces(["A", "C"])
+
+    for trace in backend._fig.data:
+        if trace.name in ("A", "C"):
+            assert trace.visible is True
+        else:
+            assert trace.visible is False
+
+
+def test_multiblock_label_propagates():
+    """All sub-traces of a MultiBlock MeshObjectPlot carry the parent name and hovertemplate."""
+    backend = PlotlyBackend()
+    mb = pv.MultiBlock([pv.Sphere(), pv.Cube()])
+    obj = _NamedObject("MyBlock")
+    backend.plot(MeshObjectPlot(obj, mb))
+
+    assert len(backend._fig.data) == 2
+    for trace in backend._fig.data:
+        assert trace.name == "MyBlock"
+        assert trace.hovertemplate is not None
+        assert "fullData.name" in trace.hovertemplate
+
+
+def test_name_filter_excludes_non_matching():
+    """Objects whose name doesn't match name_filter are not added to the figure."""
+    backend = PlotlyBackend()
+    for name, mesh in [("Sphere", pv.Sphere()), ("Cube", pv.Cube()), ("Cylinder", pv.Cylinder())]:
+        backend.plot(MeshObjectPlot(_NamedObject(name), mesh), name_filter="Cube")
+
+    assert len(backend._fig.data) == 1
+    assert backend._fig.data[0].name == "Cube"
+
+
+def test_name_filter_regex():
+    """name_filter supports regex patterns."""
+    backend = PlotlyBackend()
+    for name, mesh in [("Part_A", pv.Sphere()), ("Part_B", pv.Cube()), ("Other", pv.Cylinder())]:
+        backend.plot(MeshObjectPlot(_NamedObject(name), mesh), name_filter="^Part")
+
+    assert len(backend._fig.data) == 2
+    names = {t.name for t in backend._fig.data}
+    assert names == {"Part_A", "Part_B"}
+
+
+def test_name_filter_in_plot_iter():
+    """name_filter is respected when using plot_iter."""
+    backend = PlotlyBackend()
+    objects = [MeshObjectPlot(_NamedObject(n), m) for n, m in
+               [("Alpha", pv.Sphere()), ("Beta", pv.Cube()), ("AlphaExtra", pv.Cylinder())]]
+    backend.plot_iter(objects, name_filter="Alpha")
+
+    names = {t.name for t in backend._fig.data}
+    assert "Beta" not in names
+    assert "Alpha" in names
+    assert "AlphaExtra" in names
+
+
+def test_name_filter_no_name_attr_passes_through():
+    """Objects without a name attribute bypass the filter and are always plotted."""
+    backend = PlotlyBackend()
+    backend.plot(pv.Sphere(), name_filter="SomeName")
+
+    assert len(backend._fig.data) == 1
