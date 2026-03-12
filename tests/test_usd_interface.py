@@ -21,15 +21,26 @@
 # SOFTWARE.
 """Tests for the USD backend interface."""
 
+import sys
 from unittest.mock import MagicMock, patch
 
-from pxr import Usd, UsdGeom
 import pytest
 import pyvista as pv
 
-from ansys.tools.visualization_interface import Plotter
-from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
-from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
+#  mock pxr to avoid dependency on OpenUSD in tests
+sys.modules['pxr'] = MagicMock()
+sys.modules['pxr.Usd'] = MagicMock()
+sys.modules['pxr.UsdGeom'] = MagicMock()
+
+# Mock ansys-tools-usdviewer
+sys.modules['ansys.tools.usdviewer'] = MagicMock()
+sys.modules['ansys.tools.usdviewer.viewer'] = MagicMock()
+sys.modules['ansys.tools.usdviewer.vtk_converter'] = MagicMock()
+
+# These imports must come after mocking sys.modules
+from ansys.tools.visualization_interface import Plotter  # noqa: E402
+from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface  # noqa: E402
+from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot  # noqa: E402
 
 
 @pytest.fixture
@@ -41,24 +52,52 @@ def mock_usd_viewer():
 
 
 @pytest.fixture
-def iface(mock_usd_viewer):
-    """Return a USDInterface with a mocked viewer."""
-    return USDInterface()
+def mock_usd_stage():
+    """Create a mock USD Stage."""
+    stage = MagicMock()
+    stage.Traverse.return_value = []
+    stage.GetPrimAtPath.return_value = MagicMock()
+    return stage
+
+
+@pytest.fixture
+def iface(mock_usd_viewer, mock_usd_stage):
+    """Return a USDInterface with mocked dependencies."""
+    with patch("ansys.tools.visualization_interface.backends.usd.usd_interface.Usd") as mock_usd, \
+         patch("ansys.tools.visualization_interface.backends.usd.usd_interface.VTKConverter") as mock_converter:
+
+        # Mock Usd.Stage methods
+        mock_usd.Stage.CreateInMemory.return_value = mock_usd_stage
+        mock_usd.Stage.Open.return_value = mock_usd_stage
+        mock_usd.Stage.CreateNew.return_value = mock_usd_stage
+
+        # Mock VTKConverter
+        mock_converter_instance = MagicMock()
+        mock_converter.return_value = mock_converter_instance
+        mock_converter_instance.convert.return_value = MagicMock()
+
+        interface = USDInterface()
+        yield interface
 
 
 @pytest.fixture
 def usd_file(tmp_path):
     """Write a minimal USD file to disk and return its path."""
     path = tmp_path / "test.usda"
-    stage = Usd.Stage.CreateNew(str(path))
-    UsdGeom.Sphere.Define(stage, "/Sphere")
-    stage.Save()
+    # Create a dummy USD file
+    path.write_text("""#usda 1.0
+
+def Sphere "Sphere"
+{
+    double radius = 1
+}
+""")
     return path
 
 
 def test_init_creates_empty_stage(iface):
     """USDInterface starts with an empty in-memory stage."""
-    assert isinstance(iface._stage, Usd.Stage)
+    assert iface._stage is not None
     prims = list(iface._stage.Traverse())
     assert prims == []
 
@@ -72,8 +111,9 @@ def test_multiple_instances_do_not_raise(mock_usd_viewer):
 
 def test_plot_usd_stage(iface):
     """Passing a Usd.Stage replaces the internal stage."""
-    new_stage = Usd.Stage.CreateInMemory()
-    UsdGeom.Sphere.Define(new_stage, "/Ball")
+    # Create a new mock stage
+    new_stage = MagicMock()
+    new_stage.Traverse.return_value = [MagicMock()]  # Has some content
     iface.plot(new_stage)
     assert iface._stage is new_stage
 
