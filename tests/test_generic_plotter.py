@@ -67,8 +67,9 @@ def test_plotter_add_pd():
     pl.show()
 
 @pytest.mark.skipif(IN_GITHUB_ACTIONS, reason="Qt breaks CICD.")
-def test_plotter_pyvistaqt():
+def test_plotter_pyvistaqt(verify_image_cache):
     """Adds polydata to the plotter."""
+    verify_image_cache.allow_useless_fixture = True
     qt_backend = PyVistaBackend(use_qt=True)
     pl = Plotter(backend=qt_backend)
     sphere = pv.Sphere()
