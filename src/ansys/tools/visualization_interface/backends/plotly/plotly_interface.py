@@ -219,7 +219,7 @@ class PlotlyBackend(BaseBackend):
             mesh_result = self._pv_to_mesh3d(mesh)
             # Handle both single mesh and list of meshes
             if isinstance(mesh_result, list):
-                # MultiBlock case - apply label and visibility to all sub-meshes
+                # MultiBlock case - add all meshes
                 for mesh_3d in mesh_result:
                     self._apply_label_and_visibility(mesh_3d, name or mesh_3d.name, visible)
                     self._fig.add_trace(mesh_3d)

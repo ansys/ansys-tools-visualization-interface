@@ -73,7 +73,7 @@ class PlotlyDashBackend(PlotlyBackend):
         plotting_options : dict
             Additional plotting options.
         """
-        # Call parent plot method (name_filter is applied there)
+        # Call parent plot method
         super().plot(plottable_object, name=name, name_filter=name_filter, **plotting_options)
 
         # Track mesh names for dropdown functionality
