@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 """Plotly backend interface for visualization."""
+import re
 from typing import Any, Iterable, List, Optional, Tuple, Union
 
 import plotly.graph_objects as go
@@ -143,22 +144,48 @@ class PlotlyBackend(BaseBackend):
         """
         self._fig.update_layout(new_layout)
 
-    def plot_iter(self, plotting_list: Iterable[Any]) -> None:
+    def plot_iter(self, plotting_list: Iterable[Any], name_filter: str = None) -> None:
         """Plot multiple objects using Plotly.
 
         Parameters
         ----------
         plotting_list : Iterable[Any]
             An iterable of objects to plot.
+        name_filter : str, optional
+            Regular expression with the desired name or names to include.
+            Objects whose ``name`` does not match are skipped.
         """
         for item in plotting_list:
-            self.plot(item)
+            self.plot(item, name_filter=name_filter)
 
+
+    def _apply_label_and_visibility(
+        self,
+        trace: go.Mesh3d,
+        name: Optional[str],
+        visible: bool = True,
+    ) -> None:
+        """Apply name label, hover template, and visibility to a Mesh3d trace.
+
+        Parameters
+        ----------
+        trace : go.Mesh3d
+            The trace to update.
+        name : Optional[str]
+            Name to assign to the trace. Used as the hover label.
+        visible : bool, default: True
+            Whether the trace should be visible.
+        """
+        if name is not None:
+            trace.name = name
+            trace.hovertemplate = "<b>%{fullData.name}</b><extra></extra>"
+        trace.visible = visible
 
     def plot(
             self,
             plottable_object: Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d],
             name: str = None,
+            name_filter: str = None,
             **plotting_options
         ) -> None:
         """Plot a single object using Plotly.
@@ -167,14 +194,24 @@ class PlotlyBackend(BaseBackend):
         ----------
         plottable_object : Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d]
             The object to plot. Can be a PyVista PolyData, MultiBlock, a MeshObjectPlot, or a Plotly Mesh3d.
-        plotting_options : dict
-            Additional plotting options.
         name : str, optional
             Name of the mesh for labeling in Plotly. Overrides the name from MeshObjectPlot if provided.
+        name_filter : str, optional
+            Regular expression with the desired name or names to include.
+            Objects whose ``name`` does not match are skipped.
+        plotting_options : dict
+            Additional plotting options.
         """
+        if name_filter and hasattr(plottable_object, "name") and not re.search(
+            name_filter, plottable_object.name
+        ):
+            return
+
+        visible = True
         if isinstance(plottable_object, MeshObjectPlot):
             mesh = plottable_object.mesh
             name = name or plottable_object.name
+            visible = plottable_object.visible
         else:
             mesh = plottable_object
 
@@ -184,14 +221,13 @@ class PlotlyBackend(BaseBackend):
             if isinstance(mesh_result, list):
                 # MultiBlock case - add all meshes
                 for mesh_3d in mesh_result:
-                    mesh_3d.name = name or mesh_3d.name
+                    self._apply_label_and_visibility(mesh_3d, name or mesh_3d.name, visible)
                     self._fig.add_trace(mesh_3d)
             else:
-                mesh_result.name = name if name is not None else mesh_result.name
+                self._apply_label_and_visibility(mesh_result, name, visible)
                 self._fig.add_trace(mesh_result)
         elif isinstance(plottable_object, go.Mesh3d):
-            if name is not None:
-                plottable_object.name = name
+            self._apply_label_and_visibility(plottable_object, name, visible)
             self._fig.add_trace(plottable_object)
         else:
             # Try in case there is a compatible Plotly object
@@ -201,10 +237,36 @@ class PlotlyBackend(BaseBackend):
             except Exception:
                 raise TypeError("Unsupported plottable_object type for PlotlyInterface.")
 
+    def set_trace_visibility(self, name: str, visible: bool) -> None:
+        """Set the visibility of all traces with the given name.
+
+        Parameters
+        ----------
+        name : str
+            Name of the trace(s) to update.
+        visible : bool
+            Whether to make the trace(s) visible.
+        """
+        for trace in self._fig.data:
+            if getattr(trace, "name", None) == name:
+                trace.visible = visible
+
+    def filter_traces(self, names: List[str]) -> None:
+        """Show only traces whose names are in the provided list, hiding all others.
+
+        Parameters
+        ----------
+        names : List[str]
+            Names of traces to show. All other traces will be hidden.
+        """
+        for trace in self._fig.data:
+            trace_name = getattr(trace, "name", None)
+            trace.visible = trace_name in names
+
     def show(self,
             plottable_object=None,
             screenshot: str = None,
-            name_filter=None,
+            name_filter: str = None,
             **kwargs) -> Union[go.Figure, None]:
         """Render the Plotly scene.
 
@@ -214,8 +276,9 @@ class PlotlyBackend(BaseBackend):
             Object to show, by default None.
         screenshot : str, optional
             Path to save a screenshot, by default None.
-        name_filter : bool, optional
-            Flag to filter the object, by default None.
+        name_filter : str, optional
+            Regular expression with the desired name or names to include.
+            Objects whose ``name`` does not match are skipped.
         kwargs : dict
             Additional options the selected backend accepts.
 
@@ -229,7 +292,10 @@ class PlotlyBackend(BaseBackend):
             return self._fig
 
         if plottable_object is not None:
-            self.plot(plottable_object)
+            if hasattr(plottable_object, "__iter__"):
+                self.plot_iter(plottable_object, name_filter=name_filter)
+            else:
+                self.plot(plottable_object, name_filter=name_filter)
 
         # Only show in browser if no screenshot is being taken
         if not screenshot:
