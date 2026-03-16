@@ -33,6 +33,7 @@ from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjec
 from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
+from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
 
 _HAS_PYVISTAQT = importlib.util.find_spec("pyvistaqt")
 if _HAS_PYVISTAQT:
@@ -199,7 +200,7 @@ class PyVistaInterface:
 
         Parameters
         ----------
-        plottable_object : MeshObjectPlot
+        custom_object : MeshObjectPlot
             Object to add to the scene.
         plot_children : bool, default: True
             Whether to plot the children of the object.
@@ -208,17 +209,17 @@ class PyVistaInterface:
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
+        opts = PlottingOptions.from_kwargs(plotting_options)
         dataset = custom_object.mesh
-        if "clipping_plane" in plotting_options:
-            dataset = self.clip(dataset, plotting_options["clipping_plane"])
-            plotting_options.pop("clipping_plane", None)
-        actor = self.scene.add_mesh(dataset, **plotting_options)
+        if opts.clipping_plane:
+            dataset = self.clip(dataset, opts.clipping_plane)
+        actor = self.scene.add_mesh(dataset, **opts.extra)
         custom_object.actor = actor
         self._object_to_actors_map[actor] = custom_object
 
         if plot_children:
             for child in custom_object._children:
-                self.plot_meshobject(child, plot_children=plot_children, **plotting_options)
+                self.plot_meshobject(child, plot_children=plot_children, **opts.extra)
 
         return actor.name
 
@@ -340,7 +341,6 @@ class PyVistaInterface:
     def plot(
         self,
         plottable_object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid],
-        name_filter: str = None,
         plot_children: bool = False,
         **plotting_options,
     ) -> None:
@@ -353,44 +353,45 @@ class PyVistaInterface:
         ----------
         plottable_object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid, pv.StructuredGrid]
             Object to plot.
-        name_filter : str, default: None
-            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
-        if name_filter:
-            if hasattr(plottable_object, "name") and not re.search(name_filter, plottable_object.name):
+        opts = PlottingOptions.from_kwargs(plotting_options)
+        if opts.name_filter:
+            if hasattr(plottable_object, "name") and not re.search(opts.name_filter, plottable_object.name):
                 return self._object_to_actors_map
 
-        if "show_edges" in plotting_options:
-            self._show_edges = plotting_options["show_edges"]
+        if "show_edges" in opts.extra:
+            self._show_edges = opts.extra["show_edges"]
 
         # Check what kind of object we are dealing with
         if isinstance(plottable_object, (pv.PolyData, pv.UnstructuredGrid, pv.StructuredGrid)):
-            if "clipping_plane" in plotting_options:
-                mesh = self.clip(plottable_object, plotting_options["clipping_plane"])
-                plotting_options.pop("clipping_plane", None)
-                self.scene.add_mesh(mesh, **plotting_options)
+            if opts.clipping_plane:
+                mesh = self.clip(plottable_object, opts.clipping_plane)
+                self.scene.add_mesh(mesh, **opts.extra)
             else:
-                self.scene.add_mesh(plottable_object, **plotting_options)
+                self.scene.add_mesh(plottable_object, **opts.extra)
         elif isinstance(plottable_object, pv.MultiBlock):
-            if "clipping_plane" in plotting_options:
-                mesh = self.clip(plottable_object, plotting_options["clipping_plane"])
-                plotting_options.pop("clipping_plane", None)
-                self.scene.add_composite(mesh, **plotting_options)
+            if opts.clipping_plane:
+                mesh = self.clip(plottable_object, opts.clipping_plane)
+                self.scene.add_composite(mesh, **opts.extra)
             else:
-                self.scene.add_composite(plottable_object, **plotting_options)
+                self.scene.add_composite(plottable_object, **opts.extra)
         elif isinstance(plottable_object, MeshObjectPlot):
-            self.plot_meshobject(plottable_object, plot_children=plot_children, **plotting_options)
+            self.plot_meshobject(
+                plottable_object,
+                plot_children=plot_children,
+                clipping_plane=opts.clipping_plane,
+                **opts.extra,
+            )
         else:
             logger.warning("The object type is not supported. ")
 
     def plot_iter(
         self,
         plotting_list: List[Any],
-        name_filter: str = None,
         **plotting_options,
     ) -> None:
         """Plot elements of an iterable of any type of objects to the scene.
@@ -399,15 +400,13 @@ class PyVistaInterface:
         ----------
         plotting_list : List[Any]
             List of objects to plot.
-        name_filter : str, default: None
-            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
         for plottable_object in plotting_list:
-            _ = self.plot(plottable_object, name_filter, **plotting_options)
+            _ = self.plot(plottable_object, **plotting_options)
 
     def show(
         self,

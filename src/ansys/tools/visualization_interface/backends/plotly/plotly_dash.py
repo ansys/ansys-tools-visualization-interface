@@ -26,6 +26,7 @@ from dash import Dash, Input, Output, dcc, html
 
 from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
 from ansys.tools.visualization_interface.backends.plotly.widgets.dropdown_manager import DashDropdownManager
+from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
 
 if TYPE_CHECKING:
     import plotly.graph_objects as go
@@ -58,7 +59,7 @@ class PlotlyDashBackend(PlotlyBackend):
         """
         return self._dropdown_manager
 
-    def plot(self, plottable_object, name: str = None, name_filter: str = None, **plotting_options) -> None:
+    def plot(self, plottable_object, name: str = None, **plotting_options) -> None:
         """Plot a single object using Plotly and track mesh names for dropdown.
 
         Parameters
@@ -67,14 +68,11 @@ class PlotlyDashBackend(PlotlyBackend):
             The object to plot.
         name : str, optional
             Name of the mesh for labeling in Plotly.
-        name_filter : str, optional
-            Regular expression with the desired name or names to include.
-            Objects whose ``name`` does not match are skipped.
         plotting_options : dict
             Additional plotting options.
         """
         # Call parent plot method
-        super().plot(plottable_object, name=name, name_filter=name_filter, **plotting_options)
+        super().plot(plottable_object, name=name, **plotting_options)
 
         # Track mesh names for dropdown functionality
         if name:
@@ -187,7 +185,6 @@ class PlotlyDashBackend(PlotlyBackend):
     def show(self,
             plottable_object=None,
             screenshot: str = None,
-            name_filter: str = None,
             **kwargs) -> Union["go.Figure", None]:
         """Render the Plotly scene.
 
@@ -197,9 +194,6 @@ class PlotlyDashBackend(PlotlyBackend):
             Object to show, by default None.
         screenshot : str, optional
             Path to save a screenshot, by default None.
-        name_filter : str, optional
-            Regular expression with the desired name or names to include.
-            Objects whose ``name`` does not match are skipped.
         kwargs : dict
             Additional options the selected backend accepts.
 
@@ -212,11 +206,12 @@ class PlotlyDashBackend(PlotlyBackend):
         if os.environ.get("PYANSYS_VISUALIZER_DOC_MODE"):
             return self._fig
 
+        opts = PlottingOptions.from_kwargs(kwargs)
         if plottable_object is not None:
             if hasattr(plottable_object, "__iter__"):
-                self.plot_iter(plottable_object, name_filter=name_filter)
+                self.plot_iter(plottable_object, name_filter=opts.name_filter)
             else:
-                self.plot(plottable_object, name_filter=name_filter)
+                self.plot(plottable_object, name_filter=opts.name_filter)
 
         # Only show in browser if no screenshot is being taken
         if not screenshot:

@@ -31,6 +31,7 @@ from pyvista import PolyData
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.plotly.widgets.button_manager import ButtonManager
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
+from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
 
 
 class PlotlyBackend(BaseBackend):
@@ -144,19 +145,18 @@ class PlotlyBackend(BaseBackend):
         """
         self._fig.update_layout(new_layout)
 
-    def plot_iter(self, plotting_list: Iterable[Any], name_filter: str = None) -> None:
+    def plot_iter(self, plotting_list: Iterable[Any], **kwargs) -> None:
         """Plot multiple objects using Plotly.
 
         Parameters
         ----------
         plotting_list : Iterable[Any]
             An iterable of objects to plot.
-        name_filter : str, optional
-            Regular expression with the desired name or names to include.
-            Objects whose ``name`` does not match are skipped.
+        kwargs : dict
+            Additional plotting options.
         """
         for item in plotting_list:
-            self.plot(item, name_filter=name_filter)
+            self.plot(item, **kwargs)
 
 
     def _apply_label_and_visibility(
@@ -185,7 +185,6 @@ class PlotlyBackend(BaseBackend):
             self,
             plottable_object: Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d],
             name: str = None,
-            name_filter: str = None,
             **plotting_options
         ) -> None:
         """Plot a single object using Plotly.
@@ -196,14 +195,12 @@ class PlotlyBackend(BaseBackend):
             The object to plot. Can be a PyVista PolyData, MultiBlock, a MeshObjectPlot, or a Plotly Mesh3d.
         name : str, optional
             Name of the mesh for labeling in Plotly. Overrides the name from MeshObjectPlot if provided.
-        name_filter : str, optional
-            Regular expression with the desired name or names to include.
-            Objects whose ``name`` does not match are skipped.
         plotting_options : dict
             Additional plotting options.
         """
-        if name_filter and hasattr(plottable_object, "name") and not re.search(
-            name_filter, plottable_object.name
+        opts = PlottingOptions.from_kwargs(plotting_options)
+        if opts.name_filter and hasattr(plottable_object, "name") and not re.search(
+            opts.name_filter, plottable_object.name
         ):
             return
 
@@ -266,7 +263,6 @@ class PlotlyBackend(BaseBackend):
     def show(self,
             plottable_object=None,
             screenshot: str = None,
-            name_filter: str = None,
             **kwargs) -> Union[go.Figure, None]:
         """Render the Plotly scene.
 
@@ -276,9 +272,6 @@ class PlotlyBackend(BaseBackend):
             Object to show, by default None.
         screenshot : str, optional
             Path to save a screenshot, by default None.
-        name_filter : str, optional
-            Regular expression with the desired name or names to include.
-            Objects whose ``name`` does not match are skipped.
         kwargs : dict
             Additional options the selected backend accepts.
 
@@ -291,15 +284,16 @@ class PlotlyBackend(BaseBackend):
         if os.environ.get("PYANSYS_VISUALIZER_DOC_MODE"):
             return self._fig
 
+        opts = PlottingOptions.from_kwargs(kwargs)
         if plottable_object is not None:
             if hasattr(plottable_object, "__iter__"):
-                self.plot_iter(plottable_object, name_filter=name_filter)
+                self.plot_iter(plottable_object, name_filter=opts.name_filter)
             else:
-                self.plot(plottable_object, name_filter=name_filter)
+                self.plot(plottable_object, name_filter=opts.name_filter)
 
         # Only show in browser if no screenshot is being taken
         if not screenshot:
-            self._fig.show(**kwargs)
+            self._fig.show(**opts.extra)
         else:
             screenshot_str = str(screenshot)
             if screenshot_str.endswith('.html'):

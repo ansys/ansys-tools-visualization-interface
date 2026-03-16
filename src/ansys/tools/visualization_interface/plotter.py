@@ -77,7 +77,6 @@ class Plotter():
         self,
         plottable_object: Any = None,
         screenshot: str = None,
-        name_filter: str = None,
         **kwargs
         ) -> List:
         """Show the plotted objects.
@@ -88,9 +87,6 @@ class Plotter():
             Object to show, by default None.
         screenshot : str, optional
             Path to save a screenshot, by default None.
-        name_filter : str, optional
-            Regular expression with the desired name or names to include in the
-            plotter. Objects whose ``name`` does not match are skipped.
         kwargs : dict
             Additional options the selected backend accepts.
 
@@ -102,7 +98,6 @@ class Plotter():
         return self._backend.show(
             plottable_object=plottable_object,
             screenshot=screenshot,
-            name_filter=name_filter,
             **kwargs
         )
 
