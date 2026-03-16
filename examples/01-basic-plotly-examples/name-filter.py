@@ -22,13 +22,13 @@
 """
 .. _ref_name_filter_plotly:
 
-=======================================
+====================================
 Name filtering in the Plotly backend
-=======================================
+====================================
 
 The ``name_filter`` parameter accepts a regular-expression string and is
 available on :meth:`Plotter.plot`, :meth:`Plotter.plot_iter`, and
-:meth:`Plotter.show`.  Only :class:`MeshObjectPlot` objects whose ``name``
+:meth:`Plotter.show`. Only :class:`MeshObjectPlot` objects whose ``name``
 matches the pattern are added to the figure; everything else is silently
 skipped.
 """
