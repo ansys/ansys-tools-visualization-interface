@@ -182,3 +182,30 @@ def test_plot_iter(tmp_path, image_compare):
     file = tmp_path / "test_plot_iter.png"
     pl.show(screenshot=file)
     assert image_compare(file)
+
+
+def test_name_filter(tmp_path, image_compare):
+    """Test simple name filter usage with plot and plot_iter."""
+    class _NamedObject:
+        """Helper: simple object with a name attribute."""
+        def __init__(self, name):
+            self.name = name
+
+    sphere = MeshObjectPlot(_NamedObject("sphere"), pv.Sphere())
+    cube = MeshObjectPlot(_NamedObject("cube"), pv.Cube())
+
+    backend = PlotlyBackend()
+    backend.plot(sphere, name_filter="cube")
+    backend.plot(cube, name_filter="cube")
+    assert len(backend._fig.data) == 1
+    assert backend._fig.data[0].name == "cube"
+
+    backend2 = PlotlyBackend()
+    backend2.plot_iter([sphere, cube], name_filter="cube")
+    assert len(backend2._fig.data) == 1
+    assert backend2._fig.data[0].name == "cube"
+
+    # Show and compare the filtered plot
+    file = tmp_path / "test_name_filter.png"
+    backend2.show(screenshot=file)
+    assert image_compare(file)

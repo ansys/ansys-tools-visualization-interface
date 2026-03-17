@@ -26,6 +26,7 @@ from dash import Dash, Input, Output, dcc, html
 
 from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
 from ansys.tools.visualization_interface.backends.plotly.widgets.dropdown_manager import DashDropdownManager
+from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
 
 if TYPE_CHECKING:
     import plotly.graph_objects as go
@@ -184,7 +185,6 @@ class PlotlyDashBackend(PlotlyBackend):
     def show(self,
             plottable_object=None,
             screenshot: str = None,
-            name_filter=None,
             **kwargs) -> Union["go.Figure", None]:
         """Render the Plotly scene.
 
@@ -194,8 +194,6 @@ class PlotlyDashBackend(PlotlyBackend):
             Object to show, by default None.
         screenshot : str, optional
             Path to save a screenshot, by default None.
-        name_filter : bool, optional
-            Flag to filter the object, by default None.
         kwargs : dict
             Additional options the selected backend accepts.
 
@@ -208,8 +206,12 @@ class PlotlyDashBackend(PlotlyBackend):
         if os.environ.get("PYANSYS_VISUALIZER_DOC_MODE"):
             return self._fig
 
+        opts = PlottingOptions.from_kwargs(kwargs)
         if plottable_object is not None:
-            self.plot(plottable_object)
+            if hasattr(plottable_object, "__iter__"):
+                self.plot_iter(plottable_object, name_filter=opts.name_filter)
+            else:
+                self.plot(plottable_object, name_filter=opts.name_filter)
 
         # Only show in browser if no screenshot is being taken
         if not screenshot:
