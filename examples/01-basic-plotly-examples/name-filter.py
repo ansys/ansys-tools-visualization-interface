@@ -67,4 +67,7 @@ parts = [
 # parts are added to the figure.
 
 pl = Plotter(backend=PlotlyBackend())
+pl.show(plottable_object=parts)
+
+pl = Plotter(backend=PlotlyBackend())
 pl.show(plottable_object=parts, name_filter="Wheel")
