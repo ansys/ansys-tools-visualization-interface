@@ -60,7 +60,7 @@ tests = [
     "pytest==9.0.2",
     "pyvista==0.47.1",
     "pytest-pyvista==0.3.2",
-    "pytest-cov==7.0.0",
+    "pytest-cov==7.1.0",
     "pyside6==6.10.2",
 ]
 
