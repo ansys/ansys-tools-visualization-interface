@@ -1,5 +1,5 @@
 [build-system]
-requires = ["flit_core >=3.2,<3.11"]
+requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
@@ -8,20 +8,20 @@ version = "0.8.dev0"
 description = "A Python visualization interface for PyAnsys libraries"
 readme = "README.rst"
 requires-python = ">=3.10,<4"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "ANSYS, Inc.", email = "pyansys.core@ansys.com" }]
 maintainers = [{ name = "ANSYS, Inc.", email = "pyansys.core@ansys.com" }]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Information Analysis",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.14"
 ]
 dependencies = [
     "pyvista >= 0.43.0,<1",
@@ -29,18 +29,18 @@ dependencies = [
     "trame >= 3.6.0,<4",
     "trame-vtk >= 2.8.7,!= 2.8.16,< 2.11.7",
     "trame-vuetify >= 2.4.3,< 4",
-    "trame-router >= 2.3.0,<3",
+    "trame-router >= 2.3.0,<3"
 ]
 
 [project.optional-dependencies]
 pyvistaqt = [
     "pyside6 >= 6.8.0,<7",
-    "pyvistaqt >= 0.11.1,<1",
+    "pyvistaqt >= 0.11.1,<1"
 ]
 
 plotly = [
     "plotly >= 6.3.1,<7",
-    "kaleido >= 1.1.0,<2",
+    "kaleido >= 1.1.0,<2"
 ]
 
 dash = [
@@ -61,7 +61,7 @@ tests = [
     "pyvista==0.47.1",
     "pytest-pyvista==0.3.2",
     "pytest-cov==7.1.0",
-    "pyside6==6.11.0",
+    "pyside6==6.11.0"
 ]
 
 doc = [
@@ -74,7 +74,7 @@ doc = [
     "sphinx-copybutton==0.5.2",
     "sphinx-gallery==0.20.0",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.38.1",
+    "ansys-fluent-core==0.38.1"
 ]
 
 [project.urls]
