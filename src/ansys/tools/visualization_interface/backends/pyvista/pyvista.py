@@ -63,6 +63,7 @@ from ansys.tools.visualization_interface.utils._kwargs_manager import (
 )
 from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
+from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
 
 _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
 
@@ -423,7 +424,6 @@ class PyVistaBackendInterface(BaseBackend):
         plottable_object: Any = None,
         screenshot: Optional[str] = None,
         view_2d: Dict = None,
-        name_filter: str = None,
         dark_mode: bool = False,
         **kwargs: Dict[str, Any],
     ) -> List[Any]:
@@ -440,8 +440,6 @@ class PyVistaBackendInterface(BaseBackend):
             Path for saving a screenshot of the image that is being represented.
         view_2d : Dict, default: None
             Dictionary with the plane and the viewup vectors of the 2D plane.
-        name_filter : str, default: None
-            Regular expression with the desired name or names to include in the plotter.
         dark_mode : bool, default: False
             Whether to use dark mode for the widgets.
         **kwargs : Any
@@ -453,15 +451,21 @@ class PyVistaBackendInterface(BaseBackend):
             List with the picked bodies in the picked order.
 
         """
+        opts = PlottingOptions.from_kwargs(kwargs)
         plotting_options = _extract_kwargs(
             self._pl._scene.add_mesh,
-            kwargs,
+            opts.extra,
         )
         show_options = _extract_kwargs(
             self._pl.scene.show,
-            kwargs,
+            opts.extra,
         )
-        self.plot(plottable_object, name_filter, **plotting_options)
+        self.plot(
+            plottable_object,
+            name_filter=opts.name_filter,
+            clipping_plane=opts.clipping_plane,
+            **plotting_options,
+        )
         if self._pl.object_to_actors_map:
             self._object_to_actors_map = self._pl.object_to_actors_map
         else:
@@ -539,15 +543,13 @@ class PyVistaBackendInterface(BaseBackend):
         pv.OFF_SCREEN = self._pv_off_screen_original
 
     @abstractmethod
-    def plot_iter(self, plottable_object: Any, name_filter: str = None, **plotting_options):
+    def plot_iter(self, plottable_object: Any, **plotting_options):
         """Plot one or more compatible objects to the plotter.
 
         Parameters
         ----------
         plottable_object : Any
             One or more objects to add.
-        name_filter : str, default: None.
-            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -556,15 +558,13 @@ class PyVistaBackendInterface(BaseBackend):
         pass
 
     @abstractmethod
-    def plot(self, plottable_object: Any, name_filter: str = None, **plotting_options):
+    def plot(self, plottable_object: Any, **plotting_options):
         """Plot a single object to the plotter.
 
         Parameters
         ----------
         plottable_object : Any
             Object to plot.
-        name_filter : str
-            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -633,7 +633,6 @@ class PyVistaBackend(PyVistaBackendInterface):
     def plot_iter(
         self,
         plotting_list: List[Any],
-        name_filter: str = None,
         **plotting_options,
     ) -> None:
         """Plot the elements of an iterable of any type of object to the scene.
@@ -645,25 +644,21 @@ class PyVistaBackend(PyVistaBackendInterface):
         ----------
         plotting_list : List[Any]
             List of objects to plot.
-        name_filter : str, default: None
-            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
         for plottable_object in plotting_list:
-            self.plot(plottable_object, name_filter, **plotting_options)
+            self.plot(plottable_object, **plotting_options)
 
-    def plot(self, plottable_object: Any, name_filter: str = None, **plotting_options):
+    def plot(self, plottable_object: Any, **plotting_options):
         """Plot a ``pyansys`` or ``PyVista`` object to the plotter.
 
         Parameters
         ----------
         plottable_object : Any
             Object to plot.
-        name_filter : str
-            Regular expression with the desired name or names to include in the plotter.
         **plotting_options : dict, default: None
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
@@ -671,9 +666,9 @@ class PyVistaBackend(PyVistaBackendInterface):
         """
         if hasattr(plottable_object, "__iter__"):
             logger.debug("Plotting objects in list...")
-            self.pv_interface.plot_iter(plottable_object, name_filter, **plotting_options)
+            self.pv_interface.plot_iter(plottable_object, **plotting_options)
         else:
-            self.pv_interface.plot(plottable_object, name_filter, **plotting_options)
+            self.pv_interface.plot(plottable_object, **plotting_options)
 
     def close(self):
         """Close the plotter for PyVistaQT."""
