@@ -59,7 +59,7 @@ all = [
 tests = [
     "pytest==9.0.3",
     "pyvista==0.47.1",
-    "pytest-pyvista==0.3.2",
+    "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
     "pyside6==6.11.0"
 ]
