@@ -27,7 +27,7 @@ dependencies = [
     "pyvista >= 0.43.0,<1",
     "websockets >= 12.0,< 17",
     "trame >= 3.6.0,<4",
-    "trame-vtk >= 2.8.7,!= 2.8.16,< 2.11.7",
+    "trame-vtk >= 2.8.7,!= 2.8.16,< 2.11.8",
     "trame-vuetify >= 2.4.3,< 4",
     "trame-router >= 2.3.0,<3"
 ]
@@ -58,14 +58,14 @@ all = [
 
 tests = [
     "pytest==9.0.3",
-    "pyvista==0.47.1",
-    "pytest-pyvista==0.3.2",
+    "pyvista==0.47.3",
+    "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
     "pyside6==6.11.0"
 ]
 
 doc = [
-    "pyvista==0.47.1",
+    "pyvista==0.47.3",
     "ansys-sphinx-theme[autoapi]==1.7.2",
     "jupyter_sphinx==0.5.3",
     "jupytext==1.19.1",
