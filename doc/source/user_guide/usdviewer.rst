@@ -12,11 +12,8 @@ USD viewer installation
 -----------------------
 
 To use the USD viewer, you need to install the ``python-usd-viewer`` package. Please refer
-to the `USD viewer installation guide`_ for detailed instructions on how to install the package.
-
-.. _USD viewer installation guide: https://usd-viewer.docs.pyansys.com/version/stable/getting_started/index.html
-
-..
+to the `USD viewer installation guide <https://usd-viewer.docs.pyansys.com/version/stable/getting_started/index.html>`_
+for detailed instructions on how to install the package.
 
 
 USD viewer usage
