@@ -75,4 +75,5 @@ The Visualization Interface Tool offers these main features:
        {% if build_examples %}
        examples/index
        {% endif %}
+       user_guide/usdviewer
        contributing
