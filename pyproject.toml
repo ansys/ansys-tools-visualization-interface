@@ -76,7 +76,7 @@ doc = [
     "nbsphinx==0.9.6",
     "numpydoc==1.10.0",
     "sphinx-copybutton==0.5.2",
-    "sphinx-gallery==0.20.0",
+    "sphinx-gallery==0.21.0",
     "sphinx-jinja==2.0.2",
     "ansys-fluent-core==0.38.1"
 ]
