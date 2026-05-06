@@ -1,3 +1,10 @@
+## [0.13.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.1) - May 05, 2026
+
+
+### Fixed
+
+- Fix: Add optional USD dependency [#517](https://github.com/ansys/ansys-tools-visualization-interface/pull/517)
+
 ## [0.13.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.0) - May 04, 2026
 
 
