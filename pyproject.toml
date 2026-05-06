@@ -78,7 +78,8 @@ doc = [
     "sphinx-copybutton==0.5.2",
     "sphinx-gallery==0.21.0",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.38.1"
+    "ansys-fluent-core==0.38.1",
+    "nest-asyncio==1.6.0", # Required for interactive examples, else it fails silently
 ]
 
 [project.urls]
