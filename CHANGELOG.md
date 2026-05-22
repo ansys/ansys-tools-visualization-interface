@@ -1,10 +1,3 @@
-## [0.13.2](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.2) - May 22, 2026
-
-
-### Added
-
-- Feat: lazy loading pyvista and vtk [#530](https://github.com/ansys/ansys-tools-visualization-interface/pull/530)
-
 ## [0.13.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.1) - May 05, 2026
 
 
