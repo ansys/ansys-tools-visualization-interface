@@ -22,35 +22,36 @@
 
 """Plotly backend interface for visualization."""
 import re
-from typing import Any, Iterable, List, Optional, Tuple, Union
-
-import plotly.graph_objects as go
-import pyvista as pv
-from pyvista import PolyData
+from typing import TYPE_CHECKING, Any, Iterable, List, Optional, Tuple, Union
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
 from ansys.tools.visualization_interface.backends.plotly.widgets.button_manager import ButtonManager
 from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
 from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
 
+if TYPE_CHECKING:
+    import plotly.graph_objects as go
+    import pyvista as pv
 
 class PlotlyBackend(BaseBackend):
     """Plotly interface for visualization."""
 
     def __init__(self) -> None:
         """Initialize the Plotly backend."""
+        import plotly.graph_objects as go
+
         self._fig = go.Figure()
         self._button_manager = ButtonManager(self._fig)
 
         # Stack buttons vertically on the left side
         self._button_manager.update_layout()
 
-    def _pv_to_mesh3d(self, pv_mesh: Union[PolyData, pv.UnstructuredGrid, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.MultiBlock]) -> Union[go.Mesh3d, list]:  # noqa: E501
+    def _pv_to_mesh3d(self, pv_mesh: Union["pv.PolyData", "pv.UnstructuredGrid", "pv.StructuredGrid", "pv.ExplicitStructuredGrid", "pv.MultiBlock"]) -> Union["go.Mesh3d", list]:  # noqa: E501
         """Convert a PyVista PolyData or MultiBlock mesh to Plotly Mesh3d format.
 
         Parameters
         ----------
-        pv_mesh : Union[PolyData, pv.MultiBlock]
+        pv_mesh : Union[pv.PolyData, pv.MultiBlock]
             The PyVista PolyData or MultiBlock mesh to convert.
 
         Returns
@@ -59,6 +60,8 @@ class PlotlyBackend(BaseBackend):
             The converted Plotly Mesh3d object(s). Returns a single Mesh3d for PolyData,
             or a list of Mesh3d objects for MultiBlock.
         """
+        import pyvista as pv
+
         if isinstance(pv_mesh, pv.MultiBlock):
             # Handle MultiBlock by converting each block and returning a list
             mesh_list = []
@@ -68,7 +71,7 @@ class PlotlyBackend(BaseBackend):
                     if hasattr(block, 'extract_surface'):
                         # For volume meshes (e.g. pv.UnstructuredGrid), extract the surface
                         block = block.extract_surface()
-                    elif not isinstance(block, PolyData):
+                    elif not isinstance(block, pv.PolyData):
                         # Try to convert to PolyData
                         try:
                             block = block.cast_to_polydata()
@@ -87,12 +90,12 @@ class PlotlyBackend(BaseBackend):
             # Handle single PolyData
             return self._convert_polydata_to_mesh3d(pv_mesh)
 
-    def _convert_polydata_to_mesh3d(self, pv_mesh: PolyData) -> go.Mesh3d:
+    def _convert_polydata_to_mesh3d(self, pv_mesh: "pv.PolyData") -> "go.Mesh3d":
         """Convert a single PolyData mesh to Plotly Mesh3d format.
 
         Parameters
         ----------
-        pv_mesh : PolyData
+        pv_mesh : pv.PolyData
             The PyVista PolyData mesh to convert.
 
         Returns
@@ -100,6 +103,8 @@ class PlotlyBackend(BaseBackend):
         go.Mesh3d
             The converted Plotly Mesh3d object.
         """
+        import plotly.graph_objects as go
+
         points = pv_mesh.points
         x, y, z = points[:, 0], points[:, 1], points[:, 2]
 
@@ -161,7 +166,7 @@ class PlotlyBackend(BaseBackend):
 
     def _apply_label_and_visibility(
         self,
-        trace: go.Mesh3d,
+        trace: "go.Mesh3d",
         name: Optional[str],
         visible: bool = True,
     ) -> None:
@@ -183,21 +188,24 @@ class PlotlyBackend(BaseBackend):
 
     def plot(
             self,
-            plottable_object: Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d],
-            name: str = None,
+            plottable_object: Union["pv.PolyData", "pv.MultiBlock", "MeshObjectPlot", "go.Mesh3d"],
+            name: str | None = None,
             **plotting_options
         ) -> None:
         """Plot a single object using Plotly.
 
         Parameters
         ----------
-        plottable_object : Union[PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d]
+        plottable_object : Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, go.Mesh3d]
             The object to plot. Can be a PyVista PolyData, MultiBlock, a MeshObjectPlot, or a Plotly Mesh3d.
         name : str, optional
             Name of the mesh for labeling in Plotly. Overrides the name from MeshObjectPlot if provided.
         plotting_options : dict
             Additional plotting options.
         """
+        import plotly.graph_objects as go
+        import pyvista as pv
+
         opts = PlottingOptions.from_kwargs(plotting_options)
         if opts.name_filter and hasattr(plottable_object, "name") and not re.search(
             opts.name_filter, plottable_object.name
@@ -212,7 +220,7 @@ class PlotlyBackend(BaseBackend):
         else:
             mesh = plottable_object
 
-        if isinstance(mesh, (PolyData, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.UnstructuredGrid, pv.MultiBlock)):  # noqa: E501
+        if isinstance(mesh, (pv.PolyData, pv.StructuredGrid, pv.ExplicitStructuredGrid, pv.UnstructuredGrid, pv.MultiBlock)):  # noqa: E501
             mesh_result = self._pv_to_mesh3d(mesh)
             # Handle both single mesh and list of meshes
             if isinstance(mesh_result, list):
@@ -262,8 +270,8 @@ class PlotlyBackend(BaseBackend):
 
     def show(self,
             plottable_object=None,
-            screenshot: str = None,
-            **kwargs) -> Union[go.Figure, None]:
+            screenshot: str | None = None,
+            **kwargs) -> Union["go.Figure", None]:
         """Render the Plotly scene.
 
         Parameters
@@ -327,6 +335,7 @@ class PlotlyBackend(BaseBackend):
             Plotly Scatter3d trace representing the added points.
         """
         import numpy as np
+        import plotly.graph_objects as go
 
         # Convert points to numpy array
         points_array = np.asarray(points)
@@ -379,6 +388,7 @@ class PlotlyBackend(BaseBackend):
             Plotly Scatter3d trace(s) representing the added lines.
         """
         import numpy as np
+        import plotly.graph_objects as go
 
         # Convert points to numpy array
         points_array = np.asarray(points)
@@ -452,6 +462,7 @@ class PlotlyBackend(BaseBackend):
             Plotly Mesh3d trace representing the added plane.
         """
         import numpy as np
+        import plotly.graph_objects as go
 
         # Normalize the normal vector
         normal_array = np.array(normal)
@@ -584,6 +595,7 @@ class PlotlyBackend(BaseBackend):
             Plotly trace representing the labels.
         """
         import numpy as np
+        import plotly.graph_objects as go
 
         points_array = np.asarray(points)
         if points_array.ndim == 1:

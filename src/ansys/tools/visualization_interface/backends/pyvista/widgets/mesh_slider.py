@@ -23,8 +23,6 @@
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-import pyvista as pv
-
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
 if TYPE_CHECKING:
@@ -94,6 +92,8 @@ class MeshSliderWidget(PlotterWidget):
                 widget._button.GetRepresentation().SetVisibility(1)
 
         else:
+            import pyvista as pv
+
             self._mb = pv.MultiBlock(self.plotter_helper._pl.scene.meshes).combine()
             self._widget_actor = self.plotter_helper._pl.scene.add_mesh_clip_plane(
                 self._mb, show_edges=self.plotter_helper._pl._show_edges
