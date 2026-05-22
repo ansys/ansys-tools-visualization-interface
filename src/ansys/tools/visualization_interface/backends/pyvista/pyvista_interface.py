@@ -71,7 +71,7 @@ class PyVistaInterface:
 
     def __init__(
         self,
-        scene: Optional[Union[pv.Plotter, "pyvistaqt.BackgroundPlotter"]] = None,
+        scene: Optional[Union["pv.Plotter", "pyvistaqt.BackgroundPlotter"]] = None,
         color_opts: Optional[Dict] = None,
         num_points: int = 100,
         enable_widgets: bool = True,
@@ -483,12 +483,12 @@ class PyVistaInterface:
             else:
                 self.scene.show(**kwargs)
 
-    def set_add_mesh_defaults(self, plotting_options: Optional[dict]) -> None:
+    def set_add_mesh_defaults(self, plotting_options: dict) -> None:
         """Set the default values for the plotting options.
 
         Parameters
         ----------
-        plotting_options : Optional[dict]
+        plotting_options : dict
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
@@ -496,9 +496,9 @@ class PyVistaInterface:
         # If the following keys do not exist, set the default values
         #
         # This method should only be applied in 3D objects (bodies and components)
-        if plotting_options and "smooth_shading" not in plotting_options:
+        if "smooth_shading" not in plotting_options:
             plotting_options.setdefault("smooth_shading", True)
-        if plotting_options and "color" not in plotting_options and not plotting_options.get("multi_colors", False):
+        if "color" not in plotting_options and not plotting_options.get("multi_colors", False):
             plotting_options.setdefault("color", Color.DEFAULT.value)
 
     @property
