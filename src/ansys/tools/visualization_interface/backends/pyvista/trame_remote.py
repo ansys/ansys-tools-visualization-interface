@@ -24,13 +24,15 @@
 # from the websocket. This is a trusted source, so we can ignore this vulnerability.
 # Potentially, someone could send a malicious pickle object and execute arbitrary code.
 import pickle  # nosec B403
-from typing import Union
+from typing import TYPE_CHECKING, Union
 
-import pyvista as pv
 from websockets.sync.client import connect
 
+if TYPE_CHECKING:
+    import pyvista as pv
 
-def send_pl(plotter: pv.Plotter, host: str = "localhost", port: int = 8765):
+
+def send_pl(plotter: "pv.Plotter", host: str = "localhost", port: int = 8765):
     """Send the plotter meshes to a remote trame service.
 
     Since plotter can't be pickled, we send the meshes list instead.
@@ -49,7 +51,7 @@ def send_pl(plotter: pv.Plotter, host: str = "localhost", port: int = 8765):
         meshes_list_pk = pickle.dumps(plotter.meshes)
         websocket.send(meshes_list_pk)
 
-def send_mesh(mesh: Union[pv.PolyData, pv.MultiBlock], host: str = "localhost", port: int = 8765):
+def send_mesh(mesh: Union["pv.PolyData", "pv.MultiBlock"], host: str = "localhost", port: int = 8765):
     """Send a mesh to a remote trame service.
 
     Parameters

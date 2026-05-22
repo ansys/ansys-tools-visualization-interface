@@ -28,11 +28,6 @@ import asyncio
 # Potentially, someone could send a malicious pickle object and execute arbitrary code.
 import pickle  # nosec B403
 
-import pyvista as pv
-from pyvista.trame.ui import plotter_ui
-from trame.app import get_server
-from trame.ui.vuetify3 import SinglePageLayout
-from trame.widgets import vuetify3
 from websockets import WebSocketServerProtocol
 from websockets.server import serve
 
@@ -51,6 +46,9 @@ class TrameService:
     """
     def __init__(self, websocket_host: str = "localhost", websocket_port: int=8765):
         """Initialize the trame service."""
+        import pyvista as pv
+        from trame.app import get_server
+
         pv.OFF_SCREEN = True
 
         self._server = get_server()
@@ -98,6 +96,10 @@ class TrameService:
 
     def set_scene(self):
         """Sets the web view scene for the trame service."""
+        from pyvista.trame.ui import plotter_ui
+        from trame.ui.vuetify3 import SinglePageLayout
+        from trame.widgets import vuetify3
+
         with SinglePageLayout(self._server) as layout:
             with layout.toolbar:
                 with vuetify3.VBtn(icon=True, click=self.clear_plotter):

@@ -25,11 +25,12 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 from pathlib import Path
-from typing import Any, List, Optional, Union
-
-import pyvista as pv
+from typing import TYPE_CHECKING, Any, List, Optional, Union
 
 from ansys.tools.visualization_interface.utils.logger import logger
+
+if TYPE_CHECKING:
+    import pyvista as pv
 
 # Dark mode detection threshold (same as in pyvista.py)
 DARK_MODE_THRESHOLD = 120
@@ -141,7 +142,7 @@ class Animation:
 
     def __init__(
         self,
-        plotter: pv.Plotter,
+        plotter: "pv.Plotter",
         frames: Union[FrameSequence, List[Any]],
         fps: int = 30,
         loop: bool = False,
@@ -208,6 +209,8 @@ class Animation:
 
     def _calculate_global_color_scale(self):
         """Calculate global min/max for fixed color scale across frames."""
+        import pyvista as pv
+
         try:
             first_frame = self._frames.get_frame(0)
             last_frame = self._frames.get_frame(len(self._frames) - 1)
@@ -393,6 +396,8 @@ class Animation:
 
     def _extract_mesh(self, frame):
         """Extract PyVista mesh from frame object."""
+        import pyvista as pv
+
         if hasattr(frame, "mesh"):
             return frame.mesh
         elif isinstance(frame, pv.DataSet):

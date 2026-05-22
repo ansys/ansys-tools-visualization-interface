@@ -22,9 +22,7 @@
 """Provides a wrapper to aid in plotting."""
 from abc import abstractmethod
 import importlib.util
-from typing import Any, Dict, List, Optional, Union
-
-import pyvista as pv
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 import ansys.tools.visualization_interface
 from ansys.tools.visualization_interface.backends._base import BaseBackend
@@ -68,6 +66,9 @@ from ansys.tools.visualization_interface.utils.plotting_options import PlottingO
 _HAS_TRAME = importlib.util.find_spec("pyvista.trame") and importlib.util.find_spec("trame.app")
 
 DARK_MODE_THRESHOLD = 120
+
+if TYPE_CHECKING:
+    import pyvista as pv
 
 
 class PyVistaBackendInterface(BaseBackend):
@@ -123,6 +124,7 @@ class PyVistaBackendInterface(BaseBackend):
         **plotter_kwargs,
     ) -> None:
         """Initialize the ``use_trame`` parameter and save the current ``pv.OFF_SCREEN`` value."""
+        import pyvista as pv
         from vtkmodules.vtkInteractionWidgets import vtkHoverWidget
         from vtkmodules.vtkRenderingCore import vtkPointPicker
 
@@ -239,7 +241,7 @@ class PyVistaBackendInterface(BaseBackend):
         return self._pl
 
     @property
-    def scene(self) -> pv.Plotter:
+    def scene(self) -> "pv.Plotter":
         """PyVista scene."""
         return self._pl.scene
 
@@ -352,13 +354,14 @@ class PyVistaBackendInterface(BaseBackend):
             Actor to focus the camera on.
 
         """
+        import pyvista as pv
         pt = self._pl.scene.picked_point
         sphere = pv.Sphere(center=pt, radius=0.1)
         self._picked_ball = self._pl.scene.add_mesh(sphere, color="red", name="focus_sphere_temp", reset_camera=False)
         self._pl.scene.set_focus(pt)
         self._pl.scene.render()
 
-    def compute_edge_object_map(self) -> Dict[pv.Actor, EdgePlot]:
+    def compute_edge_object_map(self) -> Dict["pv.Actor", EdgePlot]:
         """Compute the mapping between plotter actors and ``EdgePlot`` objects.
 
         Returns
@@ -530,6 +533,7 @@ class PyVistaBackendInterface(BaseBackend):
             Path for saving a screenshot of the image that is being represented.
 
         """
+        import pyvista as pv
         if self._use_trame and _HAS_TRAME:
             from ansys.tools.visualization_interface.backends.pyvista.trame_local import (
                 TrameVisualizer,
@@ -790,6 +794,7 @@ class PyVistaBackend(PyVistaBackendInterface):
             PyVista actor representing the added points.
         """
         import numpy as np
+        import pyvista as pv
 
         # Convert points to numpy array if needed
         points_array = np.asarray(points)
@@ -843,6 +848,7 @@ class PyVistaBackend(PyVistaBackendInterface):
             PyVista actor representing the added lines.
         """
         import numpy as np
+        import pyvista as pv
 
         # Convert points to numpy array
         points_array = np.asarray(points)
@@ -916,6 +922,7 @@ class PyVistaBackend(PyVistaBackendInterface):
         pv.Actor
             PyVista actor representing the added plane.
         """
+        import pyvista as pv
         # Create a PyVista plane
         plane = pv.Plane(
             center=center,
@@ -1003,6 +1010,7 @@ class PyVistaBackend(PyVistaBackendInterface):
             PyVista actor representing the added labels.
         """
         import numpy as np
+        import pyvista as pv
 
         # Convert points to numpy array if needed
         points_array = np.asarray(points)
