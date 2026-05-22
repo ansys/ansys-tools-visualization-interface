@@ -21,8 +21,6 @@
 # SOFTWARE.
 """Provides a button to toggle the tree menu visibility."""
 
-from vtk import vtkButtonWidget
-
 from ansys.tools.visualization_interface.backends.pyvista.widgets.widget import PlotterWidget
 
 
@@ -51,7 +49,7 @@ class TreeMenuToggleButton(PlotterWidget):
         self._menu_visible = False  # Menu starts hidden
 
         # Create the checkbox button
-        self._button: vtkButtonWidget = self._plotter._pl.scene.add_checkbox_button_widget(
+        self._button = self._plotter._pl.scene.add_checkbox_button_widget(
             self.callback,
             value=False,  # Start unchecked (menu hidden)
             position=(101, 130),  # Next to screenshot button at (69, 130)

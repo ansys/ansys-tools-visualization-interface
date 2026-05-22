@@ -22,14 +22,13 @@
 
 """Utils module for VTKHDF management."""
 from pathlib import Path
-from typing import Union
+from typing import TYPE_CHECKING, Union
 
-import pyvista as pv
-import vtk
-from vtkmodules.vtkIOHDF import vtkHDFWriter
+if TYPE_CHECKING:
+    import pyvista as pv
 
 
-def pd_to_vtkhdf(pd: pv.PolyData, output_vtkhdf_file: Union[str, Path]) -> Path:
+def pd_to_vtkhdf(pd: "pv.PolyData", output_vtkhdf_file: Union[str, Path]) -> Path:
     """Write the PyVista PolyData directly to a VTKHDF file.
 
     Parameters
@@ -44,6 +43,7 @@ def pd_to_vtkhdf(pd: pv.PolyData, output_vtkhdf_file: Union[str, Path]) -> Path:
     Path
         The path to the saved VTKHDF file.
     """
+    from vtkmodules.vtkIOHDF import vtkHDFWriter
     writer = vtkHDFWriter()
     writer.SetFileName(str(output_vtkhdf_file))
     writer.SetInputDataObject(pd)
@@ -51,7 +51,7 @@ def pd_to_vtkhdf(pd: pv.PolyData, output_vtkhdf_file: Union[str, Path]) -> Path:
     return Path(output_vtkhdf_file)
 
 
-def vtkhdf_to_pd(input_vtkhdf_file: Union[str, Path]) -> pv.PolyData:
+def vtkhdf_to_pd(input_vtkhdf_file: Union[str, Path]) -> "pv.PolyData":
     """Read a VTKHDF file and convert it to PyVista PolyData.
 
     Parameters
@@ -64,6 +64,8 @@ def vtkhdf_to_pd(input_vtkhdf_file: Union[str, Path]) -> pv.PolyData:
     pv.PolyData
         The converted PyVista PolyData.
     """
+    import pyvista as pv
+    import vtk
     reader = vtk.vtkHDFReader()
     reader.SetFileName(str(input_vtkhdf_file))
     reader.Update()
@@ -73,7 +75,7 @@ def vtkhdf_to_pd(input_vtkhdf_file: Union[str, Path]) -> pv.PolyData:
     return pd
 
 
-def ug_to_vtkhdf(ug: pv.UnstructuredGrid, output_vtkhdf_file: Union[str, Path]) -> Path:
+def ug_to_vtkhdf(ug: "pv.UnstructuredGrid", output_vtkhdf_file: Union[str, Path]) -> Path:
     """Write the PyVista UnstructuredGrid directly to a VTKHDF file.
 
     Parameters
@@ -88,6 +90,7 @@ def ug_to_vtkhdf(ug: pv.UnstructuredGrid, output_vtkhdf_file: Union[str, Path]) 
     Path
         The path to the saved VTKHDF file.
     """
+    from vtkmodules.vtkIOHDF import vtkHDFWriter
     writer = vtkHDFWriter()
     writer.SetFileName(str(output_vtkhdf_file))
     writer.SetInputDataObject(ug)
@@ -95,7 +98,7 @@ def ug_to_vtkhdf(ug: pv.UnstructuredGrid, output_vtkhdf_file: Union[str, Path]) 
     return Path(output_vtkhdf_file)
 
 
-def vtkhdf_to_ug(input_vtkhdf_file: Union[str, Path]) -> pv.UnstructuredGrid:
+def vtkhdf_to_ug(input_vtkhdf_file: Union[str, Path]) -> "pv.UnstructuredGrid":
     """Read a VTKHDF file and convert it to PyVista UnstructuredGrid.
 
     Parameters
@@ -108,6 +111,8 @@ def vtkhdf_to_ug(input_vtkhdf_file: Union[str, Path]) -> pv.UnstructuredGrid:
     pv.UnstructuredGrid
         The converted PyVista UnstructuredGrid.
     """
+    import pyvista as pv
+    import vtk
     reader = vtk.vtkHDFReader()
     reader.SetFileName(str(input_vtkhdf_file))
     reader.Update()
