@@ -483,12 +483,12 @@ class PyVistaInterface:
             else:
                 self.scene.show(**kwargs)
 
-    def set_add_mesh_defaults(self, plotting_options: Optional[dict]) -> None:
+    def set_add_mesh_defaults(self, plotting_options: dict) -> None:
         """Set the default values for the plotting options.
 
         Parameters
         ----------
-        plotting_options : Optional[dict]
+        plotting_options : dict
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
