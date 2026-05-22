@@ -88,6 +88,8 @@ class PyVistaInterface:
             import pyvistaqt
         else:
             _HAS_PYVISTAQT = False
+        
+        import pyvista as pv
 
         # Generate custom scene if ``None`` is provided
         if scene is None:
