@@ -5,6 +5,11 @@
 
 - Feat: lazy loading pyvista and vtk [#530](https://github.com/ansys/ansys-tools-visualization-interface/pull/530)
 
+
+### Fixed
+
+- Fix: typo in typehint + additional errors [#532](https://github.com/ansys/ansys-tools-visualization-interface/pull/532)
+
 ## [0.13.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.1) - May 05, 2026
 
 
