@@ -71,7 +71,7 @@ class PyVistaInterface:
 
     def __init__(
         self,
-        scene: Optional[Union[pv.Plotter, "pyvistaqt.BackgroundPlotter"]] = None,
+        scene: Optional[Union["pv.Plotter", "pyvistaqt.BackgroundPlotter"]] = None,
         color_opts: Optional[Dict] = None,
         num_points: int = 100,
         enable_widgets: bool = True,
