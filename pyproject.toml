@@ -62,17 +62,17 @@ all = [
 
 tests = [
     "pytest==9.0.3",
-    "pyvista==0.48.2",
+    "pyvista==0.48.4",
     "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
-    "pyside6==6.11.0"
+    "pyside6==6.11.1"
 ]
 
 doc = [
-    "pyvista==0.48.2",
+    "pyvista==0.48.4",
     "ansys-sphinx-theme[autoapi]==1.8.0",
     "jupyter_sphinx==0.5.3",
-    "jupytext==1.19.2",
+    "jupytext==1.19.3",
     "nbsphinx==0.9.6",
     "numpydoc==1.10.0",
     "sphinx-copybutton==0.5.2",
