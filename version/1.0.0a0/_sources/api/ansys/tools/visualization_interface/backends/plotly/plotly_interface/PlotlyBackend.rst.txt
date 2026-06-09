@@ -1,0 +1,220 @@
+
+
+
+
+
+
+:class:`PlotlyBackend`
+======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.plotly.plotly_interface.PlotlyBackend
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends._base.BaseBackend`
+
+
+   
+   Plotly interface for visualization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: PlotlyBackend
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot_iter`
+            - Plot multiple objects using Plotly.
+          * - :py:attr:`~plot`
+            - Plot a single object using Plotly.
+          * - :py:attr:`~show`
+            - Render the Plotly scene.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~layout`
+            - Get the current layout of the Plotly figure.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.plotly.plotly_interface import PlotlyBackend
+
+Property detail
+---------------
+
+.. py:property:: layout
+   :type: Any
+
+
+   
+   Get the current layout of the Plotly figure.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           The current layout of the Plotly figure.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: plot_iter(plotting_list: Iterable[Any]) -> None
+
+   
+   Plot multiple objects using Plotly.
+
+
+   :Parameters:
+
+       **plotting_list** : :obj:`Iterable`\[:obj:`Any`]
+           An iterable of objects to plot.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot(plottable_object: Union[pyvista.PolyData, pyvista.MultiBlock, ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, plotly.graph_objects.Mesh3d], **plotting_options) -> None
+
+   
+   Plot a single object using Plotly.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Union`\[:obj:`PolyData`, :obj:`pv.MultiBlock`, :obj:`MeshObjectPlot`, :obj:`go.Mesh3d`]
+           The object to plot. Can be a PyVista PolyData, MultiBlock, a MeshObjectPlot, or a Plotly Mesh3d.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(plottable_object=None, screenshot: str = None, name_filter=None, **kwargs) -> Union[plotly.graph_objects.Figure, None]
+
+   
+   Render the Plotly scene.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`, :obj:`optional`
+           Object to show, by default None.
+
+       **screenshot** : :class:`python:str`, :obj:`optional`
+           Path to save a screenshot, by default None.
+
+       **name_filter** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Flag to filter the object, by default None.
+
+       **kwargs** : :class:`python:dict`
+           Additional options the selected backend accepts.
+
+
+
+   :Returns:
+
+       :obj:`Union`\[:obj:`go.Figure`, :data:`python:None`]
+           The figure of the plot if in doc building environment. Else, None.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

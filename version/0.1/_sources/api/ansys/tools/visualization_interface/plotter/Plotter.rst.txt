@@ -1,0 +1,128 @@
+
+
+:class:`Plotter`
+================
+
+.. py:class:: ansys.tools.visualization_interface.plotter.Plotter(backend: ansys.tools.visualization_interface.backends._base.BaseBackend = None)
+
+   
+   Base plotting class containing common methods and attributes.
+
+   This class is responsible for plotting objects using the specified backend.
+
+   :Parameters:
+
+       **backend** : :obj:`BaseBackend`, :obj:`optional`
+           Plotting backend to use, by default PyVistaBackend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Plotter
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot`
+            - Plots an object using the specified backend.
+          * - :py:attr:`~show`
+            - Show the plotted objects.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.plotter import Plotter
+
+
+
+    
+
+Method detail
+-------------
+.. py:method:: plot(object: beartype.typing.Any, **plotting_options)
+
+   
+   Plots an object using the specified backend.
+
+
+   :Parameters:
+
+       **object** : :obj:`Any`
+           Object to plot.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show()
+
+   
+   Show the plotted objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
