@@ -466,7 +466,7 @@ class PyVistaInterface:
         if viz_interface.USE_HTML_BACKEND:
             jupyter_backend = "html"
         elif jupyter_backend is None:
-            # Auto-detect a Jupyter kernel and fall back to a safe static backend.
+            # Auto-detect a Jupyter kernel and fall back to a safe html backend.
             # Without this, PyVista defaults to "trame" (after installing
             # pyvista[jupyter]), which spawns a local server and renders blank
             # in VS Code / Spyder embedded notebooks.
@@ -475,7 +475,7 @@ class PyVistaInterface:
 
                 _ip = get_ipython()
                 if _ip is not None and "IPKernelApp" in _ip.config:
-                    jupyter_backend = "static"
+                    jupyter_backend = "html"
             except Exception:
                 pass
 
