@@ -20,12 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 """Provides plotting for various PyAnsys objects."""
-import importlib
+import importlib.util as importlib_util
 import re
-from typing import Any, Dict, List, Optional, Union
-
-import pyvista as pv
-from pyvista.plotting.plotter import Plotter as PyVistaPlotter
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 import ansys.tools.visualization_interface as viz_interface
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
@@ -35,8 +32,11 @@ from ansys.tools.visualization_interface.utils.color import Color
 from ansys.tools.visualization_interface.utils.logger import logger
 from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
 
-_HAS_PYVISTAQT = importlib.util.find_spec("pyvistaqt")
-if _HAS_PYVISTAQT:
+_HAS_PYVISTAQT : bool | None = None
+
+if TYPE_CHECKING:
+    import pyvista as pv
+    from pyvista.plotting.plotter import Plotter as PyVistaPlotter
     import pyvistaqt
 
 class PyVistaInterface:
@@ -71,7 +71,7 @@ class PyVistaInterface:
 
     def __init__(
         self,
-        scene: Optional[pv.Plotter] = None,
+        scene: Optional[Union["pv.Plotter", "pyvistaqt.BackgroundPlotter"]] = None,
         color_opts: Optional[Dict] = None,
         num_points: int = 100,
         enable_widgets: bool = True,
@@ -81,8 +81,19 @@ class PyVistaInterface:
         **plotter_kwargs,
     ) -> None:
         """Initialize the plotter."""
+        global _HAS_PYVISTAQT
+        # Lazily check for PyVistaQt dependency if Qt backend is requested
+        if _HAS_PYVISTAQT is None and importlib_util.find_spec("pyvistaqt") is not None:
+            _HAS_PYVISTAQT = True
+            import pyvistaqt
+        else:
+            _HAS_PYVISTAQT = False
+
+        import pyvista as pv
+
         # Generate custom scene if ``None`` is provided
         if scene is None:
+
             if viz_interface.TESTING_MODE:
                 if use_qt and _HAS_PYVISTAQT:
                     scene = pyvistaqt.BackgroundPlotter(off_screen=True)
@@ -123,7 +134,7 @@ class PyVistaInterface:
         self._show_edges = None
 
     @property
-    def scene(self) -> PyVistaPlotter:
+    def scene(self) -> "PyVistaPlotter":
         """Rendered scene object.
 
         Returns
@@ -167,8 +178,8 @@ class PyVistaInterface:
         self.scene.camera.disable_parallel_projection()
 
     def clip(
-        self, mesh: Union[pv.PolyData, pv.MultiBlock, pv.UnstructuredGrid], plane: ClipPlane
-    ) -> Union[pv.PolyData, pv.MultiBlock]:
+        self, mesh: Union["pv.PolyData", "pv.MultiBlock", "pv.UnstructuredGrid"], plane: ClipPlane
+    ) -> Union["pv.PolyData", "pv.MultiBlock"]:
         """Clip a given mesh with a plane.
 
         Parameters
@@ -238,6 +249,8 @@ class PyVistaInterface:
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
+        import pyvista as pv
+
         edge_plot_list = []
 
         # Check if object has edges attb and if these edges have start and end points.
@@ -340,7 +353,7 @@ class PyVistaInterface:
 
     def plot(
         self,
-        plottable_object: Union[pv.PolyData, pv.MultiBlock, MeshObjectPlot, pv.UnstructuredGrid],
+        plottable_object: Union["pv.PolyData", "pv.MultiBlock", "MeshObjectPlot", "pv.UnstructuredGrid", "pv.StructuredGrid"],  # noqa: E501
         plot_children: bool = False,
         **plotting_options,
     ) -> None:
@@ -358,6 +371,8 @@ class PyVistaInterface:
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
         """
+        import pyvista as pv
+
         opts = PlottingOptions.from_kwargs(plotting_options)
         if opts.name_filter:
             if hasattr(plottable_object, "name") and not re.search(opts.name_filter, plottable_object.name):
@@ -434,6 +449,8 @@ class PyVistaInterface:
         in the PyVista documentation.
 
         """
+        import pyvista as pv
+
         # Compute the scaling
         bounds = self.scene.renderer.bounds
         x_length, y_length = bounds[1] - bounds[0], bounds[3] - bounds[2]
@@ -466,12 +483,12 @@ class PyVistaInterface:
             else:
                 self.scene.show(**kwargs)
 
-    def set_add_mesh_defaults(self, plotting_options: Optional[Dict]) -> None:
+    def set_add_mesh_defaults(self, plotting_options: dict) -> None:
         """Set the default values for the plotting options.
 
         Parameters
         ----------
-        plotting_options : Optional[Dict]
+        plotting_options : dict
             Keyword arguments. For allowable keyword arguments, see the
             :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
 
@@ -485,6 +502,6 @@ class PyVistaInterface:
             plotting_options.setdefault("color", Color.DEFAULT.value)
 
     @property
-    def object_to_actors_map(self) -> Dict[pv.Actor, MeshObjectPlot]:
+    def object_to_actors_map(self) -> Dict["pv.Actor", MeshObjectPlot]:
         """Mapping between the PyVista actor and the PyAnsys objects."""
         return self._object_to_actors_map

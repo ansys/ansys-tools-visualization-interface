@@ -24,7 +24,6 @@
 from typing import Any, List, Optional, Tuple, Union
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
-from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
 
 
 class Plotter():
@@ -37,9 +36,11 @@ class Plotter():
     backend : BaseBackend, optional
         Plotting backend to use, by default PyVistaBackend.
     """
-    def __init__(self, backend: BaseBackend = None) -> None:
+    def __init__(self, backend: BaseBackend | None = None) -> None:
         """Initialize plotter class."""
         if backend is None:
+            from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
+
             self._backend = PyVistaBackend()
         else:
             self._backend = backend

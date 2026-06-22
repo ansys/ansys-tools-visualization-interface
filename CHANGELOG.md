@@ -1,3 +1,79 @@
+## [0.13.3](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.3) - May 22, 2026
+
+
+### Added
+
+- Feat: lazy loading pyvista and vtk [#530](https://github.com/ansys/ansys-tools-visualization-interface/pull/530)
+
+
+### Fixed
+
+- Fix: typo in typehint + additional errors [#532](https://github.com/ansys/ansys-tools-visualization-interface/pull/532)
+
+## [0.13.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.1) - May 05, 2026
+
+
+### Fixed
+
+- Fix: Add optional USD dependency [#517](https://github.com/ansys/ansys-tools-visualization-interface/pull/517)
+
+## [0.13.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.0) - May 04, 2026
+
+
+### Added
+
+- Feat: python 3.14 support [#480](https://github.com/ansys/ansys-tools-visualization-interface/pull/480)
+- Feat: Add USD viewer integration [#486](https://github.com/ansys/ansys-tools-visualization-interface/pull/486)
+- Feat: Add name filtering for Plotly [#490](https://github.com/ansys/ansys-tools-visualization-interface/pull/490)
+
+
+### Dependencies
+
+- Build(deps): bump ansys/actions from 10.2.5 to 10.2.7 [#488](https://github.com/ansys/ansys-tools-visualization-interface/pull/488)
+- Build(deps): bump pyvista/setup-headless-display-action from 4.2 to 4.3 [#492](https://github.com/ansys/ansys-tools-visualization-interface/pull/492)
+- Build(deps-dev): bump ansys-fluent-core from 0.37.2 to 0.38.0 in the general-dependencies group [#493](https://github.com/ansys/ansys-tools-visualization-interface/pull/493)
+- Build(deps): bump actions/download-artifact from 8.0.0 to 8.0.1 [#495](https://github.com/ansys/ansys-tools-visualization-interface/pull/495)
+- Build(deps-dev): bump pytest-cov from 7.0.0 to 7.1.0 in the test-dependencies group [#498](https://github.com/ansys/ansys-tools-visualization-interface/pull/498)
+- Build(deps): bump actions/cache from 5.0.3 to 5.0.4 [#499](https://github.com/ansys/ansys-tools-visualization-interface/pull/499)
+- Build(deps): bump the general-dependencies group across 1 directory with 3 updates [#501](https://github.com/ansys/ansys-tools-visualization-interface/pull/501)
+- Build(deps): bump pypa/gh-action-pypi-publish from 1.13.0 to 1.14.0 [#503](https://github.com/ansys/ansys-tools-visualization-interface/pull/503)
+- Build(deps): bump codecov/codecov-action from 5.5.2 to 6.0.0 [#504](https://github.com/ansys/ansys-tools-visualization-interface/pull/504)
+- Build(deps): bump ansys/actions from 10.2.7 to 10.2.12 [#505](https://github.com/ansys/ansys-tools-visualization-interface/pull/505)
+- Build(deps-dev): bump pytest from 9.0.2 to 9.0.3 in the test-dependencies group [#507](https://github.com/ansys/ansys-tools-visualization-interface/pull/507)
+- Build(deps): bump actions/cache from 5.0.4 to 5.0.5 [#510](https://github.com/ansys/ansys-tools-visualization-interface/pull/510)
+- Build(deps): update trame-vtk requirement from !=2.8.16,<2.11.7,>=2.8.7 to >=2.8.7,!=2.8.16,<2.11.8 in the general-dependencies group [#511](https://github.com/ansys/ansys-tools-visualization-interface/pull/511)
+- Build(deps): bump actions/upload-artifact from 7.0.0 to 7.0.1 [#512](https://github.com/ansys/ansys-tools-visualization-interface/pull/512)
+- Build(deps-dev): bump pytest-pyvista from 0.3.2 to 0.3.3 in the test-dependencies group across 1 directory [#513](https://github.com/ansys/ansys-tools-visualization-interface/pull/513)
+- Build(deps): bump pyvista from 0.47.1 to 0.47.3 in the pyvista group across 1 directory [#514](https://github.com/ansys/ansys-tools-visualization-interface/pull/514)
+
+
+### Miscellaneous
+
+- Doc: Add extended migration guide [#363](https://github.com/ansys/ansys-tools-visualization-interface/pull/363)
+- Build(deps): bump pytest-pyvista from 0.2.0 to 0.3.0 in the test-dependencies group [#370](https://github.com/ansys/ansys-tools-visualization-interface/pull/370)
+- Chore: update CHANGELOG for v0.12.0 [#374](https://github.com/ansys/ansys-tools-visualization-interface/pull/374)
+- [pre-commit.ci] pre-commit autoupdate [#376](https://github.com/ansys/ansys-tools-visualization-interface/pull/376), [#391](https://github.com/ansys/ansys-tools-visualization-interface/pull/391), [#479](https://github.com/ansys/ansys-tools-visualization-interface/pull/479), [#482](https://github.com/ansys/ansys-tools-visualization-interface/pull/482), [#485](https://github.com/ansys/ansys-tools-visualization-interface/pull/485)
+- Chore: update CHANGELOG for v0.12.1 [#377](https://github.com/ansys/ansys-tools-visualization-interface/pull/377)
+- Build(deps): bump pyside6 from 6.9.3 to 6.10.0 in the general-dependencies group [#389](https://github.com/ansys/ansys-tools-visualization-interface/pull/389)
+- Build(deps): bump ansys-sphinx-theme[autoapi] from 1.6.1 to 1.6.3 in the doc-dependencies group [#390](https://github.com/ansys/ansys-tools-visualization-interface/pull/390)
+- Feat(Plotly): Add view buttons, toggle bounding box axes and change between orthogonal and perspective projections [#392](https://github.com/ansys/ansys-tools-visualization-interface/pull/392)
+- Feat(plotly): Add night mode button [#394](https://github.com/ansys/ansys-tools-visualization-interface/pull/394)
+- Docs: Add support for plotly example rendering [#395](https://github.com/ansys/ansys-tools-visualization-interface/pull/395)
+- Build(deps): bump jupytext from 1.17.3 to 1.18.1 in the general-dependencies group [#397](https://github.com/ansys/ansys-tools-visualization-interface/pull/397)
+- Fix: Button positioning when resizing [#398](https://github.com/ansys/ansys-tools-visualization-interface/pull/398)
+- Chore: update CHANGELOG for v1.0.0a1 [#478](https://github.com/ansys/ansys-tools-visualization-interface/pull/478)
+- Build(deps): bump pyvista from 0.47.0 to 0.47.1 in the pyvista group [#483](https://github.com/ansys/ansys-tools-visualization-interface/pull/483)
+- Build(deps-dev): bump ansys-sphinx-theme[autoapi] from 1.7.0 to 1.7.2 in the doc-dependencies group [#487](https://github.com/ansys/ansys-tools-visualization-interface/pull/487)
+
+
+### Maintenance
+
+- Feat: Add Plotly as backend [#378](https://github.com/ansys/ansys-tools-visualization-interface/pull/378)
+- Build(deps): bump actions/download-artifact from 7.0.0 to 8.0.0 [#484](https://github.com/ansys/ansys-tools-visualization-interface/pull/484)
+- Build(deps): bump actions/upload-artifact from 6.0.0 to 7.0.0 [#489](https://github.com/ansys/ansys-tools-visualization-interface/pull/489)
+- [pre-commit.ci] pre-commit autoupdate [#491](https://github.com/ansys/ansys-tools-visualization-interface/pull/491), [#494](https://github.com/ansys/ansys-tools-visualization-interface/pull/494), [#497](https://github.com/ansys/ansys-tools-visualization-interface/pull/497), [#502](https://github.com/ansys/ansys-tools-visualization-interface/pull/502), [#506](https://github.com/ansys/ansys-tools-visualization-interface/pull/506), [#509](https://github.com/ansys/ansys-tools-visualization-interface/pull/509), [#515](https://github.com/ansys/ansys-tools-visualization-interface/pull/515)
+- Chore: Update license metadata in pyproject.toml [#508](https://github.com/ansys/ansys-tools-visualization-interface/pull/508)
+
 ## [1.0.0a1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v1.0.0a1) - February 19, 2026
 
 
