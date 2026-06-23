@@ -104,7 +104,7 @@ sphinx_gallery_conf = {
     # path where to save gallery generated examples
     "gallery_dirs": ["examples"],
     # Pattern to search for example files
-    "filename_pattern": r"\.py",
+    "filename_pattern": r"(?!using_meshobject_with_field_data)\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
