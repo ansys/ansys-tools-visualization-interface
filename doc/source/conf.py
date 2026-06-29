@@ -104,7 +104,7 @@ sphinx_gallery_conf = {
     # path where to save gallery generated examples
     "gallery_dirs": ["examples"],
     # Pattern to search for example files
-    "filename_pattern": r"\.py",
+    "filename_pattern": r"^(?!.*using_meshobject_with_field_data\.py$).*\.py$",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
     # Sort gallery example by file name instead of number of lines (default)
@@ -120,12 +120,14 @@ sphinx_gallery_conf = {
 }
 
 
+tls_verify = False
+
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.14", None),
     "numpy": ("https://numpy.org/doc/stable", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
-    "pyvista": ("https://docs.pyvista.org/version/stable", None),
+    "pyvista": ("https://docs.pyvista.org/", None),
     "grpc": ("https://grpc.github.io/grpc/python/", None),
     "pint": ("https://pint.readthedocs.io/en/stable", None),
     "beartype": ("https://beartype.readthedocs.io/en/stable/", None),
