@@ -27,7 +27,7 @@ dependencies = [
     "pyvista >= 0.43.0,<1",
     "websockets >= 12.0,< 17",
     "trame >= 3.6.0,<4",
-    "trame-vtk >= 2.8.7,!= 2.8.16,< 2.11.9",
+    "trame-vtk >= 2.8.7,!= 2.8.16,< 2.11.10",
     "trame-vuetify >= 2.4.3,< 4",
     "trame-router >= 2.3.0,<3"
 ]
@@ -61,7 +61,7 @@ all = [
 ]
 
 tests = [
-    "pytest==9.0.3",
+    "pytest==9.1.0",
     "pyvista==0.48.4",
     "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
