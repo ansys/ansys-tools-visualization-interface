@@ -4,6 +4,7 @@ unhovered
 (?i)Plotly
 Synopsys
 synopsys
+
 t.M
 a.P
 e.B
