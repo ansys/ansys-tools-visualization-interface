@@ -2,7 +2,8 @@
 pytest
 unhovered
 (?i)Plotly
-(?i)Synopsys
+Synopsys
+synopsys
 
 t.M
 a.P
