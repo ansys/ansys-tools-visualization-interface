@@ -2,7 +2,7 @@
 pytest
 unhovered
 (?i)Plotly
-
+(?i)Synopsys
 
 t.M
 a.P
