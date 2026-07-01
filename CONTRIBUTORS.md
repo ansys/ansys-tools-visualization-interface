@@ -7,6 +7,7 @@
 ## Individual Contributors
 
 * [Abhishek Chitwar](https://github.com/abhishekchitwar)
+* [Dipin](https://github.com/dipinknair)
 * [German](https://github.com/germa89)
 * [Jorge Martínez](https://github.com/jorgepiloto)
 * [Kathy Pippert](https://github.com/PipKat)

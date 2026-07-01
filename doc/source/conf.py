@@ -224,6 +224,8 @@ linkcheck_ignore = [
     "https://docs.pyvista.org/api/core/_autosummary/pyvista.MultiBlock.html#pyvista.MultiBlock",
     "https://docs.pyvista.org/api/core/_autosummary/pyvista.UnstructuredGrid.html#pyvista.UnstructuredGrid",
     "https://docs.pyvista.org/api/plotting/_autosummary/pyvista.Actor.html#pyvista.Actor",
+    " https://docs.pyvista.org/api/core/_autosummary/pyvista.StructuredGrid.html#pyvista.StructuredGrid",
+    "https://docs.pyvista.org/user-guide/jupyter/index.html",
 ]
 
 

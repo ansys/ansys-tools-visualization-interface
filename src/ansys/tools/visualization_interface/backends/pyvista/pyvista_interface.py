@@ -466,6 +466,21 @@ class PyVistaInterface:
         # Override Jupyter backend if building docs
         if viz_interface.USE_HTML_BACKEND:
             jupyter_backend = "html"
+        elif jupyter_backend is None:
+            # Auto-detect a Jupyter kernel and fall back to a safe html backend.
+            # Without this, PyVista defaults to "trame" (after installing
+            # pyvista[jupyter]), which spawns a local server and renders blank
+            # in VS Code / Spyder embedded notebooks.
+            try:
+                from IPython import get_ipython
+
+                _ip = get_ipython()
+                if _ip is not None and "IPKernelApp" in _ip.config:
+                    jupyter_backend = "html"
+            except Exception as exc:
+                logger.debug(
+                    "Not in a Jupyter environment: %s", exc
+                )
 
         # Enabling anti-aliasing by default on scene
         self.scene.enable_anti_aliasing("ssaa")
