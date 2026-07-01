@@ -1,0 +1,670 @@
+
+
+
+
+
+
+:class:`PyVistaBackendInterface`
+================================
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.pyvista.PyVistaBackendInterface(use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False, allow_hovering: Optional[bool] = False, plot_picked_names: Optional[bool] = False, show_plane: Optional[bool] = False, use_qt: Optional[bool] = False, show_qt: Optional[bool] = True, **plotter_kwargs)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends._base.BaseBackend`
+
+
+   
+   Provides the interface for the Visualization Interface Tool plotter.
+
+   This class is intended to be used as a base class for the custom plotters
+   in the different PyAnsys libraries. It provides the basic plotter functionalities,
+   such as adding objects and enabling widgets and picking capabilities. It also
+   provides the ability to show the plotter using the `trame <https://kitware.github.io/trame/index.html>`_
+   service.
+
+   You can override the ``plot_iter()``, ``plot()``, and ``picked_operation()`` methods.
+   The ``plot_iter()`` method is intended to plot a list of objects to the plotter, while the
+   ``plot()`` method is intended to plot a single object to the plotter. The ``show()`` method is
+   intended to show the plotter. The ``picked_operation()`` method is
+   intended to perform an operation on the picked objects.
+
+   :Parameters:
+
+       **use_trame** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:None`
+           Whether to activate the usage of the trame UI instead of the Python window.
+
+       **allow_picking** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:False`
+           Whether to allow picking capabilities in the window. Incompatible with hovering.
+           Picking will take precedence over hovering.
+
+       **allow_hovering** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:False`
+           Whether to allow hovering capabilities in the window. Incompatible with picking.
+           Picking will take precedence over hovering.
+
+       **plot_picked_names** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:False`
+           Whether to plot the names of the picked objects.
+
+       **show_plane** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:False`
+           Whether to show the plane in the plotter.
+
+       **use_qt** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:False`
+           Whether to use the Qt backend for the plotter.
+
+       **show_qt** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:True`
+           Whether to show the Qt window.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+.. py:currentmodule:: PyVistaBackendInterface
+
+Overview
+--------
+
+.. tab-set::
+
+   .. tab-item:: Abstract methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot_iter`
+            - Plot one or more compatible objects to the plotter.
+          * - :py:attr:`~plot`
+            - Plot a single object to the plotter.
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~enable_widgets`
+            - Enable the widgets for the plotter.
+          * - :py:attr:`~add_widget`
+            - Add one or more custom widgets to the plotter.
+          * - :py:attr:`~select_object`
+            - Select a custom object in the plotter.
+          * - :py:attr:`~unselect_object`
+            - Unselect a custom object in the plotter.
+          * - :py:attr:`~picker_callback`
+            - Define the callback for the element picker.
+          * - :py:attr:`~hover_callback`
+            - Define the callback for the element hover.
+          * - :py:attr:`~compute_edge_object_map`
+            - Compute the mapping between plotter actors and ``EdgePlot`` objects.
+          * - :py:attr:`~enable_picking`
+            - Enable picking capabilities in the plotter.
+          * - :py:attr:`~enable_hover`
+            - Enable hover capabilities in the plotter.
+          * - :py:attr:`~disable_picking`
+            - Disable picking capabilities in the plotter.
+          * - :py:attr:`~disable_hover`
+            - Disable hover capabilities in the plotter.
+          * - :py:attr:`~show`
+            - Plot and show any PyAnsys object.
+          * - :py:attr:`~show_plotter`
+            - Show the plotter or start the `trame <https://kitware.github.io/trame/index.html>`_ service.
+          * - :py:attr:`~picked_operation`
+            - Perform an operation on the picked objects.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~pv_interface`
+            - PyVista interface.
+          * - :py:attr:`~scene`
+            - PyVista scene.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackendInterface
+
+Property detail
+---------------
+
+.. py:property:: pv_interface
+   :type: ansys.tools.visualization_interface.backends.pyvista.pyvista_interface.PyVistaInterface
+
+
+   
+   PyVista interface.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: scene
+   :type: pyvista.Plotter
+
+
+   
+   PyVista scene.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: enable_widgets()
+
+   
+   Enable the widgets for the plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_widget(widget: Union[ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget, List[ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget]])
+
+   
+   Add one or more custom widgets to the plotter.
+
+
+   :Parameters:
+
+       **widget** : :obj:`Union`\[:obj:`PlotterWidget`, :obj:`List`\[:obj:`PlotterWidget`]]
+           One or more custom widgets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: select_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot], pt: numpy.ndarray) -> None
+
+   
+   Select a custom object in the plotter.
+
+   This method highlights the edges of a body and adds a label. It also adds
+   the object to the ``_picked_dict`` and the actor to the ``_picker_added_actors_map``.
+
+   :Parameters:
+
+       **custom_object** : :obj:`Union`\[:obj:`MeshObjectPlot`, :obj:`EdgePlot`]
+           Custom object to select.
+
+       **pt** : :obj:`~numpy.ndarray`
+           Set of points to determine the label position.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: unselect_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot]) -> None
+
+   
+   Unselect a custom object in the plotter.
+
+   This method removes edge highlighting and the label from a plotter actor and removes
+   the object from the Visualization Interface Tool object selection.
+
+   :Parameters:
+
+       **custom_object** : :obj:`Union`\[:obj:`MeshObjectPlot`, :obj:`EdgePlot`]
+           Custom object to unselect.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: picker_callback(actor: pyvista.Actor) -> None
+
+   
+   Define the callback for the element picker.
+
+
+   :Parameters:
+
+       **actor** : :obj:`~pyvista.Actor`
+           Actor to select for the picker.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: hover_callback(_widget, event_name) -> None
+
+   
+   Define the callback for the element hover.
+
+
+   :Parameters:
+
+       **actor** : :obj:`~pyvista.Actor`
+           Actor to hover for the picker.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: compute_edge_object_map() -> Dict[pyvista.Actor, ansys.tools.visualization_interface.types.edge_plot.EdgePlot]
+
+   
+   Compute the mapping between plotter actors and ``EdgePlot`` objects.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Dict`\[:obj:`~pyvista.Actor`, :obj:`EdgePlot`]
+           Dictionary defining the mapping between plotter actors and ``EdgePlot`` objects.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: enable_picking()
+
+   
+   Enable picking capabilities in the plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: enable_hover()
+
+   
+   Enable hover capabilities in the plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: disable_picking()
+
+   
+   Disable picking capabilities in the plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: disable_hover()
+
+   
+   Disable hover capabilities in the plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(plottable_object: Any = None, screenshot: Optional[str] = None, view_2d: Dict = None, name_filter: str = None, **plotting_options) -> List[Any]
+
+   
+   Plot and show any PyAnsys object.
+
+   The types of objects supported are ``MeshObjectPlot``,
+   ``pv.MultiBlock``, and ``pv.PolyData``.
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`, default: :data:`python:None`
+           Object or list of objects to plot.
+
+       **screenshot** : :class:`python:str`, default: :data:`python:None`
+           Path for saving a screenshot of the image that is being represented.
+
+       **view_2d** : :obj:`Dict`, default: :data:`python:None`
+           Dictionary with the plane and the viewup vectors of the 2D plane.
+
+       **name_filter** : :class:`python:str`, default: :data:`python:None`
+           Regular expression with the desired name or names to include in the plotter.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+   :Returns:
+
+       :obj:`List`\[:obj:`Any`]
+           List with the picked bodies in the picked order.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show_plotter(screenshot: Optional[str] = None) -> None
+
+   
+   Show the plotter or start the `trame <https://kitware.github.io/trame/index.html>`_ service.
+
+
+   :Parameters:
+
+       **plotter** : :obj:`Plotter`
+           Visualization Interface Tool plotter with the meshes added.
+
+       **screenshot** : :class:`python:str`, default: :data:`python:None`
+           Path for saving a screenshot of the image that is being represented.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot_iter(plottable_object: Any, name_filter: str = None, **plotting_options)
+   :abstractmethod:
+
+
+   
+   Plot one or more compatible objects to the plotter.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           One or more objects to add.
+
+       **name_filter** : :class:`python:str`, default: None.
+           Regular expression with the desired name or names  to include in the plotter.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot(plottable_object: Any, name_filter: str = None, **plotting_options)
+   :abstractmethod:
+
+
+   
+   Plot a single object to the plotter.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           Object to add.
+
+       **name_filter** : :class:`python:str`
+           Regular expression with the desired name or names to include in the plotter.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: picked_operation() -> None
+
+   
+   Perform an operation on the picked objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

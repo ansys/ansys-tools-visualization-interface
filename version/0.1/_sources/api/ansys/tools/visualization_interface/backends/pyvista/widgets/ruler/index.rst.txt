@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``ruler.py`` module
+=======================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.ruler
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: ruler
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.ruler.Ruler`
+            - Provides the ruler widget for the Visualization Interface tool ``Plotter`` class.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    🝆 Ruler</api/ansys/tools/visualization_interface/backends/pyvista/widgets/ruler/Ruler>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the ruler widget for the Visualization Interface tool plotter.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
