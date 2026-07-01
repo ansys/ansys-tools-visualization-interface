@@ -477,8 +477,10 @@ class PyVistaInterface:
                 _ip = get_ipython()
                 if _ip is not None and "IPKernelApp" in _ip.config:
                     jupyter_backend = "html"
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.debug(
+                    "Not in a Jupyter environment: %s", exc
+                )
 
         # Enabling anti-aliasing by default on scene
         self.scene.enable_anti_aliasing("ssaa")
