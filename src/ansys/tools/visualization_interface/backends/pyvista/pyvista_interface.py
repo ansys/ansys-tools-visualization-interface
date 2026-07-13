@@ -84,11 +84,11 @@ class PyVistaInterface:
         """Initialize the plotter."""
         global _HAS_PYVISTAQT
         # Lazily check for PyVistaQt dependency if Qt backend is requested
-        if _HAS_PYVISTAQT is None and importlib_util.find_spec("pyvistaqt") is not None:
-            _HAS_PYVISTAQT = True
-            import pyvistaqt
-        else:
-            _HAS_PYVISTAQT = False
+        if use_qt:
+            if _HAS_PYVISTAQT is None:
+                _HAS_PYVISTAQT = importlib_util.find_spec("pyvistaqt") is not None
+            if _HAS_PYVISTAQT:
+                import pyvistaqt
 
         import pyvista as pv
 
