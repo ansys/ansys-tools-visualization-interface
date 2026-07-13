@@ -85,8 +85,11 @@ class PyVistaInterface:
         global _HAS_PYVISTAQT
         # Lazily check for PyVistaQt dependency if Qt backend is requested
         if _HAS_PYVISTAQT is None and importlib_util.find_spec("pyvistaqt") is not None:
-            _HAS_PYVISTAQT = True
-            import pyvistaqt
+            try:
+                import pyvistaqt
+                _HAS_PYVISTAQT = True
+            except ImportError:
+                _HAS_PYVISTAQT = False
         else:
             _HAS_PYVISTAQT = False
 
