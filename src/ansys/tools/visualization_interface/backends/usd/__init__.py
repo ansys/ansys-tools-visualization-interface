@@ -21,3 +21,7 @@
 # SOFTWARE.
 
 """USD backend initialization."""
+
+from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: F401
+    export_usd_to_html,
+)

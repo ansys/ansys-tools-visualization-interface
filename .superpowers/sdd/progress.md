@@ -8,6 +8,6 @@ Merge base: 6167e4c
 ## Tasks
 
 - [x] Task 1: complete (commits 6167e4c..2af9272, review clean)
-- [ ] Task 2: Create html_export.py + unit tests
-- [ ] Task 3: Add _inject_mesh_lines unit tests + integration test file
+- [x] Task 2: complete (commits 2af9272..3bfae2f, review clean)
+- [x] Task 3: complete (commits 3bfae2f..077f20d, review clean)
 - [ ] Task 4: Expose at top level + update docs

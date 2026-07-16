@@ -321,3 +321,10 @@ class TestInjectMeshLines:
         assert m is not None, "Float32Array not found in injected HTML"
         floats = json.loads(m.group(1))
         assert len(floats) == 18
+
+
+def test_export_usd_to_html_importable_from_top_level():
+    """export_usd_to_html is accessible directly from the package root."""
+    from ansys.tools.visualization_interface import export_usd_to_html as _fn
+
+    assert callable(_fn)
