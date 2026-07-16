@@ -45,6 +45,11 @@ dash = [
 ]
 
 usd = [
+    "usd-core >= 24.0,< 26",
+    "pygltflib >= 1.16,< 2"
+]
+
+usd-live-viewer = [
     "ansys-tools-usdviewer >= 0.1.0,< 1",
     "usd-core >= 24.0,< 26"
 ]
@@ -57,7 +62,8 @@ all = [
     "dash >= 3.2.0,< 5",
     "imageio[ffmpeg] >= 2.37.2",
     "ansys-tools-usdviewer >= 0.1.0,< 1",
-    "usd-core >= 24.0,< 26"
+    "usd-core >= 24.0,< 26",
+    "pygltflib >= 1.16,< 2"
 ]
 
 tests = [
@@ -92,6 +98,11 @@ Releases = "https://github.com/ansys/ansys-tools-visualization-interface/release
 
 [tool.flit.module]
 name = "ansys.tools.visualization_interface"
+
+[tool.flit.sdist]
+include = [
+    "src/ansys/tools/visualization_interface/backends/usd/web/*.html",
+]
 
 [tool.black]
 line-length = 100
