@@ -41,11 +41,6 @@ sys.modules.setdefault("pxr", _mock_pxr)
 sys.modules.setdefault("pxr.Usd", _mock_usd_module)
 sys.modules.setdefault("pxr.UsdGeom", _mock_usd_geom)
 
-_mock_usdviewer_html_mod = MagicMock()
-sys.modules.setdefault("ansys.tools.usdviewer", MagicMock())
-sys.modules.setdefault("ansys.tools.usdviewer.web", MagicMock())
-sys.modules.setdefault("ansys.tools.usdviewer.web.html_export", _mock_usdviewer_html_mod)
-
 from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: E402
     _inject_mesh_lines,
     _is_usd_stage,
@@ -109,11 +104,14 @@ class TestExportUsdToHtml:
     """Tests for export_usd_to_html main function."""
 
     @pytest.fixture(autouse=True)
-    def setup_mock_export(self, tmp_path):
-        """Set up mock for export_viewer_html before each test."""
+    def setup_mock_export(self, tmp_path, monkeypatch):
+        """Patch the local _export_viewer_html boundary before each test."""
         self._html = _minimal_viewer_html(tmp_path)
-        _mock_usdviewer_html_mod.export_viewer_html.return_value = self._html
-        _mock_usdviewer_html_mod.export_viewer_html.reset_mock()
+        self._mock_export = MagicMock(return_value=self._html)
+        monkeypatch.setattr(
+            "ansys.tools.visualization_interface.backends.usd.html_export._export_viewer_html",
+            self._mock_export,
+        )
 
     def test_file_path_input_returns_html_path(self, tmp_path):
         """Test that a USD file path input returns the HTML path."""
@@ -232,13 +230,19 @@ class TestExportUsdToHtml:
             result = export_usd_to_html(usd_file, line_color="#00ffcc")
         assert result == self._html
 
-    def test_import_error_when_usdviewer_missing(self, tmp_path):
-        """Test that ImportError is raised when usdviewer is missing."""
+    def test_import_error_when_usd_core_missing(self, tmp_path):
+        """ImportError is raised when usd-core (pxr) is missing on the mesh-line path."""
         usd_file = tmp_path / "model.usda"
         usd_file.write_text("#usda 1.0\n", encoding="utf-8")
-        with patch.dict(sys.modules, {"ansys.tools.usdviewer.web.html_export": None}):
-            with pytest.raises(ImportError, match="ansys-tools-usdviewer"):
-                export_usd_to_html(usd_file)
+        # Force _open_stage to raise ImportError, simulating missing usd-core
+        with patch(
+            "ansys.tools.visualization_interface.backends.usd.html_export._open_stage",
+            side_effect=ImportError(
+                "The 'usd-core' package is required for USD-to-HTML export."
+            ),
+        ):
+            with pytest.raises(ImportError, match="usd-core"):
+                export_usd_to_html(usd_file, show_mesh_lines=True)
 
 
 class TestInjectMeshLines:
