@@ -37,9 +37,9 @@ _mock_pxr.Usd = _mock_usd_module
 _mock_usd_geom = MagicMock()
 _mock_pxr.UsdGeom = _mock_usd_geom
 
-sys.modules.setdefault("pxr", _mock_pxr)
-sys.modules.setdefault("pxr.Usd", _mock_usd_module)
-sys.modules.setdefault("pxr.UsdGeom", _mock_usd_geom)
+sys.modules["pxr"] = _mock_pxr
+sys.modules["pxr.Usd"] = _mock_usd_module
+sys.modules["pxr.UsdGeom"] = _mock_usd_geom
 
 from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: E402
     _inject_mesh_lines,
@@ -247,6 +247,23 @@ class TestExportUsdToHtml:
 
 class TestInjectMeshLines:
     """Tests for _inject_mesh_lines function."""
+
+    @pytest.fixture(autouse=True)
+    def _restore_pxr_usdgeom_mock(self):
+        """Reinstall this module's pxr mocks so cross-file test order can't shadow them.
+
+        Other test files (e.g. ``test_usd_interface.py``) assign their own MagicMock to
+        ``sys.modules['pxr']``. Because ``_inject_mesh_lines`` does ``from pxr import
+        UsdGeom`` at call time, whichever module loaded last wins — which silently makes
+        ``_mock_usd_geom.Mesh.return_value = ...`` a no-op. Force the reference back
+        before every test in this class, and clear any leftover ``Mesh`` configuration.
+        """
+        sys.modules["pxr"] = _mock_pxr
+        sys.modules["pxr.Usd"] = _mock_usd_module
+        sys.modules["pxr.UsdGeom"] = _mock_usd_geom
+        _mock_pxr.UsdGeom = _mock_usd_geom
+        _mock_usd_geom.reset_mock()
+        yield
 
     def _html_with_anchors(self, tmp_path: Path) -> Path:
         """Write a minimal viewer HTML with both injection anchors."""

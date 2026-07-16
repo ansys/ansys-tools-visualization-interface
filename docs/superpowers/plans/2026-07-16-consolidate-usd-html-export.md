@@ -18,7 +18,7 @@
 - Vendored files may have their MIT license header normalized by vis-interface's `Add License Headers` pre-commit hook (which enforces the repo-standard 21-line "Synopsys, Inc. and ANSYS, Inc." block). This is expected — do not fight the hook. Preserve the source file's *code* (imports, logic, docstrings) verbatim; the header block is repo policy.
 - No lazy-import gymnastics for `pxr` inside the vendored web/glb modules — vis-interface's `[usd]` extra now guarantees `usd-core` is installed whenever the HTML export path is used. Keep the `pxr` imports at module top like the originals.
 - `ansys.tools.usdviewer` **must not appear as an import** anywhere on the HTML-export code path in vis-interface after this plan is executed.
-- Ruff is the linter/formatter in both repos. Run `ruff check --fix` and `ruff format` before committing if pre-commit fails.
+- Ruff is the linter in both repos. Run `ruff check --fix` before committing if pre-commit fails. Do NOT run `ruff format` in the vis-interface repo — see Task 10 Step 4 for rationale.
 - HTML injection anchors in `glb_template.html` (must remain intact after migration):
   - config anchor: `const binary = atob(glbBase64);`
   - scene anchor: `scene.add(gltf.scene);`
@@ -1027,9 +1027,8 @@ Tasks 1–10 apply to `ansys-tools-visualization-interface`. Tasks 11–15 apply
   ```powershell
   cd D:\repositories\ansys-tools-visualization-interface
   ruff check src tests
-  ruff format --check src tests
   ```
-  Expected: clean. If format fails, run `ruff format src tests` and re-commit under whichever task the file belongs to.
+  Expected: clean. Note: `ruff format --check` is intentionally NOT run here. The repo's `.pre-commit-config.yaml` only invokes the `ruff` linter hook (with `--fix`), not `ruff format`. Combined with `[tool.ruff.format] indent-style = "tab"` in `pyproject.toml`, running `ruff format` would rewrite space-indented files into tabs (creating massive whitespace-only diffs) and trigger D206 violations. Formatting policy in this repo is out of scope for this plan.
 
 - [ ] **Step 5: If any fix commits were made in Steps 3–4, push them as a single verification commit**
 
