@@ -26,17 +26,20 @@ These tests are skipped automatically when ``usd-core`` is not installed.
 Run them with: pytest tests/test_usd_html_export_integration.py -v
 """
 from pathlib import Path
-import sys
-from unittest.mock import MagicMock, patch
 
 import pytest
 
 pxr = pytest.importorskip("pxr", reason="usd-core not installed; skipping integration tests")
-# Guard against the mock-pxr injected by unit tests leaking into this module.
-if not hasattr(pxr.Usd.Stage, "CreateInMemory"):
-    pytest.skip("Real usd-core not available (mock detected)", allow_module_level=True)
+
+pytest.importorskip(
+    "pygltflib", reason="pygltflib not installed; skipping integration tests"
+)
 
 from pxr import Gf, Usd, UsdGeom  # noqa: E402
+
+# Guard against the mock-pxr injected by unit tests leaking into this module.
+if not hasattr(Usd.Stage, "CreateInMemory"):
+    pytest.skip("Real usd-core not available (mock detected)", allow_module_level=True)
 
 from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: E402
     _inject_mesh_lines,
@@ -117,20 +120,11 @@ def test_inject_mesh_lines_real_stage_no_mesh_prims(tmp_path):
 def test_export_usd_to_html_stage_roundtrip(tmp_path):
     """Stage input -> temp file written -> HTML with mesh-line injection."""
     stage = _build_triangle_stage()
-    fake_html = _minimal_viewer_html(tmp_path)
 
-    with patch.dict(
-        sys.modules,
-        {
-            "ansys.tools.usdviewer.web.html_export": MagicMock(
-                export_viewer_html=MagicMock(return_value=fake_html)
-            )
-        },
-    ):
-        result = export_usd_to_html(stage)
+    result = export_usd_to_html(stage)
 
-    assert result == fake_html
-    content = fake_html.read_text(encoding="utf-8")
+    assert result.exists()
+    content = result.read_text(encoding="utf-8")
     assert "ansysEdgesInjected" in content
 
     import json
@@ -149,21 +143,11 @@ def test_export_usd_to_html_file_path_input(tmp_path):
     usd_path = tmp_path / "triangle.usda"
     stage.Export(str(usd_path))
 
-    fake_html = _minimal_viewer_html(tmp_path)
+    result = export_usd_to_html(usd_path)
 
-    with patch.dict(
-        sys.modules,
-        {
-            "ansys.tools.usdviewer.web.html_export": MagicMock(
-                export_viewer_html=MagicMock(return_value=fake_html)
-            )
-        },
-    ):
-        result = export_usd_to_html(usd_path)
-
-    content = fake_html.read_text(encoding="utf-8")
+    assert result.exists()
+    content = result.read_text(encoding="utf-8")
     assert "ansysEdgesInjected" in content
-    assert result == fake_html
 
     import json
     import re
