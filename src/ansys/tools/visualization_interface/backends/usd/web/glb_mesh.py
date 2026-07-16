@@ -359,7 +359,8 @@ def _build_corner_uvs(
                 continue
 
             uv = st_values[element_index]
-            corner_uvs.append((float(uv[0]), float(uv[1])))
+            # USD uses OpenGL UV convention (V=0 at bottom); glTF uses V=0 at top.
+            corner_uvs.append((float(uv[0]), 1.0 - float(uv[1])))
 
         corner_offset += count
 
