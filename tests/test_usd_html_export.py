@@ -47,6 +47,7 @@ sys.modules.setdefault("ansys.tools.usdviewer.web", MagicMock())
 sys.modules.setdefault("ansys.tools.usdviewer.web.html_export", _mock_usdviewer_html_mod)
 
 from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: E402
+    _inject_mesh_lines,
     _is_usd_stage,
     _stage_to_temp_usd,
     export_usd_to_html,
@@ -218,3 +219,105 @@ class TestExportUsdToHtml:
         with patch.dict(sys.modules, {"ansys.tools.usdviewer.web.html_export": None}):
             with pytest.raises(ImportError, match="ansys-tools-usdviewer"):
                 export_usd_to_html(usd_file)
+
+
+class TestInjectMeshLines:
+    """Tests for _inject_mesh_lines function."""
+
+    def _html_with_anchors(self, tmp_path: Path) -> Path:
+        """Write a minimal viewer HTML with both injection anchors."""
+        content = (
+            "<!doctype html><html><body><script type='module'>\n"
+            "const binary = atob(glbBase64);\n"
+            "scene.add(gltf.scene);\n"
+            "</script></body></html>"
+        )
+        path = tmp_path / "viewer.html"
+        path.write_text(content, encoding="utf-8")
+        return path
+
+    def test_injects_marker(self, tmp_path):
+        """Injection adds the idempotency marker to the HTML."""
+        html_path = self._html_with_anchors(tmp_path)
+        stage = MagicMock()
+        stage.Traverse.return_value = []
+        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+        assert "ansysEdgesInjected" in html_path.read_text(encoding="utf-8")
+
+    def test_injects_line_color(self, tmp_path):
+        """Injection embeds the requested line color."""
+        html_path = self._html_with_anchors(tmp_path)
+        stage = MagicMock()
+        stage.Traverse.return_value = []
+        _inject_mesh_lines(html_path, stage, "#ff0000", 0.5)
+        content = html_path.read_text(encoding="utf-8")
+        assert "#ff0000" in content
+        assert "0.5" in content
+
+    def test_idempotent(self, tmp_path):
+        """Calling inject twice produces the same output as calling it once."""
+        html_path = self._html_with_anchors(tmp_path)
+        stage = MagicMock()
+        stage.Traverse.return_value = []
+        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+        first = html_path.read_text(encoding="utf-8")
+        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+        second = html_path.read_text(encoding="utf-8")
+        assert first == second
+
+    def test_skips_incompatible_template(self, tmp_path):
+        """HTML without injection anchors is left untouched."""
+        html_path = tmp_path / "viewer.html"
+        original = "<html>no anchors here</html>"
+        html_path.write_text(original, encoding="utf-8")
+        stage = MagicMock()
+        stage.Traverse.return_value = []
+        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+        assert html_path.read_text(encoding="utf-8") == original
+
+    def test_no_mesh_prims_produces_empty_segments(self, tmp_path):
+        """Stage with no mesh prims injects an empty Float32Array."""
+        html_path = self._html_with_anchors(tmp_path)
+        # One prim that is NOT a mesh (UsdGeom.Mesh returns falsy)
+        mock_prim = MagicMock()
+        non_mesh = MagicMock()
+        non_mesh.__bool__ = lambda self: False
+        _mock_usd_geom.Mesh.return_value = non_mesh
+        stage = MagicMock()
+        stage.Traverse.return_value = [mock_prim]
+        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+        content = html_path.read_text(encoding="utf-8")
+        assert "ansysEdgesInjected" in content
+        assert "Float32Array([])" in content
+
+    def test_with_triangle_prim_injects_eighteen_floats(self, tmp_path):
+        """One triangle prim produces exactly 18 floats (3 edges x 2 verts x 3 coords)."""
+        import json
+        import re
+
+        html_path = self._html_with_anchors(tmp_path)
+
+        mock_mesh = MagicMock()
+        mock_mesh.__bool__ = lambda self: True
+        mock_mesh.GetPointsAttr.return_value.Get.return_value = [
+            (0.0, 0.0, 0.0),
+            (1.0, 0.0, 0.0),
+            (0.0, 1.0, 0.0),
+        ]
+        mock_mesh.GetFaceVertexCountsAttr.return_value.Get.return_value = [3]
+        mock_mesh.GetFaceVertexIndicesAttr.return_value.Get.return_value = [0, 1, 2]
+        _mock_usd_geom.Mesh.return_value = mock_mesh
+
+        stage = MagicMock()
+        stage.Traverse.return_value = [MagicMock()]
+
+        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+        content = html_path.read_text(encoding="utf-8")
+
+        assert "ansysEdgeSegs" in content
+        assert "THREE.LineSegments" in content
+
+        m = re.search(r"new Float32Array\((\[.*?\])\)", content)
+        assert m is not None, "Float32Array not found in injected HTML"
+        floats = json.loads(m.group(1))
+        assert len(floats) == 18
