@@ -156,10 +156,11 @@ def test_export_usd_to_html_file_path_input(tmp_path):
             )
         },
     ):
-        export_usd_to_html(usd_path)
+        result = export_usd_to_html(usd_path)
 
     content = fake_html.read_text(encoding="utf-8")
     assert "ansysEdgesInjected" in content
+    assert result == fake_html
 
     import json
     import re

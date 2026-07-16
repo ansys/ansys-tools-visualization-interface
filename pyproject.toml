@@ -46,7 +46,7 @@ dash = [
 
 usd = [
     "ansys-tools-usdviewer >= 0.1.0,< 1",
-    "usd-core >= 24.0"
+    "usd-core >= 24.0,< 26"
 ]
 
 all = [
@@ -55,7 +55,9 @@ all = [
     "plotly >= 6.3.1,<7",
     "kaleido >= 1.1.0,<2",
     "dash >= 3.2.0,< 5",
-    "imageio[ffmpeg] >= 2.37.2"
+    "imageio[ffmpeg] >= 2.37.2",
+    "ansys-tools-usdviewer >= 0.1.0,< 1",
+    "usd-core >= 24.0,< 26"
 ]
 
 tests = [

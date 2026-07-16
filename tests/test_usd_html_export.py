@@ -212,6 +212,26 @@ class TestExportUsdToHtml:
         with pytest.raises(ValueError, match="line_opacity"):
             export_usd_to_html(usd_file, line_opacity=-0.1)
 
+    def test_invalid_line_color_raises(self, tmp_path):
+        """Test that ValueError is raised for invalid line_color."""
+        usd_file = tmp_path / "model.usda"
+        usd_file.write_text("#usda 1.0\n", encoding="utf-8")
+        with pytest.raises(ValueError, match="line_color"):
+            export_usd_to_html(usd_file, line_color="not-a-color")
+
+    def test_valid_line_color_passes(self, tmp_path):
+        """Test that valid line_color passes validation."""
+        usd_file = tmp_path / "model.usda"
+        usd_file.write_text("#usda 1.0\n", encoding="utf-8")
+        mock_stage = MagicMock()
+        mock_stage.Traverse.return_value = []
+        with patch(
+            "ansys.tools.visualization_interface.backends.usd.html_export._open_stage",
+            return_value=mock_stage,
+        ):
+            result = export_usd_to_html(usd_file, line_color="#00ffcc")
+        assert result == self._html
+
     def test_import_error_when_usdviewer_missing(self, tmp_path):
         """Test that ImportError is raised when usdviewer is missing."""
         usd_file = tmp_path / "model.usda"

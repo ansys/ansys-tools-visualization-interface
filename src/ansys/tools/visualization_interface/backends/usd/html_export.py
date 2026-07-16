@@ -166,7 +166,7 @@ def _inject_mesh_lines(
 
 
 def export_usd_to_html(
-    source: "str | Path",
+    source: "str | Path | object",
     output_path: "str | Path | None" = None,
     *,
     show_mesh_lines: bool = True,
@@ -202,8 +202,10 @@ def export_usd_to_html(
     FileNotFoundError
         If a file path is given but does not exist on disk.
     ValueError
-        If ``line_opacity`` is outside [0.0, 1.0].
+        If ``line_opacity`` is outside [0.0, 1.0] or ``line_color`` is not a valid CSS hex color.
     """
+    import re as _re
+
     try:
         from ansys.tools.usdviewer.web.html_export import (
             export_viewer_html as _export_viewer_html,
@@ -214,6 +216,11 @@ def export_usd_to_html(
     if not (0.0 <= line_opacity <= 1.0):
         raise ValueError(
             f"line_opacity must be between 0.0 and 1.0, got {line_opacity!r}."
+        )
+
+    if not _re.fullmatch(r"#[0-9A-Fa-f]{3}(?:[0-9A-Fa-f]{3,5})?", line_color):
+        raise ValueError(
+            f"line_color must be a CSS hex color string (e.g. '#ffffff'), got {line_color!r}."
         )
 
     tmp_path: Path | None = None
