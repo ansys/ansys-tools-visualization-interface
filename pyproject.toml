@@ -80,7 +80,6 @@ doc = [
     "sphinx-jinja==2.0.2",
     "ansys-fluent-core==0.40.1",
     "nest-asyncio2==1.7.2", # Required for interactive examples, else it fails silently
-    "ansys-tools-usdviewer >= 0.1.0,< 1",
     "usd-core >= 24.0,< 26",
 ]
 
