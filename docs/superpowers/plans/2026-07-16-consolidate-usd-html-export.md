@@ -15,7 +15,7 @@
   - `D:\repositories\python-usd-viewer` (source — code is removed here)
 - Python ≥ 3.10, < 4 in both repos.
 - All new `.py` files under `src/` and `tests/` must carry the ANSYS MIT license header. The `add-license-headers` pre-commit hook adds it automatically on first commit; if pre-commit modifies files, `git add` and re-`git commit`.
-- Vendored files keep their original MIT license header verbatim (do not rewrite copyright lines).
+- Vendored files may have their MIT license header normalized by vis-interface's `Add License Headers` pre-commit hook (which enforces the repo-standard 21-line "Synopsys, Inc. and ANSYS, Inc." block). This is expected — do not fight the hook. Preserve the source file's *code* (imports, logic, docstrings) verbatim; the header block is repo policy.
 - No lazy-import gymnastics for `pxr` inside the vendored web/glb modules — vis-interface's `[usd]` extra now guarantees `usd-core` is installed whenever the HTML export path is used. Keep the `pxr` imports at module top like the originals.
 - `ansys.tools.usdviewer` **must not appear as an import** anywhere on the HTML-export code path in vis-interface after this plan is executed.
 - Ruff is the linter/formatter in both repos. Run `ruff check --fix` and `ruff format` before committing if pre-commit fails.
