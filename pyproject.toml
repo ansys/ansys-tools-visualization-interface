@@ -45,7 +45,8 @@ dash = [
 ]
 
 usd = [
-    "ansys-tools-usdviewer >= 0.1.0,< 1"
+    "ansys-tools-usdviewer >= 0.1.0,< 1",
+    "usd-core >= 24.0"
 ]
 
 all = [
