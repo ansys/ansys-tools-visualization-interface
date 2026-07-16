@@ -32,6 +32,9 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 pxr = pytest.importorskip("pxr", reason="usd-core not installed; skipping integration tests")
+# Guard against the mock-pxr injected by unit tests leaking into this module.
+if not hasattr(pxr.Usd.Stage, "CreateInMemory"):
+    pytest.skip("Real usd-core not available (mock detected)", allow_module_level=True)
 
 from pxr import Gf, Usd, UsdGeom  # noqa: E402
 
