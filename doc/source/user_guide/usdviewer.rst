@@ -8,12 +8,20 @@ used to visualize USD stages. The viewer is built on top of the ``python-usd-vie
 which provides a simple interface for visualizing USD stages.
 
 
-USD viewer installation
------------------------
+USD viewer installation (live viewer)
+-------------------------------------
 
-To use the USD viewer, you need to install the ``python-usd-viewer`` package. Please refer
-to the `USD viewer installation guide <https://usd-viewer.docs.pyansys.com/version/stable/getting_started/index.html>`_
-for detailed instructions on how to install the package.
+The USD viewer provides an interactive 3D viewer for visualizing USD stages in real-time.
+
+To use the live USD viewer, you need to install the optional dependencies with:
+
+.. code-block:: bash
+
+    pip install 'ansys-tools-visualization-interface[usd-live-viewer]'
+
+This installs the ``python-usd-viewer`` package along with required dependencies.
+For additional details, please refer to the
+`USD viewer installation guide <https://usd-viewer.docs.pyansys.com/version/stable/getting_started/index.html>`_.
 
 
 USD viewer usage
@@ -46,6 +54,12 @@ use :func:`~ansys.tools.visualization_interface.export_usd_to_html`. The
 generated file embeds all geometry as a base64-encoded GLB and requires only a
 CDN connection to render.
 
+To use this feature, install the optional dependencies with:
+
+.. code-block:: bash
+
+    pip install 'ansys-tools-visualization-interface[usd]'
+
 .. code-block:: python
 
     from ansys.tools.visualization_interface import export_usd_to_html
@@ -76,8 +90,3 @@ control a wireframe edge overlay injected directly into the HTML:
         line_color="#00ffcc",
         line_opacity=0.7,
     )
-
-.. note::
-
-    This feature requires the ``[usd]`` optional dependencies:
-    ``pip install ansys-tools-visualization-interface[usd]``
