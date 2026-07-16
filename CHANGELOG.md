@@ -1,3 +1,12 @@
+## [Unreleased]
+
+### Added
+
+- USD-to-HTML export is now self-contained — the GLB conversion pipeline, viewer template, and VTK-to-USD converter have been vendored into `ansys.tools.visualization_interface.backends.usd`. HTML export no longer requires `ansys-tools-usdviewer`.
+
+### Changed
+
+- Split the `[usd]` optional extra: `[usd]` now installs only `usd-core` and `pygltflib` (the minimum needed for HTML export). The live Qt USD viewer moved to a new `[usd-live-viewer]` extra that pulls in `ansys-tools-usdviewer`.
 ## [0.13.3](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.3) - May 22, 2026
 
 
@@ -536,3 +545,4 @@
 This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
 
 <!-- towncrier release notes start -->
+
