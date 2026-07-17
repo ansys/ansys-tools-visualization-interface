@@ -63,7 +63,7 @@ all = [
     "imageio[ffmpeg] >= 2.37.2",
     "ansys-tools-usdviewer >= 0.1.0,< 1",
     "usd-core >= 24.0,< 26",
-    "pygltflib >= 1.16,< 2"
+    "pygltflib >= 1.16,< 2",
 ]
 
 tests = [
@@ -71,7 +71,9 @@ tests = [
     "pyvista==0.48.4",
     "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
-    "pyside6==6.11.1"
+    "pyside6==6.11.1",
+    "usd-core >= 24.0,< 26",
+    "pygltflib >= 1.16,< 2"
 ]
 
 doc = [
@@ -87,6 +89,8 @@ doc = [
     "ansys-fluent-core==0.40.1",
     "nest-asyncio2==1.7.2", # Required for interactive examples, else it fails silently
     "usd-core >= 24.0,< 26",
+    "pygltflib >= 1.16,< 2"
+
 ]
 
 [project.urls]
