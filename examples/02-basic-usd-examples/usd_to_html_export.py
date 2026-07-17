@@ -47,13 +47,12 @@ it in any modern browser.
 # Pass a file path string or :class:`pathlib.Path` to
 # :func:`~ansys.tools.visualization_interface.export_usd_to_html`.
 # The function returns the :class:`pathlib.Path` to the generated HTML file.
-#
-# .. code-block:: python
-#
-#     from ansys.tools.visualization_interface import export_usd_to_html
-#
-#     html_path = export_usd_to_html("my_model.usd", "my_model_viewer.html")
-#     print(f"Viewer written to: {html_path}")
+
+
+from ansys.tools.visualization_interface import export_usd_to_html
+
+html_path = export_usd_to_html("my_model.usd", "my_model_viewer.html")
+print(f"Viewer written to: {html_path}")
 
 
 ###################################
@@ -62,25 +61,23 @@ it in any modern browser.
 # You can pass a :class:`pxr.Usd.Stage` directly — no ``.usd`` file on disk
 # is required.  A temporary file is created automatically, used to generate
 # the GLB, and removed when the function returns.
-#
-# .. code-block:: python
-#
-#     from pxr import Gf, Usd, UsdGeom
-#
-#     from ansys.tools.visualization_interface import export_usd_to_html
-#
-#     # Build a minimal USD stage with one triangular mesh
-#     stage = Usd.Stage.CreateInMemory()
-#     mesh = UsdGeom.Mesh.Define(stage, "/Triangle")
-#     stage.SetDefaultPrim(mesh.GetPrim())
-#     mesh.GetPointsAttr().Set(
-#         [Gf.Vec3f(0, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(0, 1, 0)]
-#     )
-#     mesh.GetFaceVertexCountsAttr().Set([3])
-#     mesh.GetFaceVertexIndicesAttr().Set([0, 1, 2])
-#
-#     html_path = export_usd_to_html(stage, "triangle_viewer.html")
-#     print(f"Viewer written to: {html_path}")
+
+from pxr import Gf, Usd, UsdGeom
+
+from ansys.tools.visualization_interface import export_usd_to_html
+
+# Build a minimal USD stage with one triangular mesh
+stage = Usd.Stage.CreateInMemory()
+mesh = UsdGeom.Mesh.Define(stage, "/Triangle")
+stage.SetDefaultPrim(mesh.GetPrim())
+mesh.GetPointsAttr().Set(
+    [Gf.Vec3f(0, 0, 0), Gf.Vec3f(1, 0, 0), Gf.Vec3f(0, 1, 0)]
+)
+mesh.GetFaceVertexCountsAttr().Set([3])
+mesh.GetFaceVertexIndicesAttr().Set([0, 1, 2])
+
+html_path = export_usd_to_html(stage, "triangle_viewer.html")
+print(f"Viewer written to: {html_path}")
 
 
 ###################################
@@ -89,19 +86,17 @@ it in any modern browser.
 # Set ``show_mesh_lines=True`` to inject a Three.js ``LineSegments`` overlay
 # that traces every polygon edge.  Use ``line_color`` (CSS hex) and
 # ``line_opacity`` (0–1) to style it.
-#
-# .. code-block:: python
-#
-#     from ansys.tools.visualization_interface import export_usd_to_html
-#
-#     html_path = export_usd_to_html(
-#         "my_model.usd",
-#         "my_model_viewer.html",
-#         show_mesh_lines=True,
-#         line_color="#00ffcc",
-#         line_opacity=0.7,
-#     )
-#     print(f"Viewer with wireframe written to: {html_path}")
+
+from ansys.tools.visualization_interface import export_usd_to_html
+
+html_path = export_usd_to_html(
+    "my_model.usd",
+    "my_model_viewer.html",
+    show_mesh_lines=True,
+    line_color="#00ffcc",
+    line_opacity=0.7,
+)
+print(f"Viewer with wireframe written to: {html_path}")
 
 
 ###################################
@@ -109,12 +104,10 @@ it in any modern browser.
 # =============================
 # The generated HTML file is fully self-contained: copy it anywhere and open
 # it without a server.
-#
-# .. code-block:: python
-#
-#     import webbrowser
-#
-#     from ansys.tools.visualization_interface import export_usd_to_html
-#
-#     html_path = export_usd_to_html("my_model.usd", show_mesh_lines=True)
-#     webbrowser.open(html_path.as_uri())
+
+import webbrowser
+
+from ansys.tools.visualization_interface import export_usd_to_html
+
+html_path = export_usd_to_html("my_model.usd", show_mesh_lines=True)
+webbrowser.open(html_path.as_uri())
