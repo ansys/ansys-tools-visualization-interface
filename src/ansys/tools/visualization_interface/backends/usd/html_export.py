@@ -33,6 +33,8 @@ from pathlib import Path
 import re
 import tempfile
 
+from ansys.tools.visualization_interface.backends.usd.web.templates import validate_template
+
 _USD_CORE_IMPORT_ERROR = (
     "The 'usd-core' package is required for USD-to-HTML export. "
     "Install it with: pip install 'ansys-tools-visualization-interface[usd]'"
@@ -195,8 +197,7 @@ def _inject_mesh_lines(
     if _INJECTION_MARKER in html_text:
         return  # idempotent
 
-    if _CONFIG_ANCHOR not in html_text or _SCENE_ANCHOR not in html_text:
-        return  # incompatible template, skip gracefully
+    validate_template(html_text, [_CONFIG_ANCHOR, _SCENE_ANCHOR])
 
     segments: list[float] = []
     for prim in stage.Traverse():  # type: ignore[union-attr]
@@ -288,9 +289,10 @@ def export_usd_to_html(
         Path to a custom HTML template. The template must contain
         ``__GLB_B64_JSON__`` and ``__MODEL_NAME_JSON__`` as literal placeholders
         that will be replaced with JSON-encoded values at render time. When
-        ``None``, the built-in ``glb_template.html`` is used. Templates that do
-        not include the mesh-line injection anchors will have
-        ``show_mesh_lines`` silently skipped.
+        ``show_mesh_lines=True``, the template must also include the wireframe
+        injection anchors (``const binary = atob(glbBase64);`` and
+        ``scene.add(gltf.scene);``). When ``None``, the built-in
+        ``glb_template.html`` is used.
 
     Returns
     -------
@@ -306,8 +308,8 @@ def export_usd_to_html(
         ``template_path`` points to a missing file.
     ValueError
         If ``line_opacity`` is outside [0.0, 1.0], ``line_color`` is not a
-        valid CSS hex color, or the custom template is missing required
-        placeholders.
+        valid CSS hex color, or the template is missing required placeholders
+        or wireframe injection anchors.
     """
     if not (0.0 <= line_opacity <= 1.0):
         raise ValueError(

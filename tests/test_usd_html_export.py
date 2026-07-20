@@ -49,6 +49,7 @@ from ansys.tools.visualization_interface.backends.usd.html_export import (  # no
 )
 from ansys.tools.visualization_interface.backends.usd.web.templates import (  # noqa: E402
     build_viewer_html_glb,
+    validate_template,
 )
 
 
@@ -70,6 +71,28 @@ _VALID_TEMPLATE = (
     '<script>const glb = __GLB_B64_JSON__; const name = __MODEL_NAME_JSON__;</script>'
     "</body></html>"
 )
+
+
+class TestValidateTemplate:
+    """Tests for validate_template."""
+
+    def test_passes_when_all_required_present(self):
+        """No exception when all required strings are in the template."""
+        validate_template("<html>__FOO__ __BAR__</html>", ["__FOO__", "__BAR__"])
+
+    def test_raises_for_single_missing(self):
+        """ValueError names the missing placeholder."""
+        with pytest.raises(ValueError, match="__MISSING__"):
+            validate_template("<html></html>", ["__MISSING__"])
+
+    def test_raises_for_multiple_missing(self):
+        """ValueError names all missing placeholders."""
+        with pytest.raises(ValueError, match="__A__"):
+            validate_template("<html>__B__</html>", ["__A__", "__B__", "__C__"])
+
+    def test_empty_required_always_passes(self):
+        """Empty required list never raises."""
+        validate_template("", [])
 
 
 class TestBuildViewerHtmlGlb:
@@ -373,15 +396,14 @@ class TestInjectMeshLines:
         second = html_path.read_text(encoding="utf-8")
         assert first == second
 
-    def test_skips_incompatible_template(self, tmp_path):
-        """HTML without injection anchors is left untouched."""
+    def test_incompatible_template_raises(self, tmp_path):
+        """HTML without injection anchors raises ValueError."""
         html_path = tmp_path / "viewer.html"
-        original = "<html>no anchors here</html>"
-        html_path.write_text(original, encoding="utf-8")
+        html_path.write_text("<html>no anchors here</html>", encoding="utf-8")
         stage = MagicMock()
         stage.Traverse.return_value = []
-        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
-        assert html_path.read_text(encoding="utf-8") == original
+        with pytest.raises(ValueError, match="missing required"):
+            _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
 
     def test_no_mesh_prims_produces_empty_segments(self, tmp_path):
         """Stage with no mesh prims injects an empty Float32Array."""

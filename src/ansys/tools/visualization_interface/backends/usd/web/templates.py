@@ -29,29 +29,56 @@ from pathlib import Path
 
 _GLB_TEMPLATE_FILE = "glb_template.html"
 
+_REQUIRED_PLACEHOLDERS: list[str] = ["__GLB_B64_JSON__", "__MODEL_NAME_JSON__"]
+
+
+def validate_template(template: str, required: list[str]) -> None:
+    """Raise ``ValueError`` if any string in *required* is absent from *template*.
+
+    Parameters
+    ----------
+    template : str
+        Template source text to validate.
+    required : list[str]
+        Strings that must all appear verbatim in *template*.
+
+    Raises
+    ------
+    ValueError
+        If one or more required strings are absent.
+    """
+    missing = [v for v in required if v not in template]
+    if missing:
+        raise ValueError(f"Template is missing required placeholders: {missing!r}")
+
 
 def build_viewer_html_glb(
     glb_b64: str, model_name: str, template_path: Path | None = None
 ) -> str:
     """Build a self-contained HTML viewer that renders a base64-encoded GLB.
 
+    The template is validated with :func:`validate_template` before substitution.
+    Both ``__GLB_B64_JSON__`` and ``__MODEL_NAME_JSON__`` must appear verbatim
+    in the template source; they are replaced with ``json.dumps``-encoded values
+    so that special characters are escaped automatically.
+
     Parameters
     ----------
     glb_b64 : str
         Base64-encoded GLB binary.
     model_name : str
-        Display name shown in the viewer status overlay.
+        Display name shown in the viewer (replaces ``__MODEL_NAME_JSON__``).
     template_path : Path | None, default: None
-        Path to a custom HTML template. Must contain ``__GLB_B64_JSON__`` and
-        ``__MODEL_NAME_JSON__`` placeholders. When ``None``, the built-in
-        ``glb_template.html`` is used.
+        Path to a custom HTML template. When ``None``, the built-in
+        ``glb_template.html`` is used. See the *Custom HTML templates* section
+        of the user guide for the required placeholder contract.
 
     Raises
     ------
     FileNotFoundError
         If *template_path* is given but the file does not exist.
     ValueError
-        If the template is missing required placeholders.
+        If the template is missing one or both required placeholders.
     """
     if template_path is not None:
         path = Path(template_path)
@@ -61,10 +88,7 @@ def build_viewer_html_glb(
     else:
         template = _load_template(_GLB_TEMPLATE_FILE)
 
-    if "__GLB_B64_JSON__" not in template or "__MODEL_NAME_JSON__" not in template:
-        raise ValueError(
-            "Template must contain __GLB_B64_JSON__ and __MODEL_NAME_JSON__ placeholders."
-        )
+    validate_template(template, _REQUIRED_PLACEHOLDERS)
 
     return template.replace("__MODEL_NAME_JSON__", json.dumps(model_name)).replace(
         "__GLB_B64_JSON__", json.dumps(glb_b64)
