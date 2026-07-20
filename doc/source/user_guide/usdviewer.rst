@@ -55,13 +55,13 @@ use :func:`~ansys.tools.visualization_interface.export_usd_to_html`.
 The export pipeline works as follows:
 
 1. The USD stage is traversed and its mesh primitives are converted to
-   `GLB <https://www.khronos.org/gltf/>`_ format.  GLB (GL Transmission Format
-   Binary) is the binary container of the glTF standard — a compact, web-native
+   `GLB <https://www.khronos.org/gltf/>`_ format. GLB (GL Transmission Format
+   Binary) is the binary container of the glTF standard—a compact, web-native
    3D format understood natively by Three.js without any additional plugins.
    It encodes mesh geometry (vertices, normals, indices), materials, and scene
    hierarchy in a single binary blob.
 2. The GLB binary is base64-encoded so it can be stored as a plain string inside
-   the HTML file, making the output completely self-contained — no separate model
+   the HTML file, making the output completely self-contained—no separate model
    file is needed alongside the HTML.
 3. The viewer decodes the string with the browser's built-in ``atob()`` function
    and passes the resulting binary buffer to ``GLTFLoader``, which renders it
@@ -111,8 +111,8 @@ Custom HTML templates
 ---------------------
 
 By default :func:`~ansys.tools.visualization_interface.export_usd_to_html` uses the
-built-in ``glb_template.html`` viewer.  Pass ``template_path`` to supply your own HTML
-file instead — for example to match a house style, add UI controls, or embed the viewer
+built-in ``glb_template.html`` viewer. Pass ``template_path`` to supply your own HTML
+file instead—for example to match a house style, add UI controls, or embed the viewer
 inside a larger page.
 
 Template variables
@@ -129,20 +129,20 @@ escaped automatically.
    * - Placeholder
      - Replaced with
    * - ``__MODEL_NAME_JSON__``
-     - A JSON string containing the source file name, e.g. ``"my_model.usd"``.
+     - A JSON string containing the source filename, for example ``"my_model.usd"``.
        Use it wherever you want to display the model name.
    * - ``__GLB_B64_JSON__``
      - A JSON string containing the base64-encoded GLB binary.
        GLB is the binary form of the glTF standard: it packs all mesh
        geometry (vertices, normals, indices), materials, and scene hierarchy
        into a single blob, which Three.js can parse directly with
-       ``GLTFLoader``.  Base64 encoding lets the binary data travel inside
-       a plain HTML file without corruption.  In JavaScript, assign it to a
+       ``GLTFLoader``. Base64 encoding lets the binary data travel inside
+       a plain HTML file without corruption. In JavaScript, assign it to a
        variable, decode it with ``atob()``, copy the result into a
        ``Uint8Array``, and pass the buffer to ``GLTFLoader.parse()``.
 
 When ``show_mesh_lines=True``, two additional **anchor strings** must appear
-verbatim in the template.  The exporter locates them by exact text match and
+verbatim in the template. The exporter locates them by exact text match and
 inserts the wireframe code around them:
 
 .. list-table::
@@ -175,7 +175,7 @@ Pass the path to your template file via the ``template_path`` parameter:
     )
 
 To use a custom template **with** the wireframe overlay, the template must
-contain both anchor strings shown above:
+contain both anchor strings listed in the preceding table:
 
 .. code-block:: python
 
@@ -192,7 +192,7 @@ Validation errors
 ~~~~~~~~~~~~~~~~~
 
 :func:`~ansys.tools.visualization_interface.export_usd_to_html` validates
-templates before writing any output.  A :class:`ValueError` is raised listing
+templates before writing any output. A :class:`ValueError` is raised listing
 every missing placeholder or anchor so you can fix all problems in one pass:
 
 .. code-block:: text
