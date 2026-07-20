@@ -90,7 +90,6 @@ doc = [
     "nest-asyncio2==1.7.2", # Required for interactive examples, else it fails silently
     "usd-core==26.5",
     "pygltflib==1.16.5"
-
 ]
 
 [project.urls]

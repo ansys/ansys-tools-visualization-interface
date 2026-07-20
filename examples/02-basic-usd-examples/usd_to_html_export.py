@@ -61,7 +61,7 @@ stage.Save()
 
 ###################################
 # Export from a USD file on disk
-# ===============================
+# ==============================
 # Pass a file path string or :class:`pathlib.Path` to
 # :func:`~ansys.tools.visualization_interface.export_usd_to_html`.
 # The function returns the :class:`pathlib.Path` to the generated HTML file.
@@ -74,7 +74,7 @@ print(f"Viewer written to: {html_path}")
 
 ###################################
 # Export from an in-memory stage
-# ================================
+# ==============================
 # You can pass a :class:`pxr.Usd.Stage` directly — no ``.usd`` file on disk
 # is required.  A temporary file is created automatically, used to generate
 # the GLB, and removed when the function returns.
@@ -85,7 +85,7 @@ print(f"Viewer written to: {html_path}")
 
 ###################################
 # Add a wireframe overlay
-# ========================
+# =======================
 # Set ``show_mesh_lines=True`` to inject a Three.js ``LineSegments`` overlay
 # that traces every polygon edge.  Use ``line_color`` (CSS hex) and
 # ``line_opacity`` (0–1) to style it.
