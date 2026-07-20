@@ -20,8 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""USD backend initialization."""
-
-from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: F401
-    export_usd_to_html,
-)
+"""USD-to-HTML web export pipeline (GLB + Three.js templates)."""

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>USD Web Viewer</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg0: #0f1012;
+        --bg1: #1e2127;
+        --fg: #f3f4f6;
+        --accent: #7cd7ff;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: radial-gradient(circle at 20% 20%, #25303a 0%, var(--bg0) 70%);
+        color: var(--fg);
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      #viewport {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #status {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: rgba(20, 22, 26, 0.78);
+        border: 1px solid rgba(124, 215, 255, 0.2);
+        font-size: 13px;
+        backdrop-filter: blur(8px);
+      }
+
+      #status code {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="viewport"></canvas>
+    <div id="status">Loading: <code><span id="model-name"></span></code></div>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+    </script>
+    <script type="module">
+      import * as THREE from "three";
+      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+      const modelName = __MODEL_NAME_JSON__;
+      const glbBase64 = __GLB_B64_JSON__;
+      const status = document.getElementById("status");
+      const modelNameEl = document.getElementById("model-name");
+      const canvas = document.getElementById("viewport");
+
+      modelNameEl.textContent = modelName;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.1;
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x1a1d23);
+
+      const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+
+      const homogeneousLightRig = new THREE.Group();
+      homogeneousLightRig.name = "HomogeneousLightRig";
+
+      const ambient = new THREE.AmbientLight(0xffffff, 1.25);
+      homogeneousLightRig.add(ambient);
+
+      const hemi = new THREE.HemisphereLight(0xffffff, 0x7a7a7a, 0.55);
+      homogeneousLightRig.add(hemi);
+
+      scene.add(homogeneousLightRig);
+
+      const defaultDirectionalRig = new THREE.Group();
+      defaultDirectionalRig.name = "DefaultDirectionalRig";
+
+      const keyLight = new THREE.DirectionalLight(0xffffff, 0.6);
+      keyLight.position.set(3, 5, 4);
+      defaultDirectionalRig.add(keyLight);
+
+      const fillLight = new THREE.DirectionalLight(0xffffff, 0.45);
+      fillLight.position.set(-3, 2, -4);
+      defaultDirectionalRig.add(fillLight);
+
+      const topLight = new THREE.DirectionalLight(0xffffff, 0.25);
+      topLight.position.set(0, 8, 0);
+      defaultDirectionalRig.add(topLight);
+
+      const bottomLight = new THREE.DirectionalLight(0xffffff, 0.3);
+      bottomLight.position.set(0, -6, 0);
+      defaultDirectionalRig.add(bottomLight);
+
+      scene.add(defaultDirectionalRig);
+
+      const binary = atob(glbBase64);
+      const buffer = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) buffer[i] = binary.charCodeAt(i);
+
+      new GLTFLoader().parse(buffer.buffer, "", (gltf) => {
+        let hasSceneLights = false;
+        gltf.scene.traverse((obj) => {
+          if (obj.isLight) {
+            hasSceneLights = true;
+          }
+
+          if (obj.isMesh && obj.material) {
+            const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
+            for (const mat of materials) {
+              // Ensure texture color-space matches glTF PBR expectations.
+              if (mat.map) {
+                mat.map.colorSpace = THREE.SRGBColorSpace;
+                mat.map.needsUpdate = true;
+              }
+              if (mat.emissiveMap) {
+                mat.emissiveMap.colorSpace = THREE.SRGBColorSpace;
+                mat.emissiveMap.needsUpdate = true;
+              }
+            }
+          }
+        });
+
+        if (hasSceneLights) {
+          // Keep homogeneous fill light and remove only directional defaults.
+          scene.remove(defaultDirectionalRig);
+        }
+
+        scene.add(gltf.scene);
+        fitCameraToObject(camera, controls, gltf.scene);
+        status.textContent = hasSceneLights
+          ? "Loaded: " + modelName + " (USD lights + ambient fill)"
+          : "Loaded: " + modelName + " (default lights)";
+      }, (error) => {
+        status.textContent = "Error loading model";
+        console.error(error);
+      });
+
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      function fitCameraToObject(cam, orbit, object) {
+        const box = new THREE.Box3().setFromObject(object);
+        if (box.isEmpty()) {
+          cam.position.set(2, 2, 3);
+          orbit.update();
+          return;
+        }
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        const maxSize = Math.max(size.x, size.y, size.z);
+        const fitDistance = maxSize / (2 * Math.tan((Math.PI * cam.fov) / 360));
+        const direction = new THREE.Vector3(1, 0.75, 1).normalize();
+        cam.position.copy(center).addScaledVector(direction, fitDistance * 1.4);
+        cam.near = Math.max(fitDistance / 100, 0.001);
+        cam.far = Math.max(fitDistance * 100, 1000);
+        cam.updateProjectionMatrix();
+        orbit.target.copy(center);
+        orbit.update();
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

@@ -34,13 +34,15 @@ except ImportError:  # pragma: no cover
         "Install OpenUSD or run 'usd-setup' from the python-usd-viewer package."
     )
 
+from ansys.tools.visualization_interface.backends.usd.vtk_converter import VTKConverter
+
 try:
     from ansys.tools.usdviewer.viewer import USDViewer
-    from ansys.tools.usdviewer.vtk_converter import VTKConverter
 except ImportError:  # pragma: no cover
     warnings.warn(
-        "The 'ansys-tools-usdviewer' package is required to use the USD backend. "
-        "Install it with: pip install ansys-tools-usdviewer"
+        "The 'ansys-tools-usdviewer' package is required for the live USD "
+        "viewer window. Install it with: "
+        "pip install 'ansys-tools-visualization-interface[usd-live-viewer]'"
     )
 
 from ansys.tools.visualization_interface.backends._base import BaseBackend
@@ -88,7 +90,7 @@ class USDInterface(BaseBackend):
             * :class:`~ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot`
               — the underlying PyVista mesh is converted and added.
             * Any PyVista or VTK dataset — converted via
-              :class:`~ansys.tools.usdviewer.vtk_converter.VTKConverter`.
+              :class:`~ansys.tools.visualization_interface.backends.usd.vtk_converter.VTKConverter`.
         **plotting_options : dict
             Reserved for future backend-specific options.
         """

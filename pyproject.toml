@@ -45,7 +45,13 @@ dash = [
 ]
 
 usd = [
-    "ansys-tools-usdviewer >= 0.1.0,< 1"
+    "usd-core >= 24.0,< 26",
+    "pygltflib >= 1.16,< 2"
+]
+
+usd-live-viewer = [
+    "ansys-tools-usdviewer >= 0.1.0,< 1",
+    "usd-core >= 24.0,< 27"
 ]
 
 all = [
@@ -54,7 +60,10 @@ all = [
     "plotly >= 6.3.1,<7",
     "kaleido >= 1.1.0,<2",
     "dash >= 3.2.0,< 5",
-    "imageio[ffmpeg] >= 2.37.2"
+    "imageio[ffmpeg] >= 2.37.2",
+    "ansys-tools-usdviewer >= 0.1.0,< 1",
+    "usd-core >= 26.5,< 27",
+    "pygltflib >= 1.16.5,< 2",
 ]
 
 tests = [
@@ -62,7 +71,9 @@ tests = [
     "pyvista==0.48.4",
     "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
-    "pyside6==6.11.1"
+    "pyside6==6.11.1",
+    "usd-core==26.5",
+    "pygltflib==1.16.5"
 ]
 
 doc = [
@@ -77,6 +88,8 @@ doc = [
     "sphinx-jinja==2.0.2",
     "ansys-fluent-core==0.40.1",
     "nest-asyncio2==1.7.2", # Required for interactive examples, else it fails silently
+    "usd-core==26.5",
+    "pygltflib==1.16.5"
 ]
 
 [project.urls]

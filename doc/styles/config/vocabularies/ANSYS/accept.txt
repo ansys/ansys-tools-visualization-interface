@@ -4,6 +4,7 @@ unhovered
 (?i)Plotly
 Synopsys
 synopsys
+wireframe
 
 t.M
 a.P

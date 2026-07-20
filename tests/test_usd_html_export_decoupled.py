@@ -1,7 +1,6 @@
 # Copyright (C) 2024 - 2026 Synopsys, Inc. and ANSYS, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
-#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -20,8 +19,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""USD backend initialization."""
+"""Regression test: html_export.py must not import ansys.tools.usdviewer."""
+from pathlib import Path
 
-from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: F401
-    export_usd_to_html,
-)
+
+def test_html_export_module_has_no_usdviewer_reference():
+    """Verify html_export.py has no ansys.tools.usdviewer dependency."""
+    module_path = (
+        Path(__file__).resolve().parents[1]
+        / "src"
+        / "ansys"
+        / "tools"
+        / "visualization_interface"
+        / "backends"
+        / "usd"
+        / "html_export.py"
+    )
+    text = module_path.read_text(encoding="utf-8")
+    assert (
+        "ansys.tools.usdviewer" not in text
+    ), "html_export.py must not depend on ansys.tools.usdviewer after migration."
