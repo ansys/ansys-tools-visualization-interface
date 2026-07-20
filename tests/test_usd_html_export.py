@@ -47,6 +47,9 @@ from ansys.tools.visualization_interface.backends.usd.html_export import (  # no
     _stage_to_temp_usd,
     export_usd_to_html,
 )
+from ansys.tools.visualization_interface.backends.usd.web.templates import (  # noqa: E402
+    build_viewer_html_glb,
+)
 
 
 def _minimal_viewer_html(tmp_path: Path) -> Path:
@@ -60,6 +63,52 @@ def _minimal_viewer_html(tmp_path: Path) -> Path:
     path = tmp_path / "model_viewer.html"
     path.write_text(content, encoding="utf-8")
     return path
+
+
+_VALID_TEMPLATE = (
+    "<html><body>"
+    '<script>const glb = __GLB_B64_JSON__; const name = __MODEL_NAME_JSON__;</script>'
+    "</body></html>"
+)
+
+
+class TestBuildViewerHtmlGlb:
+    """Tests for build_viewer_html_glb template rendering."""
+
+    def test_default_template_renders(self):
+        """Default built-in template renders without error."""
+        html = build_viewer_html_glb("abc123", "model.usd")
+        assert "abc123" in html
+        assert "model.usd" in html
+
+    def test_custom_template_is_substituted(self, tmp_path):
+        """A valid custom template has both placeholders replaced."""
+        tpl = tmp_path / "custom.html"
+        tpl.write_text(_VALID_TEMPLATE, encoding="utf-8")
+        html = build_viewer_html_glb("abc123", "model.usd", template_path=tpl)
+        assert "__GLB_B64_JSON__" not in html
+        assert "__MODEL_NAME_JSON__" not in html
+        assert "abc123" in html
+        assert "model.usd" in html
+
+    def test_missing_template_file_raises(self, tmp_path):
+        """FileNotFoundError is raised when template_path does not exist."""
+        with pytest.raises(FileNotFoundError, match="Template file not found"):
+            build_viewer_html_glb("abc", "m.usd", template_path=tmp_path / "ghost.html")
+
+    def test_template_missing_glb_placeholder_raises(self, tmp_path):
+        """ValueError is raised when template lacks __GLB_B64_JSON__."""
+        tpl = tmp_path / "bad.html"
+        tpl.write_text("<html>__MODEL_NAME_JSON__</html>", encoding="utf-8")
+        with pytest.raises(ValueError, match="__GLB_B64_JSON__"):
+            build_viewer_html_glb("abc", "m.usd", template_path=tpl)
+
+    def test_template_missing_model_placeholder_raises(self, tmp_path):
+        """ValueError is raised when template lacks __MODEL_NAME_JSON__."""
+        tpl = tmp_path / "bad.html"
+        tpl.write_text("<html>__GLB_B64_JSON__</html>", encoding="utf-8")
+        with pytest.raises(ValueError, match="__MODEL_NAME_JSON__"):
+            build_viewer_html_glb("abc", "m.usd", template_path=tpl)
 
 
 class TestIsUsdStage:
@@ -229,6 +278,24 @@ class TestExportUsdToHtml:
         ):
             result = export_usd_to_html(usd_file, line_color="#00ffcc")
         assert result == self._html
+
+    def test_custom_template_path_is_forwarded(self, tmp_path):
+        """template_path is forwarded to _export_viewer_html."""
+        usd_file = tmp_path / "model.usda"
+        usd_file.write_text("#usda 1.0\n", encoding="utf-8")
+        tpl = tmp_path / "custom.html"
+        tpl.write_text(_VALID_TEMPLATE, encoding="utf-8")
+        mock_stage = MagicMock()
+        mock_stage.Traverse.return_value = []
+
+        with patch(
+            "ansys.tools.visualization_interface.backends.usd.html_export._open_stage",
+            return_value=mock_stage,
+        ):
+            export_usd_to_html(usd_file, template_path=tpl)
+
+        _, kwargs = self._mock_export.call_args
+        assert kwargs.get("template_path") == tpl
 
     def test_import_error_when_usd_core_missing(self, tmp_path):
         """ImportError is raised when usd-core (pxr) is missing on the mesh-line path."""

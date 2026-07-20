@@ -30,9 +30,42 @@ from pathlib import Path
 _GLB_TEMPLATE_FILE = "glb_template.html"
 
 
-def build_viewer_html_glb(glb_b64: str, model_name: str) -> str:
-    """Build a self-contained HTML viewer that renders a base64-encoded GLB."""
-    template = _load_template(_GLB_TEMPLATE_FILE)
+def build_viewer_html_glb(
+    glb_b64: str, model_name: str, template_path: Path | None = None
+) -> str:
+    """Build a self-contained HTML viewer that renders a base64-encoded GLB.
+
+    Parameters
+    ----------
+    glb_b64 : str
+        Base64-encoded GLB binary.
+    model_name : str
+        Display name shown in the viewer status overlay.
+    template_path : Path | None, default: None
+        Path to a custom HTML template. Must contain ``__GLB_B64_JSON__`` and
+        ``__MODEL_NAME_JSON__`` placeholders. When ``None``, the built-in
+        ``glb_template.html`` is used.
+
+    Raises
+    ------
+    FileNotFoundError
+        If *template_path* is given but the file does not exist.
+    ValueError
+        If the template is missing required placeholders.
+    """
+    if template_path is not None:
+        path = Path(template_path)
+        if not path.exists():
+            raise FileNotFoundError(f"Template file not found: {path}")
+        template = path.read_text(encoding="utf-8")
+    else:
+        template = _load_template(_GLB_TEMPLATE_FILE)
+
+    if "__GLB_B64_JSON__" not in template or "__MODEL_NAME_JSON__" not in template:
+        raise ValueError(
+            "Template must contain __GLB_B64_JSON__ and __MODEL_NAME_JSON__ placeholders."
+        )
+
     return template.replace("__MODEL_NAME_JSON__", json.dumps(model_name)).replace(
         "__GLB_B64_JSON__", json.dumps(glb_b64)
     )

@@ -139,7 +139,9 @@ def _prepare_source_for_web(source_path: Path, export_root: Path) -> Path:
     return prepared_source
 
 
-def _export_viewer_html(source_path: Path, output_path: Path | None) -> Path:
+def _export_viewer_html(
+    source_path: Path, output_path: Path | None, template_path: Path | None = None
+) -> Path:
     """Generate a self-contained HTML viewer file for *source_path*."""
     source_path = Path(source_path).expanduser().resolve()
     if not source_path.exists():
@@ -169,7 +171,7 @@ def _export_viewer_html(source_path: Path, output_path: Path | None) -> Path:
     prepared_path = _prepare_source_for_web(source_path, html_path.parent)
     glb_bytes = convert_usd_to_glb(prepared_path)
     glb_b64 = base64.b64encode(glb_bytes).decode("ascii")
-    html = build_viewer_html_glb(glb_b64, source_path.name)
+    html = build_viewer_html_glb(glb_b64, source_path.name, template_path=template_path)
     html_path.write_text(html, encoding="utf-8")
     return html_path
 
@@ -264,6 +266,7 @@ def export_usd_to_html(
     show_mesh_lines: bool = True,
     line_color: str = "#ffffff",
     line_opacity: float = 0.9,
+    template_path: "str | Path | None" = None,
 ) -> Path:
     """Convert a USD asset to a self-contained Three.js HTML viewer.
 
@@ -281,6 +284,13 @@ def export_usd_to_html(
         CSS hex color for the mesh-edge overlay.
     line_opacity : float, default: 0.9
         Opacity of the mesh-edge overlay (0.0 - 1.0).
+    template_path : str | Path | None, default: None
+        Path to a custom HTML template. The template must contain
+        ``__GLB_B64_JSON__`` and ``__MODEL_NAME_JSON__`` as literal placeholders
+        that will be replaced with JSON-encoded values at render time. When
+        ``None``, the built-in ``glb_template.html`` is used. Templates that do
+        not include the mesh-line injection anchors will have
+        ``show_mesh_lines`` silently skipped.
 
     Returns
     -------
@@ -292,10 +302,12 @@ def export_usd_to_html(
     ImportError
         If ``usd-core`` is not installed.
     FileNotFoundError
-        If a file path is given but does not exist on disk.
+        If a file path is given but does not exist on disk, or if
+        ``template_path`` points to a missing file.
     ValueError
-        If ``line_opacity`` is outside [0.0, 1.0] or ``line_color`` is not a
-        valid CSS hex color.
+        If ``line_opacity`` is outside [0.0, 1.0], ``line_color`` is not a
+        valid CSS hex color, or the custom template is missing required
+        placeholders.
     """
     if not (0.0 <= line_opacity <= 1.0):
         raise ValueError(
@@ -320,7 +332,7 @@ def export_usd_to_html(
             if not usd_path.exists():
                 raise FileNotFoundError(f"USD file not found: {usd_path}")
 
-        html_path = _export_viewer_html(usd_path, output_path)
+        html_path = _export_viewer_html(usd_path, output_path, template_path=template_path)
 
         if show_mesh_lines:
             if stage is None:
