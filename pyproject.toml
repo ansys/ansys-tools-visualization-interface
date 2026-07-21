@@ -45,7 +45,7 @@ dash = [
 ]
 
 usd = [
-    "usd-core >= 24.0,< 26",
+    "usd-core >= 24.0,< 27",
     "pygltflib >= 1.16,< 2"
 ]
 
