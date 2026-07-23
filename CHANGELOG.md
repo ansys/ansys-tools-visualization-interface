@@ -1,14 +1,86 @@
-## [Unreleased]
+This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
+
+<!-- towncrier release notes start -->
+
+## [0.14.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.14.0) - July 22, 2026
 
 ### Added
 
-- USD-to-HTML export is now self-contained — the GLB conversion pipeline, viewer template, and VTK-to-USD converter have been vendored into `ansys.tools.visualization_interface.backends.usd`. HTML export no longer requires `ansys-tools-usdviewer`.
+- Feat: Move and improve USD to HTML logic to visualization interface [#575](https://github.com/ansys/ansys-tools-visualization-interface/pull/575)
 
-### Changed
 
-- Split the `[usd]` optional extra: `[usd]` now installs only `usd-core` and `pygltflib` (the minimum needed for HTML export). The live Qt USD viewer moved to a new `[usd-live-viewer]` extra that pulls in `ansys-tools-usdviewer`.
-## [0.13.3](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.13.3) - May 22, 2026
+### Fixed
 
+- Fix: interactive docs [#523](https://github.com/ansys/ansys-tools-visualization-interface/pull/523)
+- Fix: auto-detect Jupyter kernel to avoid blank trame renders [#548](https://github.com/ansys/ansys-tools-visualization-interface/pull/548)
+- Fix: Temporarily exclude fluent example from building in the examples [#550](https://github.com/ansys/ansys-tools-visualization-interface/pull/550)
+- Fix: Codespell [#553](https://github.com/ansys/ansys-tools-visualization-interface/pull/553)
+- Fix: Use PyVista optional dependency [#558](https://github.com/ansys/ansys-tools-visualization-interface/pull/558)
+- Fix: Qt CI issues [#572](https://github.com/ansys/ansys-tools-visualization-interface/pull/572)
+- Fix: Bump USD version [#577](https://github.com/ansys/ansys-tools-visualization-interface/pull/577)
+
+
+### Documentation
+
+- Chore: update CHANGELOG for v0.13.0 [#516](https://github.com/ansys/ansys-tools-visualization-interface/pull/516)
+- Chore: update CHANGELOG for v0.13.1 [#519](https://github.com/ansys/ansys-tools-visualization-interface/pull/519)
+- Chore: update CHANGELOG for v0.13.2 [#531](https://github.com/ansys/ansys-tools-visualization-interface/pull/531)
+- Chore: update CHANGELOG for v0.13.3 [#533](https://github.com/ansys/ansys-tools-visualization-interface/pull/533)
+
+
+### Dependencies
+
+- Build(deps): bump ansys/actions from 10.2.12 to 10.3.0 [#520](https://github.com/ansys/ansys-tools-visualization-interface/pull/520)
+- Build(deps): update trame-vtk requirement from !=2.8.16,<2.11.8,>=2.8.7 to >=2.8.7,!=2.8.16,<2.11.9 in the general-dependencies group [#521](https://github.com/ansys/ansys-tools-visualization-interface/pull/521)
+- Build(deps-dev): bump sphinx-gallery from 0.20.0 to 0.21.0 in the doc-dependencies group across 1 directory [#522](https://github.com/ansys/ansys-tools-visualization-interface/pull/522)
+- Build(deps): bump actions/labeler from 6.0.1 to 6.1.0 [#524](https://github.com/ansys/ansys-tools-visualization-interface/pull/524)
+- Build(deps): bump pyvista from 0.47.3 to 0.48.0 in the pyvista group [#525](https://github.com/ansys/ansys-tools-visualization-interface/pull/525)
+- Build(deps-dev): bump jupytext from 1.19.1 to 1.19.2 in the general-dependencies group [#527](https://github.com/ansys/ansys-tools-visualization-interface/pull/527)
+- Build(deps): bump ansys/actions from 10.3.0 to 10.3.1 [#528](https://github.com/ansys/ansys-tools-visualization-interface/pull/528)
+- Build(deps): bump pyvista from 0.48.0 to 0.48.2 in the pyvista group across 1 directory [#529](https://github.com/ansys/ansys-tools-visualization-interface/pull/529)
+- Build(deps): bump codecov/codecov-action from 6.0.0 to 6.0.1 [#535](https://github.com/ansys/ansys-tools-visualization-interface/pull/535)
+- Build(deps-dev): bump the general-dependencies group across 1 directory with 2 updates [#536](https://github.com/ansys/ansys-tools-visualization-interface/pull/536), [#563](https://github.com/ansys/ansys-tools-visualization-interface/pull/563)
+- Build(deps-dev): bump ansys-sphinx-theme from 1.7.2 to 1.8.0 in the doc-dependencies group [#537](https://github.com/ansys/ansys-tools-visualization-interface/pull/537)
+- Build(deps): bump pyvista from 0.48.2 to 0.48.4 in the pyvista group across 1 directory [#538](https://github.com/ansys/ansys-tools-visualization-interface/pull/538)
+- Build(deps): bump ansys/actions from 10.3.1 to 10.3.2 [#540](https://github.com/ansys/ansys-tools-visualization-interface/pull/540)
+- Build(deps-dev): bump ansys-fluent-core from 0.38.1 to 0.39.0 in the general-dependencies group [#541](https://github.com/ansys/ansys-tools-visualization-interface/pull/541)
+- Build(deps-dev): bump ansys-sphinx-theme from 1.8.0 to 1.8.2 in the doc-dependencies group [#542](https://github.com/ansys/ansys-tools-visualization-interface/pull/542)
+- Build(deps): bump actions/checkout from 6.0.2 to 6.0.3 [#544](https://github.com/ansys/ansys-tools-visualization-interface/pull/544)
+- Build(deps): bump codecov/codecov-action from 6.0.1 to 7.0.0 [#546](https://github.com/ansys/ansys-tools-visualization-interface/pull/546)
+- Build(deps): update trame-vtk requirement from !=2.8.16,<2.11.9,>=2.8.7 to >=2.8.7,!=2.8.16,<2.11.10 in the general-dependencies group [#547](https://github.com/ansys/ansys-tools-visualization-interface/pull/547)
+- Build(deps-dev): bump pytest from 9.0.3 to 9.1.0 in the test-dependencies group [#551](https://github.com/ansys/ansys-tools-visualization-interface/pull/551)
+- Build(deps): bump actions/checkout from 6.0.3 to 7.0.0 [#552](https://github.com/ansys/ansys-tools-visualization-interface/pull/552)
+- Build(deps): bump actions/cache from 5.0.5 to 6.1.0 [#554](https://github.com/ansys/ansys-tools-visualization-interface/pull/554)
+- Build(deps-dev): bump pytest from 9.1.0 to 9.1.1 in the test-dependencies group [#556](https://github.com/ansys/ansys-tools-visualization-interface/pull/556)
+- Build(deps-dev): bump ansys-sphinx-theme from 1.8.2 to 1.9.0 in the doc-dependencies group [#557](https://github.com/ansys/ansys-tools-visualization-interface/pull/557)
+- Build(deps): bump ansys/actions/doc-deploy-dev from 10.3.2 to 10.3.3 [#560](https://github.com/ansys/ansys-tools-visualization-interface/pull/560)
+- Build(deps): bump ansys/actions/check-actions-security from 10.3.2 to 10.3.3 [#561](https://github.com/ansys/ansys-tools-visualization-interface/pull/561)
+- Build(deps): bump ansys/actions/check-vulnerabilities from 10.3.2 to 10.3.3 [#562](https://github.com/ansys/ansys-tools-visualization-interface/pull/562)
+- Build(deps): bump ansys/actions/doc-deploy-stable from 10.3.2 to 10.3.3 [#564](https://github.com/ansys/ansys-tools-visualization-interface/pull/564)
+- Build(deps): bump ansys/actions/doc-style from 10.3.2 to 10.3.3 [#565](https://github.com/ansys/ansys-tools-visualization-interface/pull/565)
+- Build(deps): bump ansys/actions/tests-pytest from 10.3.2 to 10.3.3 [#566](https://github.com/ansys/ansys-tools-visualization-interface/pull/566)
+- Build(deps): bump ansys/actions/doc-build from 10.3.2 to 10.3.3 [#567](https://github.com/ansys/ansys-tools-visualization-interface/pull/567)
+- Build(deps): bump ansys/actions/doc-deploy-changelog from 10.3.2 to 10.3.3 [#568](https://github.com/ansys/ansys-tools-visualization-interface/pull/568)
+- Build(deps): bump ansys/actions/doc-changelog from 10.3.2 to 10.3.3 [#569](https://github.com/ansys/ansys-tools-visualization-interface/pull/569)
+- Build(deps): bump ansys/actions/build-wheelhouse from 10.3.2 to 10.3.3 [#570](https://github.com/ansys/ansys-tools-visualization-interface/pull/570)
+- Build(deps): bump the actions group with 3 updates [#574](https://github.com/ansys/ansys-tools-visualization-interface/pull/574)
+- Build(deps-dev): bump ansys-fluent-core from 0.40.1 to 0.40.2 in the general-dependencies group [#578](https://github.com/ansys/ansys-tools-visualization-interface/pull/578)
+- Build(deps): bump the actions group with 12 updates [#579](https://github.com/ansys/ansys-tools-visualization-interface/pull/579)
+
+
+### Maintenance
+
+- [pre-commit.ci] pre-commit autoupdate [#518](https://github.com/ansys/ansys-tools-visualization-interface/pull/518), [#526](https://github.com/ansys/ansys-tools-visualization-interface/pull/526), [#534](https://github.com/ansys/ansys-tools-visualization-interface/pull/534), [#539](https://github.com/ansys/ansys-tools-visualization-interface/pull/539), [#543](https://github.com/ansys/ansys-tools-visualization-interface/pull/543), [#559](https://github.com/ansys/ansys-tools-visualization-interface/pull/559), [#573](https://github.com/ansys/ansys-tools-visualization-interface/pull/573), [#576](https://github.com/ansys/ansys-tools-visualization-interface/pull/576)
+- Chore: Update missing or outdated files [#549](https://github.com/ansys/ansys-tools-visualization-interface/pull/549)
+- Maint: Group dependabot actions updates [#571](https://github.com/ansys/ansys-tools-visualization-interface/pull/571)
+
+
+### Test
+
+- [pre-commit.ci] pre-commit autoupdate [#545](https://github.com/ansys/ansys-tools-visualization-interface/pull/545)
+
+
+## [0.13.2]
 
 ### Added
 
@@ -541,85 +613,3 @@
 - [pre-commit.ci] pre-commit autoupdate [#126](https://github.com/ansys/ansys-tools-visualization-interface/pull/126), [#129](https://github.com/ansys/ansys-tools-visualization-interface/pull/129), [#133](https://github.com/ansys/ansys-tools-visualization-interface/pull/133), [#138](https://github.com/ansys/ansys-tools-visualization-interface/pull/138), [#145](https://github.com/ansys/ansys-tools-visualization-interface/pull/145), [#148](https://github.com/ansys/ansys-tools-visualization-interface/pull/148), [#150](https://github.com/ansys/ansys-tools-visualization-interface/pull/150), [#152](https://github.com/ansys/ansys-tools-visualization-interface/pull/152), [#163](https://github.com/ansys/ansys-tools-visualization-interface/pull/163), [#168](https://github.com/ansys/ansys-tools-visualization-interface/pull/168), [#174](https://github.com/ansys/ansys-tools-visualization-interface/pull/174), [#177](https://github.com/ansys/ansys-tools-visualization-interface/pull/177)
 - fix: Remove deprecated name checking action [#159](https://github.com/ansys/ansys-tools-visualization-interface/pull/159)
 - maint: add hacktoberfest labels [#161](https://github.com/ansys/ansys-tools-visualization-interface/pull/161)
-
-This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes for the upcoming release can be found in [this link](https://github.com/ansys/ansys-tools-visualization-interface/tree/main/doc/changelog.d/).
-
-<!-- towncrier release notes start -->
-
-## [0.14.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.14.0) - July 22, 2026
-
-
-### Added
-
-- Feat: Move and improve USD to HTML logic to visualization interface [#575](https://github.com/ansys/ansys-tools-visualization-interface/pull/575)
-
-
-### Fixed
-
-- Fix: interactive docs [#523](https://github.com/ansys/ansys-tools-visualization-interface/pull/523)
-- Fix: auto-detect Jupyter kernel to avoid blank trame renders [#548](https://github.com/ansys/ansys-tools-visualization-interface/pull/548)
-- Fix: Temporarily exclude fluent example from building in the examples [#550](https://github.com/ansys/ansys-tools-visualization-interface/pull/550)
-- Fix: Codespell [#553](https://github.com/ansys/ansys-tools-visualization-interface/pull/553)
-- Fix: Use PyVista optional dependency [#558](https://github.com/ansys/ansys-tools-visualization-interface/pull/558)
-- Fix: Qt CI issues [#572](https://github.com/ansys/ansys-tools-visualization-interface/pull/572)
-- Fix: Bump USD version [#577](https://github.com/ansys/ansys-tools-visualization-interface/pull/577)
-
-
-### Documentation
-
-- Chore: update CHANGELOG for v0.13.0 [#516](https://github.com/ansys/ansys-tools-visualization-interface/pull/516)
-- Chore: update CHANGELOG for v0.13.1 [#519](https://github.com/ansys/ansys-tools-visualization-interface/pull/519)
-- Chore: update CHANGELOG for v0.13.2 [#531](https://github.com/ansys/ansys-tools-visualization-interface/pull/531)
-- Chore: update CHANGELOG for v0.13.3 [#533](https://github.com/ansys/ansys-tools-visualization-interface/pull/533)
-
-
-### Dependencies
-
-- Build(deps): bump ansys/actions from 10.2.12 to 10.3.0 [#520](https://github.com/ansys/ansys-tools-visualization-interface/pull/520)
-- Build(deps): update trame-vtk requirement from !=2.8.16,<2.11.8,>=2.8.7 to >=2.8.7,!=2.8.16,<2.11.9 in the general-dependencies group [#521](https://github.com/ansys/ansys-tools-visualization-interface/pull/521)
-- Build(deps-dev): bump sphinx-gallery from 0.20.0 to 0.21.0 in the doc-dependencies group across 1 directory [#522](https://github.com/ansys/ansys-tools-visualization-interface/pull/522)
-- Build(deps): bump actions/labeler from 6.0.1 to 6.1.0 [#524](https://github.com/ansys/ansys-tools-visualization-interface/pull/524)
-- Build(deps): bump pyvista from 0.47.3 to 0.48.0 in the pyvista group [#525](https://github.com/ansys/ansys-tools-visualization-interface/pull/525)
-- Build(deps-dev): bump jupytext from 1.19.1 to 1.19.2 in the general-dependencies group [#527](https://github.com/ansys/ansys-tools-visualization-interface/pull/527)
-- Build(deps): bump ansys/actions from 10.3.0 to 10.3.1 [#528](https://github.com/ansys/ansys-tools-visualization-interface/pull/528)
-- Build(deps): bump pyvista from 0.48.0 to 0.48.2 in the pyvista group across 1 directory [#529](https://github.com/ansys/ansys-tools-visualization-interface/pull/529)
-- Build(deps): bump codecov/codecov-action from 6.0.0 to 6.0.1 [#535](https://github.com/ansys/ansys-tools-visualization-interface/pull/535)
-- Build(deps-dev): bump the general-dependencies group across 1 directory with 2 updates [#536](https://github.com/ansys/ansys-tools-visualization-interface/pull/536), [#563](https://github.com/ansys/ansys-tools-visualization-interface/pull/563)
-- Build(deps-dev): bump ansys-sphinx-theme from 1.7.2 to 1.8.0 in the doc-dependencies group [#537](https://github.com/ansys/ansys-tools-visualization-interface/pull/537)
-- Build(deps): bump pyvista from 0.48.2 to 0.48.4 in the pyvista group across 1 directory [#538](https://github.com/ansys/ansys-tools-visualization-interface/pull/538)
-- Build(deps): bump ansys/actions from 10.3.1 to 10.3.2 [#540](https://github.com/ansys/ansys-tools-visualization-interface/pull/540)
-- Build(deps-dev): bump ansys-fluent-core from 0.38.1 to 0.39.0 in the general-dependencies group [#541](https://github.com/ansys/ansys-tools-visualization-interface/pull/541)
-- Build(deps-dev): bump ansys-sphinx-theme from 1.8.0 to 1.8.2 in the doc-dependencies group [#542](https://github.com/ansys/ansys-tools-visualization-interface/pull/542)
-- Build(deps): bump actions/checkout from 6.0.2 to 6.0.3 [#544](https://github.com/ansys/ansys-tools-visualization-interface/pull/544)
-- Build(deps): bump codecov/codecov-action from 6.0.1 to 7.0.0 [#546](https://github.com/ansys/ansys-tools-visualization-interface/pull/546)
-- Build(deps): update trame-vtk requirement from !=2.8.16,<2.11.9,>=2.8.7 to >=2.8.7,!=2.8.16,<2.11.10 in the general-dependencies group [#547](https://github.com/ansys/ansys-tools-visualization-interface/pull/547)
-- Build(deps-dev): bump pytest from 9.0.3 to 9.1.0 in the test-dependencies group [#551](https://github.com/ansys/ansys-tools-visualization-interface/pull/551)
-- Build(deps): bump actions/checkout from 6.0.3 to 7.0.0 [#552](https://github.com/ansys/ansys-tools-visualization-interface/pull/552)
-- Build(deps): bump actions/cache from 5.0.5 to 6.1.0 [#554](https://github.com/ansys/ansys-tools-visualization-interface/pull/554)
-- Build(deps-dev): bump pytest from 9.1.0 to 9.1.1 in the test-dependencies group [#556](https://github.com/ansys/ansys-tools-visualization-interface/pull/556)
-- Build(deps-dev): bump ansys-sphinx-theme from 1.8.2 to 1.9.0 in the doc-dependencies group [#557](https://github.com/ansys/ansys-tools-visualization-interface/pull/557)
-- Build(deps): bump ansys/actions/doc-deploy-dev from 10.3.2 to 10.3.3 [#560](https://github.com/ansys/ansys-tools-visualization-interface/pull/560)
-- Build(deps): bump ansys/actions/check-actions-security from 10.3.2 to 10.3.3 [#561](https://github.com/ansys/ansys-tools-visualization-interface/pull/561)
-- Build(deps): bump ansys/actions/check-vulnerabilities from 10.3.2 to 10.3.3 [#562](https://github.com/ansys/ansys-tools-visualization-interface/pull/562)
-- Build(deps): bump ansys/actions/doc-deploy-stable from 10.3.2 to 10.3.3 [#564](https://github.com/ansys/ansys-tools-visualization-interface/pull/564)
-- Build(deps): bump ansys/actions/doc-style from 10.3.2 to 10.3.3 [#565](https://github.com/ansys/ansys-tools-visualization-interface/pull/565)
-- Build(deps): bump ansys/actions/tests-pytest from 10.3.2 to 10.3.3 [#566](https://github.com/ansys/ansys-tools-visualization-interface/pull/566)
-- Build(deps): bump ansys/actions/doc-build from 10.3.2 to 10.3.3 [#567](https://github.com/ansys/ansys-tools-visualization-interface/pull/567)
-- Build(deps): bump ansys/actions/doc-deploy-changelog from 10.3.2 to 10.3.3 [#568](https://github.com/ansys/ansys-tools-visualization-interface/pull/568)
-- Build(deps): bump ansys/actions/doc-changelog from 10.3.2 to 10.3.3 [#569](https://github.com/ansys/ansys-tools-visualization-interface/pull/569)
-- Build(deps): bump ansys/actions/build-wheelhouse from 10.3.2 to 10.3.3 [#570](https://github.com/ansys/ansys-tools-visualization-interface/pull/570)
-- Build(deps): bump the actions group with 3 updates [#574](https://github.com/ansys/ansys-tools-visualization-interface/pull/574)
-- Build(deps-dev): bump ansys-fluent-core from 0.40.1 to 0.40.2 in the general-dependencies group [#578](https://github.com/ansys/ansys-tools-visualization-interface/pull/578)
-- Build(deps): bump the actions group with 12 updates [#579](https://github.com/ansys/ansys-tools-visualization-interface/pull/579)
-
-
-### Maintenance
-
-- [pre-commit.ci] pre-commit autoupdate [#518](https://github.com/ansys/ansys-tools-visualization-interface/pull/518), [#526](https://github.com/ansys/ansys-tools-visualization-interface/pull/526), [#534](https://github.com/ansys/ansys-tools-visualization-interface/pull/534), [#539](https://github.com/ansys/ansys-tools-visualization-interface/pull/539), [#543](https://github.com/ansys/ansys-tools-visualization-interface/pull/543), [#559](https://github.com/ansys/ansys-tools-visualization-interface/pull/559), [#573](https://github.com/ansys/ansys-tools-visualization-interface/pull/573), [#576](https://github.com/ansys/ansys-tools-visualization-interface/pull/576)
-- Chore: Update missing or outdated files [#549](https://github.com/ansys/ansys-tools-visualization-interface/pull/549)
-- Maint: Group dependabot actions updates [#571](https://github.com/ansys/ansys-tools-visualization-interface/pull/571)
-
-
-### Test
-
-- [pre-commit.ci] pre-commit autoupdate [#545](https://github.com/ansys/ansys-tools-visualization-interface/pull/545)
