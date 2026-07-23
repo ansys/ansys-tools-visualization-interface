@@ -1,0 +1,227 @@
+
+
+
+
+
+
+:class:`AbstractPicker`
+=======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.picker.AbstractPicker(plotter_backend: ansys.tools.visualization_interface.backends.pyvista.pyvista.Plotter, **kwargs)
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   
+   Abstract base class for pickers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+
+.. py:currentmodule:: AbstractPicker
+
+Overview
+--------
+
+.. tab-set::
+
+   .. tab-item:: Abstract methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~pick_select_object`
+            - Determine actions to take when an object is selected.
+          * - :py:attr:`~pick_unselect_object`
+            - Determine actions to take when an object is unselected.
+          * - :py:attr:`~hover_select_object`
+            - Determine actions to take when an object is hovered over.
+          * - :py:attr:`~hover_unselect_object`
+            - Determine actions to take when an object is unhovered.
+
+
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~picked_dict`
+            - Return the dictionary of picked objects.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.picker import AbstractPicker
+
+Property detail
+---------------
+
+.. py:property:: picked_dict
+   :type: dict
+
+   :abstractmethod:
+
+
+   
+   Return the dictionary of picked objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: pick_select_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot], pt: numpy.ndarray) -> None
+   :abstractmethod:
+
+
+   
+   Determine actions to take when an object is selected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: pick_unselect_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot]) -> None
+   :abstractmethod:
+
+
+   
+   Determine actions to take when an object is unselected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: hover_select_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot], pt: numpy.ndarray) -> None
+   :abstractmethod:
+
+
+   
+   Determine actions to take when an object is hovered over.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: hover_unselect_object(custom_object: Union[ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, ansys.tools.visualization_interface.types.edge_plot.EdgePlot]) -> None
+   :abstractmethod:
+
+
+   
+   Determine actions to take when an object is unhovered.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
