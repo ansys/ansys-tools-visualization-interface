@@ -72,7 +72,7 @@ tests = [
     "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
     "pyside6==6.11.1",
-    "usd-core==26.5",
+    "usd-core==26.8",
     "pygltflib==1.16.5"
 ]
 
@@ -80,7 +80,7 @@ doc = [
     "pyvista==0.48.4",
     "ansys-sphinx-theme[autoapi]==1.9.0",
     "jupyter_sphinx==0.5.3",
-    "jupytext==1.19.4",
+    "jupytext==1.19.5",
     "nbsphinx==0.9.6",
     "numpydoc==1.10.0",
     "sphinx-copybutton==0.5.2",
@@ -88,7 +88,7 @@ doc = [
     "sphinx-jinja==2.0.2",
     "ansys-fluent-core==0.40.2",
     "nest-asyncio2==1.7.2", # Required for interactive examples, else it fails silently
-    "usd-core==26.5",
+    "usd-core==26.8",
     "pygltflib==1.16.5"
 ]
 
