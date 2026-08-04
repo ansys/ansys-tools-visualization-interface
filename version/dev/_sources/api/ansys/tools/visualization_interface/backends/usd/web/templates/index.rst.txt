@@ -1,0 +1,159 @@
+
+
+
+
+
+
+The ``templates.py`` module
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.templates
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: templates
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~validate_template`
+            - Raise ``ValueError`` if any string in *required* is absent from *template*.
+
+
+          * - :py:obj:`~build_viewer_html_glb`
+            - Build a self-contained HTML viewer that renders a base64-encoded GLB.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+HTML template rendering helpers for web viewer export.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: validate_template(template: str, required: list[str]) -> None
+
+   
+   Raise ``ValueError`` if any string in *required* is absent from *template*.
+
+
+   :Parameters:
+
+       **template** : :class:`python:str`
+           Template source text to validate.
+
+       **required** : :class:`python:list`\[:class:`python:str`]
+           Strings that must all appear verbatim in *template*.
+
+
+
+
+
+
+
+   :Raises:
+
+       :obj:`ValueError`
+           If one or more required strings are absent.
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: build_viewer_html_glb(glb_b64: str, model_name: str, template_path: pathlib.Path | None = None) -> str
+
+   
+   Build a self-contained HTML viewer that renders a base64-encoded GLB.
+
+   The template is validated with :func:`validate_template` before substitution.
+   Both ``__GLB_B64_JSON__`` and ``__MODEL_NAME_JSON__`` must appear verbatim
+   in the template source; they are replaced with ``json.dumps``-encoded values
+   so that special characters are escaped automatically.
+
+   :Parameters:
+
+       **glb_b64** : :class:`python:str`
+           Base64-encoded GLB binary.
+
+       **model_name** : :class:`python:str`
+           Display name shown in the viewer (replaces ``__MODEL_NAME_JSON__``).
+
+       **template_path** : :obj:`Path` | :data:`python:None`, default: :data:`python:None`
+           Path to a custom HTML template. When ``None``, the built-in
+           ``glb_template.html`` is used. See the *Custom HTML templates* section
+           of the user guide for the required placeholder contract.
+
+
+
+
+
+
+
+   :Raises:
+
+       :obj:`FileNotFoundError`
+           If *template_path* is given but the file does not exist.
+
+       :obj:`ValueError`
+           If the template is missing one or both required placeholders.
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

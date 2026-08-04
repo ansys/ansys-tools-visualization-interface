@@ -1,0 +1,122 @@
+
+
+
+
+
+
+The ``glb_builder.py`` module
+=============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.glb_builder
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: glb_builder
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web.glb_builder.GLBBuilder`
+            - Utility for writing GLTF buffers and accessors.
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~create_gltf_scene`
+            - Create an initialized glTF document and default scene.
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> GLBBuilder</api/ansys/tools/visualization_interface/backends/usd/web/glb_builder/GLBBuilder>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Low-level helpers to build GLB buffers and base glTF scene state.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: create_gltf_scene() -> tuple[Any, Any]
+
+   
+   Create an initialized glTF document and default scene.
+
+
+
+
+
+   :Returns:
+
+       :class:`python:tuple`\[:obj:`Any`, :obj:`Any`]
+           A tuple containing the glTF document and the default scene object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

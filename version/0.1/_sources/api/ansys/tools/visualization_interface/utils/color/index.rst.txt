@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``color.py`` module
+=======================
+
+.. py:module:: ansys.tools.visualization_interface.utils.color
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: color
+.. tab-set::
+
+
+
+
+
+    .. tab-item:: Enums
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.utils.color.Color`
+            - Provides an enum with the color to use for the plotter actors.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    ≔ Color</api/ansys/tools/visualization_interface/utils/color/Color>
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides an enum with the color to use for the plotter actors.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

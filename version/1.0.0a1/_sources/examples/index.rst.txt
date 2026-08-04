@@ -1,0 +1,342 @@
+:orphan:
+
+Examples
+========
+
+This section shows how to use the Visualization Interface Tool to perform many different
+types of operations.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+Basic usage examples
+====================
+
+These examples show how to use the general plotter included in the Visualization Interface Tool.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to launch a trame service and use it as a remote service.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_remote_trame_view_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/remote_trame_view`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use trame as a remote service</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="PyVista Qt is a package that extends the PyVista functionality through the usage of Qt. Qt applications operate in a separate thread than VTK, you can simultaneously have an active VTK plot and a non-blocking Python session.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_qt_backend_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/qt_backend`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use a PyVista Qt backend</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use a clipping plane in the Visualization Interface Tool to cut a mesh.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_clipping_plane_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/clipping_plane`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use a clipping plane</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Visualization Interface Tool provides the MeshObject helper class to relate a custom object with its mesh. With a custom object, you can take advantage of the full potential of the Visualization Interface Tool.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_using_meshobject_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/using_meshobject`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use the MeshObjectPlot class</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to add one or more meshes to the plotter.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_plain_usage_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/plain_usage`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use the plotter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to create and display animations for time-series simulation data using the PyVista backend.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_animation_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/animation`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Animation Example</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to add a tree structure of MeshObjectPlot to the plotter.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_tree_struct_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/tree_struct`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">MeshObjectPlot tree structure</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to activate the picker, which is the tool that you use to select an object in the plotter and get its name.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_picker_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/picker`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Activate the picker</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to use the customization API of the visualization interface to add various elements to a PyVista scene, such as points, lines, planes, and text annotations. The example also shows how to plot a simple sphere mesh and customize its appearance.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_customization_api_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/customization_api`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Customization API example</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the use of a tree view menu to manage the visibility of components in an encased motor block assembly. The tree menu allows users to interactively show or hide different parts of the assembly.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_tree_menu_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/tree_menu`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Tree view menu</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to create a custom picker. In this case we will show how the default picker is implemented through the AbstractPicker class.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_custom_picker_thumb.png
+    :alt:
+
+  :doc:`/examples/00-basic-pyvista-examples/custom_picker`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Create custom picker</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+Basic Plotly usage examples
+===========================
+
+These examples show how to use the general plotter with Plotly backend included in the Visualization Interface Tool.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows the plain usage of the Plotly Dash backend in the Visualization Interface Tool to plot different objects, including PyVista meshes, custom objects, and Plotly-specific objects.">
+
+.. only:: html
+
+  .. image:: /examples/01-basic-plotly-examples/images/thumb/sphx_glr_dash-usage_thumb.png
+    :alt:
+
+  :doc:`/examples/01-basic-plotly-examples/dash-usage`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plain usage of the plotly dash backend</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows the plain usage of the Plotly backend in the Visualization Interface Tool to plot different objects, including PyVista meshes, custom objects, and Plotly-specific objects.">
+
+.. only:: html
+
+  .. image:: /examples/01-basic-plotly-examples/images/thumb/sphx_glr_plain-usage_thumb.png
+    :alt:
+
+  :doc:`/examples/01-basic-plotly-examples/plain-usage`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plain usage of the plotly backend</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the backend-agnostic customization APIs with the Plotly backend.">
+
+.. only:: html
+
+  .. image:: /examples/01-basic-plotly-examples/images/thumb/sphx_glr_customization_api_thumb.png
+    :alt:
+
+  :doc:`/examples/01-basic-plotly-examples/customization_api`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Backend-Agnostic Customization APIs (Plotly)</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+Advanced usage examples
+=======================
+
+These examples show how to use the Visualization Interface Tool to postprocess simulation data.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Visualization Interface Tool provides the MeshObject helper class to relate a custom object. With a custom object, you can take advantage of the full potential of the Visualization Interface Tool.">
+
+.. only:: html
+
+  .. image:: /examples/99-advanced-pyansys-examples/images/thumb/sphx_glr_using_meshobject_with_field_data_thumb.png
+    :alt:
+
+  :doc:`/examples/99-advanced-pyansys-examples/using_meshobject_with_field_data`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Postprocessing simulation results using the MeshObjectPlot class</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+   :includehidden:
+
+
+   /examples/00-basic-pyvista-examples/index.rst
+   /examples/01-basic-plotly-examples/index.rst
+   /examples/99-advanced-pyansys-examples/index.rst
+

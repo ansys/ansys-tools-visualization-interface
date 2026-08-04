@@ -1,0 +1,203 @@
+
+
+
+
+
+
+:class:`GLBBuilder`
+===================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.usd.web.glb_builder.GLBBuilder(gltf: Any)
+
+   
+   Utility for writing GLTF buffers and accessors.
+
+   This class manages the binary buffer and associated glTF structures when
+   converting USD assets to GLB format. It provides methods to append data
+   to the shared buffer and create corresponding buffer views and accessors.
+
+   :Parameters:
+
+       **gltf** : :obj:`Any`
+           An initialized glTF document (e.g. pygltflib.GLTF2) to populate.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: GLBBuilder
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~add_buffer_view`
+            - Append binary data to the shared buffer and return its buffer-view index.
+          * - :py:attr:`~add_accessor`
+            - Create an accessor for an existing buffer view and return its index.
+          * - :py:attr:`~finalize`
+            - Finalize the GLTF document and return the serialized GLB bytes.
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~gltf`
+            - 
+          * - :py:attr:`~binary_blob`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.usd.web.glb_builder import GLBBuilder
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: gltf
+
+.. py:attribute:: binary_blob
+
+
+
+Method detail
+-------------
+
+.. py:method:: add_buffer_view(data: bytes, target: int | None) -> int
+
+   
+   Append binary data to the shared buffer and return its buffer-view index.
+
+
+   :Parameters:
+
+       **data** : :obj:`bytes`
+           The binary data to append to the buffer.
+
+       **target** : :class:`python:int` | :data:`python:None`
+           The target type for the buffer view (e.g., pygltflib.ARRAY_BUFFER or pygltflib.ELEMENT_ARRAY_BUFFER).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_accessor(buffer_view_idx: int, component_type: int, count: int, accessor_type: str, min_values: list[float] | None = None, max_values: list[float] | None = None) -> int
+
+   
+   Create an accessor for an existing buffer view and return its index.
+
+
+   :Parameters:
+
+       **buffer_view_idx** : :class:`python:int`
+           The index of the buffer view this accessor references.
+
+       **component_type** : :class:`python:int`
+           The GLTF component type (e.g., pygltflib.FLOAT, pygltflib.UNSIGNED_SHORT).
+
+       **count** : :class:`python:int`
+           The number of elements in the accessor.
+
+       **accessor_type** : :class:`python:str`
+           The GLTF accessor type (e.g., "SCALAR", "VEC3", "MAT4").
+
+       **min_values** : :class:`python:list`\[:class:`python:float`] | :data:`python:None`, :obj:`optional`
+           Minimum values for the accessor (used for bounding boxes), by default None.
+
+       **max_values** : :class:`python:list`\[:class:`python:float`] | :data:`python:None`, :obj:`optional`
+           Maximum values for the accessor (used for bounding boxes), by default None.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: finalize() -> bytes
+
+   
+   Finalize the GLTF document and return the serialized GLB bytes.
+
+
+
+
+
+   :Returns:
+
+       :obj:`bytes`
+           The complete GLB file as a byte string.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
