@@ -71,7 +71,7 @@ tests = [
     "pyvista==0.48.4",
     "pytest-pyvista==0.3.3",
     "pytest-cov==7.1.0",
-    "pyside6==6.11.1",
+    "pyside6==6.11.2",
     "usd-core==26.8",
     "pygltflib==1.16.5"
 ]
