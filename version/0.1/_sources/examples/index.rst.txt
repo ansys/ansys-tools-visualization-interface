@@ -1,0 +1,132 @@
+:orphan:
+
+Examples
+========
+
+This section show how to use Visualization Interface tool to perform many different
+types of operations.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+Basic usage examples
+====================
+
+These examples show how to use the general plotter included in Visualization Interface tool.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to launch a trame service and use it as a remote service.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_remote_trame_view_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_00-basic-pyvista-examples_remote_trame_view.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use trame as a remote service</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use a clipping plane in Visualization Interface tool to cut a mesh.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_clipping_plane_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_00-basic-pyvista-examples_clipping_plane.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use a clipping plane</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to add one or more meshes to the plotter.">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_plain_usage_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_00-basic-pyvista-examples_plain_usage.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use the plotter</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Visualization Interface tool provides the MeshObject helper class to relate a custom object wit...">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_using_meshobject_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_00-basic-pyvista-examples_using_meshobject.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Use the MeshObjectPlot class</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to activate the picker, which is the tool that you use to select an obje...">
+
+.. only:: html
+
+  .. image:: /examples/00-basic-pyvista-examples/images/thumb/sphx_glr_picker_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_examples_00-basic-pyvista-examples_picker.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Activate the picker</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+   :includehidden:
+
+
+   /./examples/00-basic-pyvista-examples/index.rst
+

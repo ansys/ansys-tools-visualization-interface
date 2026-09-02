@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``usd_interface.py`` module
+===============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.usd_interface
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: usd_interface
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.usd_interface.USDInterface`
+            - USD backend interface using python-usd-viewer.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> USDInterface</api/ansys/tools/visualization_interface/backends/usd/usd_interface/USDInterface>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+USD backend interface for visualization using python-usd-viewer.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

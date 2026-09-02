@@ -1,0 +1,162 @@
+
+
+
+
+
+
+:class:`PlottingOptions`
+========================
+
+
+.. py:class:: ansys.tools.visualization_interface.utils.plotting_options.PlottingOptions
+
+   
+   Structured representation of all plotting kwargs.
+
+   Calling :meth:`from_kwargs` splits a raw ``**kwargs`` dictionary into:
+
+   * **Framework fields** (``name_filter``, ``clipping_plane``) — consumed by
+     the visualization framework and **not** forwarded to the renderer.
+   * **extra** — every remaining key, forwarded verbatim to the underlying
+     rendering library (PyVista ``add_mesh``, Plotly ``Figure.show``, etc.).
+
+   :Parameters:
+
+       **name_filter** : :class:`python:str`, :obj:`optional`
+           Regular expression with the desired name or names to include in the
+           plotter.  Objects whose ``name`` does not match the expression are
+           skipped.
+
+       **clipping_plane** : :obj:`ClipPlane`, :obj:`optional`
+           Plane used to clip the mesh before adding it to the scene.
+
+       **extra** : :class:`python:dict`
+           Renderer-specific options forwarded verbatim to the underlying library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+.. py:currentmodule:: PlottingOptions
+
+Overview
+--------
+
+.. tab-set::
+
+
+   .. tab-item:: Constructors
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~from_kwargs`
+            - Parse and consume **all** keys from *kwargs*.
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~name_filter`
+            - 
+          * - :py:attr:`~clipping_plane`
+            - 
+          * - :py:attr:`~extra`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.utils.plotting_options import PlottingOptions
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: name_filter
+   :type:  Optional[str]
+   :value: None
+
+
+.. py:attribute:: clipping_plane
+   :type:  Optional[ansys.tools.visualization_interface.utils.clip_plane.ClipPlane]
+   :value: None
+
+
+.. py:attribute:: extra
+   :type:  Dict[str, Any]
+
+
+
+Method detail
+-------------
+
+.. py:method:: from_kwargs(kwargs: Dict) -> PlottingOptions
+   :classmethod:
+
+
+   
+   Parse and consume **all** keys from *kwargs*.
+
+   Framework-specific keys (matching dataclass fields other than
+   ``extra``) are mapped to their typed fields.  All remaining keys are
+   collected into :attr:`extra`.  The supplied *kwargs* dictionary is
+   **cleared** in-place so that callers can safely inspect it afterwards
+   and know it has been fully consumed.
+
+   :Parameters:
+
+       **kwargs** : :class:`python:dict`
+           Mutable keyword-argument dictionary to parse.  All keys are
+           removed in-place.
+
+
+
+   :Returns:
+
+       :obj:`PlottingOptions`
+           Instance populated from *kwargs*.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

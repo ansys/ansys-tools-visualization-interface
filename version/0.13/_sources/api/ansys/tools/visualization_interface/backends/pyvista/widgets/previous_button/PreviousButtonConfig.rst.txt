@@ -1,0 +1,81 @@
+
+
+
+
+
+
+:class:`PreviousButtonConfig`
+=============================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.previous_button.PreviousButtonConfig
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   
+   Provides configuration for the previous button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: PreviousButtonConfig
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~PREVIOUS`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.previous_button import PreviousButtonConfig
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: PREVIOUS
+   :value: (0, 'previous', (110, 10))
+
+
+
+
+
+

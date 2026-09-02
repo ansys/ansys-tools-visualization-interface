@@ -1,0 +1,97 @@
+
+
+
+
+
+
+The ``types`` package
+=========================
+
+.. py:module:: ansys.tools.visualization_interface.types
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: types
+.. tab-set::
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.types.edge_plot`
+            - Provides the edge type for plotting.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.types.mesh_object_plot`
+            - Provides the ``MeshObjectPlot`` class.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> edge_plot</api/ansys/tools/visualization_interface/types/edge_plot/index>
+    <span class="nf nf-fa-file"></span> mesh_object_plot</api/ansys/tools/visualization_interface/types/mesh_object_plot/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+Provides custom types.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
