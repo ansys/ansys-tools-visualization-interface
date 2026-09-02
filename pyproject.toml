@@ -36,7 +36,7 @@ pyvistaqt = [
 ]
 
 plotly = [
-    "plotly >= 6.3.1,<7",
+    "plotly >= 6.3.1,< 8",
     "kaleido >= 1.1.0,<2"
 ]
 
@@ -57,7 +57,7 @@ usd-live-viewer = [
 all = [
     "pyside6 >= 6.8.0,<7",
     "pyvistaqt >= 0.11.1,<1",
-    "plotly >= 6.3.1,<7",
+    "plotly >= 6.3.1,< 8",
     "kaleido >= 1.1.0,<2",
     "dash >= 3.2.0,< 5",
     "imageio[ffmpeg] >= 2.37.2",
@@ -86,7 +86,7 @@ doc = [
     "sphinx-copybutton==0.5.2",
     "sphinx-gallery==0.21.0",
     "sphinx-jinja==2.0.2",
-    "ansys-fluent-core==0.41.0",
+    "ansys-fluent-core==0.42.0",
     "nest-asyncio2==1.7.2", # Required for interactive examples, else it fails silently
     "usd-core==26.8",
     "pygltflib==1.16.5"
