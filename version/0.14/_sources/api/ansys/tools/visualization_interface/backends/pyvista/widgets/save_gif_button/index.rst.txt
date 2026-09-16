@@ -1,0 +1,100 @@
+
+
+
+
+
+
+The ``save_gif_button.py`` module
+=================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.save_gif_button
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: save_gif_button
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.save_gif_button.SaveGifButton`
+            - Provides GIF export control for animations.
+
+
+
+    .. tab-item:: Enums
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.save_gif_button.SaveGifButtonConfig`
+            - Provides configuration for the save GIF button.
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> SaveGifButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/save_gif_button/SaveGifButton>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_enum"></span> SaveGifButtonConfig</api/ansys/tools/visualization_interface/backends/pyvista/widgets/save_gif_button/SaveGifButtonConfig>
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the save GIF button widget for animation control.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

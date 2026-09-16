@@ -1,0 +1,108 @@
+
+
+
+
+
+
+The ``glb_lights.py`` module
+============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.glb_lights
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: glb_lights
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~append_usd_lights_to_scene`
+            - Convert supported USD lights into glTF KHR_lights_punctual lights.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+USD-to-glTF light conversion helpers.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: append_usd_lights_to_scene(stage: Any, gltf: Any, scene: Any) -> None
+
+   
+   Convert supported USD lights into glTF KHR_lights_punctual lights.
+
+
+   :Parameters:
+
+       **stage** : :obj:`Any`
+           The USD stage containing the lights.
+
+       **gltf** : :obj:`Any`
+           The glTF document to modify.
+
+       **scene** : :obj:`Any`
+           The glTF scene to which the lights will be added.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

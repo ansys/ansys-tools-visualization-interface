@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``dynamic_tree_menu.py`` module
+===================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: dynamic_tree_menu
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu.DynamicTreeMenuWidget`
+            - Provides a dynamic tree menu with clickable buttons for each object.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> DynamicTreeMenuWidget</api/ansys/tools/visualization_interface/backends/pyvista/widgets/dynamic_tree_menu/DynamicTreeMenuWidget>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides a dynamic tree menu widget with clickable buttons.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

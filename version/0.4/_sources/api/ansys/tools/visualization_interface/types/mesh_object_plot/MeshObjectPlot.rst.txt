@@ -1,0 +1,216 @@
+
+
+:class:`MeshObjectPlot`
+=======================
+
+.. py:class:: ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot(custom_object: beartype.typing.Any, mesh: beartype.typing.Union[pyvista.PolyData, pyvista.MultiBlock], actor: pyvista.Actor = None, edges: beartype.typing.List[ansys.tools.visualization_interface.types.edge_plot.EdgePlot] = None)
+
+   
+   Relates a custom object with a mesh, provided by the consumer library.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: MeshObjectPlot
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~mesh`
+            - Mesh of the object in PyVista format.
+          * - :py:attr:`~custom_object`
+            - Custom object.
+          * - :py:attr:`~actor`
+            - PyVista actor of the object in the plotter.
+          * - :py:attr:`~edges`
+            - Edges of the object.
+          * - :py:attr:`~name`
+            - Name of the object.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.types.mesh_object_plot import MeshObjectPlot
+
+Property detail
+---------------
+.. py:property:: mesh
+   :type: beartype.typing.Union[pyvista.PolyData, pyvista.MultiBlock]
+
+   
+   Mesh of the object in PyVista format.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Union`\[:obj:`pv.PolyData`, :obj:`pv.MultiBlock`]
+           Mesh of the object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: custom_object
+   :type: beartype.typing.Any
+
+   
+   Custom object.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Custom object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: actor
+   :type: pyvista.Actor
+
+   
+   PyVista actor of the object in the plotter.
+
+
+
+
+
+   :Returns:
+
+       :obj:`pv.Actor`
+           PyVista actor of the object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: edges
+   :type: beartype.typing.List[ansys.tools.visualization_interface.types.edge_plot.EdgePlot]
+
+   
+   Edges of the object.
+
+
+
+
+
+   :Returns:
+
+       :obj:`List`\[:obj:`EdgePlot`]
+           Edges of the object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: name
+   :type: str
+
+   
+   Name of the object.
+
+
+
+
+
+   :Returns:
+
+       :class:`python:str`
+           Name of the object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+
