@@ -1,0 +1,140 @@
+
+
+:class:`MeasureWidget`
+======================
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.measure.MeasureWidget(plotter_helper: ansys.tools.visualization_interface.backends.pyvista.pyvista.Plotter)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget`
+
+
+   
+   Provides the measure widget for the Visualization Interface Tool ``Plotter`` class.
+
+
+   :Parameters:
+
+       **plotter_helper** : :obj:`PlotterHelper`
+           Plotter to add the measure widget to.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: MeasureWidget
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~callback`
+            - Remove or add the measurement widget actor upon click.
+          * - :py:attr:`~update`
+            - Define the measurement widget button parameters.
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plotter_helper`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.measure import MeasureWidget
+
+
+
+Attribute detail
+----------------
+.. py:attribute:: plotter_helper
+
+
+
+Method detail
+-------------
+.. py:method:: callback(state: bool) -> None
+
+   
+   Remove or add the measurement widget actor upon click.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           Whether the state of the button, which is inherited from PyVista, is active.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: update() -> None
+
+   
+   Define the measurement widget button parameters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+

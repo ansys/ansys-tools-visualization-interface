@@ -1,0 +1,362 @@
+
+
+
+
+
+
+:class:`USDInterface`
+=====================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.usd.usd_interface.USDInterface(title: str = 'USD Viewer', size: Tuple[int, int] = (750, 750))
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends._base.BaseBackend`
+
+
+   
+   USD backend interface using python-usd-viewer.
+
+
+   :Parameters:
+
+       **title** : :class:`python:str`, default: ``"USD Viewer"``
+           Title of the viewer window.
+
+       **size** : :class:`python:tuple`\[:class:`python:int`, :class:`python:int`], default: ``(750, 750)``
+           Width and height of the viewer window in pixels.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+
+
+
+.. py:currentmodule:: USDInterface
+
+Overview
+--------
+
+.. tab-set::
+
+   .. tab-item:: Abstract methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~add_points`
+            - Not implemented for the USD backend.
+          * - :py:attr:`~add_lines`
+            - Not implemented for the USD backend.
+          * - :py:attr:`~add_planes`
+            - Not implemented for the USD backend.
+          * - :py:attr:`~add_text`
+            - Not implemented for the USD backend.
+          * - :py:attr:`~add_labels`
+            - Not implemented for the USD backend.
+          * - :py:attr:`~clear`
+            - Not implemented for the USD backend.
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot`
+            - Add a plottable object to the USD stage.
+          * - :py:attr:`~plot_iter`
+            - Add all objects in an iterable to the USD stage.
+          * - :py:attr:`~show`
+            - Display the current USD stage in the viewer window.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.usd.usd_interface import USDInterface
+
+
+
+Method detail
+-------------
+
+.. py:method:: plot(plottable_object: Any, **plotting_options) -> None
+
+   
+   Add a plottable object to the USD stage.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           Supported types:
+           
+           * :class:`pxr.Usd.Stage` — replaces the current stage.
+           * ``str`` / :class:`pathlib.Path` — USD files replace the current
+             stage; VTK-compatible files are converted and merged into it.
+           * :class:`~ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot`
+             — the underlying PyVista mesh is converted and added.
+           * Any PyVista or VTK dataset — converted via
+             :class:`~ansys.tools.visualization_interface.backends.usd.vtk_converter.VTKConverter`.
+
+       **\*\*plotting_options** : :class:`python:dict`
+           Reserved for future backend-specific options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot_iter(plotting_list: Iterable) -> None
+
+   
+   Add all objects in an iterable to the USD stage.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(plottable_object=None, screenshot=None, name_filter=None, **kwargs) -> None
+
+   
+   Display the current USD stage in the viewer window.
+
+   Opens the Qt-based USD viewer and starts the event loop.
+   This call blocks until the window is closed.
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`, :obj:`optional`
+           Optional object to plot before showing.
+
+       **screenshot** : :class:`python:str`, :obj:`optional`
+           Unused — screenshots are not supported by the USD backend.
+
+       **name_filter** : :class:`python:str`, :obj:`optional`
+           Unused — name filtering is not supported by the USD backend.
+
+       **\*\*kwargs** : :class:`python:dict`
+           Additional keyword arguments (unused).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_points(points, color='red', size=10.0, **kwargs)
+   :abstractmethod:
+
+
+   
+   Not implemented for the USD backend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_lines(points, connections=None, color='white', width=1.0, **kwargs)
+   :abstractmethod:
+
+
+   
+   Not implemented for the USD backend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_planes(center=(0.0, 0.0, 0.0), normal=(0.0, 0.0, 1.0), i_size=1.0, j_size=1.0, **kwargs)
+   :abstractmethod:
+
+
+   
+   Not implemented for the USD backend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_text(text, position, font_size=12, color='white', **kwargs)
+   :abstractmethod:
+
+
+   
+   Not implemented for the USD backend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_labels(points, labels, font_size=12, point_size=5.0, **kwargs)
+   :abstractmethod:
+
+
+   
+   Not implemented for the USD backend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: clear() -> None
+   :abstractmethod:
+
+
+   
+   Not implemented for the USD backend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

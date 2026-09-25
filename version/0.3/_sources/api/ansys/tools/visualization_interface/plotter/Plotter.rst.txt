@@ -1,0 +1,141 @@
+
+
+:class:`Plotter`
+================
+
+.. py:class:: ansys.tools.visualization_interface.plotter.Plotter(backend: ansys.tools.visualization_interface.backends._base.BaseBackend = None)
+
+   
+   Base plotting class containing common methods and attributes.
+
+   This class is responsible for plotting objects using the specified backend.
+
+   :Parameters:
+
+       **backend** : :obj:`BaseBackend`, :obj:`optional`
+           Plotting backend to use, by default PyVistaBackend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Plotter
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot`
+            - Plots an object using the specified backend.
+          * - :py:attr:`~show`
+            - Show the plotted objects.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.plotter import Plotter
+
+
+
+
+
+Method detail
+-------------
+.. py:method:: plot(plottable_object: beartype.typing.Any, **plotting_options)
+
+   
+   Plots an object using the specified backend.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           Object to plot.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(plottable_object: beartype.typing.Any = None, screenshot: str = None, name_filter: bool = None, **plotting_options) -> None
+
+   
+   Show the plotted objects.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`, :obj:`optional`
+           Object to show, by default None.
+
+       **screenshot** : :class:`python:str`, :obj:`optional`
+           Path to save a screenshot, by default None.
+
+       **name_filter** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Flag to filter the object, by default None.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options the selected backend accepts.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+

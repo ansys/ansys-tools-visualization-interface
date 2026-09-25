@@ -1,0 +1,190 @@
+
+
+:class:`VizLogger`
+==================
+
+.. py:class:: ansys.tools.visualization_interface.utils.logger.VizLogger(level: int = logging.ERROR, logger_name: str = 'VizLogger')
+
+   Bases: :py:obj:`object`
+
+
+   
+   Provides the singleton logger for the visualizer.
+
+
+   :Parameters:
+
+       **to_file** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:False`
+           Whether to include the logs in a file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: VizLogger
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~get_logger`
+            - Get the logger.
+          * - :py:attr:`~set_level`
+            - Set the logger output level.
+          * - :py:attr:`~enable_output`
+            - Enable logger output to a given stream.
+          * - :py:attr:`~add_file_handler`
+            - Save logs to a file in addition to printing them to the standard output.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.utils.logger import VizLogger
+
+
+
+
+
+Method detail
+-------------
+.. py:method:: get_logger()
+
+   
+   Get the logger.
+
+
+
+   :Returns:
+
+       :obj:`Logger`
+           Logger.
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: set_level(level: int)
+
+   
+   Set the logger output level.
+
+
+   :Parameters:
+
+       **level** : :class:`python:int`
+           Output Level of the logger.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: enable_output(stream=None)
+
+   
+   Enable logger output to a given stream.
+
+   If a stream is not specified, ``sys.stderr`` is used.
+
+   :Parameters:
+
+       **stream: TextIO, default: ``sys.stderr``**
+           Stream to output the log output to.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_file_handler(logs_dir: str = './.log')
+
+   
+   Save logs to a file in addition to printing them to the standard output.
+
+
+   :Parameters:
+
+       **logs_dir** : :class:`python:str`, default: ``"./.log"``
+           Directory of the logs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+

@@ -1,0 +1,182 @@
+
+
+
+
+
+
+The ``widgets`` package
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: widgets
+.. tab-set::
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.button`
+            - Provides for implementing buttons in PyAnsys.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode`
+            - Provides the dark mode button widget for the PyAnsys plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows`
+            - Provides the displacement arrows widget for the PyVista plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu`
+            - Provides a dynamic tree menu widget with clickable buttons.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.hide_buttons`
+            - Provides the hide buttons widget for the PyAnsys plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.measure`
+            - Provides the measure widget for the PyAnsys plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider`
+            - Provides the measure widget for the PyAnsys plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.next_button`
+            - Provides the next button widget for animation control.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.parallel_projection`
+            - Provides the parallel projection button widget.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.pick_rotation_center`
+            - Provides the measure widget for the PyAnsys plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.play_pause_button`
+            - Provides the play/pause button widget for animation control.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.previous_button`
+            - Provides the previous button widget for animation control.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.ruler`
+            - Provides the ruler widget for the Visualization Interface Tool plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.save_gif_button`
+            - Provides the save GIF button widget for animation control.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.screenshot`
+            - Provides the screenshot widget for the Visualization Interface Tool plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button`
+            - Provides the stop button widget for animation control.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle`
+            - Provides a button to toggle the tree menu visibility.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.view_button`
+            - Provides the view button widget for changing the camera view.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.widget`
+            - Provides the abstract implementation of plotter widgets.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/button/index>
+    <span class="nf nf-fa-file"></span> dark_mode</api/ansys/tools/visualization_interface/backends/pyvista/widgets/dark_mode/index>
+    <span class="nf nf-fa-file"></span> displace_arrows</api/ansys/tools/visualization_interface/backends/pyvista/widgets/displace_arrows/index>
+    <span class="nf nf-fa-file"></span> dynamic_tree_menu</api/ansys/tools/visualization_interface/backends/pyvista/widgets/dynamic_tree_menu/index>
+    <span class="nf nf-fa-file"></span> hide_buttons</api/ansys/tools/visualization_interface/backends/pyvista/widgets/hide_buttons/index>
+    <span class="nf nf-fa-file"></span> measure</api/ansys/tools/visualization_interface/backends/pyvista/widgets/measure/index>
+    <span class="nf nf-fa-file"></span> mesh_slider</api/ansys/tools/visualization_interface/backends/pyvista/widgets/mesh_slider/index>
+    <span class="nf nf-fa-file"></span> next_button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/next_button/index>
+    <span class="nf nf-fa-file"></span> parallel_projection</api/ansys/tools/visualization_interface/backends/pyvista/widgets/parallel_projection/index>
+    <span class="nf nf-fa-file"></span> pick_rotation_center</api/ansys/tools/visualization_interface/backends/pyvista/widgets/pick_rotation_center/index>
+    <span class="nf nf-fa-file"></span> play_pause_button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/play_pause_button/index>
+    <span class="nf nf-fa-file"></span> previous_button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/previous_button/index>
+    <span class="nf nf-fa-file"></span> ruler</api/ansys/tools/visualization_interface/backends/pyvista/widgets/ruler/index>
+    <span class="nf nf-fa-file"></span> save_gif_button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/save_gif_button/index>
+    <span class="nf nf-fa-file"></span> screenshot</api/ansys/tools/visualization_interface/backends/pyvista/widgets/screenshot/index>
+    <span class="nf nf-fa-file"></span> stop_button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/stop_button/index>
+    <span class="nf nf-fa-file"></span> tree_menu_toggle</api/ansys/tools/visualization_interface/backends/pyvista/widgets/tree_menu_toggle/index>
+    <span class="nf nf-fa-file"></span> view_button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/view_button/index>
+    <span class="nf nf-fa-file"></span> widget</api/ansys/tools/visualization_interface/backends/pyvista/widgets/widget/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+Provides widgets for the Visualization Interface Tool plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
