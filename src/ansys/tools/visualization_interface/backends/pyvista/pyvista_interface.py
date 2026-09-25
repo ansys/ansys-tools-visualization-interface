@@ -461,7 +461,9 @@ class PyVistaInterface:
         if show_plane or self._show_plane:
             # self.scene.bounds
             plane = pv.Plane(i_size=sfac * 1.3, j_size=sfac * 1.3)
-            self.scene.add_mesh(plane, color="white", show_edges=True, opacity=0.1)
+            self.scene.add_mesh(
+                plane, color="white", show_edges=True, opacity=0.1, edge_color="silver"
+            )
 
         # Override Jupyter backend if building docs
         if viz_interface.USE_HTML_BACKEND:
