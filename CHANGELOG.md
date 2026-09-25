@@ -546,6 +546,13 @@ This project uses [towncrier](https://towncrier.readthedocs.io/) and the changes
 
 <!-- towncrier release notes start -->
 
+## [0.14.1](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.14.1) - September 25, 2026
+
+
+### Fixed
+
+- Fix: Change the default base plane edge color to silver [#611](https://github.com/ansys/ansys-tools-visualization-interface/pull/611)
+
 ## [0.14.0](https://github.com/ansys/ansys-tools-visualization-interface/releases/tag/v0.14.0) - July 22, 2026
 
 
