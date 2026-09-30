@@ -1,0 +1,100 @@
+
+
+
+
+
+
+The ``stop_button.py`` module
+=============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: stop_button
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button.StopButton`
+            - Provides stop control for animations.
+
+
+
+    .. tab-item:: Enums
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button.StopButtonConfig`
+            - Provides configuration for the stop button.
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> StopButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/stop_button/StopButton>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_enum"></span> StopButtonConfig</api/ansys/tools/visualization_interface/backends/pyvista/widgets/stop_button/StopButtonConfig>
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the stop button widget for animation control.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

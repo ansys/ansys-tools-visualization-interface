@@ -1,0 +1,136 @@
+
+
+:class:`ClipPlane`
+==================
+
+.. py:class:: ansys.tools.visualization_interface.utils.clip_plane.ClipPlane(normal: Tuple[float, float, float] = (1, 0, 0), origin: Tuple[float, float, float] = (0, 0, 0))
+
+   
+   Provides the clipping plane for clipping meshes in the plotter.
+
+   The clipping plane is defined by both normal and origin vectors.
+
+   :Parameters:
+
+       **normal** : :obj:`Tuple`\[:class:`python:float`, :class:`python:float`, :class:`python:float`], default: (1, 0, 0)
+           Normal of the plane.
+
+       **origin** : :obj:`Tuple`\[:class:`python:float`, :class:`python:float`, :class:`python:float`], default: (0, 0, 0)
+           Origin point of the plane.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: ClipPlane
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~normal`
+            - Normal of the plane.
+          * - :py:attr:`~origin`
+            - Origin of the plane.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.utils.clip_plane import ClipPlane
+
+Property detail
+---------------
+.. py:property:: normal
+   :type: Tuple[float, float, float]
+
+
+   
+   Normal of the plane.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Tuple`\[:class:`python:float`, :class:`python:float`, :class:`python:float`]
+           Normal of the plane.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: origin
+   :type: Tuple[float, float, float]
+
+
+   
+   Origin of the plane.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Tuple`\[:class:`python:float`, :class:`python:float`, :class:`python:float`]
+           Origin of the plane.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+

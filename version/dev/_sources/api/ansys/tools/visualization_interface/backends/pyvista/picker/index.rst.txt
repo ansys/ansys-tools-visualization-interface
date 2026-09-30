@@ -1,0 +1,87 @@
+
+
+
+
+
+
+The ``picker.py`` module
+========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.picker
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: picker
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.picker.AbstractPicker`
+            - Abstract base class for pickers.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.picker.Picker`
+            - Class to manage picking and hovering of objects in the plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> AbstractPicker</api/ansys/tools/visualization_interface/backends/pyvista/picker/AbstractPicker>
+    <span class="nf nf-cod-symbol_class"></span> Picker</api/ansys/tools/visualization_interface/backends/pyvista/picker/Picker>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Module for managing picking and hovering of objects in a PyVista plotter.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

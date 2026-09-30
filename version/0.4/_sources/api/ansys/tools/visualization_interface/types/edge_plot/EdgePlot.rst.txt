@@ -1,0 +1,196 @@
+
+
+:class:`EdgePlot`
+=================
+
+.. py:class:: ansys.tools.visualization_interface.types.edge_plot.EdgePlot(actor: pyvista.Actor, edge_object: beartype.typing.Any, parent: beartype.typing.Any = None)
+
+   
+   Provides the mapper class for relating PyAnsys object edges with its PyVista actor.
+
+
+   :Parameters:
+
+       **actor** : :obj:`~pyvista.Actor`
+           PyVista actor that represents the edge.
+
+       **edge_object** : :obj:`Edge`
+           PyAnsys object edge that is represented by the PyVista actor.
+
+       **parent** : :obj:`MeshObjectPlot`, default: :data:`python:None`
+           Parent PyAnsys object of the edge.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: EdgePlot
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~actor`
+            - PyVista actor of the object.
+          * - :py:attr:`~edge_object`
+            - PyAnsys edge.
+          * - :py:attr:`~parent`
+            - Parent PyAnsys object of the edge.
+          * - :py:attr:`~name`
+            - Name of the edge.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.types.edge_plot import EdgePlot
+
+Property detail
+---------------
+.. py:property:: actor
+   :type: pyvista.Actor
+
+   
+   PyVista actor of the object.
+
+
+
+
+
+   :Returns:
+
+       :obj:`~pyvista.Actor`
+           PyVista actor.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: edge_object
+   :type: beartype.typing.Any
+
+   
+   PyAnsys edge.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           PyAnsys edge.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: parent
+   :type: beartype.typing.Any
+
+   
+   Parent PyAnsys object of the edge.
+
+
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Parent PyAnsys object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: name
+   :type: str
+
+   
+   Name of the edge.
+
+
+
+
+
+   :Returns:
+
+       :class:`python:str`
+           Name of the edge.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+
+

@@ -1,0 +1,120 @@
+
+
+
+
+
+
+The ``usd`` package
+=======================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: usd
+.. tab-set::
+
+    .. tab-item:: Subpackages
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web`
+            - USD-to-HTML web export pipeline (GLB + Three.js templates).
+
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.html_export`
+            - Self-contained USD → Three.js HTML export.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.usd_interface`
+            - USD backend interface for visualization using python-usd-viewer.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.vtk_converter`
+            - Asset resolver for handling various file types and USD asset paths.
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-md-package"></span> web</api/ansys/tools/visualization_interface/backends/usd/web/index>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> html_export</api/ansys/tools/visualization_interface/backends/usd/html_export/index>
+    <span class="nf nf-fa-file"></span> usd_interface</api/ansys/tools/visualization_interface/backends/usd/usd_interface/index>
+    <span class="nf nf-fa-file"></span> vtk_converter</api/ansys/tools/visualization_interface/backends/usd/vtk_converter/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+USD backend initialization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+

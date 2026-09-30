@@ -1,0 +1,217 @@
+
+
+
+
+
+
+The ``vtkhdf_converter.py`` module
+==================================
+
+.. py:module:: ansys.tools.visualization_interface.utils.vtkhdf_converter
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: vtkhdf_converter
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~pd_to_vtkhdf`
+            - Write the PyVista PolyData directly to a VTKHDF file.
+
+
+          * - :py:obj:`~vtkhdf_to_pd`
+            - Read a VTKHDF file and convert it to PyVista PolyData.
+
+
+          * - :py:obj:`~ug_to_vtkhdf`
+            - Write the PyVista UnstructuredGrid directly to a VTKHDF file.
+
+
+          * - :py:obj:`~vtkhdf_to_ug`
+            - Read a VTKHDF file and convert it to PyVista UnstructuredGrid.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Utils module for VTKHDF management.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: pd_to_vtkhdf(pd: pyvista.PolyData, output_vtkhdf_file: Union[str, pathlib.Path]) -> pathlib.Path
+
+   
+   Write the PyVista PolyData directly to a VTKHDF file.
+
+
+   :Parameters:
+
+       **pd** : :obj:`pv.PolyData`
+           The PyVista PolyData to be written.
+
+       **output_vtkhdf_file** : :obj:`Union`\[:class:`python:str`, :obj:`Path`]
+           The output VTKHDF file path.
+
+
+
+   :Returns:
+
+       :obj:`Path`
+           The path to the saved VTKHDF file.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: vtkhdf_to_pd(input_vtkhdf_file: Union[str, pathlib.Path]) -> pyvista.PolyData
+
+   
+   Read a VTKHDF file and convert it to PyVista PolyData.
+
+
+   :Parameters:
+
+       **input_vtkhdf_file** : :obj:`Union`\[:class:`python:str`, :obj:`Path`]
+           The input VTKHDF file path.
+
+
+
+   :Returns:
+
+       :obj:`pv.PolyData`
+           The converted PyVista PolyData.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: ug_to_vtkhdf(ug: pyvista.UnstructuredGrid, output_vtkhdf_file: Union[str, pathlib.Path]) -> pathlib.Path
+
+   
+   Write the PyVista UnstructuredGrid directly to a VTKHDF file.
+
+
+   :Parameters:
+
+       **ug** : :obj:`pv.UnstructuredGrid`
+           The PyVista UnstructuredGrid to be written.
+
+       **output_vtkhdf_file** : :obj:`Union`\[:class:`python:str`, :obj:`Path`]
+           The output VTKHDF file path.
+
+
+
+   :Returns:
+
+       :obj:`Path`
+           The path to the saved VTKHDF file.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: vtkhdf_to_ug(input_vtkhdf_file: Union[str, pathlib.Path]) -> pyvista.UnstructuredGrid
+
+   
+   Read a VTKHDF file and convert it to PyVista UnstructuredGrid.
+
+
+   :Parameters:
+
+       **input_vtkhdf_file** : :obj:`Union`\[:class:`python:str`, :obj:`Path`]
+           The input VTKHDF file path.
+
+
+
+   :Returns:
+
+       :obj:`pv.UnstructuredGrid`
+           The converted PyVista UnstructuredGrid.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``edge_plot.py`` module
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.types.edge_plot
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: edge_plot
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.types.edge_plot.EdgePlot`
+            - Provides the mapper class for relating PyAnsys object edges with its PyVista actor.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> EdgePlot</api/ansys/tools/visualization_interface/types/edge_plot/EdgePlot>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the edge type for plotting.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

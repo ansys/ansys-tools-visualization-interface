@@ -1,0 +1,462 @@
+
+
+
+
+
+
+:class:`ButtonManager`
+======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.plotly.widgets.button_manager.ButtonManager(fig: plotly.graph_objects.Figure)
+
+   
+   Class to manage buttons in a Plotly figure.
+
+   This class allows adding buttons to a Plotly figure for various functionalities
+   such as toggling visibility of traces, resetting the view, and custom actions.
+
+   :Parameters:
+
+       **fig** : :obj:`go.Figure`
+           The Plotly figure to which buttons will be added.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: ButtonManager
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~add_button`
+            - Add a button to the Plotly figure.
+          * - :py:attr:`~show_hide_bbox_dict`
+            - Generate dictionary for showing/hiding coordinate system elements.
+          * - :py:attr:`~update_layout`
+            - Update the figure layout with all controls as buttons in a single row.
+          * - :py:attr:`~args_xy_view_button`
+            - Get camera configuration for XY plane view (top-down view).
+          * - :py:attr:`~args_xz_view_button`
+            - Get camera configuration for XZ plane view (front view).
+          * - :py:attr:`~args_yz_view_button`
+            - Get camera configuration for YZ plane view (side view).
+          * - :py:attr:`~args_iso_view_button`
+            - Get camera configuration for isometric view (3D perspective).
+          * - :py:attr:`~add_measurement_toggle_button`
+            - Get configuration for measurement toggle button.
+          * - :py:attr:`~args_projection_toggle_button`
+            - Get configuration for projection toggle button.
+          * - :py:attr:`~args_theme_toggle_button`
+            - Get configuration for theme toggle button.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.plotly.widgets.button_manager import ButtonManager
+
+
+
+Method detail
+-------------
+
+.. py:method:: add_button(label: str, x: float, y: float, xanchor: str = 'left', yanchor: str = 'bottom', method: str = 'restyle', args: List[Any] = None, args2: List[Any] = None) -> None
+
+   
+   Add a button to the Plotly figure.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`
+           The text to display on the button.
+
+       **x** : :class:`python:float`
+           X position of the button (0-1).
+
+       **y** : :class:`python:float`
+           Y position of the button (0-1).
+
+       **xanchor** : :class:`python:str`, :obj:`optional`
+           X anchor point for the button, by default "left".
+
+       **yanchor** : :class:`python:str`, :obj:`optional`
+           Y anchor point for the button, by default "bottom".
+
+       **method** : :class:`python:str`, :obj:`optional`
+           The method to call when the button is clicked. Options include:
+           'restyle', 'relayout', 'update', 'animate', by default 'restyle'.
+
+       **args** : :obj:`List`\[:obj:`Any`], :obj:`optional`
+           Arguments to pass to the method when the button is clicked, by default None.
+
+       **args2** : :obj:`List`\[:obj:`Any`], :obj:`optional`
+           Secondary arguments for toggle functionality, by default None.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show_hide_bbox_dict(toggle: bool = True)
+
+   
+   Generate dictionary for showing/hiding coordinate system elements.
+
+
+   :Parameters:
+
+       **toggle** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to show (True) or hide (False) the coordinate system, by default True.
+
+
+
+   :Returns:
+
+       :class:`python:dict`
+           Dictionary with coordinate system visibility settings.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: update_layout() -> None
+
+   
+   Update the figure layout with all controls as buttons in a single row.
+
+   This method builds buttons using the configuration methods and any additional
+   buttons that were added via add_button().
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: args_xy_view_button(label: str = 'XY View', x: float = 0.02, y: float = 1.02) -> dict
+
+   
+   Get camera configuration for XY plane view (top-down view).
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "XY View".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+   :Returns:
+
+       :class:`python:dict`
+           Camera configuration for XY plane view.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: args_xz_view_button(label: str = 'XZ View', x: float = 0.02, y: float = 1.02) -> dict
+
+   
+   Get camera configuration for XZ plane view (front view).
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "XZ View".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+   :Returns:
+
+       :class:`python:dict`
+           Camera configuration for XZ plane view.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: args_yz_view_button(label: str = 'YZ View', x: float = 0.02, y: float = 1.02) -> dict
+
+   
+   Get camera configuration for YZ plane view (side view).
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "YZ View".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+   :Returns:
+
+       :class:`python:dict`
+           Camera configuration for YZ plane view.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: args_iso_view_button(label: str = 'ISO View', x: float = 0.02, y: float = 1.02) -> dict
+
+   
+   Get camera configuration for isometric view (3D perspective).
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "ISO View".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+   :Returns:
+
+       :class:`python:dict`
+           Camera configuration for isometric view.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_measurement_toggle_button(label: str = 'Toggle Measurement', x: float = 0.02, y: float = 0.87) -> Tuple[dict, dict]
+
+   
+   Get configuration for measurement toggle button.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "Toggle Measurement".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.02.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 0.87.
+
+
+
+   :Returns:
+
+       :obj:`Tuple`\[:class:`python:dict`, :class:`python:dict`]
+           Tuple containing (enable_measurement_config, disable_measurement_config).
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: args_projection_toggle_button() -> Tuple[dict, dict]
+
+   
+   Get configuration for projection toggle button.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "Toggle Projection".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.14.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+   :Returns:
+
+       :obj:`Tuple`\[:class:`python:dict`, :class:`python:dict`]
+           Tuple containing (perspective_projection_config, orthographic_projection_config).
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: args_theme_toggle_button(label: str = 'Toggle Theme', x: float = 0.32, y: float = 1.02) -> Tuple[dict, dict]
+
+   
+   Get configuration for theme toggle button.
+
+
+   :Parameters:
+
+       **label** : :class:`python:str`, :obj:`optional`
+           The text to display on the button, by default "Toggle Theme".
+
+       **x** : :class:`python:float`, :obj:`optional`
+           X position of the button (0-1), by default 0.22.
+
+       **y** : :class:`python:float`, :obj:`optional`
+           Y position of the button (0-1), by default 1.02.
+
+
+
+   :Returns:
+
+       :obj:`Tuple`\[:class:`python:dict`, :class:`python:dict`]
+           Tuple containing (light_theme_config, dark_theme_config).
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
