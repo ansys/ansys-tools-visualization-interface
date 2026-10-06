@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``hide_buttons.py`` module
+==============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.hide_buttons
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: hide_buttons
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.hide_buttons.HideButton`
+            - Provides the hide widget for the Visualization Interface Tool ``Plotter`` class.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> HideButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/hide_buttons/HideButton>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the hide buttons widget for the PyAnsys plotter.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

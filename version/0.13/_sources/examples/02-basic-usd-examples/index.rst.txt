@@ -1,0 +1,46 @@
+
+
+.. _sphx_glr_examples_02-basic-usd-examples:
+
+Basic USD usage examples
+========================
+
+These examples show how to use the general plotter with the USD backend included in the Visualization Interface Tool.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the Python USD viewer backend in the Visualization Interface Tool to display meshes using the OpenUSD-based viewer from the python-usd-viewer package.">
+
+.. only:: html
+
+  .. image:: /examples/02-basic-usd-examples/images/thumb/sphx_glr_plain_usage_thumb.png
+    :alt:
+
+  :doc:`/examples/02-basic-usd-examples/plain_usage`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plain usage of the USD backend</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/02-basic-usd-examples/plain_usage
+

@@ -1,0 +1,11 @@
+API reference
+=============
+
+This section describes ansys-tools-visualization-interface endpoints, their capabilities, and how
+to interact with them programmatically.
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   <span class="nf nf-md-package"></span> ansys.tools.visualization_interface</api/ansys/tools/visualization_interface/index>

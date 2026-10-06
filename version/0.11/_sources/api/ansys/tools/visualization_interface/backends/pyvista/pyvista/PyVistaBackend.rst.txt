@@ -1,0 +1,228 @@
+
+
+
+
+
+
+:class:`PyVistaBackend`
+=======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.pyvista.PyVistaBackend(use_trame: Optional[bool] = None, allow_picking: Optional[bool] = False, allow_hovering: Optional[bool] = False, plot_picked_names: Optional[bool] = True, use_qt: Optional[bool] = False, show_qt: Optional[bool] = False)
+
+   Bases: :py:obj:`PyVistaBackendInterface`
+
+
+   
+   Provides the generic plotter implementation for PyAnsys libraries.
+
+   This class accepts ``MeshObjectPlot``, ``pv.MultiBlock`` and ``pv.PolyData`` objects.
+
+   :Parameters:
+
+       **use_trame** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:None`
+           Whether to enable the use of `trame <https://kitware.github.io/trame/index.html>`_.
+           The default is ``None``, in which case the ``USE_TRAME`` global setting
+           is used.
+
+       **allow_picking** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:False`
+           Whether to allow picking capabilities in the window. Incompatible with hovering.
+           Picking will take precedence over hovering.
+
+       **allow_hovering** : :obj:`Optional`\[:ref:`bool <python:bltin-boolean-values>`], default: :data:`python:False`
+           Whether to allow hovering capabilities in the window. Incompatible with picking.
+           Picking will take precedence over hovering.
+
+       **plot_picked_names** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:True`
+           Whether to plot the names of the picked objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: PyVistaBackend
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot_iter`
+            - Plot the elements of an iterable of any type of object to the scene.
+          * - :py:attr:`~plot`
+            - Plot a ``pyansys`` or ``PyVista`` object to the plotter.
+          * - :py:attr:`~close`
+            - Close the plotter for PyVistaQT.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~base_plotter`
+            - Return the base plotter object.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.pyvista import PyVistaBackend
+
+Property detail
+---------------
+
+.. py:property:: base_plotter
+
+   
+   Return the base plotter object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: plot_iter(plotting_list: List[Any], name_filter: str = None, **plotting_options) -> None
+
+   
+   Plot the elements of an iterable of any type of object to the scene.
+
+   The types of objects supported are ``Body``, ``Component``, ``List[pv.PolyData]``,
+   ``pv.MultiBlock``, and ``Sketch``.
+
+   :Parameters:
+
+       **plotting_list** : :obj:`List`\[:obj:`Any`]
+           List of objects to plot.
+
+       **name_filter** : :class:`python:str`, default: :data:`python:None`
+           Regular expression with the desired name or names to include in the plotter.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot(plottable_object: Any, name_filter: str = None, **plotting_options)
+
+   
+   Plot a ``pyansys`` or ``PyVista`` object to the plotter.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           Object to add.
+
+       **name_filter** : :class:`python:str`
+           Regular expression with the desired name or names to include in the plotter.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: close()
+
+   
+   Close the plotter for PyVistaQT.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

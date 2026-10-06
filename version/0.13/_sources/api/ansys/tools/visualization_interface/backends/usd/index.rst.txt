@@ -1,0 +1,92 @@
+
+
+
+
+
+
+The ``usd`` package
+=======================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: usd
+.. tab-set::
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.usd_interface`
+            - USD backend interface for visualization using python-usd-viewer.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> usd_interface</api/ansys/tools/visualization_interface/backends/usd/usd_interface/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+USD backend initialization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+

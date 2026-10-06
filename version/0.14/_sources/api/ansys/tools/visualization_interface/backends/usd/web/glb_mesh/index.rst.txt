@@ -1,0 +1,193 @@
+
+
+
+
+
+
+The ``glb_mesh.py`` module
+==========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.glb_mesh
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: glb_mesh
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~triangulate_faces`
+            - Convert polygon faces to triangles using fan triangulation.
+
+
+          * - :py:obj:`~iter_usd_mesh_prims`
+            - Collect mesh prims from a USD stage.
+
+
+          * - :py:obj:`~convert_mesh_prim_to_gltf`
+            - Convert one USD mesh prim into GLTF mesh/node entries.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Mesh geometry conversion helpers for GLB export.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: triangulate_faces(indices: list[int], counts: list[int]) -> list[int]
+
+   
+   Convert polygon faces to triangles using fan triangulation.
+
+
+   :Parameters:
+
+       **indices** : :class:`python:list`\[:class:`python:int`]
+           The list of vertex indices for all faces, as defined by USD's faceVertexIndices.
+
+       **counts** : :class:`python:list`\[:class:`python:int`]
+           The list of vertex counts for each face, as defined by USD's faceVertexCounts.
+
+
+
+   :Returns:
+
+       :class:`python:list`\[:class:`python:int`]
+           The list of triangle indices.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: iter_usd_mesh_prims(stage: Any) -> list[Any]
+
+   
+   Collect mesh prims from a USD stage.
+
+
+   :Parameters:
+
+       **stage** : :obj:`Any`
+           The USD stage to traverse for mesh prims.
+
+
+
+   :Returns:
+
+       :class:`python:list`\[:obj:`Any`]
+           A list of USD mesh prims found in the stage.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: convert_mesh_prim_to_gltf(prim: Any, gltf: Any, scene: Any, builder: ansys.tools.visualization_interface.backends.usd.web.glb_builder.GLBBuilder, texture_cache: dict[tuple[str, str, str], int], image_cache: dict[str, int], sampler_cache: dict[tuple[int, int], int]) -> None
+
+   
+   Convert one USD mesh prim into GLTF mesh/node entries.
+
+
+   :Parameters:
+
+       **prim** : :obj:`Any`
+           The USD mesh prim to convert.
+
+       **gltf** : :obj:`Any`
+           The GLTF object to which the mesh will be added.
+
+       **scene** : :obj:`Any`
+           The GLTF scene to which the mesh node will be added.
+
+       **builder** : :obj:`GLBBuilder`
+           The GLBBuilder instance used for constructing the GLTF.
+
+       **texture_cache** : :class:`python:dict`\[:class:`python:tuple`\[:class:`python:str`, :class:`python:str`, :class:`python:str`], :class:`python:int`]
+           A cache mapping texture identifiers to GLTF texture indices.
+
+       **image_cache** : :class:`python:dict`\[:class:`python:str`, :class:`python:int`]
+           A cache mapping image file paths to GLTF image indices.
+
+       **sampler_cache** : :class:`python:dict`\[:class:`python:tuple`\[:class:`python:int`, :class:`python:int`], :class:`python:int`]
+           A cache mapping sampler settings to GLTF sampler indices.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

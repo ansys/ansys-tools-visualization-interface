@@ -1,0 +1,100 @@
+
+
+
+
+
+
+The ``next_button.py`` module
+=============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.next_button
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: next_button
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.next_button.NextButton`
+            - Provides next frame control for animations.
+
+
+
+    .. tab-item:: Enums
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.next_button.NextButtonConfig`
+            - Provides configuration for the next button.
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> NextButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/next_button/NextButton>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_enum"></span> NextButtonConfig</api/ansys/tools/visualization_interface/backends/pyvista/widgets/next_button/NextButtonConfig>
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the next button widget for animation control.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

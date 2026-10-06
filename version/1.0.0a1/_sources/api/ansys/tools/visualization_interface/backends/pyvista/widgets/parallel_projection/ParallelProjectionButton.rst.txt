@@ -1,0 +1,136 @@
+
+
+
+
+
+
+:class:`ParallelProjectionButton`
+=================================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.parallel_projection.ParallelProjectionButton(plotter: ansys.tools.visualization_interface.backends.pyvista.pyvista.Plotter, dark_mode: bool = False)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget`
+
+
+   
+   Toggle parallel projection for the camera.
+
+
+   :Parameters:
+
+       **plotter** : :obj:`Plotter`
+           Plotter to add the widget to.
+
+       **dark_mode** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether dark mode is active.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: ParallelProjectionButton
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~callback`
+            - Toggle parallel projection.
+          * - :py:attr:`~update`
+            - Update the button appearance.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.parallel_projection import ParallelProjectionButton
+
+
+
+Method detail
+-------------
+
+.. py:method:: callback(state: bool) -> None
+
+   
+   Toggle parallel projection.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           Button state from PyVista.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: update() -> None
+
+   
+   Update the button appearance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

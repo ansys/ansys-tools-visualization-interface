@@ -1,0 +1,92 @@
+
+
+
+
+
+
+The ``widgets`` package
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.plotly.widgets
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: widgets
+.. tab-set::
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.plotly.widgets.button_manager`
+            - Module for button management.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> button_manager</api/ansys/tools/visualization_interface/backends/plotly/widgets/button_manager/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+Widgets module init.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+

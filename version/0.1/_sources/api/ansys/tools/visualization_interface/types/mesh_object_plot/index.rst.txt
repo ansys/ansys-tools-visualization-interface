@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``mesh_object_plot.py`` module
+==================================
+
+.. py:module:: ansys.tools.visualization_interface.types.mesh_object_plot
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: mesh_object_plot
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot`
+            - Relates a custom object with a mesh, provided by the consumer library.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    🝆 MeshObjectPlot</api/ansys/tools/visualization_interface/types/mesh_object_plot/MeshObjectPlot>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the ``MeshObjectPlot`` class.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

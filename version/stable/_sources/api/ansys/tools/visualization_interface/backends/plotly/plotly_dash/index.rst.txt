@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``plotly_dash.py`` module
+=============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.plotly.plotly_dash
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: plotly_dash
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.plotly.plotly_dash.PlotlyDashBackend`
+            - Plotly Dash interface for visualization.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> PlotlyDashBackend</api/ansys/tools/visualization_interface/backends/plotly/plotly_dash/PlotlyDashBackend>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Module for dash plotly.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
