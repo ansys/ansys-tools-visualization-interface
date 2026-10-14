@@ -1,0 +1,100 @@
+
+
+
+
+
+
+The ``play_pause_button.py`` module
+===================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.play_pause_button
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: play_pause_button
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.play_pause_button.PlayPauseButton`
+            - Provides play/pause toggle control for animations.
+
+
+
+    .. tab-item:: Enums
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.play_pause_button.PlayPauseButtonConfig`
+            - Provides configuration for the play/pause button.
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> PlayPauseButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/play_pause_button/PlayPauseButton>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_enum"></span> PlayPauseButtonConfig</api/ansys/tools/visualization_interface/backends/pyvista/widgets/play_pause_button/PlayPauseButtonConfig>
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the play/pause button widget for animation control.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

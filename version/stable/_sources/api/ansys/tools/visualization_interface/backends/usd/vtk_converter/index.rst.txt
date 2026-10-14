@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``vtk_converter.py`` module
+===============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.vtk_converter
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: vtk_converter
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.vtk_converter.VTKConverter`
+            - Convert VTK files to USD format for visualization.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> VTKConverter</api/ansys/tools/visualization_interface/backends/usd/vtk_converter/VTKConverter>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Asset resolver for handling various file types and USD asset paths.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

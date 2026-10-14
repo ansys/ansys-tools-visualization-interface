@@ -1,0 +1,146 @@
+
+
+
+
+
+
+The ``html_export.py`` module
+=============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.html_export
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: html_export
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~export_usd_to_html`
+            - Convert a USD asset to a self-contained Three.js HTML viewer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Self-contained USD → Three.js HTML export.
+
+Converts a USD asset (file or in-memory ``pxr.Usd.Stage``) into a
+self-contained HTML viewer page. The generated page embeds the geometry as a
+base64 GLB and requires only a CDN connection for Three.js at runtime.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: export_usd_to_html(source: str | Path | object, output_path: str | Path | None = None, *, show_mesh_lines: bool = True, line_color: str = '#ffffff', line_opacity: float = 0.9, template_path: str | Path | None = None) -> pathlib.Path
+
+   
+   Convert a USD asset to a self-contained Three.js HTML viewer.
+
+
+   :Parameters:
+
+       **source** : :class:`python:str` | :obj:`Path` | :obj:`pxr.Usd.Stage`
+           USD file path (.usd / .usda / .usdc / .usdz) or an in-memory USD stage.
+
+       **output_path** : :class:`python:str` | :obj:`Path` | :data:`python:None`, default: :data:`python:None`
+           Destination for the HTML file. When None, placed alongside the source
+           as ``{stem}_viewer.html``.
+
+       **show_mesh_lines** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:True`
+           When True, injects Three.js LineSegments derived from polygon edges of
+           all UsdGeomMesh prims in the stage for a wireframe overlay.
+
+       **line_color** : :class:`python:str`, default: "#ffffff"
+           CSS hex color for the mesh-edge overlay.
+
+       **line_opacity** : :class:`python:float`, default: 0.9
+           Opacity of the mesh-edge overlay (0.0 - 1.0).
+
+       **template_path** : :class:`python:str` | :obj:`Path` | :data:`python:None`, default: :data:`python:None`
+           Path to a custom HTML template. The template must contain
+           ``__GLB_B64_JSON__`` and ``__MODEL_NAME_JSON__`` as literal placeholders
+           that will be replaced with JSON-encoded values at render time. When
+           ``show_mesh_lines=True``, the template must also include the wireframe
+           injection anchors (``const binary = atob(glbBase64);`` and
+           ``scene.add(gltf.scene);``). When ``None``, the built-in
+           ``glb_template.html`` is used.
+
+
+
+   :Returns:
+
+       :obj:`pathlib.Path`
+           Absolute path to the written HTML file.
+
+
+
+
+   :Raises:
+
+       :obj:`ImportError`
+           If ``usd-core`` is not installed.
+
+       :obj:`FileNotFoundError`
+           If a file path is given but does not exist on disk, or if
+           ``template_path`` points to a missing file.
+
+       :obj:`ValueError`
+           If ``line_opacity`` is outside [0.0, 1.0], ``line_color`` is not a
+           valid CSS hex color, or the template is missing required placeholders
+           or wireframe injection anchors.
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

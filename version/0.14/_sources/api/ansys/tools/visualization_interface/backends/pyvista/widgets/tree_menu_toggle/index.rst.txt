@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``tree_menu_toggle.py`` module
+==================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: tree_menu_toggle
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle.TreeMenuToggleButton`
+            - Provides a button to show/hide the tree menu widget.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> TreeMenuToggleButton</api/ansys/tools/visualization_interface/backends/pyvista/widgets/tree_menu_toggle/TreeMenuToggleButton>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides a button to toggle the tree menu visibility.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
