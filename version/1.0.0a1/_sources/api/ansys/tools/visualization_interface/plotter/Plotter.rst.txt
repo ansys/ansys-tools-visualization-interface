@@ -1,0 +1,740 @@
+
+
+
+
+
+
+:class:`Plotter`
+================
+
+
+.. py:class:: ansys.tools.visualization_interface.plotter.Plotter(backend: ansys.tools.visualization_interface.backends._base.BaseBackend = None)
+
+   
+   Base plotting class containing common methods and attributes.
+
+   This class is responsible for plotting objects using the specified backend.
+
+   :Parameters:
+
+       **backend** : :obj:`BaseBackend`, :obj:`optional`
+           Plotting backend to use, by default PyVistaBackend.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Plotter
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot_iter`
+            - Plots multiple objects using the specified backend.
+          * - :py:attr:`~plot`
+            - Plots an object using the specified backend.
+          * - :py:attr:`~show`
+            - Show the plotted objects.
+          * - :py:attr:`~animate`
+            - Create an animation from a sequence of frames.
+          * - :py:attr:`~add_points`
+            - Add point markers to the scene.
+          * - :py:attr:`~add_lines`
+            - Add line segments to the scene.
+          * - :py:attr:`~add_planes`
+            - Add a plane to the scene.
+          * - :py:attr:`~add_text`
+            - Add text to the scene.
+          * - :py:attr:`~add_labels`
+            - Add labels at 3D point locations.
+          * - :py:attr:`~clear`
+            - Clear all actors from the scene.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~backend`
+            - Return the base plotter object.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.plotter import Plotter
+
+Property detail
+---------------
+
+.. py:property:: backend
+
+   
+   Return the base plotter object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: plot_iter(plotting_list: List, **plotting_options)
+
+   
+   Plots multiple objects using the specified backend.
+
+
+   :Parameters:
+
+       **plotting_list** : :obj:`List`
+           List of objects to plot.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot(plottable_object: Any, **plotting_options)
+
+   
+   Plots an object using the specified backend.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           Object to plot.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(plottable_object: Any = None, screenshot: str = None, name_filter: bool = None, **kwargs) -> List
+
+   
+   Show the plotted objects.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`, :obj:`optional`
+           Object to show, by default None.
+
+       **screenshot** : :class:`python:str`, :obj:`optional`
+           Path to save a screenshot, by default None.
+
+       **name_filter** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Flag to filter the object, by default None.
+
+       **kwargs** : :class:`python:dict`
+           Additional options the selected backend accepts.
+
+
+
+   :Returns:
+
+       :obj:`List`
+           List of picked objects.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: animate(frames: List[Any], fps: int = 30, loop: bool = False, scalar_bar_args: Optional[dict] = None, **plot_kwargs)
+
+   
+   Create an animation from a sequence of frames.
+
+   This method provides a convenient way to create animations from time-series
+   simulation results, transient analyses, and dynamic phenomena. It wraps the
+   backend's animation functionality in a simple, consistent API.
+
+   :Parameters:
+
+       **frames** : :obj:`List`\[:obj:`Any`]
+           Sequence of frame objects to animate. Can be PyVista meshes,
+           ``MeshObjectPlot`` objects, or any plottable objects.
+
+       **fps** : :class:`python:int`, :obj:`optional`
+           Frames per second for playback. Default is 30.
+
+       **loop** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to loop animation continuously. Default is False.
+
+       **scalar_bar_args** : :class:`python:dict`, :obj:`optional`
+           Scalar bar arguments to apply to all frames (e.g., ``clim`` for fixed
+           color scale). If not provided, a global color scale is calculated
+           automatically to ensure visual integrity across frames.
+
+       **\*\*plot_kwargs**
+           Additional keyword arguments passed to add_mesh for all frames
+           (e.g., ``cmap='viridis'``, ``opacity=0.8``).
+
+
+
+   :Returns:
+
+       :obj:`Animation`
+           Animation controller object with playback controls:
+           - ``play()``: Start animation
+           - ``pause()``: Pause animation
+           - ``stop()``: Stop and reset to first frame
+           - ``step_forward()``: Advance one frame
+           - ``step_backward()``: Rewind one frame
+           - ``seek(frame_index)``: Jump to specific frame
+           - ``save(filename)``: Export to video (MP4, GIF, AVI)
+           - ``show()``: Display with plotter
+
+
+
+
+   :Raises:
+
+       :obj:`ValueError`
+           If frames list is empty or fps is not positive.
+
+       :obj:`NotImplementedError`
+           If the backend does not support animations.
+
+
+
+   .. seealso::
+
+       
+       :obj:`Animation`
+           Animation controller class with detailed playback controls
+       
+       
+   .. rubric:: Notes
+
+   - Fixed color scales are recommended (and calculated by default) to ensure
+     visual integrity and prevent misleading animations where color meanings
+     change between frames.
+   - For large datasets (1000+ frames or >5M cells), consider implementing
+     a custom ``FrameSequence`` with lazy loading capabilities.
+   - The animation uses the backend's native capabilities. Currently, only
+     PyVista backend supports animations.
+
+
+   .. rubric:: Examples
+
+   Create and play a simple animation from transient simulation results:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> import pyvista as pv
+   >>> # Create example meshes representing time steps
+   >>> sphere = pv.Sphere()
+   >>> frames = []
+   >>> for i in range(20):
+   ...     mesh = sphere.copy()
+   ...     mesh["displacement"] = np.random.rand(mesh.n_points) * i * 0.1
+   ...     frames.append(mesh)
+   >>> plotter = Plotter()
+   >>> animation = plotter.animate(frames, fps=10, loop=True)
+   >>> animation.show()
+
+   Export animation to video:
+
+   >>> animation = plotter.animate(frames, fps=30)
+   >>> animation.save("simulation.mp4", quality=8)
+
+   Use fixed color scale for accurate comparison:
+
+   >>> animation = plotter.animate(
+   ...     frames,
+   ...     fps=30,
+   ...     scalar_bar_args={"clim": (0.0, 1.0), "title": "Displacement [m]"}
+   ... )
+   >>> animation.play()
+   >>> animation.show()
+
+   Control playback programmatically:
+
+   >>> animation = plotter.animate(frames)
+   >>> animation.play()  # Start animation
+   >>> # ... after some time ...
+   >>> animation.pause()  # Pause
+   >>> animation.step_forward()  # Advance one frame
+   >>> animation.seek(10)  # Jump to frame 10
+   >>> animation.stop()  # Reset to beginning
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_points(points: Union[List, Any], color: str = 'red', size: float = 10.0, **kwargs) -> Any
+
+   
+   Add point markers to the scene.
+
+   This method provides a backend-agnostic way to add point markers to the
+   visualization scene. The points will be rendered using the active backend's
+   native point rendering capabilities.
+
+   :Parameters:
+
+       **points** : :obj:`Union`\[:obj:`List`, :obj:`Any`]
+           Points to add. Can be a list of coordinates or array-like object.
+           Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+
+       **color** : :class:`python:str`, default: "red"
+           Color of the points. Can be a color name (e.g., 'red', 'blue')
+           or hex color code (e.g., '#FF0000').
+
+       **size** : :class:`python:float`, default: 10.0
+           Size of the point markers in pixels or display units
+           (interpretation depends on backend).
+
+       **\*\*kwargs** : :class:`python:dict`
+           Additional backend-specific keyword arguments for advanced customization.
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Backend-specific actor or object representing the added points.
+           Can be used for further manipulation or removal.
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Add simple point markers at three locations:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> plotter = Plotter()
+   >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
+   >>> plotter.add_points(points, color='blue', size=15)
+   >>> plotter.show()
+
+   Add points with custom styling:
+
+   >>> import numpy as np
+   >>> points = np.random.rand(100, 3)
+   >>> plotter.add_points(points, color='yellow', size=8)
+   >>> plotter.show()
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_lines(points: Union[List, Any], connections: Optional[Union[List, Any]] = None, color: str = 'white', width: float = 1.0, **kwargs) -> Any
+
+   
+   Add line segments to the scene.
+
+   This method provides a backend-agnostic way to add lines to the
+   visualization scene. Lines can connect points sequentially or based
+   on explicit connectivity information.
+
+   :Parameters:
+
+       **points** : :obj:`Union`\[:obj:`List`, :obj:`Any`]
+           Points defining the lines. Can be a list of coordinates or array-like object.
+           Expected format: [[x1, y1, z1], [x2, y2, z2], ...] or Nx3 array.
+
+       **connections** : :obj:`Optional`\[:obj:`Union`\[:obj:`List`, :obj:`Any`]], default: :data:`python:None`
+           Line connectivity. If None, connects points sequentially (0->1, 1->2, 2->3, ...).
+           If provided, should define line segments as pairs of point indices:
+           [[start_idx1, end_idx1], [start_idx2, end_idx2], ...] or Mx2 array
+           where M is the number of line segments.
+
+       **color** : :class:`python:str`, default: "white"
+           Color of the lines. Can be a color name or hex color code.
+
+       **width** : :class:`python:float`, default: 1.0
+           Width of the lines in pixels or display units (interpretation depends on backend).
+
+       **\*\*kwargs** : :class:`python:dict`
+           Additional backend-specific keyword arguments for advanced customization.
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Backend-specific actor or object representing the added lines.
+           Can be used for further manipulation or removal.
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Add a line connecting points sequentially:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> plotter = Plotter()
+   >>> points = [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]]
+   >>> plotter.add_lines(points, color='green', width=2.0)
+   >>> plotter.show()
+
+   Add specific line segments with explicit connectivity:
+
+   >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0]]
+   >>> connections = [[0, 1], [2, 3], [0, 2]]  # Connect specific pairs
+   >>> plotter.add_lines(points, connections=connections, color='red', width=3.0)
+   >>> plotter.show()
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_planes(center: Tuple[float, float, float] = (0.0, 0.0, 0.0), normal: Tuple[float, float, float] = (0.0, 0.0, 1.0), i_size: float = 1.0, j_size: float = 1.0, **kwargs) -> Any
+
+   
+   Add a plane to the scene.
+
+   This method provides a backend-agnostic way to add plane objects to the
+   visualization scene. Planes are useful for showing reference planes,
+   symmetry planes, or cutting planes.
+
+   :Parameters:
+
+       **center** : :obj:`Tuple`\[:class:`python:float`, :class:`python:float`, :class:`python:float`], default: (0.0, 0.0, 0.0)
+           Center point of the plane in 3D space (x, y, z).
+
+       **normal** : :obj:`Tuple`\[:class:`python:float`, :class:`python:float`, :class:`python:float`], default: (0.0, 0.0, 1.0)
+           Normal vector of the plane (x, y, z). The vector will be normalized
+           by the backend if needed.
+
+       **i_size** : :class:`python:float`, default: 1.0
+           Size of the plane in the i direction (local coordinate system).
+
+       **j_size** : :class:`python:float`, default: 1.0
+           Size of the plane in the j direction (local coordinate system).
+
+       **\*\*kwargs** : :class:`python:dict`
+           Additional backend-specific keyword arguments for advanced customization
+           (e.g., color, opacity, resolution).
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Backend-specific actor or object representing the added plane.
+           Can be used for further manipulation or removal.
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Add a horizontal plane at z=0:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> plotter = Plotter()
+   >>> plotter.add_planes(center=(0, 0, 0), normal=(0, 0, 1), i_size=2.0, j_size=2.0)
+   >>> plotter.show()
+
+   Add a vertical plane with custom styling:
+
+   >>> plotter.add_planes(
+   ...     center=(1, 0, 0),
+   ...     normal=(1, 0, 0),
+   ...     i_size=3.0,
+   ...     j_size=3.0,
+   ...     color='lightblue',
+   ...     opacity=0.5
+   ... )
+   >>> plotter.show()
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_text(text: str, position: Union[Tuple[float, float], str], font_size: int = 12, color: str = 'white', **kwargs) -> Any
+
+   
+   Add text to the scene.
+
+   This method provides a backend-agnostic way to add text labels to the
+   visualization scene. Text is positioned using 2D screen coordinates.
+
+   :Parameters:
+
+       **text** : :class:`python:str`
+           Text string to display.
+
+       **position** : :obj:`Union`\[:obj:`Tuple`\[:class:`python:float`, :class:`python:float`], :class:`python:str`]
+           Position for the text. Can be:
+           
+           - 2D tuple (x, y) for screen/viewport coordinates (pixels from bottom-left)
+           - String position like 'upper_left', 'upper_right', 'lower_left',
+             'lower_right', 'upper_edge', 'lower_edge' (backend-dependent support)
+
+       **font_size** : :class:`python:int`, default: 12
+           Font size for the text in points.
+
+       **color** : :class:`python:str`, default: "white"
+           Color of the text. Can be a color name or hex color code.
+
+       **\*\*kwargs** : :class:`python:dict`
+           Additional backend-specific keyword arguments for advanced customization
+           (e.g., font_family, bold, italic, shadow).
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Backend-specific actor or object representing the added text.
+           Can be used for further manipulation or removal.
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Add text at a screen position:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> plotter = Plotter()
+   >>> plotter.add_text("Title", position=(10, 10), font_size=18, color='yellow')
+   >>> plotter.show()
+
+   Add text using a named position:
+
+   >>> plotter.add_text(
+   ...     "Corner Label",
+   ...     position='upper_right',
+   ...     font_size=14,
+   ...     color='red'
+   ... )
+   >>> plotter.show()
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: add_labels(points: Union[List, Any], labels: List[str], font_size: int = 12, point_size: float = 5.0, **kwargs) -> Any
+
+   
+   Add labels at 3D point locations.
+
+   This method provides a backend-agnostic way to add text labels at
+   specific 3D coordinates in the visualization scene. Labels are
+   displayed next to marker points.
+
+   :Parameters:
+
+       **points** : :obj:`Union`\[:obj:`List`, :obj:`Any`]
+           Points where labels should be placed. Can be a list of coordinates
+           or array-like object. Expected format: [[x1, y1, z1], ...] or Nx3 array.
+
+       **labels** : :obj:`List`\[:class:`python:str`]
+           List of label strings to display at each point. Must have the same
+           length as points.
+
+       **font_size** : :class:`python:int`, default: 12
+           Font size for the labels.
+
+       **point_size** : :class:`python:float`, default: 5.0
+           Size of the point markers shown with labels.
+
+       **\*\*kwargs** : :class:`python:dict`
+           Additional backend-specific keyword arguments for advanced customization
+           (e.g., text_color, shape, fill_shape).
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Backend-specific actor or object representing the added labels.
+           Can be used for further manipulation or removal.
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Add labels at specific locations:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> plotter = Plotter()
+   >>> points = [[0, 0, 0], [1, 0, 0], [0, 1, 0]]
+   >>> labels = ['Origin', 'X-axis', 'Y-axis']
+   >>> plotter.add_labels(points, labels, font_size=14)
+   >>> plotter.show()
+
+   Add labels with custom styling:
+
+   >>> plotter.add_labels(
+   ...     points,
+   ...     labels,
+   ...     font_size=16,
+   ...     point_size=10,
+   ...     text_color='yellow',
+   ...     shape='rounded_rect'
+   ... )
+   >>> plotter.show()
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: clear() -> None
+
+   
+   Clear all actors from the scene.
+
+   This method removes all previously added objects (meshes, points, lines,
+   text, etc.) from the visualization scene, therefore allowing
+   the plotter to be reused after ``show()`` has been called.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Clear before showing:
+
+   >>> from ansys.tools.visualization_interface import Plotter
+   >>> import pyvista as pv
+   >>> plotter = Plotter()
+   >>> plotter.plot(pv.Sphere())
+   >>> plotter.clear()  # Changed mind, remove sphere
+   >>> plotter.plot(pv.Cube())
+   >>> plotter.show()
+
+   Clear after showing
+
+   >>> plotter = Plotter()
+   >>> plotter.plot(pv.Sphere())
+   >>> plotter.show()
+   >>> plotter.clear()  # Reset the plotter to reuse it
+   >>> plotter.plot(pv.Cube())
+   >>> plotter.show()
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

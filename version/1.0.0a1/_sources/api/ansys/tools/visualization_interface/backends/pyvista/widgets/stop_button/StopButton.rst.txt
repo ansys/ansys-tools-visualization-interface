@@ -1,0 +1,115 @@
+
+
+
+
+
+
+:class:`StopButton`
+===================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button.StopButton(plotter: pyvista.Plotter, animation, dark_mode: bool = False)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.button.Button`
+
+
+   
+   Provides stop control for animations.
+
+   This button stops the animation and resets to the first frame.
+
+   :Parameters:
+
+       **plotter** : :obj:`Plotter`
+           Plotter to draw the button on.
+
+       **animation** : :obj:`Animation`
+           Animation instance to control.
+
+       **dark_mode** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to activate the dark mode or not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: StopButton
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~callback`
+            - Stop animation and reset to first frame.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.stop_button import StopButton
+
+
+
+Method detail
+-------------
+
+.. py:method:: callback(state: bool) -> None
+
+   
+   Stop animation and reset to first frame.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           Whether the button is active.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

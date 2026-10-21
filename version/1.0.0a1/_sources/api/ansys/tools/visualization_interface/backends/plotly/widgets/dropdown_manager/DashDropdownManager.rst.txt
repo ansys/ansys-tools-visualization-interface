@@ -1,0 +1,194 @@
+
+
+
+
+
+
+:class:`DashDropdownManager`
+============================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.plotly.widgets.dropdown_manager.DashDropdownManager(fig: plotly.graph_objects.Figure)
+
+   
+   Class to manage dropdown menus in a Plotly figure.
+
+   This class allows adding dropdown menus to a Plotly figure for controlling
+   mesh visibility and other properties.
+
+   :Parameters:
+
+       **fig** : :obj:`go.Figure`
+           The Plotly figure to which dropdowns will be added.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: DashDropdownManager
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~add_mesh_name`
+            - Add a mesh name to track for dropdown functionality.
+          * - :py:attr:`~get_mesh_names`
+            - Get the list of tracked mesh names.
+          * - :py:attr:`~get_visibility_args_for_meshes`
+            - Get visibility arguments for showing only specified meshes.
+          * - :py:attr:`~clear`
+            - Clear all tracked mesh names.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.plotly.widgets.dropdown_manager import DashDropdownManager
+
+
+
+Method detail
+-------------
+
+.. py:method:: add_mesh_name(name: str) -> None
+
+   
+   Add a mesh name to track for dropdown functionality.
+
+
+   :Parameters:
+
+       **name** : :class:`python:str`
+           The name of the mesh to track.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: get_mesh_names() -> List[str]
+
+   
+   Get the list of tracked mesh names.
+
+
+
+
+
+   :Returns:
+
+       :obj:`List`\[:class:`python:str`]
+           List of mesh names.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: get_visibility_args_for_meshes(visible_mesh_names: List[str]) -> Dict[str, Any]
+
+   
+   Get visibility arguments for showing only specified meshes.
+
+
+   :Parameters:
+
+       **visible_mesh_names** : :obj:`List`\[:class:`python:str`]
+           List of mesh names that should be visible.
+
+
+
+   :Returns:
+
+       :obj:`Dict`\[:class:`python:str`, :obj:`Any`]
+           Arguments for restyle method to set mesh visibility.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: clear() -> None
+
+   
+   Clear all tracked mesh names.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

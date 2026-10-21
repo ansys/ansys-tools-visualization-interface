@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``plotting_options.py`` module
+==================================
+
+.. py:module:: ansys.tools.visualization_interface.utils.plotting_options
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: plotting_options
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.utils.plotting_options.PlottingOptions`
+            - Structured representation of all plotting kwargs.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> PlottingOptions</api/ansys/tools/visualization_interface/utils/plotting_options/PlottingOptions>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides the ``PlottingOptions`` dataclass for framework-specific plotting kwargs.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+
+
+
+
+
+
+:class:`AnimationState`
+=======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.animation.AnimationState(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   
+   Animation playback states.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: AnimationState
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~STOPPED`
+            - 
+          * - :py:attr:`~PLAYING`
+            - 
+          * - :py:attr:`~PAUSED`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.animation import AnimationState
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: STOPPED
+   :value: 'stopped'
+
+
+.. py:attribute:: PLAYING
+   :value: 'playing'
+
+
+.. py:attribute:: PAUSED
+   :value: 'paused'
+
+
+
+
+
+

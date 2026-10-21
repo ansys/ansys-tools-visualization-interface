@@ -1,0 +1,106 @@
+
+
+
+
+
+
+The ``pyvista.py`` module
+=========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.pyvista
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: pyvista
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.pyvista.PyVistaBackendInterface`
+            - Provides the interface for the Visualization Interface Tool plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.pyvista.PyVistaBackend`
+            - Provides the generic plotter implementation for PyAnsys libraries.
+
+
+
+
+
+
+
+    .. tab-item:: Constants
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~DARK_MODE_THRESHOLD`
+            - 
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> PyVistaBackendInterface</api/ansys/tools/visualization_interface/backends/pyvista/pyvista/PyVistaBackendInterface>
+    <span class="nf nf-cod-symbol_class"></span> PyVistaBackend</api/ansys/tools/visualization_interface/backends/pyvista/pyvista/PyVistaBackend>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Provides a wrapper to aid in plotting.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:data:: DARK_MODE_THRESHOLD
+   :value: 120
+
+
+
+

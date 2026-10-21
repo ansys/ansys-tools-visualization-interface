@@ -1,0 +1,106 @@
+
+
+
+
+
+
+The ``glb.py`` module
+=====================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.glb
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: glb
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~convert_usd_to_glb`
+            - Convert a USD stage to a self-contained GLB binary.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+GLB conversion entrypoint for USD web viewer export.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: convert_usd_to_glb(path: pathlib.Path) -> bytes
+
+   
+   Convert a USD stage to a self-contained GLB binary.
+
+
+   :Parameters:
+
+       **path** : :obj:`Path`
+           Path to the USD file to convert.
+
+
+
+   :Returns:
+
+       :obj:`bytes`
+           The GLB binary data.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
