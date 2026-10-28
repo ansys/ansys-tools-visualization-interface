@@ -1,0 +1,227 @@
+
+
+
+
+
+
+:class:`DynamicTreeMenuWidget`
+==============================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu.DynamicTreeMenuWidget(plotter: pyvista.Plotter, position: tuple = (0.82, 0.95), button_size: int = 20, spacing: int = 30, font_size: int = 6, dark_mode: bool = False)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget`
+
+
+   
+   Provides a dynamic tree menu with clickable buttons for each object.
+
+   This widget displays a hierarchical tree view of all plotted objects on the right
+   side of the screen. Each object has a clickable checkbox button to toggle visibility.
+
+   :Parameters:
+
+       **plotter** : :obj:`~pyvista.Plotter`
+           The plotter to add the tree menu widget to.
+
+       **position** : :class:`python:tuple`, :obj:`optional`
+           The (x, y) position of the top-left corner of the menu. Default is (0.65, 0.95).
+
+       **button_size** : :class:`python:int`, :obj:`optional`
+           Size of the checkbox buttons in pixels. Default is 20.
+
+       **spacing** : :class:`python:int`, :obj:`optional`
+           Vertical spacing between items in pixels. Default is 30.
+
+       **font_size** : :class:`python:int`, :obj:`optional`
+           Font size for the object labels. Default is 12.
+
+       **dark_mode** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to use dark mode colors. Default is False.
+           In light mode (False): text is black
+           In dark mode (True): text is white
+
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Notes
+
+   Each object gets a checkbox button that toggles visibility of the object and its subtree.
+   The menu updates dynamically as objects are added or removed.
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: DynamicTreeMenuWidget
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~refresh`
+            - Refresh the menu display.
+          * - :py:attr:`~update`
+            - Update the widget's appearance for current dark mode setting.
+          * - :py:attr:`~show_menu`
+            - Show the menu by enabling all text actors and buttons.
+          * - :py:attr:`~hide_menu`
+            - Hide the menu by disabling all text actors and buttons.
+          * - :py:attr:`~callback`
+            - Placeholder callback (not used for this widget).
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.dynamic_tree_menu import DynamicTreeMenuWidget
+
+
+
+Method detail
+-------------
+
+.. py:method:: refresh()
+
+   
+   Refresh the menu display.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: update()
+
+   
+   Update the widget's appearance for current dark mode setting.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show_menu()
+
+   
+   Show the menu by enabling all text actors and buttons.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: hide_menu()
+
+   
+   Hide the menu by disabling all text actors and buttons.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: callback(state: bool) -> None
+
+   
+   Placeholder callback (not used for this widget).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
