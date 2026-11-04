@@ -1,0 +1,45 @@
+
+
+.. _sphx_glr_examples_99-advanced-pyansys-examples:
+
+Advanced usage examples
+=======================
+
+These examples show how to use the Visualization Interface Tool to postprocess simulation data.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Visualization Interface Tool provides the MeshObject helper class to relate a custom object. With a custom object, you can take advantage of the full potential of the Visualization Interface Tool.">
+
+.. only:: html
+
+  .. image:: /examples/99-advanced-pyansys-examples/images/thumb/sphx_glr_using_meshobject_with_field_data_thumb.png
+    :alt:
+
+  :doc:`/examples/99-advanced-pyansys-examples/using_meshobject_with_field_data`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Postprocessing simulation results using the MeshObjectPlot class</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/99-advanced-pyansys-examples/using_meshobject_with_field_data
+

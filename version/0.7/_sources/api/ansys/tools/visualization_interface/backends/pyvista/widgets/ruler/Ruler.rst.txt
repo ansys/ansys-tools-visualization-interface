@@ -1,0 +1,136 @@
+
+
+
+
+
+
+:class:`Ruler`
+==============
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.ruler.Ruler(plotter: pyvista.Plotter)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget`
+
+
+   
+   Provides the ruler widget for the Visualization Interface Tool ``Plotter`` class.
+
+
+   :Parameters:
+
+       **plotter** : :obj:`~pyvista.Plotter`
+           Provides the plotter to add the ruler widget to.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: Ruler
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~callback`
+            - Remove or add the ruler widget actor upon click.
+          * - :py:attr:`~update`
+            - Define the configuration and representation of the ruler widget button.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.ruler import Ruler
+
+
+
+Method detail
+-------------
+
+.. py:method:: callback(state: bool) -> None
+
+   
+   Remove or add the ruler widget actor upon click.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           Whether the state of the button, which is inherited from PyVista, is ``True``.
+
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Notes
+
+   This method provides a callback function for the ruler widet.
+   It is called every time the ruler widget is clicked.
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: update() -> None
+
+   
+   Define the configuration and representation of the ruler widget button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

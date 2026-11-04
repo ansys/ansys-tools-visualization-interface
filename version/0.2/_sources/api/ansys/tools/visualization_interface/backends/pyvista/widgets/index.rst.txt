@@ -1,0 +1,117 @@
+
+
+
+
+
+
+The ``widgets`` package
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.widgets
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: widgets
+.. tab-set::
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.button`
+            - Provides for implementing buttons in PyAnsys.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows`
+            - Provides the displacement arrows widget for the PyVista plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.measure`
+            - Provides the measure widget for the PyAnsys plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.ruler`
+            - Provides the ruler widget for the Visualization Interface Tool plotter.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.view_button`
+            - Provides the view button widget for changing the camera view.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets.widget`
+            - Provides the abstract implementation of plotter widgets.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/button/index>
+    <span class="nf nf-fa-file"></span> displace_arrows</api/ansys/tools/visualization_interface/backends/pyvista/widgets/displace_arrows/index>
+    <span class="nf nf-fa-file"></span> measure</api/ansys/tools/visualization_interface/backends/pyvista/widgets/measure/index>
+    <span class="nf nf-fa-file"></span> ruler</api/ansys/tools/visualization_interface/backends/pyvista/widgets/ruler/index>
+    <span class="nf nf-fa-file"></span> view_button</api/ansys/tools/visualization_interface/backends/pyvista/widgets/view_button/index>
+    <span class="nf nf-fa-file"></span> widget</api/ansys/tools/visualization_interface/backends/pyvista/widgets/widget/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+Provides widgets for the Visualization Interface Tool plotter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+

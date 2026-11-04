@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``button_manager.py`` module
+================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.plotly.widgets.button_manager
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: button_manager
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.plotly.widgets.button_manager.ButtonManager`
+            - Class to manage buttons in a Plotly figure.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> ButtonManager</api/ansys/tools/visualization_interface/backends/plotly/widgets/button_manager/ButtonManager>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Module for button management.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

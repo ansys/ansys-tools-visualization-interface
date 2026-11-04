@@ -1,0 +1,117 @@
+
+
+
+
+
+
+The ``web`` package
+=======================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: web
+.. tab-set::
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web.glb`
+            - GLB conversion entrypoint for USD web viewer export.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web.glb_builder`
+            - Low-level helpers to build GLB buffers and base glTF scene state.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web.glb_lights`
+            - USD-to-glTF light conversion helpers.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web.glb_materials`
+            - Material and texture conversion helpers for GLB export.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web.glb_mesh`
+            - Mesh geometry conversion helpers for GLB export.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.web.templates`
+            - HTML template rendering helpers for web viewer export.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> glb</api/ansys/tools/visualization_interface/backends/usd/web/glb/index>
+    <span class="nf nf-fa-file"></span> glb_builder</api/ansys/tools/visualization_interface/backends/usd/web/glb_builder/index>
+    <span class="nf nf-fa-file"></span> glb_lights</api/ansys/tools/visualization_interface/backends/usd/web/glb_lights/index>
+    <span class="nf nf-fa-file"></span> glb_materials</api/ansys/tools/visualization_interface/backends/usd/web/glb_materials/index>
+    <span class="nf nf-fa-file"></span> glb_mesh</api/ansys/tools/visualization_interface/backends/usd/web/glb_mesh/index>
+    <span class="nf nf-fa-file"></span> templates</api/ansys/tools/visualization_interface/backends/usd/web/templates/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+USD-to-HTML web export pipeline (GLB + Three.js templates).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
