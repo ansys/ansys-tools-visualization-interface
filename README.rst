@@ -76,7 +76,7 @@ page, you can create issues to report bugs and request new features. On the
 you can post questions, share ideas, and get community feedback.
 
 If you have general questions about the PyAnsys ecosystem, email
-`pyansys.core@ansys.com <pyansys.core@ansys.com>`_. If your
+`pyansys-core@synopsys.com <pyansys-core@synopsys.com>`_. If your
 question is specific to the Visualization Interface Tool, ask your
 question in an issue as described in the previous paragraph.
 

@@ -113,6 +113,6 @@ page to report bugs and request new features. When possible, use the issue templ
 If your issue does not fit into one of these templates, click the link for opening a blank issue.
 
 If you have general questions about the PyAnsys ecosystem, email
-`pyansys.core@ansys.com <pyansys.core@ansys.com>`_. If your
+`pyansys-core@synopsys.com <pyansys-core@synopsys.com>`_. If your
 question is specific to the Visualization Interface Tool, ask your
 question in an issue as described in the previous paragraph.
