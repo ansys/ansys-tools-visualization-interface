@@ -107,6 +107,40 @@ control a wireframe edge overlay injected directly into the HTML:
         line_opacity=0.7,
     )
 
+Time slider and color legend
+----------------------------
+
+Call :func:`~ansys.tools.visualization_interface.add_viewer_controls` on an
+exported page to add a Play/Pause button, a time slider, and a color legend.
+These controls are an add-on: pages from
+:func:`~ansys.tools.visualization_interface.export_usd_to_html` stay plain
+viewers unless you call it. The slider changes the vertex colors of the mesh
+frame by frame.
+
+.. warning::
+
+    ``add_viewer_controls`` is experimental. Its ``viewer_data`` schema may
+    change in a future release.
+
+.. code-block:: python
+
+    viewer_data = {
+        # 256 sRGB colors, flattened: [r0, g0, b0, r1, g1, b1, ...]
+        "lut": lut_rgb_0_255,
+        # Optional color legend.
+        "legend": {"title": "Temperature", "vmin": 300.0, "vmax": 400.0},
+        # Optional frame player. ``data`` is base64 of uint8 LUT indices,
+        # one per GLB vertex per frame, frame after frame.
+        "frames": {"data": frames_b64, "times": [0, 1, 2], "label": "Iteration", "fps": 20},
+    }
+    from ansys.tools.visualization_interface import add_viewer_controls, export_usd_to_html
+
+    html_path = export_usd_to_html("my_model.usd")
+    add_viewer_controls(html_path, viewer_data)
+
+See :ref:`ref_usd_to_html_time_slider` for a complete example. The controls
+use the same two template anchors as the wireframe overlay.
+
 Custom HTML templates
 ---------------------
 
