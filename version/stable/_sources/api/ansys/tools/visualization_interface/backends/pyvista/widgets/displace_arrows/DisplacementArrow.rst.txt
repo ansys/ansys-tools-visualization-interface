@@ -1,0 +1,130 @@
+
+
+
+
+
+
+:class:`DisplacementArrow`
+==========================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows.DisplacementArrow(plotter: pyvista.Plotter, direction: CameraPanDirection, dark_mode: bool = False)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.button.Button`
+
+
+   
+   Defines the arrow to draw and what it is to do.
+
+
+   :Parameters:
+
+       **plotter** : :obj:`Plotter`
+           Plotter to draw the buttons on.
+
+       **direction** : :obj:`CameraPanDirection`
+           Direction that the camera is to move.
+
+       **dark_mode** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to activate the dark mode or not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: DisplacementArrow
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~callback`
+            - Move the camera in the direction defined by the button.
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~direction`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.displace_arrows import DisplacementArrow
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: direction
+
+
+
+Method detail
+-------------
+
+.. py:method:: callback(state: bool) -> None
+
+   
+   Move the camera in the direction defined by the button.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           Whether the state of the button, which is inherited from PyVista, is active.
+           However, this parameter is unused by this ``callback`` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

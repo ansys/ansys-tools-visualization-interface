@@ -1,0 +1,145 @@
+
+
+
+
+
+
+:class:`FrameSequence`
+======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.animation.FrameSequence
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   
+   Abstract interface for frame data sources.
+
+   This class provides an abstraction for different frame storage strategies,
+   allowing for in-memory, lazy-loaded, or computed frame sequences.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+.. py:currentmodule:: FrameSequence
+
+Overview
+--------
+
+.. tab-set::
+
+   .. tab-item:: Abstract methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~get_frame`
+            - Retrieve frame at given index.
+          * - :py:attr:`~__len__`
+            - Return total number of frames.
+
+
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.animation import FrameSequence
+
+
+
+Method detail
+-------------
+
+.. py:method:: get_frame(index: int) -> Any
+   :abstractmethod:
+
+
+   
+   Retrieve frame at given index.
+
+
+   :Parameters:
+
+       **index** : :class:`python:int`
+           Frame index to retrieve.
+
+
+
+   :Returns:
+
+       :obj:`Any`
+           Frame data (typically a PyVista mesh or MeshObjectPlot).
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: __len__() -> int
+   :abstractmethod:
+
+
+   
+   Return total number of frames.
+
+
+
+
+
+   :Returns:
+
+       :class:`python:int`
+           Total frame count.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

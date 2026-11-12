@@ -1,0 +1,81 @@
+
+
+
+
+
+
+:class:`PlayPauseButtonConfig`
+==============================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.play_pause_button.PlayPauseButtonConfig(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   
+   Provides configuration for the play/pause button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: PlayPauseButtonConfig
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~PLAY_PAUSE`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.play_pause_button import PlayPauseButtonConfig
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: PLAY_PAUSE
+   :value: (0, 'play', (10, 10))
+
+
+
+
+
+

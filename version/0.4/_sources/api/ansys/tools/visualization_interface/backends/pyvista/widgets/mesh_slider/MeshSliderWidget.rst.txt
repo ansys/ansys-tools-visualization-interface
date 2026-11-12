@@ -1,0 +1,140 @@
+
+
+:class:`MeshSliderWidget`
+=========================
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider.MeshSliderWidget(plotter_helper: ansys.tools.visualization_interface.backends.pyvista.pyvista.Plotter)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget`
+
+
+   
+   Provides the mesh slider widget for the Visualization Interface Tool ``Plotter`` class.
+
+
+   :Parameters:
+
+       **plotter_helper** : :obj:`PlotterHelper`
+           Plotter to add the mesh slider widget to.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: MeshSliderWidget
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~callback`
+            - Remove or add the mesh slider widget actor upon click.
+          * - :py:attr:`~update`
+            - Define the mesh slider widget button parameters.
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plotter_helper`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.mesh_slider import MeshSliderWidget
+
+
+
+Attribute detail
+----------------
+.. py:attribute:: plotter_helper
+
+
+
+Method detail
+-------------
+.. py:method:: callback(state: bool) -> None
+
+   
+   Remove or add the mesh slider widget actor upon click.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           Whether the state of the button, which is inherited from PyVista, is active.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: update() -> None
+
+   
+   Define the mesh slider widget button parameters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+

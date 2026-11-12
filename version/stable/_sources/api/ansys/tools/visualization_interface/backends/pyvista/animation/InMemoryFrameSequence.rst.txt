@@ -1,0 +1,139 @@
+
+
+
+
+
+
+:class:`InMemoryFrameSequence`
+==============================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.animation.InMemoryFrameSequence(frames: List[Any])
+
+   Bases: :py:obj:`FrameSequence`
+
+
+   
+   Frame sequence with all frames pre-loaded in memory.
+
+   This is the simplest strategy, suitable for small to medium datasets
+   where all frames can fit in memory.
+
+   :Parameters:
+
+       **frames** : :obj:`List`\[:obj:`Any`]
+           List of frame objects (meshes or mesh objects).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+.. py:currentmodule:: InMemoryFrameSequence
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~get_frame`
+            - Retrieve frame at given index.
+
+
+
+
+
+   .. tab-item:: Special methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~__len__`
+            - Return total number of frames.
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.animation import InMemoryFrameSequence
+
+
+
+Method detail
+-------------
+
+.. py:method:: get_frame(index: int) -> Any
+
+   
+   Retrieve frame at given index.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: __len__() -> int
+
+   
+   Return total number of frames.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

@@ -1,0 +1,130 @@
+
+
+
+
+
+
+The ``pyvista`` package 
+===========================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: pyvista
+.. tab-set::
+
+    .. tab-item:: Subpackages
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.widgets`
+            - Provides widgets for the Visualization Interface tool plotter.
+
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.pyvista`
+            - Provides a wrapper to aid in plotting.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.pyvista_interface`
+            - Provides plotting for various PyAnsys objects.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.trame_local`
+            - Provides `trame <https://kitware.github.io/trame/index.html>`_ visualizer interface for visualization.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.trame_remote`
+            - Module for trame websocket client functions.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.trame_service`
+            - Trame service module.
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    🖿 widgets</api/ansys/tools/visualization_interface/backends/pyvista/widgets/index>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    🗎 pyvista</api/ansys/tools/visualization_interface/backends/pyvista/pyvista/index>
+    🗎 pyvista_interface</api/ansys/tools/visualization_interface/backends/pyvista/pyvista_interface/index>
+    🗎 trame_local</api/ansys/tools/visualization_interface/backends/pyvista/trame_local/index>
+    🗎 trame_remote</api/ansys/tools/visualization_interface/backends/pyvista/trame_remote/index>
+    🗎 trame_service</api/ansys/tools/visualization_interface/backends/pyvista/trame_service/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+Provides interfaces.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
