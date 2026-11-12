@@ -441,7 +441,12 @@ class TestInjectMeshLines:
         stage = MagicMock()
         stage.Traverse.return_value = [MagicMock()]
 
-        _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+        # World transforms need real pxr; they are covered by the integration tests.
+        with patch(
+            "ansys.tools.visualization_interface.backends.usd.html_export._world_points",
+            side_effect=lambda prim, pts: pts,
+        ):
+            _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
         content = html_path.read_text(encoding="utf-8")
 
         assert "ansysEdgeSegs" in content

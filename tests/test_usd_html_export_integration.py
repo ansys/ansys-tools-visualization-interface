@@ -156,3 +156,76 @@ def test_export_usd_to_html_file_path_input(tmp_path):
     assert m is not None
     floats = json.loads(m.group(1))
     assert len(floats) == 18
+
+
+def _build_transformed_stage(up_axis: str, scale=(100, 100, 100)) -> Usd.Stage:
+    """Return a stage with a triangle under a translated and scaled parent Xform."""
+    stage = Usd.Stage.CreateInMemory()
+    UsdGeom.SetStageUpAxis(stage, up_axis)
+    parent = UsdGeom.Xform.Define(stage, "/World")
+    parent.AddTranslateOp().Set(Gf.Vec3d(10, 0, 0))
+    parent.AddScaleOp().Set(Gf.Vec3f(*scale))
+    mesh = UsdGeom.Mesh.Define(stage, "/World/Tri")
+    mesh.GetPointsAttr().Set([(0, 0, 0), (1, 0, 0), (0, 1, 0)])
+    mesh.GetFaceVertexCountsAttr().Set([3])
+    mesh.GetFaceVertexIndicesAttr().Set([0, 1, 2])
+    return stage
+
+
+def _glb_triangle(stage: Usd.Stage, tmp_path: Path) -> tuple[list, list]:
+    """Convert *stage* to GLB and return the first primitive's positions and indices."""
+    import numpy as np
+    import pygltflib
+
+    from ansys.tools.visualization_interface.backends.usd.web.glb import convert_usd_to_glb
+
+    usd_path = tmp_path / "stage.usda"
+    stage.Export(str(usd_path))
+    gltf = pygltflib.GLTF2.load_from_bytes(convert_usd_to_glb(usd_path))
+    blob = gltf.binary_blob()
+
+    def _read(accessor_index, dtype):
+        view = gltf.bufferViews[gltf.accessors[accessor_index].bufferView]
+        return np.frombuffer(blob[view.byteOffset : view.byteOffset + view.byteLength], dtype)
+
+    primitive = gltf.meshes[0].primitives[0]
+    positions = _read(primitive.attributes.POSITION, np.float32).reshape(-1, 3).round(4).tolist()
+    indices = _read(primitive.indices, np.uint32).tolist()
+    return positions, indices
+
+
+@pytest.mark.integration
+def test_glb_applies_parent_transforms(tmp_path):
+    """Parent translate and scale are baked into the GLB positions (#639)."""
+    positions, indices = _glb_triangle(_build_transformed_stage(UsdGeom.Tokens.y), tmp_path)
+    assert positions == [[10, 0, 0], [110, 0, 0], [10, 100, 0]]
+    assert indices == [0, 1, 2]
+
+
+@pytest.mark.integration
+def test_glb_z_up_stage_is_rotated_to_y_up(tmp_path):
+    """Z-up stages are rotated so USD +Z maps to Three.js +Y (#639)."""
+    positions, _ = _glb_triangle(_build_transformed_stage(UsdGeom.Tokens.z), tmp_path)
+    assert positions == [[10, 0, 0], [110, 0, 0], [10, 0, -100]]
+
+
+@pytest.mark.integration
+def test_glb_mirrored_transform_keeps_winding(tmp_path):
+    """A negative scale reverses triangle winding so faces stay front-facing."""
+    stage = _build_transformed_stage(UsdGeom.Tokens.y, scale=(-1, 1, 1))
+    positions, indices = _glb_triangle(stage, tmp_path)
+    assert positions == [[10, 0, 0], [9, 0, 0], [10, 1, 0]]
+    assert indices == [0, 2, 1]
+
+
+@pytest.mark.integration
+def test_inject_mesh_lines_uses_world_space(tmp_path):
+    """Edge overlay uses the same world-space points as the GLB."""
+    import json
+    import re
+
+    html_path = _minimal_viewer_html(tmp_path)
+    _inject_mesh_lines(html_path, _build_transformed_stage(UsdGeom.Tokens.z), "#ffffff", 0.9)
+    match = re.search(r"new Float32Array\((\[.*?\])\)", html_path.read_text(encoding="utf-8"))
+    points = {tuple(p) for p in zip(*[iter(json.loads(match.group(1)))] * 3)}
+    assert points == {(10, 0, 0), (110, 0, 0), (10, 0, -100)}
