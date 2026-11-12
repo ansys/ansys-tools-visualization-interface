@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 """Tests for the optional viewer controls add-on (legend and frame player)."""
 
 import base64
@@ -31,8 +30,10 @@ import re
 import sys
 from unittest.mock import MagicMock
 
+import numpy as np
 import pytest
 
+from ansys.tools.visualization_interface.backends.usd import Frames, Legend
 from ansys.tools.visualization_interface.backends.usd.html_export import (
     _inject_mesh_lines,
     export_usd_to_html,
@@ -44,8 +45,10 @@ from ansys.tools.visualization_interface.backends.usd.web.templates import (
     build_viewer_html_glb,
 )
 
+_COLORMAP = np.linspace(0.0, 1.0, 256)[:, None].repeat(3, axis=1)  # gray ramp
 
-def _minimal_viewer_html(tmp_path: Path) -> Path:
+
+def _minimal_viewer_html(tmp_path: Path, name: str = "model_viewer.html") -> Path:
     """Write a minimal viewer HTML with both injection anchors."""
     content = (
         "<!doctype html><html><body><script type='module'>\n"
@@ -53,23 +56,73 @@ def _minimal_viewer_html(tmp_path: Path) -> Path:
         "scene.add(gltf.scene);\n"
         "</script></body></html>"
     )
-    path = tmp_path / "model_viewer.html"
+    path = tmp_path / name
     path.write_text(content, encoding="utf-8")
     return path
 
 
-def _viewer_data(**overrides) -> dict:
-    """Return a valid viewer_data dict: 2 frames x 3 vertices plus a legend."""
-    data = {
-        "lut": [0, 0, 0] * 256,
-        "legend": {"title": "T", "vmin": 0.0, "vmax": 1.0},
-        "frames": {
-            "data": base64.b64encode(bytes([0, 1, 2, 3, 4, 5])).decode("ascii"),
-            "times": [0, 1],
-        },
-    }
-    data.update(overrides)
-    return data
+def _frames() -> Frames:
+    """Return 2 frames x 3 vertices."""
+    return Frames(np.array([[0, 1, 2], [3, 4, 5]]), times=[0, 1])
+
+
+def _embedded_data(html_path: Path) -> dict:
+    """Return the JSON object embedded in the page."""
+    content = html_path.read_text(encoding="utf-8")
+    m = re.search(r"const ansysViewerData = (.*);\n", content)
+    return json.loads(m.group(1))
+
+
+# Legend
+
+
+def test_legend_casts_to_float():
+    """Vmin and vmax are stored as floats."""
+    legend = Legend(np.float32(1), 2)
+    assert legend.vmin == 1.0
+    assert type(legend.vmin) is float
+    assert type(legend.vmax) is float
+
+
+@pytest.mark.parametrize("vmin, vmax", [(1, 1), (2, 1), (0, float("nan")), (0, float("inf"))])
+def test_legend_invalid_range_raises(vmin, vmax):
+    """Vmin must be finite and smaller than vmax."""
+    with pytest.raises(ValueError, match="vmin must be smaller"):
+        Legend(vmin, vmax)
+
+
+# Frames
+
+
+def test_frames_stores_uint8_and_plain_times():
+    """Indices become uint8; numpy times become plain Python numbers."""
+    frames = Frames(np.array([[0, 255]], dtype=np.int64), times=np.array([0.5]))
+    assert frames.indices.dtype == np.uint8
+    assert frames.times == [0.5]
+    assert type(frames.times[0]) is float
+    assert frames.fps == 20.0
+    assert frames.label == "Time"
+
+
+@pytest.mark.parametrize(
+    "kwargs, match",
+    [
+        ({"indices": np.array([0, 1]), "times": [0]}, "2D"),
+        ({"indices": np.zeros((0, 3), int), "times": []}, "non-empty"),
+        ({"indices": np.array([[0.5, 1.0]]), "times": [0]}, "integers"),
+        ({"indices": np.array([[0, 256]]), "times": [0]}, r"\[0, 255\]"),
+        ({"indices": np.array([[-1, 0]]), "times": [0]}, r"\[0, 255\]"),
+        ({"indices": np.array([[0, 1]]), "times": [0, 1]}, "one value per frame"),
+        ({"indices": np.array([[0, 1]]), "times": [0], "fps": 0}, "fps"),
+    ],
+)
+def test_frames_invalid_raises(kwargs, match):
+    """Frames validates shape, dtype, range, times and fps."""
+    with pytest.raises(ValueError, match=match):
+        Frames(**kwargs)
+
+
+# add_viewer_controls
 
 
 def test_default_html_has_no_controls():
@@ -80,17 +133,17 @@ def test_default_html_has_no_controls():
     assert "ansys-legend" not in html
 
 
-def test_export_has_no_viewer_data_argument():
+def test_export_has_no_viewer_controls_arguments():
     """export_usd_to_html stays unchanged; controls are a separate add-on."""
-    assert "viewer_data" not in inspect.signature(export_usd_to_html).parameters
+    params = inspect.signature(export_usd_to_html).parameters
+    assert not {"viewer_data", "legend", "frames", "colormap"} & params.keys()
 
 
 def test_injects_data_and_controls(tmp_path):
     """Injection adds the data, the controls script and the marker."""
     html_path = _minimal_viewer_html(tmp_path)
-    add_viewer_controls(html_path, _viewer_data())
+    add_viewer_controls(html_path, _COLORMAP, legend=Legend(0, 1), frames=_frames())
     content = html_path.read_text(encoding="utf-8")
-    assert "const ansysViewerData = " in content
     assert "ansysViewerControlsInjected" in content
     assert "ansys-player" in content
     assert "ansys-legend" in content
@@ -99,31 +152,57 @@ def test_injects_data_and_controls(tmp_path):
     assert content.index("scene.add(gltf.scene);") < content.index("ansys-player")
 
 
-def test_injected_json_round_trips(tmp_path):
-    """The embedded JSON parses back to the input dict."""
+def test_embedded_data_format(tmp_path):
+    """The page gets the format that viewer_controls.js reads."""
     html_path = _minimal_viewer_html(tmp_path)
-    data = _viewer_data()
-    add_viewer_controls(html_path, data)
-    content = html_path.read_text(encoding="utf-8")
-    m = re.search(r"const ansysViewerData = (.*);\n", content)
-    assert json.loads(m.group(1)) == data
+    frames = Frames(np.array([[0, 1, 2], [3, 4, 5]]), times=[10, 20], label="Iteration", fps=5)
+    add_viewer_controls(html_path, _COLORMAP, legend=Legend(300, 400, "Temperature"), frames=frames)
+    data = _embedded_data(html_path)
+
+    assert len(data["lut"]) == 768
+    assert data["lut"][:3] == [0, 0, 0]
+    assert data["lut"][-3:] == [255, 255, 255]
+    assert data["legend"] == {"title": "Temperature", "vmin": 300.0, "vmax": 400.0}
+    assert data["frames"]["times"] == [10, 20]
+    assert data["frames"]["label"] == "Iteration"
+    assert data["frames"]["fps"] == 5.0
+    assert base64.b64decode(data["frames"]["data"]) == bytes([0, 1, 2, 3, 4, 5])
+
+
+def test_rgba_colormap_ignores_alpha(tmp_path):
+    """A (256, 4) colormap, as returned by matplotlib, is accepted."""
+    html_path = _minimal_viewer_html(tmp_path)
+    rgba = np.hstack([_COLORMAP, np.full((256, 1), 0.5)])
+    add_viewer_controls(html_path, rgba, legend=Legend(0, 1))
+    assert len(_embedded_data(html_path)["lut"]) == 768
+
+
+def test_legend_only_and_frames_only(tmp_path):
+    """Either part can be given on its own."""
+    legend_page = _minimal_viewer_html(tmp_path, "legend.html")
+    add_viewer_controls(legend_page, _COLORMAP, legend=Legend(0, 1))
+    assert "frames" not in _embedded_data(legend_page)
+
+    frames_page = _minimal_viewer_html(tmp_path, "frames.html")
+    add_viewer_controls(frames_page, _COLORMAP, frames=_frames())
+    assert "legend" not in _embedded_data(frames_page)
 
 
 def test_script_close_tag_is_escaped(tmp_path):
     """A '</script>' in a title cannot end the surrounding script tag."""
     html_path = _minimal_viewer_html(tmp_path)
-    data = _viewer_data(legend={"title": "</script><b>x", "vmin": 0, "vmax": 1})
-    add_viewer_controls(html_path, data)
+    add_viewer_controls(html_path, _COLORMAP, legend=Legend(0, 1, "</script><b>x"))
     content = html_path.read_text(encoding="utf-8")
     assert content.count("</script>") == 1
+    assert _embedded_data(html_path)["legend"]["title"] == "</script><b>x"
 
 
 def test_idempotent(tmp_path):
     """Injecting twice gives the same output as injecting once."""
     html_path = _minimal_viewer_html(tmp_path)
-    add_viewer_controls(html_path, _viewer_data())
+    add_viewer_controls(html_path, _COLORMAP, legend=Legend(0, 1))
     first = html_path.read_text(encoding="utf-8")
-    add_viewer_controls(html_path, _viewer_data())
+    add_viewer_controls(html_path, _COLORMAP, legend=Legend(0, 1))
     assert html_path.read_text(encoding="utf-8") == first
 
 
@@ -136,7 +215,7 @@ def test_works_with_mesh_lines(tmp_path, monkeypatch):
     stage = MagicMock()
     stage.Traverse.return_value = []
     _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
-    add_viewer_controls(html_path, _viewer_data())
+    add_viewer_controls(html_path, _COLORMAP, frames=_frames())
     content = html_path.read_text(encoding="utf-8")
     assert "ansysEdgesInjected" in content
     assert "ansysViewerControlsInjected" in content
@@ -147,51 +226,40 @@ def test_template_without_anchors_raises(tmp_path):
     html_path = tmp_path / "viewer.html"
     html_path.write_text("<html>no anchors</html>", encoding="utf-8")
     with pytest.raises(ValueError, match="missing required"):
-        add_viewer_controls(html_path, _viewer_data())
+        add_viewer_controls(html_path, _COLORMAP, legend=Legend(0, 1))
 
 
 def test_returns_resolved_path_and_accepts_str(tmp_path):
     """A str path is accepted and the resolved Path is returned."""
     html_path = _minimal_viewer_html(tmp_path)
-    assert add_viewer_controls(str(html_path), _viewer_data()) == html_path.resolve()
+    result = add_viewer_controls(str(html_path), _COLORMAP, legend=Legend(0, 1))
+    assert result == html_path.resolve()
 
 
 def test_missing_html_raises(tmp_path):
     """FileNotFoundError when the HTML file does not exist."""
     with pytest.raises(FileNotFoundError, match="HTML file not found"):
-        add_viewer_controls(tmp_path / "ghost.html", _viewer_data())
-
-
-def test_legend_only_is_valid(tmp_path):
-    """viewer_data with only a legend is accepted."""
-    html_path = _minimal_viewer_html(tmp_path)
-    data = _viewer_data()
-    del data["frames"]
-    add_viewer_controls(html_path, data)
-    assert "ansysViewerData" in html_path.read_text(encoding="utf-8")
+        add_viewer_controls(tmp_path / "ghost.html", _COLORMAP, legend=Legend(0, 1))
 
 
 @pytest.mark.parametrize(
-    "bad, match",
+    "colormap, kwargs, error, match",
     [
-        ("nope", "must be a dict"),
-        ({"lut": [0] * 768}, "'legend', 'frames'"),
-        (_viewer_data(lut=[0] * 10), "lut"),
-        (_viewer_data(lut=[300] * 768), "lut"),
-        (_viewer_data(legend={"title": "T"}), "vmin"),
-        (_viewer_data(frames={"times": [0]}), "'data' and 'times'"),
-        (_viewer_data(frames={"data": "AAAA", "times": []}), "non-empty"),
-        (_viewer_data(frames={"data": "not base64!", "times": [0]}), "base64"),
-        (_viewer_data(frames={"data": "AAAA", "times": [0, 1]}), "same number"),
-        (_viewer_data(frames={"data": "AAAA", "times": [0], "fps": 0}), "fps"),
+        (_COLORMAP, {}, ValueError, "legend, frames, or both"),
+        (_COLORMAP, {"legend": {"vmin": 0, "vmax": 1}}, TypeError, "Legend"),
+        (_COLORMAP, {"frames": "x"}, TypeError, "Frames"),
+        (np.zeros((10, 3)), {"legend": Legend(0, 1)}, ValueError, "shape"),
+        (np.zeros((256, 2)), {"legend": Legend(0, 1)}, ValueError, "shape"),
+        (np.full((256, 3), 2.0), {"legend": Legend(0, 1)}, ValueError, r"\[0, 1\]"),
+        (np.full((256, 3), np.nan), {"legend": Legend(0, 1)}, ValueError, r"\[0, 1\]"),
     ],
 )
-def test_invalid_viewer_data_raises(tmp_path, bad, match):
-    """Malformed viewer_data is rejected and the HTML is left untouched."""
+def test_invalid_arguments_raise(tmp_path, colormap, kwargs, error, match):
+    """Bad arguments are rejected and the HTML is left untouched."""
     html_path = _minimal_viewer_html(tmp_path)
     before = html_path.read_text(encoding="utf-8")
-    with pytest.raises(ValueError, match=match):
-        add_viewer_controls(html_path, bad)
+    with pytest.raises(error, match=match):
+        add_viewer_controls(html_path, colormap, **kwargs)
     assert html_path.read_text(encoding="utf-8") == before
 
 

@@ -104,27 +104,6 @@ mesh.CreateDisplayColorPrimvar(UsdGeom.Tokens.vertex).Set(
 )
 
 ###################################
-# Pack the frames for the viewer
-# ==============================
-# The exporter writes one GLB vertex per triangle corner, so for a triangle
-# mesh the GLB vertex ``k`` takes the value of USD point
-# ``faceVertexIndices[k]``. Reorder the frames to match and encode them as
-# base64 bytes, one byte per vertex per frame.
-
-import base64
-
-viewer_data = {
-    "lut": np.rint(lut * 255).astype(int).ravel().tolist(),
-    "legend": {"title": "wave", "vmin": vmin, "vmax": vmax},
-    "frames": {
-        "data": base64.b64encode(levels[:, face_indices].tobytes()).decode("ascii"),
-        "times": times.tolist(),
-        "label": "Time",
-        "fps": 20,
-    },
-}
-
-###################################
 # Export the stage to HTML
 # ========================
 # Export the first frame with the built-in viewer. This page has no player yet.
@@ -136,9 +115,25 @@ html_path = export_usd_to_html(stage, "time_slider_viewer.html", show_mesh_lines
 ###################################
 # Add the time slider and legend
 # ==============================
-# Pass the frames and the colormap to
+# Pass the colormap, a
+# :class:`~ansys.tools.visualization_interface.backends.usd.viewer_controls.Legend`,
+# and the
+# :class:`~ansys.tools.visualization_interface.backends.usd.viewer_controls.Frames`
+# to
 # :func:`~ansys.tools.visualization_interface.add_viewer_controls` to add a
 # Play/Pause button, a time slider, and a color legend to the page.
+#
+# The exporter writes one GLB vertex per triangle corner, so for a triangle
+# mesh the GLB vertex ``k`` takes the value of USD point
+# ``faceVertexIndices[k]``. ``levels[:, face_indices]`` reorders the frames
+# to match.
 
-add_viewer_controls(html_path, viewer_data)
+from ansys.tools.visualization_interface.backends.usd import Frames, Legend
+
+add_viewer_controls(
+    html_path,
+    lut,
+    legend=Legend(vmin, vmax, title="wave"),
+    frames=Frames(levels[:, face_indices], times=times, label="Time", fps=20),
+)
 print(f"Viewer with time slider written to: {html_path}")

@@ -26,5 +26,7 @@ from ansys.tools.visualization_interface.backends.usd.html_export import (  # no
     export_usd_to_html,
 )
 from ansys.tools.visualization_interface.backends.usd.viewer_controls import (  # noqa: F401
+    Frames,
+    Legend,
     add_viewer_controls,
 )
