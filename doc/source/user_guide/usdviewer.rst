@@ -154,13 +154,11 @@ The arguments are:
        RGBA array is also accepted and alpha is ignored, so
        ``matplotlib.colormaps["coolwarm"](np.linspace(0, 1, 256))`` works.
    * - ``legend``
-     - Optional
-       :class:`~ansys.tools.visualization_interface.backends.usd.viewer_controls.Legend`.
+     - Optional ``Legend``.
        Shows the colormap with its title and value range in the top-right
        corner.
    * - ``frames``
-     - Optional
-       :class:`~ansys.tools.visualization_interface.backends.usd.viewer_controls.Frames`.
+     - Optional ``Frames``.
        ``indices`` is an integer array of shape ``(n_frames, n_vertices)``
        with values in [0, 255], each one a row of ``colormap``. ``times``
        holds one value per frame and is shown next to ``label`` (default
