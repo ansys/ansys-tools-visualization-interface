@@ -32,6 +32,7 @@ import pygltflib
 
 from .glb_builder import GLBBuilder
 from .glb_materials import get_material_index
+from .prims import iter_visible_prims
 
 
 def triangulate_faces(indices: list[int], counts: list[int]) -> list[int]:
@@ -427,7 +428,10 @@ def _build_triangle_mesh_data(
 
 
 def iter_usd_mesh_prims(stage: Any) -> list[Any]:
-    """Collect mesh prims from a USD stage.
+    """Collect the visible mesh prims from a USD stage.
+
+    Hidden prims and prims with ``guide`` or ``proxy`` purpose are skipped
+    (see :func:`iter_visible_prims`).
 
     Parameters
     ----------
@@ -440,7 +444,7 @@ def iter_usd_mesh_prims(stage: Any) -> list[Any]:
         A list of USD mesh prims found in the stage.
     """
     mesh_prims = []
-    for prim in stage.Traverse():
+    for prim in iter_visible_prims(stage):
         if prim.IsA(UsdGeom.Mesh):
             mesh_prims.append(prim)
     return mesh_prims

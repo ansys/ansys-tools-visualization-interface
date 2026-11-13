@@ -192,6 +192,8 @@ def _inject_mesh_lines(
     except ImportError as exc:
         raise ImportError(_USD_CORE_IMPORT_ERROR) from exc
 
+    from ansys.tools.visualization_interface.backends.usd.web.prims import iter_visible_prims
+
     html_text = html_path.read_text(encoding="utf-8")
 
     if _INJECTION_MARKER in html_text:
@@ -200,7 +202,7 @@ def _inject_mesh_lines(
     validate_template(html_text, [_CONFIG_ANCHOR, _SCENE_ANCHOR])
 
     segments: list[float] = []
-    for prim in stage.Traverse():  # type: ignore[union-attr]
+    for prim in iter_visible_prims(stage):
         mesh = UsdGeom.Mesh(prim)
         if not mesh:
             continue
