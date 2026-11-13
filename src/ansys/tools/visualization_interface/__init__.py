@@ -41,6 +41,9 @@ USE_HTML_BACKEND: bool = os.environ.get("PYANSYS_VISUALIZER_HTML_BACKEND", "fals
 from ansys.tools.visualization_interface.backends.usd.html_export import (  # noqa: F401, E402
     export_usd_to_html,
 )
+from ansys.tools.visualization_interface.backends.usd.viewer_controls import (  # noqa: F401, E402
+    add_viewer_controls,
+)
 from ansys.tools.visualization_interface.plotter import Plotter  # noqa: F401, E402
 from ansys.tools.visualization_interface.types.edge_plot import EdgePlot  # noqa: F401, E402
 from ansys.tools.visualization_interface.types.mesh_object_plot import (  # noqa: F401, E402

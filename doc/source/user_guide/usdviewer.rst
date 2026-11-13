@@ -107,13 +107,82 @@ control a wireframe edge overlay injected directly into the HTML:
         line_opacity=0.7,
     )
 
+Time slider and color legend
+----------------------------
+
+:func:`~ansys.tools.visualization_interface.add_viewer_controls` adds a
+Play/Pause button, a time slider, and a color legend to an HTML page that you
+have already created with
+:func:`~ansys.tools.visualization_interface.export_usd_to_html`.
+
+Calling ``add_viewer_controls`` is optional. If you only call
+``export_usd_to_html``, the page shows the model without a slider or a legend.
+
+The time slider changes the mesh colors from one frame to the next, for
+example to show a temperature field over solver iterations. The mesh shape is
+the same in every frame.
+
+.. warning::
+
+    ``add_viewer_controls``, ``Legend``, and ``Frames`` are experimental and
+    may change in a future release.
+
+.. code-block:: python
+
+    import numpy as np
+    from ansys.tools.visualization_interface import add_viewer_controls, export_usd_to_html
+    from ansys.tools.visualization_interface.backends.usd import Frames, Legend
+
+    html_path = export_usd_to_html("my_model.usd", "my_model_viewer.html")
+    add_viewer_controls(
+        html_path,
+        colormap,  # (256, 3) sRGB floats in [0, 1]
+        legend=Legend(vmin=300.0, vmax=400.0, title="Temperature [K]"),
+        frames=Frames(indices, times=[0, 10, 20], label="Iteration"),
+    )
+
+The arguments are:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 20 80
+
+   * - Argument
+     - Content
+   * - ``colormap``
+     - Array of shape ``(256, 3)`` with sRGB colors in [0, 1]. A ``(256, 4)``
+       RGBA array is also accepted and alpha is ignored, so
+       ``matplotlib.colormaps["coolwarm"](np.linspace(0, 1, 256))`` works.
+   * - ``legend``
+     - Optional ``Legend``.
+       Shows the colormap with its title and value range in the top-right
+       corner.
+   * - ``frames``
+     - Optional ``Frames``.
+       ``indices`` is an integer array of shape ``(n_frames, n_vertices)``
+       with values in [0, 255], each one a row of ``colormap``. ``times``
+       holds one value per frame and is shown next to ``label`` (default
+       ``"Time"``). ``fps`` sets the playback speed (default 20).
+
+Give a legend, frames, or both. ``Legend`` and ``Frames`` check their values
+when you create them, for example that ``vmin`` is smaller than ``vmax`` and
+that there is one time per frame.
+
+The exported GLB has one vertex per triangle corner. For a triangle mesh, GLB
+vertex ``k`` matches USD point ``faceVertexIndices[k]``, so reorder per-point
+values with ``values[:, face_indices]`` before passing them to ``Frames``.
+
+``add_viewer_controls`` checks its arguments before changing the file, and
+calling it twice has the same effect as calling it once. See
+:ref:`ref_usd_to_html_time_slider` for a complete example.
+
 Custom HTML templates
 ---------------------
 
 By default :func:`~ansys.tools.visualization_interface.export_usd_to_html` uses the
 built-in ``glb_template.html`` viewer. Pass ``template_path`` to supply your own HTML
-file instead—for example to match a house style, add UI controls, or embed the viewer
-inside a larger page.
+file instead—for example to match a house style or embed the viewer inside a larger
+page.
 
 Template variables
 ~~~~~~~~~~~~~~~~~~
@@ -141,9 +210,10 @@ escaped automatically.
        variable, decode it with ``atob()``, copy the result into a
        ``Uint8Array``, and pass the buffer to ``GLTFLoader.parse()``.
 
-When ``show_mesh_lines=True``, two additional **anchor strings** must appear
-verbatim in the template. The exporter locates them by exact text match and
-inserts the wireframe code around them:
+When ``show_mesh_lines=True``, or when you call
+:func:`~ansys.tools.visualization_interface.add_viewer_controls` on the page,
+two additional **anchor strings** must appear verbatim in the template. Code is
+inserted around them by exact text match:
 
 .. list-table::
    :header-rows: 1
@@ -152,11 +222,12 @@ inserts the wireframe code around them:
    * - Anchor string
      - What gets injected
    * - ``const binary = atob(glbBase64);``
-     - The edge-segment ``Float32Array`` and color/opacity constants are
-       inserted immediately **before** this line.
+     - Inserted immediately **before** this line: the edge-segment
+       ``Float32Array`` and color/opacity constants for the wireframe, and the
+       data for the viewer controls.
    * - ``scene.add(gltf.scene);``
-     - A ``THREE.LineSegments`` object is added to the scene immediately
-       **after** this line.
+     - Inserted immediately **after** this line: the ``THREE.LineSegments``
+       wireframe object, and the code that builds the legend and frame player.
 
 
 Using a custom template
@@ -192,8 +263,10 @@ Validation errors
 ~~~~~~~~~~~~~~~~~
 
 :func:`~ansys.tools.visualization_interface.export_usd_to_html` validates
-templates before writing any output. A :class:`ValueError` is raised listing
-every missing placeholder or anchor so you can fix all problems in one pass:
+templates before writing any output, and
+:func:`~ansys.tools.visualization_interface.add_viewer_controls` checks the
+page for the anchors. A :class:`ValueError` is raised listing every missing
+placeholder or anchor so you can fix all problems in one pass:
 
 .. code-block:: text
 
