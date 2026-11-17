@@ -178,6 +178,16 @@ def _export_viewer_html(
     return html_path
 
 
+def _world_points(prim: object, points: object) -> object:
+    """Return *points* in Y-up world space, matching the GLB geometry."""
+    from ansys.tools.visualization_interface.backends.usd.web.transforms import (
+        transform_points,
+        world_matrix,
+    )
+
+    return transform_points(points, world_matrix(prim))
+
+
 def _inject_mesh_lines(
     html_path: Path,
     stage: object,
@@ -211,6 +221,8 @@ def _inject_mesh_lines(
 
         if not pts or not counts or not indices:
             continue
+
+        pts = _world_points(prim, pts)
 
         seen: set[tuple[int, int]] = set()
         cursor = 0

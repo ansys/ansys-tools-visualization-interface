@@ -32,6 +32,7 @@ import pygltflib
 
 from .glb_builder import GLBBuilder
 from .glb_materials import get_material_index
+from .transforms import flips_winding, transform_points, world_matrix
 
 
 def triangulate_faces(indices: list[int], counts: list[int]) -> list[int]:
@@ -255,6 +256,11 @@ def _build_attributes_for_mesh(
     triangle_positions, triangle_indices, triangle_uvs, triangle_point_indices = _build_triangle_mesh_data(
         prim, usd_mesh
     )
+    matrix = world_matrix(prim)
+    triangle_positions = transform_points(triangle_positions, matrix).tolist()
+    if flips_winding(matrix):
+        for i in range(0, len(triangle_indices) - 2, 3):
+            triangle_indices[i + 1], triangle_indices[i + 2] = triangle_indices[i + 2], triangle_indices[i + 1]
     pos_acc = _add_position_attribute(triangle_positions, builder)
     idx_acc = _add_index_accessor(triangle_indices, builder)
 
