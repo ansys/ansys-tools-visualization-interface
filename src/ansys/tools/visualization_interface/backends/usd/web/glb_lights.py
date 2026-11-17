@@ -26,8 +26,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from pxr import Usd, UsdGeom, UsdLux
+from pxr import UsdGeom, UsdLux
 import pygltflib
+
+from .transforms import world_matrix
 
 
 def _ensure_lights_extension(gltf: Any) -> list[dict[str, Any]]:
@@ -167,11 +169,8 @@ def append_usd_lights_to_scene(stage: Any, gltf: Any, scene: Any) -> None:
             extensions={"KHR_lights_punctual": {"light": light_index}},
         )
 
-        xformable = UsdGeom.Xformable(prim)
-        if xformable:
-            world = xformable.ComputeLocalToWorldTransform(Usd.TimeCode.Default())
-            translation = world.ExtractTranslation()
-            node.translation = [float(translation[0]), float(translation[1]), float(translation[2])]
+        if UsdGeom.Xformable(prim):
+            node.translation = [float(v) for v in world_matrix(prim)[3, :3]]
 
         gltf.nodes.append(node)
         scene.nodes.append(len(gltf.nodes) - 1)

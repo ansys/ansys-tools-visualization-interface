@@ -116,7 +116,7 @@ For comprehensive migration information with code examples, see :ref:`ref_migrat
 Customizing the picker and hover callbacks
 ==========================================
 
-The Visualization Interface Tool provides a base class, :class:`~ansys.tools.visualization_interface.backends.pyvista.picker.AbstractPicker`, for customizing the picker and hover
+The Visualization Interface Tool provides the :class:`~ansys.tools.visualization_interface.backends.pyvista.picker.AbstractPicker` base class for customizing the picker and hover
 callbacks of the plotter. This class provides a set of methods that can be overridden so that you can adapt the
 picker and hover functionalities to the specific need of your PyAnsys library.
 
