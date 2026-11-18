@@ -27,7 +27,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 from typing import Any
 
-from pxr import UsdGeom
+from pxr import Usd, UsdGeom
 
 
 def iter_visible_prims(stage: Any) -> Iterator[Any]:
@@ -35,7 +35,7 @@ def iter_visible_prims(stage: Any) -> Iterator[Any]:
 
     Prims that are invisible, or whose purpose is ``guide`` or ``proxy``, are
     skipped. Visibility and purpose are inherited, so hiding a parent hides
-    its children too.
+    its children too. Instanced geometry is included as instance proxies.
 
     Parameters
     ----------
@@ -48,7 +48,7 @@ def iter_visible_prims(stage: Any) -> Iterator[Any]:
         Each drawable ``Usd.Prim``.
     """
     hidden_purposes = {UsdGeom.Tokens.guide, UsdGeom.Tokens.proxy}
-    for prim in stage.Traverse():
+    for prim in stage.Traverse(Usd.TraverseInstanceProxies()):
         imageable = UsdGeom.Imageable(prim)
         if not imageable:
             continue

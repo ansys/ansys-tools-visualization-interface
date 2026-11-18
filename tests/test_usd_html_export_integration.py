@@ -190,6 +190,35 @@ def test_hidden_guide_and_proxy_prims_are_skipped(tmp_path):
     assert [mesh.name for mesh in gltf.meshes] == ["Shown"]
 
 
+@pytest.mark.integration
+def test_instanced_prims_are_exported(tmp_path):
+    """Meshes under instanceable prims are exported, one per instance."""
+    import json
+    import re
+
+    import pygltflib
+
+    from ansys.tools.visualization_interface.backends.usd.web.glb import convert_usd_to_glb
+
+    stage = Usd.Stage.CreateInMemory()
+    stage.CreateClassPrim("/Proto")
+    _add_quad(stage, "/Proto/Quad")
+    for name in ("A", "B"):
+        instance = stage.DefinePrim(f"/{name}")
+        instance.GetReferences().AddInternalReference("/Proto")
+        instance.SetInstanceable(True)
+    usd_path = tmp_path / "stage.usda"
+    stage.Export(str(usd_path))
+
+    gltf = pygltflib.GLTF2.load_from_bytes(convert_usd_to_glb(usd_path))
+    assert [mesh.name for mesh in gltf.meshes] == ["Quad", "Quad"]
+
+    html_path = _minimal_viewer_html(tmp_path)
+    _inject_mesh_lines(html_path, stage, "#ffffff", 0.9)
+    m = re.search(r"new Float32Array\((\[.*?\])\)", html_path.read_text(encoding="utf-8"))
+    assert len(json.loads(m.group(1))) == 2 * 4 * 6  # 4 edges per quad, 6 floats each
+
+
 def _build_transformed_stage(up_axis: str, scale=(100, 100, 100)) -> Usd.Stage:
     """Return a stage with a triangle under a translated and scaled parent Xform."""
     stage = Usd.Stage.CreateInMemory()
