@@ -1,0 +1,140 @@
+
+
+
+
+
+
+:class:`TreeMenuToggleButton`
+=============================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle.TreeMenuToggleButton(plotter, dark_mode: bool = False, tree_menu=None)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget`
+
+
+   
+   Provides a button to show/hide the tree menu widget.
+
+   This button toggles the visibility of the dynamic tree menu panel.
+
+   :Parameters:
+
+       **plotter** : :obj:`Plotter`
+           Plotter to draw the button on.
+
+       **dark_mode** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to activate dark mode. Default is False.
+
+       **tree_menu** : :obj:`DynamicTreeMenuWidget`, :obj:`optional`
+           The tree menu widget to toggle. If None, will search for it in plotter widgets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: TreeMenuToggleButton
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~update`
+            - Assign the image that represents the button.
+          * - :py:attr:`~callback`
+            - Toggle the tree menu visibility.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.tree_menu_toggle import TreeMenuToggleButton
+
+
+
+Method detail
+-------------
+
+.. py:method:: update() -> None
+
+   
+   Assign the image that represents the button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: callback(state: bool) -> None
+
+   
+   Toggle the tree menu visibility.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           The state of the button (True = show menu, False = hide menu).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

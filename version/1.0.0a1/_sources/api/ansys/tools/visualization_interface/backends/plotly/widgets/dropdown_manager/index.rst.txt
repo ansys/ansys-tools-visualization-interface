@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``dropdown_manager.py`` module
+==================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.plotly.widgets.dropdown_manager
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: dropdown_manager
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.plotly.widgets.dropdown_manager.DashDropdownManager`
+            - Class to manage dropdown menus in a Plotly figure.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> DashDropdownManager</api/ansys/tools/visualization_interface/backends/plotly/widgets/dropdown_manager/DashDropdownManager>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Module for dropdown management in Plotly figures.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

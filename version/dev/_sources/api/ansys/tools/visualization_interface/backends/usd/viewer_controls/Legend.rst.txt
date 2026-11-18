@@ -1,0 +1,139 @@
+
+
+
+
+
+
+:class:`Legend`
+===============
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.usd.viewer_controls.Legend
+
+   
+   Color legend shown in the top-right corner of the viewer.
+
+   .. warning::
+
+       Experimental. This class may change in a future release.
+
+   :Parameters:
+
+       **vmin** : :class:`python:float`
+           Value at the start of the colormap.
+
+       **vmax** : :class:`python:float`
+           Value at the end of the colormap. Must be greater than ``vmin``.
+
+       **title** : :class:`python:str`, default: ""
+           Title shown above the color bar, for example ``"Temperature [K]"``.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+.. py:currentmodule:: Legend
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~vmin`
+            - 
+          * - :py:attr:`~vmax`
+            - 
+          * - :py:attr:`~title`
+            - 
+
+
+
+   .. tab-item:: Special methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~__post_init__`
+            - Validate the value range.
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.usd.viewer_controls import Legend
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: vmin
+   :type:  float
+
+.. py:attribute:: vmax
+   :type:  float
+
+.. py:attribute:: title
+   :type:  str
+   :value: ''
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: __post_init__()
+
+   
+   Validate the value range.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

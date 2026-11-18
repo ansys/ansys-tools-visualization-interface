@@ -1,0 +1,81 @@
+
+
+.. _sphx_glr_examples_01-basic-plotly-examples:
+
+Basic Plotly usage examples
+===========================
+
+These examples show how to use the general plotter with Plotly backend included in the Visualization Interface Tool.
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows the plain usage of the Plotly Dash backend in the Visualization Interface Tool to plot different objects, including PyVista meshes, custom objects, and Plotly-specific objects.">
+
+.. only:: html
+
+  .. image:: /examples/01-basic-plotly-examples/images/thumb/sphx_glr_dash-usage_thumb.png
+    :alt:
+
+  :doc:`/examples/01-basic-plotly-examples/dash-usage`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plain usage of the plotly dash backend</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows the plain usage of the Plotly backend in the Visualization Interface Tool to plot different objects, including PyVista meshes, custom objects, and Plotly-specific objects.">
+
+.. only:: html
+
+  .. image:: /examples/01-basic-plotly-examples/images/thumb/sphx_glr_plain-usage_thumb.png
+    :alt:
+
+  :doc:`/examples/01-basic-plotly-examples/plain-usage`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plain usage of the plotly backend</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the backend-agnostic customization APIs with the Plotly backend.">
+
+.. only:: html
+
+  .. image:: /examples/01-basic-plotly-examples/images/thumb/sphx_glr_customization_api_thumb.png
+    :alt:
+
+  :doc:`/examples/01-basic-plotly-examples/customization_api`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Backend-Agnostic Customization APIs (Plotly)</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /examples/01-basic-plotly-examples/dash-usage
+   /examples/01-basic-plotly-examples/plain-usage
+   /examples/01-basic-plotly-examples/customization_api
+

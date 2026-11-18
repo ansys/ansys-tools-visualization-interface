@@ -1,0 +1,182 @@
+
+
+
+
+
+
+The ``transforms.py`` module
+============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.transforms
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: transforms
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~world_matrix`
+            - Return the 4x4 local-to-world matrix of *prim*, converted to Y-up.
+
+
+          * - :py:obj:`~transform_points`
+            - Apply a 4x4 row-vector matrix to an ``(N, 3)`` array of points.
+
+
+          * - :py:obj:`~flips_winding`
+            - Return True when *matrix* mirrors geometry (negative determinant).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+World-transform helpers for USD web export.
+
+Three.js is Y-up, so points are baked into world space and Z-up stages are
+rotated -90 degrees about X (``(x, y, z) -> (x, z, -y)``).
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: world_matrix(prim: Any) -> numpy.ndarray
+
+   
+   Return the 4x4 local-to-world matrix of *prim*, converted to Y-up.
+
+
+   :Parameters:
+
+       **prim** : :obj:`Any`
+           The USD prim.
+
+
+
+   :Returns:
+
+       :obj:`np.ndarray <numpy.ndarray>`
+           A 4x4 matrix in USD row-vector convention (``p_out = p_in @ M``).
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: transform_points(points: Any, matrix: numpy.ndarray) -> numpy.ndarray
+
+   
+   Apply a 4x4 row-vector matrix to an ``(N, 3)`` array of points.
+
+
+   :Parameters:
+
+       **points** : :obj:`Any`
+           Points convertible to an ``(N, 3)`` float array.
+
+       **matrix** : :obj:`np.ndarray <numpy.ndarray>`
+           A 4x4 matrix in USD row-vector convention.
+
+
+
+   :Returns:
+
+       :obj:`np.ndarray <numpy.ndarray>`
+           The transformed ``(N, 3)`` points.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: flips_winding(matrix: numpy.ndarray) -> bool
+
+   
+   Return True when *matrix* mirrors geometry (negative determinant).
+
+
+   :Parameters:
+
+       **matrix** : :obj:`np.ndarray <numpy.ndarray>`
+           A 4x4 matrix in USD row-vector convention.
+
+
+
+   :Returns:
+
+       :ref:`bool <python:bltin-boolean-values>`
+           True if triangle winding must be reversed to keep faces front-facing.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

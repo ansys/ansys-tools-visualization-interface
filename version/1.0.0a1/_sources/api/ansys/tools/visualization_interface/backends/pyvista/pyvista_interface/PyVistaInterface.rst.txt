@@ -1,0 +1,735 @@
+
+
+
+
+
+
+:class:`PyVistaInterface`
+=========================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.pyvista_interface.PyVistaInterface(scene: Optional[pyvista.Plotter] = None, color_opts: Optional[Dict] = None, num_points: int = 100, enable_widgets: bool = True, show_plane: bool = False, use_qt: bool = False, show_qt: bool = True, **plotter_kwargs)
+
+   
+   Provides the middle class between PyVista plotting operations and PyAnsys objects.
+
+   The main purpose of this class is to simplify interaction between PyVista and the PyVista backend
+   provided. This class is responsible for creating the PyVista scene and adding
+   the PyAnsys objects to it.
+
+   :Parameters:
+
+       **scene** : :obj:`~pyvista.Plotter`, default: :data:`python:None`
+           Scene for rendering the objects. If passed, ``off_screen`` needs to
+           be set manually beforehand for documentation and testing.
+
+       **color_opts** : :class:`python:dict`, default: :data:`python:None`
+           Dictionary containing the background and top colors.
+
+       **num_points** : :class:`python:int`, default: 100
+           Number of points to use to render the shapes.
+
+       **enable_widgets** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:True`
+           Whether to enable widget buttons in the plotter window.
+           Widget buttons must be disabled when using
+           `trame <https://kitware.github.io/trame/index.html>`_
+           for visualization.
+
+       **show_plane** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:False`
+           Whether to show the XY plane in the plotter window.
+
+       **use_qt** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:False`
+           Whether to use the Qt backend for the plotter window.
+
+       **show_qt** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:True`
+           Whether to show the Qt plotter window.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: PyVistaInterface
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~view_xy`
+            - View the scene from the XY plane.
+          * - :py:attr:`~view_xz`
+            - View the scene from the XZ plane.
+          * - :py:attr:`~view_yx`
+            - View the scene from the YX plane.
+          * - :py:attr:`~view_yz`
+            - View the scene from the YZ plane.
+          * - :py:attr:`~view_zx`
+            - View the scene from the ZX plane.
+          * - :py:attr:`~view_zy`
+            - View the scene from the ZY plane.
+          * - :py:attr:`~enable_parallel_projection`
+            - Enable parallel projection for the camera.
+          * - :py:attr:`~disable_parallel_projection`
+            - Disable parallel projection for the camera.
+          * - :py:attr:`~clip`
+            - Clip a given mesh with a plane.
+          * - :py:attr:`~plot_meshobject`
+            - Plot a generic ``MeshObjectPlot`` object to the scene.
+          * - :py:attr:`~plot_edges`
+            - Plot the outer edges of an object to the plot.
+          * - :py:attr:`~hide_children`
+            - Hide all the children of a given ``MeshObjectPlot`` object.
+          * - :py:attr:`~show_children`
+            - Show all the children of a given ``MeshObjectPlot`` object.
+          * - :py:attr:`~toggle_subtree_visibility`
+            - Toggle visibility of an object and its entire subtree.
+          * - :py:attr:`~plot`
+            - Plot any type of object to the scene.
+          * - :py:attr:`~plot_iter`
+            - Plot elements of an iterable of any type of objects to the scene.
+          * - :py:attr:`~show`
+            - Show the rendered scene on the screen.
+          * - :py:attr:`~set_add_mesh_defaults`
+            - Set the default values for the plotting options.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~scene`
+            - Rendered scene object.
+          * - :py:attr:`~object_to_actors_map`
+            - Mapping between the PyVista actor and the PyAnsys objects.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.pyvista_interface import PyVistaInterface
+
+Property detail
+---------------
+
+.. py:property:: scene
+   :type: pyvista.plotting.plotter.Plotter
+
+
+   
+   Rendered scene object.
+
+
+
+
+
+   :Returns:
+
+       :obj:`~pyvista.Plotter`
+           Rendered scene object.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:property:: object_to_actors_map
+   :type: Dict[pyvista.Actor, ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot]
+
+
+   
+   Mapping between the PyVista actor and the PyAnsys objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: view_xy() -> None
+
+   
+   View the scene from the XY plane.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: view_xz() -> None
+
+   
+   View the scene from the XZ plane.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: view_yx() -> None
+
+   
+   View the scene from the YX plane.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: view_yz() -> None
+
+   
+   View the scene from the YZ plane.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: view_zx() -> None
+
+   
+   View the scene from the ZX plane.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: view_zy() -> None
+
+   
+   View the scene from the ZY plane.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: enable_parallel_projection() -> None
+
+   
+   Enable parallel projection for the camera.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: disable_parallel_projection() -> None
+
+   
+   Disable parallel projection for the camera.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: clip(mesh: Union[pyvista.PolyData, pyvista.MultiBlock, pyvista.UnstructuredGrid], plane: ansys.tools.visualization_interface.utils.clip_plane.ClipPlane) -> Union[pyvista.PolyData, pyvista.MultiBlock]
+
+   
+   Clip a given mesh with a plane.
+
+
+   :Parameters:
+
+       **mesh** : :obj:`Union`\[:obj:`pv.PolyData`, :obj:`pv.MultiBlock`]
+           Mesh.
+
+       **normal** : :class:`python:str`, default: "x"
+           Plane to use for clipping. Options are ``"x"``, ``"-x"``,
+           ``"y"``, ``"-y"``, ``"z"``, and ``"-z"``.
+
+       **origin** : :class:`python:tuple`, default: :data:`python:None`
+           Origin point of the plane.
+
+       **plane** : :obj:`ClipPlane`, default: :data:`python:None`
+           Clipping plane to cut the mesh with.
+
+
+
+   :Returns:
+
+       :obj:`Union`\[pv.PolyData,pv.MultiBlock]
+           Clipped mesh.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot_meshobject(custom_object: ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, plot_children: bool = True, **plotting_options)
+
+   
+   Plot a generic ``MeshObjectPlot`` object to the scene.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`MeshObjectPlot`
+           Object to add to the scene.
+
+       **plot_children** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:True`
+           Whether to plot the children of the object.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot_edges(custom_object: ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, **plotting_options) -> None
+
+   
+   Plot the outer edges of an object to the plot.
+
+   This method has the side effect of adding the edges to the ``MeshObjectPlot``
+   object that you pass through the parameters.
+
+   :Parameters:
+
+       **custom_object** : :obj:`MeshObjectPlot`
+           Custom object with the edges to add.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: hide_children(custom_object: ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot) -> None
+
+   
+   Hide all the children of a given ``MeshObjectPlot`` object.
+
+
+   :Parameters:
+
+       **custom_object** : :obj:`MeshObjectPlot`
+           Custom object whose children will be hidden.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show_children(custom_object: ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot) -> None
+
+   
+   Show all the children of a given ``MeshObjectPlot`` object.
+
+
+   :Parameters:
+
+       **custom_object** : :obj:`MeshObjectPlot`
+           Custom object whose children will be shown.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: toggle_subtree_visibility(custom_object: ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, include_root: bool = True) -> None
+
+   
+   Toggle visibility of an object and its entire subtree.
+
+   This method toggles the visibility state of the given object and all its
+   descendants. If the object is currently visible, it and all children will
+   be hidden. If hidden, they will all be shown.
+
+   :Parameters:
+
+       **custom_object** : :obj:`MeshObjectPlot`
+           Root object of the subtree to toggle.
+
+       **include_root** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:True`
+           Whether to toggle the root object's visibility. If False, only
+           children are toggled.
+
+
+
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
+   Toggle visibility of picked object and its children:
+
+   >>> picked = plotter.pick()
+   >>> if picked:
+   ...     backend.toggle_subtree_visibility(picked[0])
+
+   Toggle only children, keeping parent visible:
+
+   >>> backend.toggle_subtree_visibility(obj, include_root=False)
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot(plottable_object: Union[pyvista.PolyData, pyvista.MultiBlock, ansys.tools.visualization_interface.types.mesh_object_plot.MeshObjectPlot, pyvista.UnstructuredGrid], name_filter: str = None, plot_children: bool = False, **plotting_options) -> None
+
+   
+   Plot any type of object to the scene.
+
+   Supported object types are ``List[pv.PolyData]``, ``MeshObjectPlot``,
+   and ``pv.MultiBlock``.
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Union`\[:obj:`pv.PolyData`, :obj:`pv.MultiBlock`, :obj:`MeshObjectPlot`, :obj:`pv.UnstructuredGrid`, :obj:`pv.StructuredGrid`]
+           Object to plot.
+
+       **name_filter** : :class:`python:str`, default: :data:`python:None`
+           Regular expression with the desired name or names to include in the plotter.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: plot_iter(plotting_list: List[Any], name_filter: str = None, **plotting_options) -> None
+
+   
+   Plot elements of an iterable of any type of objects to the scene.
+
+
+   :Parameters:
+
+       **plotting_list** : :obj:`List`\[:obj:`Any`]
+           List of objects to plot.
+
+       **name_filter** : :class:`python:str`, default: :data:`python:None`
+           Regular expression with the desired name or names to include in the plotter.
+
+       **\*\*plotting_options** : :class:`python:dict`, default: :data:`python:None`
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(show_plane: bool = False, jupyter_backend: Optional[str] = None, **kwargs: Optional[Dict]) -> None
+
+   
+   Show the rendered scene on the screen.
+
+
+   :Parameters:
+
+       **show_plane** : :ref:`bool <python:bltin-boolean-values>`, default: :data:`python:True`
+           Whether to show the XY plane.
+
+       **jupyter_backend** : :class:`python:str`, default: :data:`python:None`
+           PyVista Jupyter backend.
+
+       **\*\*kwargs** : :class:`python:dict`, default: :data:`python:None`
+           Plotting and show keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.show <pyvista.Plotter.show>` and
+           :meth:`Plotter.show <pyvista.Plotter.add_mesh>` methods.
+
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Notes
+
+   For more information on supported Jupyter backends, see
+   `Jupyter Notebook Plotting <https://docs.pyvista.org/user-guide/jupyter/index.html>`_
+   in the PyVista documentation.
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: set_add_mesh_defaults(plotting_options: Optional[Dict]) -> None
+
+   
+   Set the default values for the plotting options.
+
+
+   :Parameters:
+
+       **plotting_options** : :obj:`Optional`\[:obj:`Dict`]
+           Keyword arguments. For allowable keyword arguments, see the
+           :meth:`Plotter.add_mesh <pyvista.Plotter.add_mesh>` method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

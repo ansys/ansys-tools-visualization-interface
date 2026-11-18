@@ -1,0 +1,81 @@
+
+
+
+
+
+
+:class:`SaveGifButtonConfig`
+============================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.save_gif_button.SaveGifButtonConfig(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   
+   Provides configuration for the save GIF button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: SaveGifButtonConfig
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~SAVE_GIF`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.save_gif_button import SaveGifButtonConfig
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: SAVE_GIF
+   :value: (0, 'save', (210, 10))
+
+
+
+
+
+

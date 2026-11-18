@@ -1,0 +1,146 @@
+
+
+
+
+
+
+The ``trame_remote.py`` module
+==============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.trame_remote
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: trame_remote
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~send_pl`
+            - Send the plotter meshes to a remote trame service.
+
+
+          * - :py:obj:`~send_mesh`
+            - Send a mesh to a remote trame service.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Module for trame websocket client functions.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: send_pl(plotter: pyvista.Plotter, host: str = 'localhost', port: int = 8765)
+
+   
+   Send the plotter meshes to a remote trame service.
+
+   Since plotter can't be pickled, we send the meshes list instead.
+
+   :Parameters:
+
+       **plotter** : :obj:`pv.Plotter`
+           Plotter to send.
+
+       **host** : :class:`python:str`, :obj:`optional`
+           Websocket host to connect to, by default "localhost".
+
+       **port** : :class:`python:int`, :obj:`optional`
+           Websocket port to connect to, by default 8765.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:function:: send_mesh(mesh: Union[pyvista.PolyData, pyvista.MultiBlock], host: str = 'localhost', port: int = 8765)
+
+   
+   Send a mesh to a remote trame service.
+
+
+   :Parameters:
+
+       **mesh** : :obj:`Union`\[:obj:`pv.PolyData`, :obj:`pv.MultiBlock`]
+           Mesh to send.
+
+       **host** : :class:`python:str`, :obj:`optional`
+           Websocket host to connect to, by default "localhost".
+
+       **port** : :class:`python:int`, :obj:`optional`
+           Websocket port to connect to, by default 8765.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

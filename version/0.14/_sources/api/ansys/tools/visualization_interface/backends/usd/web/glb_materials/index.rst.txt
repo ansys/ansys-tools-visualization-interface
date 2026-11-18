@@ -1,0 +1,127 @@
+
+
+
+
+
+
+The ``glb_materials.py`` module
+===============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.glb_materials
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: glb_materials
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~get_material_index`
+            - Resolve GLTF material index from USD bindings or displayColor fallback.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Material and texture conversion helpers for GLB export.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: get_material_index(prim: Any, display_colors: Any, color_interpolation: Any, gltf: Any, builder: ansys.tools.visualization_interface.backends.usd.web.glb_builder.GLBBuilder, texture_cache: dict[tuple[str, str, str], int], image_cache: dict[str, int], sampler_cache: dict[tuple[int, int], int]) -> int | None
+
+   
+   Resolve GLTF material index from USD bindings or displayColor fallback.
+
+
+   :Parameters:
+
+       **prim** : :obj:`Any`
+           The USD prim to get the material for.
+
+       **display_colors** : :obj:`Any`
+           The displayColor values to use for the material.
+
+       **color_interpolation** : :obj:`Any`
+           The interpolation method for the display colors.
+
+       **gltf** : :obj:`Any`
+           The glTF document to modify with new textures, images, and samplers as needed.
+
+       **builder** : :obj:`GLBBuilder`
+           The GLBBuilder instance managing the binary buffer.
+
+       **texture_cache** : :class:`python:dict`\[:class:`python:tuple`\[:class:`python:str`, :class:`python:str`, :class:`python:str`], :class:`python:int`]
+           Cache mapping (file_path, wrap_s, wrap_t) to glTF texture indices.
+
+       **image_cache** : :class:`python:dict`\[:class:`python:str`, :class:`python:int`]
+           Cache mapping file paths to glTF image indices.
+
+       **sampler_cache** : :class:`python:dict`\[:class:`python:tuple`\[:class:`python:int`, :class:`python:int`], :class:`python:int`]
+           Cache mapping (wrap_s, wrap_t) to glTF sampler indices.
+
+
+
+   :Returns:
+
+       :class:`python:int` | :data:`python:None`
+           The index of the resolved GLTF material, or None if no material is found.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
