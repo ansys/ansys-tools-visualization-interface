@@ -9,6 +9,7 @@
 * [Abhishek Chitwar](https://github.com/abhishekchitwar)
 * [Dipin](https://github.com/dipinknair)
 * [German](https://github.com/germa89)
+* [Iñigo Imaz Chacón](https://github.com/inigoimaz)
 * [Jorge Martínez](https://github.com/jorgepiloto)
 * [Kathy Pippert](https://github.com/PipKat)
 * [Maxime Rey](https://github.com/MaxJPRey)
