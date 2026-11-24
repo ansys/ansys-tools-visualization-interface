@@ -28,7 +28,7 @@ USD viewer usage
 ----------------
 
 Once you have the USD viewer installed, you can use it to visualize USD stages.
-The Ansys Tools Visualization Interface provides a `USDInterface` class that serves
+The Ansys Tools Visualization Interface provides a ``USDInterface`` class that serves
 as a bridge between the USD viewer and the Ansys Tools Visualization Interface plotter.
 
 Here is a simple example of how to use the USD viewer through the Ansys Tools Visualization Interface:
@@ -187,7 +187,7 @@ page.
 Template variables
 ~~~~~~~~~~~~~~~~~~
 
-Two placeholders are **always required**.  They are replaced with
+Two placeholders are **always required**. They are replaced with
 JSON-encoded values at render time so that special characters are
 escaped automatically.
 

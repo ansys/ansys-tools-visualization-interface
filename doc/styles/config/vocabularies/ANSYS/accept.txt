@@ -5,6 +5,7 @@ unhovered
 Synopsys
 synopsys
 wireframe
+colormap
 
 t.M
 a.P
