@@ -1,0 +1,239 @@
+
+
+
+
+
+
+The ``ansys.tools.visualization_interface`` library
+===================================================
+
+.. py:module:: ansys.tools.visualization_interface
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: visualization_interface
+.. tab-set::
+
+    .. tab-item:: Subpackages
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends`
+            - Provides interfaces.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.types`
+            - Provides custom types.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.utils`
+            - Provides the Utils package.
+
+
+
+    .. tab-item:: Submodules
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.plotter`
+            - Module for the Plotter class.
+
+
+
+
+
+
+
+
+    .. tab-item:: Attributes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~__version__`
+            - 
+
+
+
+    .. tab-item:: Constants
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~USE_TRAME`
+            - 
+
+
+          * - :py:obj:`~DOCUMENTATION_BUILD`
+            - Whether the documentation is being built or not.
+
+
+          * - :py:obj:`~TESTING_MODE`
+            - Whether the library is being built or not, used to avoid showing plots while testing.
+
+
+          * - :py:obj:`~USE_HTML_BACKEND`
+            - Whether the library is being built or not, used to avoid showing plots while testing.
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-md-package"></span> backends</api/ansys/tools/visualization_interface/backends/index>
+    <span class="nf nf-md-package"></span> types</api/ansys/tools/visualization_interface/types/index>
+    <span class="nf nf-md-package"></span> utils</api/ansys/tools/visualization_interface/utils/index>
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-fa-file"></span> plotter</api/ansys/tools/visualization_interface/plotter/index>
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+
+Visualization Interface Tool is a Python client library for visualizing the results of Ansys simulations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:data:: USE_TRAME
+   :type:  bool
+   :value: False
+
+
+.. py:data:: DOCUMENTATION_BUILD
+   :type:  bool
+
+   
+   Whether the documentation is being built or not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:data:: TESTING_MODE
+   :type:  bool
+
+   
+   Whether the library is being built or not, used to avoid showing plots while testing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:data:: USE_HTML_BACKEND
+   :type:  bool
+
+   
+   Whether the library is being built or not, used to avoid showing plots while testing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:data:: __version__
+
+
+

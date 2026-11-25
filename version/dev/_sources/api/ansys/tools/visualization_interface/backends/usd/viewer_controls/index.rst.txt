@@ -1,0 +1,171 @@
+
+
+
+
+
+
+The ``viewer_controls.py`` module
+=================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.viewer_controls
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: viewer_controls
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.viewer_controls.Legend`
+            - Color legend shown in the top-right corner of the viewer.
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.usd.viewer_controls.Frames`
+            - Per-frame vertex colors for the Play/Pause button and time slider.
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~add_viewer_controls`
+            - Add a color legend and a frame player to an exported HTML viewer.
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> Legend</api/ansys/tools/visualization_interface/backends/usd/viewer_controls/Legend>
+    <span class="nf nf-cod-symbol_class"></span> Frames</api/ansys/tools/visualization_interface/backends/usd/viewer_controls/Frames>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Optional viewer controls for exported HTML pages.
+
+Adds a color legend and a frame player (Play/Pause button and time slider)
+to a page written by :func:`~ansys.tools.visualization_interface.export_usd_to_html`.
+The browser code lives in ``web/viewer_controls.js``.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: add_viewer_controls(html_path: str | Path, colormap: numpy.ndarray, *, legend: Legend | None = None, frames: Frames | None = None) -> pathlib.Path
+
+   
+   Add a color legend and a frame player to an exported HTML viewer.
+
+   Call this on a page written by
+   :func:`~ansys.tools.visualization_interface.export_usd_to_html`. Without
+   this call the page shows the model without a slider or a legend. The
+   time slider changes the mesh colors from one frame to the next. The mesh
+   shape is the same in every frame.
+
+   .. warning::
+
+       Experimental. This function may change in a future release.
+
+   :Parameters:
+
+       **html_path** : :class:`python:str` | :obj:`Path`
+           HTML file written by
+           :func:`~ansys.tools.visualization_interface.export_usd_to_html`. It
+           must contain the anchors ``const binary = atob(glbBase64);`` and
+           ``scene.add(gltf.scene);``, as the built-in template does.
+
+       **colormap** : :obj:`numpy.ndarray`
+           Array of shape ``(256, 3)`` with sRGB colors in [0, 1]. A
+           ``(256, 4)`` RGBA array is also accepted and alpha is ignored, so
+           ``matplotlib.colormaps["coolwarm"](numpy.linspace(0, 1, 256))`` works.
+
+       **legend** : :obj:`Legend` | :data:`python:None`, default: :data:`python:None`
+           Color legend to show.
+
+       **frames** : :obj:`Frames` | :data:`python:None`, default: :data:`python:None`
+           Per-frame colors for the Play/Pause button and time slider.
+
+
+
+   :Returns:
+
+       :obj:`pathlib.Path`
+           Absolute path to the updated HTML file.
+
+
+
+
+   :Raises:
+
+       :obj:`FileNotFoundError`
+           If ``html_path`` does not exist.
+
+       :obj:`TypeError`
+           If ``legend`` or ``frames`` has the wrong type.
+
+       :obj:`ValueError`
+           If neither ``legend`` nor ``frames`` is given, ``colormap`` has the
+           wrong shape or values, or the page is missing the anchors.
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

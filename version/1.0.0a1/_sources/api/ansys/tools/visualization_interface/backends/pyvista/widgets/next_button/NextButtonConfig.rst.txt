@@ -1,0 +1,81 @@
+
+
+
+
+
+
+:class:`NextButtonConfig`
+=========================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.next_button.NextButtonConfig(*args, **kwds)
+
+   Bases: :py:obj:`enum.Enum`
+
+
+   
+   Provides configuration for the next button.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: NextButtonConfig
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~NEXT`
+            - 
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.next_button import NextButtonConfig
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: NEXT
+   :value: (0, 'next', (160, 10))
+
+
+
+
+
+

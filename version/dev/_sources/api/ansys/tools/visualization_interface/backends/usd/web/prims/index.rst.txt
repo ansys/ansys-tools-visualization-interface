@@ -1,0 +1,109 @@
+
+
+
+
+
+
+The ``prims.py`` module
+=======================
+
+.. py:module:: ansys.tools.visualization_interface.backends.usd.web.prims
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+.. py:currentmodule:: prims
+.. tab-set::
+
+
+
+
+
+
+
+    .. tab-item:: Functions
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~iter_visible_prims`
+            - Yield the imageable prims a viewer would draw.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Stage traversal shared by the GLB export and the mesh-edge overlay.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+Module detail
+-------------
+
+.. py:function:: iter_visible_prims(stage: Any) -> collections.abc.Iterator[Any]
+
+   
+   Yield the imageable prims a viewer would draw.
+
+   Prims that are invisible, or whose purpose is ``guide`` or ``proxy``, are
+   skipped. Visibility and purpose are inherited, so hiding a parent hides
+   its children too. Instanced geometry is included as instance proxies.
+
+   :Parameters:
+
+       **stage** : :obj:`Any`
+           The USD stage to traverse.
+
+
+
+
+   :Yields:
+
+       :obj:`Any`
+           Each drawable ``Usd.Prim``.
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+

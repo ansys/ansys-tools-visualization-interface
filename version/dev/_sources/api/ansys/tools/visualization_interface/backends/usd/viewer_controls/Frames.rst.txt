@@ -1,0 +1,153 @@
+
+
+
+
+
+
+:class:`Frames`
+===============
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.usd.viewer_controls.Frames
+
+   
+   Per-frame vertex colors for the Play/Pause button and time slider.
+
+   .. warning::
+
+       Experimental. This class may change in a future release.
+
+   :Parameters:
+
+       **indices** : :obj:`numpy.ndarray`
+           Integer array of shape ``(n_frames, n_vertices)`` with values in
+           [0, 255]. Each value selects a row of the colormap. ``n_vertices`` is
+           the number of vertices in the exported GLB, which has one vertex per
+           triangle corner. For a triangle mesh, reorder per-point values with
+           ``values[:, face_vertex_indices]``.
+
+       **times** : :obj:`Sequence`\[:class:`python:float`]
+           One value per frame, shown next to ``label`` on the slider.
+
+       **label** : :class:`python:str`, default: "Time"
+           Text shown before the frame value, for example ``"Iteration"``.
+
+       **fps** : :class:`python:float`, default: 20
+           Playback speed in frames per second.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+.. py:currentmodule:: Frames
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+
+
+   .. tab-item:: Attributes
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~indices`
+            - 
+          * - :py:attr:`~times`
+            - 
+          * - :py:attr:`~label`
+            - 
+          * - :py:attr:`~fps`
+            - 
+
+
+
+   .. tab-item:: Special methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~__post_init__`
+            - Validate shapes and values.
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.usd.viewer_controls import Frames
+
+
+Attribute detail
+----------------
+
+.. py:attribute:: indices
+   :type:  numpy.ndarray
+
+.. py:attribute:: times
+   :type:  Sequence[float]
+
+.. py:attribute:: label
+   :type:  str
+   :value: 'Time'
+
+
+.. py:attribute:: fps
+   :type:  float
+   :value: 20
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: __post_init__()
+
+   
+   Validate shapes and values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

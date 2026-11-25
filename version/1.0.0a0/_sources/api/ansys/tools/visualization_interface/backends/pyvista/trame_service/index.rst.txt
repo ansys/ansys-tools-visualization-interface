@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``trame_service.py`` module
+===============================
+
+.. py:module:: ansys.tools.visualization_interface.backends.pyvista.trame_service
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: trame_service
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.pyvista.trame_service.TrameService`
+            - Trame service class.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> TrameService</api/ansys/tools/visualization_interface/backends/pyvista/trame_service/TrameService>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Trame service module.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+

@@ -1,0 +1,136 @@
+
+
+
+
+
+
+:class:`DarkModeButton`
+=======================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode.DarkModeButton(plotter: ansys.tools.visualization_interface.backends.pyvista.pyvista.Plotter, dark_mode: bool = False)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.pyvista.widgets.widget.PlotterWidget`
+
+
+   
+   Provides the dark mode widget for the Visualization Interface Tool ``Plotter`` class.
+
+
+   :Parameters:
+
+       **plotter_helper** : :obj:`PlotterHelper`
+           Plotter to add the dark mode widget to.
+
+       **dark_mode** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Whether to activate the dark mode or not.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: DarkModeButton
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~callback`
+            - Remove or add the dark mode widget actor upon click.
+          * - :py:attr:`~update`
+            - Define the dark mode widget button parameters.
+
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.pyvista.widgets.dark_mode import DarkModeButton
+
+
+
+Method detail
+-------------
+
+.. py:method:: callback(state: bool) -> None
+
+   
+   Remove or add the dark mode widget actor upon click.
+
+
+   :Parameters:
+
+       **state** : :ref:`bool <python:bltin-boolean-values>`
+           Whether the state of the button, which is inherited from PyVista, is active.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: update() -> None
+
+   
+   Define the dark mode widget button parameters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

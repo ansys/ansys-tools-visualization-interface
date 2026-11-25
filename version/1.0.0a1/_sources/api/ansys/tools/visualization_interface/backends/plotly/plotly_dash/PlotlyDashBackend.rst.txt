@@ -1,0 +1,223 @@
+
+
+
+
+
+
+:class:`PlotlyDashBackend`
+==========================
+
+
+.. py:class:: ansys.tools.visualization_interface.backends.plotly.plotly_dash.PlotlyDashBackend(app: dash.Dash = None)
+
+   Bases: :py:obj:`ansys.tools.visualization_interface.backends.plotly.plotly_interface.PlotlyBackend`
+
+
+   
+   Plotly Dash interface for visualization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+.. py:currentmodule:: PlotlyDashBackend
+
+Overview
+--------
+
+.. tab-set::
+
+
+
+   .. tab-item:: Methods
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~plot`
+            - Plot a single object using Plotly and track mesh names for dropdown.
+          * - :py:attr:`~create_dash_layout`
+            - Create the Dash layout with optional dropdown for mesh visibility.
+          * - :py:attr:`~show`
+            - Render the Plotly scene.
+
+
+   .. tab-item:: Properties
+
+      .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+          * - :py:attr:`~dropdown_manager`
+            - Get the dropdown manager for this backend.
+
+
+
+
+
+
+
+Import detail
+-------------
+
+.. code-block:: python
+
+    from ansys.tools.visualization_interface.backends.plotly.plotly_dash import PlotlyDashBackend
+
+Property detail
+---------------
+
+.. py:property:: dropdown_manager
+   :type: ansys.tools.visualization_interface.backends.plotly.widgets.dropdown_manager.DashDropdownManager
+
+
+   
+   Get the dropdown manager for this backend.
+
+
+
+
+
+   :Returns:
+
+       :obj:`DashDropdownManager`
+           The dropdown manager instance.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+
+Method detail
+-------------
+
+.. py:method:: plot(plottable_object, name: str = None, **plotting_options) -> None
+
+   
+   Plot a single object using Plotly and track mesh names for dropdown.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`
+           The object to plot.
+
+       **name** : :class:`python:str`, :obj:`optional`
+           Name of the mesh for labeling in Plotly.
+
+       **plotting_options** : :class:`python:dict`
+           Additional plotting options.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: create_dash_layout() -> dash.html.Div
+
+   
+   Create the Dash layout with optional dropdown for mesh visibility.
+
+
+
+
+
+   :Returns:
+
+       :obj:`html.Div`
+           The Dash layout component.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+.. py:method:: show(plottable_object=None, screenshot: str = None, name_filter=None, **kwargs) -> Union[plotly.graph_objects.Figure, None]
+
+   
+   Render the Plotly scene.
+
+
+   :Parameters:
+
+       **plottable_object** : :obj:`Any`, :obj:`optional`
+           Object to show, by default None.
+
+       **screenshot** : :class:`python:str`, :obj:`optional`
+           Path to save a screenshot, by default None.
+
+       **name_filter** : :ref:`bool <python:bltin-boolean-values>`, :obj:`optional`
+           Flag to filter the object, by default None.
+
+       **kwargs** : :class:`python:dict`
+           Additional options the selected backend accepts.
+
+
+
+   :Returns:
+
+       :obj:`Union`\[:obj:`go.Figure`, :data:`python:None`]
+           The figure of the plot if in doc building environment. Else, None.
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+
+
+

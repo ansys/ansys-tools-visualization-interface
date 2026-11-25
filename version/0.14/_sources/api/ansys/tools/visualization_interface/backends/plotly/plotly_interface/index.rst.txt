@@ -1,0 +1,80 @@
+
+
+
+
+
+
+The ``plotly_interface.py`` module
+==================================
+
+.. py:module:: ansys.tools.visualization_interface.backends.plotly.plotly_interface
+
+
+Summary
+-------
+
+
+
+
+
+
+
+
+
+
+.. py:currentmodule:: plotly_interface
+.. tab-set::
+
+
+
+
+    .. tab-item:: Classes
+
+        .. list-table::
+          :header-rows: 0
+          :widths: auto
+
+
+          * - :py:obj:`~ansys.tools.visualization_interface.backends.plotly.plotly_interface.PlotlyBackend`
+            - Plotly interface for visualization.
+
+
+
+
+
+
+
+
+
+
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+   :hidden:
+
+    <span class="nf nf-cod-symbol_class"></span> PlotlyBackend</api/ansys/tools/visualization_interface/backends/plotly/plotly_interface/PlotlyBackend>
+
+
+
+
+
+
+
+
+
+Description
+-----------
+
+Plotly backend interface for visualization.
+
+..
+    !! processed by numpydoc !!
+
+
+
+
+
+
+
